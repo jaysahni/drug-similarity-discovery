@@ -128,9 +128,19 @@ def cmd_shortlist(args):
     positives = [r for r, _ in kp[:args.n_positives]]
     pos_props = [p for _, p in kp[:args.n_positives]]
 
-    # decoys: nearest in (MW, logP) to the positives, never annotated against the target
+    # decoys.
+    # --hard-decoys picks APPROVED KINASE INHIBITORS that are not annotated against
+    # this target (INN convention: -tinib). This is a much harder null than MW/cLogP
+    # matching, which happily returns steroids and perfluorocarbons - chemically
+    # matched on bulk properties but not plausible ATP-site binders, so separating
+    # them proves little. A -tinib decoy binds SOME kinase ATP pocket by construction.
+    # Caveat worth stating in any result: DrugCentral annotation is incomplete, so
+    # "not annotated against KDR" is not "does not bind KDR" - several of these
+    # (crizotinib, bosutinib) are promiscuous. A hard decoy scoring well may be a
+    # labelling gap rather than a false positive.
     pool = [(r, props(r["smiles"])) for r in rows
-            if sym not in (r.get("targets") or "").split(";")]
+            if sym not in (r.get("targets") or "").split(";")
+            and (not args.hard_decoys or r["name"].strip().endswith("tinib"))]
     pool = [(r, p) for r, p in pool if p]
     rng = np.random.default_rng(SEED)
     chosen, used = [], set()
@@ -152,8 +162,12 @@ def cmd_shortlist(args):
     shortlist = ([{"struct_id": r["struct_id"], "name": r["name"], "smiles": r["smiles"],
                    "role": "known_binder"} for r in positives] +
                  [{"struct_id": r["struct_id"], "name": r["name"], "smiles": r["smiles"],
-                   "role": "decoy"} for r in chosen])
+                   "role": "hard_decoy" if args.hard_decoys else "decoy"}
+                  for r in chosen])
     st = state_load(args.pipeline)
+    if args.append and st.get("shortlist"):
+        seen = {d["struct_id"] for d in st["shortlist"]}
+        shortlist = st["shortlist"] + [d for d in shortlist if d["struct_id"] not in seen]
     st.update({"target_symbol": sym, "shortlist": shortlist,
                "n_known_in_corpus": len(known),
                "decoy_matching": "nearest neighbour in (MW/100, cLogP) to each positive, "
@@ -436,6 +450,11 @@ def main():
     s = sub.add_parser("shortlist"); s.set_defaults(fn=cmd_shortlist)
     s.add_argument("--target"); s.add_argument("--n-positives", type=int, default=10)
     s.add_argument("--n-decoys", type=int, default=20)
+    s.add_argument("--hard-decoys", action="store_true",
+                   help="use approved kinase inhibitors (-tinib) that do not hit the "
+                        "target, instead of MW/cLogP-matched drugs")
+    s.add_argument("--append", action="store_true",
+                   help="add to the existing shortlist rather than replacing it")
 
     s = sub.add_parser("submit"); s.set_defaults(fn=cmd_submit)
     s.add_argument("--max-credits", type=float, default=120)

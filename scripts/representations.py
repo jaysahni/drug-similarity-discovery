@@ -50,7 +50,7 @@ CHEMBERTA_BATCH = 64
 # Gobbi 2D pharmacophore is cubic in matched features; see the comment in build().
 GOBBI_MAX_HEAVY_ATOMS = 150
 
-# Things deliberately left out of the registry, with the reason, per CLAUDE.md.
+# Limits and omissions recorded rather than silently skipped, per CLAUDE.md.
 NOT_EVALUATED = {
     "gobbi_pharm2d over 150 heavy atoms": (
         "23 of 2114 drugs exceed the cap and get a zero row (counted in n_failed). "
@@ -72,6 +72,7 @@ NOT_EVALUATED = {
 # --------------------------------------------------------------------------
 REPRESENTATIONS = {}
 FAILURES = {}  # name -> (n_failed, [failing indices])
+CACHE_HIT = {}  # tag -> True if the matrix came off disk, so timings can be read correctly
 
 _running = []  # stack of (name, [failing indices]) for the representation in flight
 
@@ -152,7 +153,9 @@ def _key(smiles, tag):
 def _cached(tag, smiles, build):
     """Load (mat, failed) from disk if present, else build() and store it."""
     path = _key(smiles, tag)
+    CACHE_HIT[tag] = False
     if path.exists() and os.environ.get("REPZOO_NO_CACHE") != "1":
+        CACHE_HIT[tag] = True
         z = np.load(path)
         for i in z["failed"]:
             _fail(i)
@@ -304,12 +307,26 @@ def gobbi_pharm2d(smiles):
                 out[i, col[b]] = 1.0
         return out, bad
 
-    return _cached("gobbi", smiles, build)
+    return _cached("gobbi_pharm2d", smiles, build)
 
 
 # --------------------------------------------------------------------------
 # 3D shape
 # --------------------------------------------------------------------------
+def _spawn_safe():
+    """True if a spawned child can re-import __main__.
+
+    Checked up front because the failure mode otherwise is a hang, not an exception:
+    when __main__ is '<stdin>' (module driven from a heredoc or a notebook) every
+    worker dies re-importing it and mp.Pool silently respawns it forever, so the
+    except below never fires. A missing __file__ (python -c, an interpreter) is fine.
+    """
+    import __main__
+
+    f = getattr(__main__, "__file__", None)
+    return f is None or Path(f).exists()
+
+
 def _usrcat_one(arg):
     """One ETKDGv3 conformer + MMFF optimisation + USRCAT. Runs in a worker process."""
     i, s = arg
@@ -344,6 +361,8 @@ def usrcat(smiles):
         bad = []
         work = list(enumerate(smiles))
         try:
+            if not _spawn_safe():
+                raise RuntimeError("__main__ is not importable by a spawned child")
             with mp.Pool(min(15, os.cpu_count() or 1)) as pool:
                 done = list(pool.imap_unordered(_usrcat_one, work, chunksize=16))
         except Exception as e:  # noqa: BLE001 - spawn cannot re-import a stdin-driven caller
@@ -529,10 +548,13 @@ def main():
                 "seconds": round(sec, 2),
                 "n_failed": n_failed,
                 "failed_indices": idx,
+                # seconds is a cache-load time, not a build time, when this is true
+                "from_cache": bool(CACHE_HIT.get(name, False)),
                 "blurb": fn.blurb,
             }
         )
-        print(f"  {name:<20} dim={mat.shape[1]:<7} {sec:7.2f}s  n_failed={n_failed}")
+        tag = " (from cache)" if rows[-1]["from_cache"] else ""
+        print(f"  {name:<20} dim={mat.shape[1]:<7} {sec:7.2f}s  n_failed={n_failed}{tag}")
 
     # determinism: recompute with the cache bypassed and require bit-identical matrices
     print("\ndeterminism check (recomputed with REPZOO_NO_CACHE=1):")
@@ -554,6 +576,12 @@ def main():
             r["name"].ljust(width)
             + f"{r['dim']:>8}{str(r['binary']):>9}{r['seconds']:>10.2f}{r['n_failed']:>10}"
         )
+
+    # A subset run must not overwrite the full table with a partial one.
+    if wanted != list(REPRESENTATIONS):
+        print(f"\nran {len(wanted)} of {len(REPRESENTATIONS)} representations; "
+              "self-test JSON not written (run with no arguments for that)")
+        return
 
     RESULTS.mkdir(exist_ok=True)
     out = RESULTS / "representations_selftest.json"
