@@ -1,0 +1,158 @@
+{
+  "_WARNING": "VALIDATION USE ONLY. These residues come from the bound ligand in the holo structure. Site detection (P2Rank) never saw them - it ran on the stripped structure - and no signature-construction code may read this file (PROJECT_GOAL.md task B12). Reading it into WS-C invalidates the hotspot-recovery benchmark.",
+  "structure_id": "6Q4G",
+  "chain_id": "A",
+  "method": "protein heavy atom within 4.5 A of a ligand heavy atom",
+  "ligand_comp_id": "HJK",
+  "n_ligand_heavy_atoms": 20,
+  "cutoff_a": 4.5,
+  "contacts": [
+    {
+      "chain": "A",
+      "residue_id": 10,
+      "label": "10",
+      "residue_name": "ILE",
+      "min_distance_a": 3.83
+    },
+    {
+      "chain": "A",
+      "residue_id": 13,
+      "label": "13",
+      "residue_name": "GLY",
+      "min_distance_a": 2.98
+    },
+    {
+      "chain": "A",
+      "residue_id": 14,
+      "label": "14",
+      "residue_name": "THR",
+      "min_distance_a": 2.74
+    },
+    {
+      "chain": "A",
+      "residue_id": 18,
+      "label": "18",
+      "residue_name": "VAL",
+      "min_distance_a": 3.57
+    },
+    {
+      "chain": "A",
+      "residue_id": 31,
+      "label": "31",
+      "residue_name": "ALA",
+      "min_distance_a": 3.52
+    },
+    {
+      "chain": "A",
+      "residue_id": 33,
+      "label": "33",
+      "residue_name": "LYS",
+      "min_distance_a": 2.91
+    },
+    {
+      "chain": "A",
+      "residue_id": 64,
+      "label": "64",
+      "residue_name": "VAL",
+      "min_distance_a": 3.89
+    },
+    {
+      "chain": "A",
+      "residue_id": 80,
+      "label": "80",
+      "residue_name": "PHE",
+      "min_distance_a": 3.82
+    },
+    {
+      "chain": "A",
+      "residue_id": 81,
+      "label": "81",
+      "residue_name": "GLU",
+      "min_distance_a": 3.08
+    },
+    {
+      "chain": "A",
+      "residue_id": 82,
+      "label": "82",
+      "residue_name": "PHE",
+      "min_distance_a": 3.29
+    },
+    {
+      "chain": "A",
+      "residue_id": 83,
+      "label": "83",
+      "residue_name": "LEU",
+      "min_distance_a": 2.77
+    },
+    {
+      "chain": "A",
+      "residue_id": 129,
+      "label": "129",
+      "residue_name": "LYS",
+      "min_distance_a": 3.4
+    },
+    {
+      "chain": "A",
+      "residue_id": 131,
+      "label": "131",
+      "residue_name": "GLN",
+      "min_distance_a": 3.31
+    },
+    {
+      "chain": "A",
+      "residue_id": 132,
+      "label": "132",
+      "residue_name": "ASN",
+      "min_distance_a": 4.04
+    },
+    {
+      "chain": "A",
+      "residue_id": 134,
+      "label": "134",
+      "residue_name": "LEU",
+      "min_distance_a": 3.03
+    },
+    {
+      "chain": "A",
+      "residue_id": 144,
+      "label": "144",
+      "residue_name": "ALA",
+      "min_distance_a": 4.06
+    },
+    {
+      "chain": "A",
+      "residue_id": 145,
+      "label": "145",
+      "residue_name": "ASP",
+      "min_distance_a": 4.17
+    }
+  ],
+  "known_ligand_residue_ids": [
+    10,
+    13,
+    14,
+    18,
+    31,
+    33,
+    64,
+    80,
+    81,
+    82,
+    83,
+    129,
+    131,
+    132,
+    134,
+    144,
+    145
+  ],
+  "docking_box_check": {
+    "n_ligand_heavy_atoms": 20,
+    "ligand_extent_a": [
+      5.85,
+      7.05,
+      8.82
+    ],
+    "fraction_inside_docking_box": 1.0
+  }
+}

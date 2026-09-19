@@ -1,0 +1,811 @@
+{
+ "target_symbol": "KDR",
+ "shortlist": [
+  {
+   "struct_id": "5347",
+   "name": "fedratinib",
+   "smiles": "Cc1cnc(Nc2ccc(OCCN3CCCC3)cc2)nc1Nc1cccc(S(=O)(=O)NC(C)(C)C)c1",
+   "role": "known_binder"
+  },
+  {
+   "struct_id": "2544",
+   "name": "sunitinib",
+   "smiles": "CCN(CC)CCNC(=O)c1c(C)[nH]c(/C=C2\\C(=O)Nc3ccc(F)cc32)c1C",
+   "role": "known_binder"
+  },
+  {
+   "struct_id": "4903",
+   "name": "nintedanib",
+   "smiles": "COC(=O)c1ccc2c(c1)NC(=O)/C2=C(\\Nc1ccc(N(C)C(=O)CN2CCN(C)CC2)cc1)c1ccccc1",
+   "role": "known_binder"
+  },
+  {
+   "struct_id": "5231",
+   "name": "midostaurin",
+   "smiles": "CO[C@@H]1[C@H](N(C)C(=O)c2ccccc2)C[C@H]2O[C@]1(C)n1c3ccccc3c3c4c(c5c6ccccc6n2c5c31)C(=O)NC4",
+   "role": "known_binder"
+  },
+  {
+   "struct_id": "785",
+   "name": "dasatinib",
+   "smiles": "Cc1nc(Nc2ncc(C(=O)Nc3c(C)cccc3Cl)s2)cc(N2CCN(CCO)CC2)n1",
+   "role": "known_binder"
+  },
+  {
+   "struct_id": "2459",
+   "name": "sorafenib",
+   "smiles": "CNC(=O)c1cc(Oc2ccc(NC(=O)Nc3ccc(Cl)c(C(F)(F)F)c3)cc2)ccn1",
+   "role": "known_binder"
+  },
+  {
+   "struct_id": "3514",
+   "name": "quercetin",
+   "smiles": "O=c1c(O)c(-c2ccc(O)c(O)c2)oc2cc(O)cc(O)c12",
+   "role": "known_binder"
+  },
+  {
+   "struct_id": "4178",
+   "name": "vandetanib",
+   "smiles": "COc1cc2c(Nc3ccc(Br)cc3F)ncnc2cc1OCC1CCN(C)CC1",
+   "role": "known_binder"
+  },
+  {
+   "struct_id": "4118",
+   "name": "pazopanib",
+   "smiles": "Cc1ccc(Nc2nccc(N(C)c3ccc4c(C)n(C)nc4c3)n2)cc1S(N)(=O)=O",
+   "role": "known_binder"
+  },
+  {
+   "struct_id": "5252",
+   "name": "neratinib",
+   "smiles": "CCOc1cc2ncc(C#N)c(Nc3ccc(OCc4ccccn4)c(Cl)c3)c2cc1NC(=O)/C=C/CN(C)C",
+   "role": "known_binder"
+  },
+  {
+   "struct_id": "1832",
+   "name": "mometasone furoate",
+   "smiles": "C[C@@H]1C[C@H]2[C@@H]3CCC4=CC(=O)C=C[C@]4(C)[C@@]3(Cl)[C@@H](O)C[C@]2(C)[C@@]1(OC(=O)c1ccco1)C(=O)CCl",
+   "role": "decoy"
+  },
+  {
+   "struct_id": "4672",
+   "name": "morniflumate",
+   "smiles": "O=C(OCCN1CCOCC1)c1cccnc1Nc1cccc(C(F)(F)F)c1",
+   "role": "decoy"
+  },
+  {
+   "struct_id": "1705",
+   "name": "meproscillarin",
+   "smiles": "CO[C@@H]1[C@@H](O)[C@@H](O)[C@H](O[C@@H]2C=C3CC[C@@H]4[C@H](CC[C@]5(C)[C@@H](c6ccc(=O)oc6)CC[C@]45O)[C@@]3(C)CC2)O[C@H]1C",
+   "role": "decoy"
+  },
+  {
+   "struct_id": "2811",
+   "name": "vecuronium",
+   "smiles": "CC(=O)O[C@H]1C[C@@H]2CC[C@@H]3[C@H](CC[C@@]4(C)[C@H]3C[C@H]([N+]3(C)CCCCC3)[C@@H]4OC(C)=O)[C@@]2(C)C[C@@H]1N1CCCCC1",
+   "role": "decoy"
+  },
+  {
+   "struct_id": "1067",
+   "name": "estriol succinate",
+   "smiles": "C[C@]12CC[C@@H]3c4ccc(O)cc4CC[C@H]3[C@@H]1C[C@@H](OC(=O)CCC(=O)O)[C@@H]2OC(=O)CCC(=O)O",
+   "role": "decoy"
+  },
+  {
+   "struct_id": "2103",
+   "name": "perflunafene",
+   "smiles": "FC1(F)C(F)(F)C(F)(F)C2(F)C(F)(F)C(F)(F)C(F)(F)C(F)(F)C2(F)C1(F)F",
+   "role": "decoy"
+  },
+  {
+   "struct_id": "3565",
+   "name": "xyloylsulfamine",
+   "smiles": "Cc1ccc(C(=O)NS(=O)(=O)c2ccc(N)cc2)cc1C",
+   "role": "decoy"
+  },
+  {
+   "struct_id": "3129",
+   "name": "dihydroemetine",
+   "smiles": "CCC1=C(C[C@H]2NCCc3cc(OC)c(OC)cc32)C[C@H]2c3cc(OC)c(OC)cc3CCN2C1",
+   "role": "decoy"
+  },
+  {
+   "struct_id": "3959",
+   "name": "hydrocortisone butyrate",
+   "smiles": "CCCC(=O)O[C@]1(C(=O)CO)CC[C@H]2[C@@H]3CCC4=CC(=O)CC[C@]4(C)[C@H]3[C@@H](O)C[C@@]21C",
+   "role": "decoy"
+  },
+  {
+   "struct_id": "1245",
+   "name": "fosinopril",
+   "smiles": "CCC(=O)O[C@@H](O[P@](=O)(CCCCc1ccccc1)CC(=O)N1C[C@H](C2CCCCC2)C[C@H]1C(=O)O)C(C)C",
+   "role": "decoy"
+  },
+  {
+   "struct_id": "4291",
+   "name": "cupric oxide",
+   "smiles": "[O]=[Cu]",
+   "role": "decoy"
+  },
+  {
+   "struct_id": "2960",
+   "name": "mifamurtide",
+   "smiles": "CCCCCCCCCCCCCCCC(=O)OC[C@H](COP(=O)(O)OCCNC(=O)[C@H](C)NC(=O)CC[C@@H](NC(=O)[C@H](C)NC(=O)[C@@H](C)O[C@H]1[C@H](O)[C@@H](CO)OC(O)[C@@H]1NC(C)=O)C(N)=O)OC(=O)CCCCCCCCCCCCCCC",
+   "role": "decoy"
+  },
+  {
+   "struct_id": "2322",
+   "name": "proxibarbal",
+   "smiles": "C=CCC1(CC(C)O)C(=O)NC(=O)NC1=O",
+   "role": "decoy"
+  },
+  {
+   "struct_id": "1228",
+   "name": "flutropium",
+   "smiles": "C[N@+]1(CCF)[C@@H]2CC[C@H]1C[C@@H](OC(=O)C(O)(c1ccccc1)c1ccccc1)C2",
+   "role": "decoy"
+  },
+  {
+   "struct_id": "1414",
+   "name": "idarubicin",
+   "smiles": "CC(=O)[C@]1(O)Cc2c(O)c3c(c(O)c2[C@@H](O[C@H]2C[C@H](N)[C@H](O)[C@H](C)O2)C1)C(=O)c1ccccc1C3=O",
+   "role": "decoy"
+  },
+  {
+   "struct_id": "202",
+   "name": "amrubicin",
+   "smiles": "CC(=O)[C@]1(N)Cc2c(O)c3c(c(O)c2[C@@H](O[C@H]2C[C@H](O)[C@H](O)CO2)C1)C(=O)c1ccccc1C3=O",
+   "role": "decoy"
+  },
+  {
+   "struct_id": "362",
+   "name": "bezafibrate",
+   "smiles": "CC(C)(Oc1ccc(CCNC(=O)c2ccc(Cl)cc2)cc1)C(=O)O",
+   "role": "decoy"
+  },
+  {
+   "struct_id": "93",
+   "name": "adinazolam",
+   "smiles": "CN(C)Cc1nnc2n1-c1ccc(Cl)cc1C(c1ccccc1)=NC2",
+   "role": "decoy"
+  },
+  {
+   "struct_id": "809",
+   "name": "desalkylflurazepam",
+   "smiles": "O=C1CN=C(c2ccccc2F)c2cc(Cl)ccc2N1",
+   "role": "decoy"
+  },
+  {
+   "struct_id": "3999",
+   "name": "perflubutane",
+   "smiles": "FC(F)(F)C(F)(F)C(F)(F)C(F)(F)F",
+   "role": "decoy"
+  },
+  {
+   "struct_id": "5390",
+   "name": "pemigatinib",
+   "smiles": "CCN1C(=O)N(c2c(F)c(OC)cc(OC)c2F)Cc2cnc3[nH]c(CN4CCOCC4)cc3c21",
+   "role": "hard_decoy"
+  },
+  {
+   "struct_id": "5306",
+   "name": "gilteritinib",
+   "smiles": "CCc1nc(C(N)=O)c(Nc2ccc(N3CCC(N4CCN(C)CC4)CC3)c(OC)c2)nc1NC1CCOCC1",
+   "role": "hard_decoy"
+  },
+  {
+   "struct_id": "5290",
+   "name": "binimetinib",
+   "smiles": "Cn1cnc2c(F)c(Nc3ccc(Br)cc3F)c(C(=O)NOCCO)cc21",
+   "role": "hard_decoy"
+  },
+  {
+   "struct_id": "5046",
+   "name": "cobimetinib",
+   "smiles": "O=C(c1ccc(F)c(F)c1Nc1ccc(I)cc1F)N1CC(O)([C@@H]2CCCCN2)C1",
+   "role": "hard_decoy"
+  },
+  {
+   "struct_id": "5062",
+   "name": "osimertinib",
+   "smiles": "C=CC(=O)Nc1cc(Nc2nccc(-c3cn(C)c4ccccc34)n2)c(OC)cc1N(C)CCN(C)C",
+   "role": "hard_decoy"
+  },
+  {
+   "struct_id": "1932",
+   "name": "nilotinib",
+   "smiles": "Cc1cn(-c2cc(NC(=O)c3ccc(C)c(Nc4nccc(-c5cccnc5)n4)c3)cc(C(F)(F)F)c2)cn1",
+   "role": "hard_decoy"
+  },
+  {
+   "struct_id": "4187",
+   "name": "crizotinib",
+   "smiles": "C[C@@H](Oc1cc(-c2cnn(C3CCNCC3)c2)cnc1N)c1c(Cl)ccc(F)c1Cl",
+   "role": "hard_decoy"
+  },
+  {
+   "struct_id": "1548",
+   "name": "lapatinib",
+   "smiles": "CS(=O)(=O)CCNCc1ccc(-c2ccc3ncnc(Nc4ccc(OCc5cccc(F)c5)c(Cl)c4)c3c2)o1",
+   "role": "hard_decoy"
+  },
+  {
+   "struct_id": "4359",
+   "name": "bosutinib",
+   "smiles": "COc1cc(Nc2c(C#N)cnc3cc(OCCCN4CCN(C)CC4)c(OC)cc23)c(Cl)cc1Cl",
+   "role": "hard_decoy"
+  },
+  {
+   "struct_id": "5389",
+   "name": "tucatinib",
+   "smiles": "Cc1cc(Nc2ncnc3ccc(NC4=NC(C)(C)CO4)cc23)ccc1Oc1ccn2ncnc2c1",
+   "role": "hard_decoy"
+  },
+  {
+   "struct_id": "5345",
+   "name": "entrectinib",
+   "smiles": "CN1CCN(c2ccc(C(=O)Nc3n[nH]c4ccc(Cc5cc(F)cc(F)c5)cc34)c(NC3CCOCC3)c2)CC1",
+   "role": "hard_decoy"
+  },
+  {
+   "struct_id": "5419",
+   "name": "filgotinib",
+   "smiles": "O=C(Nc1nc2cccc(-c3ccc(CN4CCS(=O)(=O)CC4)cc3)n2n1)C1CC1",
+   "role": "hard_decoy"
+  }
+ ],
+ "n_known_in_corpus": 32,
+ "decoy_matching": "nearest neighbour in (MW/100, cLogP) to each positive, excluding anything annotated against the target",
+ "jobs": {
+  "5347": {
+   "uuid": "f2c62e57-ed81-417f-b085-60589b9a0d75",
+   "name": "fedratinib",
+   "role": "known_binder",
+   "status": "Status.COMPLETED_OK",
+   "credits": 5.1,
+   "pose_path": "results/pipeline/colorectal-cancer/cofold_poses/5347/protonated co-folding complex.pdb",
+   "scores": {
+    "ptm": 0.927,
+    "iptm": 0.964,
+    "avg_lddt": 0.857,
+    "confidence_score": 0.879
+   },
+   "constrained": false
+  },
+  "2544": {
+   "uuid": "ba950e73-ae81-405c-b62f-772ccee92317",
+   "name": "sunitinib",
+   "role": "known_binder",
+   "status": "Status.COMPLETED_OK",
+   "credits": 4.06,
+   "pose_path": "results/pipeline/colorectal-cancer/cofold_poses/2544/protonated co-folding complex.pdb",
+   "scores": {
+    "ptm": 0.96,
+    "iptm": 0.972,
+    "avg_lddt": 0.907,
+    "confidence_score": 0.92
+   },
+   "constrained": false
+  },
+  "4903": {
+   "uuid": "415d1523-0b57-4720-95cc-db157f90af11",
+   "name": "nintedanib",
+   "role": "known_binder",
+   "status": "Status.COMPLETED_OK",
+   "credits": 3.59,
+   "pose_path": "results/pipeline/colorectal-cancer/cofold_poses/4903/protonated co-folding complex.pdb",
+   "scores": {
+    "ptm": 0.935,
+    "iptm": 0.983,
+    "avg_lddt": 0.867,
+    "confidence_score": 0.89
+   },
+   "constrained": false
+  },
+  "5231": {
+   "uuid": "916b6d6c-5c8e-4742-a9ad-b371b2598a67",
+   "name": "midostaurin",
+   "role": "known_binder",
+   "status": "Status.COMPLETED_OK",
+   "credits": 6.96,
+   "pose_path": "results/pipeline/colorectal-cancer/cofold_poses/5231/protonated co-folding complex.pdb",
+   "scores": {
+    "ptm": 0.922,
+    "iptm": 0.981,
+    "avg_lddt": 0.825,
+    "confidence_score": 0.856
+   },
+   "constrained": false
+  },
+  "785": {
+   "uuid": "d6961927-7c0b-4a98-a8ab-b5b714e5311d",
+   "name": "dasatinib",
+   "role": "known_binder",
+   "status": "Status.COMPLETED_OK",
+   "credits": 4.93,
+   "pose_path": "results/pipeline/colorectal-cancer/cofold_poses/785/protonated co-folding complex.pdb",
+   "scores": {
+    "ptm": 0.928,
+    "iptm": 0.979,
+    "avg_lddt": 0.857,
+    "confidence_score": 0.881
+   },
+   "constrained": false
+  },
+  "2459": {
+   "uuid": "30ebe51e-1aba-46c8-b7cf-37bb82d44fdc",
+   "name": "sorafenib",
+   "role": "known_binder",
+   "status": "Status.COMPLETED_OK",
+   "credits": 3.53,
+   "pose_path": "results/pipeline/colorectal-cancer/cofold_poses/2459/protonated co-folding complex.pdb",
+   "scores": {
+    "ptm": 0.862,
+    "iptm": 0.992,
+    "avg_lddt": 0.879,
+    "confidence_score": 0.901
+   },
+   "constrained": false
+  },
+  "3514": {
+   "uuid": "af6e5ac6-3137-4679-8f72-7d6bbaf1044a",
+   "name": "quercetin",
+   "role": "known_binder",
+   "status": "Status.COMPLETED_OK",
+   "credits": 4.94,
+   "pose_path": "results/pipeline/colorectal-cancer/cofold_poses/3514/protonated co-folding complex.pdb",
+   "scores": {
+    "ptm": 0.856,
+    "iptm": 0.975,
+    "avg_lddt": 0.83,
+    "confidence_score": 0.859
+   },
+   "constrained": false
+  },
+  "4178": {
+   "uuid": "d7b5b967-0b2d-40ba-82e6-c0e58680cbe2",
+   "name": "vandetanib",
+   "role": "known_binder",
+   "status": "Status.COMPLETED_OK",
+   "credits": 3.08,
+   "pose_path": "results/pipeline/colorectal-cancer/cofold_poses/4178/protonated co-folding complex.pdb",
+   "scores": {
+    "ptm": 0.952,
+    "iptm": 0.99,
+    "avg_lddt": 0.881,
+    "confidence_score": 0.903
+   },
+   "constrained": false
+  },
+  "4118": {
+   "uuid": "b062760b-4bb0-4e30-bd52-a0effe254cf6",
+   "name": "pazopanib",
+   "role": "known_binder",
+   "status": "Status.COMPLETED_OK",
+   "credits": 5.25,
+   "pose_path": "results/pipeline/colorectal-cancer/cofold_poses/4118/protonated co-folding complex.pdb",
+   "scores": {
+    "ptm": 0.914,
+    "iptm": 0.99,
+    "avg_lddt": 0.878,
+    "confidence_score": 0.9
+   },
+   "constrained": false
+  },
+  "5252": {
+   "uuid": "23fee61d-e2a8-4692-91f3-5e6bc4067b76",
+   "name": "neratinib",
+   "role": "known_binder",
+   "status": "Status.COMPLETED_OK",
+   "credits": 3.13,
+   "pose_path": "results/pipeline/colorectal-cancer/cofold_poses/5252/protonated co-folding complex.pdb",
+   "scores": {
+    "ptm": 0.914,
+    "iptm": 0.974,
+    "avg_lddt": 0.898,
+    "confidence_score": 0.913
+   },
+   "constrained": false
+  },
+  "1832": {
+   "uuid": "5b9be5fa-6c49-42cc-8cc2-456dd3f1dcd5",
+   "name": "mometasone furoate",
+   "role": "decoy",
+   "status": "Status.COMPLETED_OK",
+   "credits": 5.03,
+   "pose_path": "results/pipeline/colorectal-cancer/cofold_poses/1832/protonated co-folding complex.pdb",
+   "scores": {
+    "ptm": 0.876,
+    "iptm": 0.892,
+    "avg_lddt": 0.813,
+    "confidence_score": 0.829
+   },
+   "constrained": false
+  },
+  "4672": {
+   "uuid": "707a5e47-2b5d-4ed9-a7db-7f8e2a691678",
+   "name": "morniflumate",
+   "role": "decoy",
+   "status": "Status.COMPLETED_OK",
+   "credits": 5.44,
+   "pose_path": "results/pipeline/colorectal-cancer/cofold_poses/4672/protonated co-folding complex.pdb",
+   "scores": {
+    "ptm": 0.948,
+    "iptm": 0.959,
+    "avg_lddt": 0.891,
+    "confidence_score": 0.904
+   },
+   "constrained": false
+  },
+  "1705": {
+   "uuid": "8081cb92-5d44-4ee6-9705-80f385d93eb6",
+   "name": "meproscillarin",
+   "role": "decoy",
+   "status": "Status.COMPLETED_OK",
+   "credits": 3.24,
+   "pose_path": "results/pipeline/colorectal-cancer/cofold_poses/1705/protonated co-folding complex.pdb",
+   "scores": {
+    "ptm": 0.889,
+    "iptm": 0.854,
+    "avg_lddt": 0.86,
+    "confidence_score": 0.859
+   },
+   "constrained": false
+  },
+  "2811": {
+   "uuid": "e2241f83-f125-4c65-9974-e6d87d585de5",
+   "name": "vecuronium",
+   "role": "decoy",
+   "status": "Status.COMPLETED_OK",
+   "credits": 5.07,
+   "pose_path": "results/pipeline/colorectal-cancer/cofold_poses/2811/protonated co-folding complex.pdb",
+   "scores": {
+    "ptm": 0.883,
+    "iptm": 0.937,
+    "avg_lddt": 0.845,
+    "confidence_score": 0.863
+   },
+   "constrained": false
+  },
+  "1067": {
+   "uuid": "e6c678ad-5c2a-4ac3-9065-9c97ad0a59b6",
+   "name": "estriol succinate",
+   "role": "decoy",
+   "status": "Status.COMPLETED_OK",
+   "credits": 5.23,
+   "pose_path": "results/pipeline/colorectal-cancer/cofold_poses/1067/protonated co-folding complex.pdb",
+   "scores": {
+    "ptm": 0.925,
+    "iptm": 0.939,
+    "avg_lddt": 0.844,
+    "confidence_score": 0.863
+   },
+   "constrained": false
+  },
+  "2103": {
+   "uuid": "0db2ca96-2eb5-477f-8833-ebf14ec8cb79",
+   "name": "perflunafene",
+   "role": "decoy",
+   "status": "Status.COMPLETED_OK",
+   "credits": 3.25,
+   "pose_path": "results/pipeline/colorectal-cancer/cofold_poses/2103/protonated co-folding complex.pdb",
+   "scores": {
+    "ptm": 0.885,
+    "iptm": 0.861,
+    "avg_lddt": 0.845,
+    "confidence_score": 0.848
+   },
+   "constrained": false
+  },
+  "3565": {
+   "uuid": "d290138f-d8f5-441f-b04f-e2ded2e36591",
+   "name": "xyloylsulfamine",
+   "role": "decoy",
+   "status": "Status.COMPLETED_OK",
+   "credits": 6.12,
+   "pose_path": "results/pipeline/colorectal-cancer/cofold_poses/3565/protonated co-folding complex.pdb",
+   "scores": {
+    "ptm": 0.949,
+    "iptm": 0.93,
+    "avg_lddt": 0.861,
+    "confidence_score": 0.875
+   },
+   "constrained": false
+  },
+  "3129": {
+   "uuid": "3ff71524-f2f3-4d0e-b5c7-c1ab0afb9650",
+   "name": "dihydroemetine",
+   "role": "decoy",
+   "status": "Status.COMPLETED_OK",
+   "credits": 6.28,
+   "pose_path": "results/pipeline/colorectal-cancer/cofold_poses/3129/protonated co-folding complex.pdb",
+   "scores": {
+    "ptm": 0.958,
+    "iptm": 0.97,
+    "avg_lddt": 0.847,
+    "confidence_score": 0.872
+   },
+   "constrained": false
+  },
+  "3959": {
+   "uuid": "10bf521a-f8eb-43d4-8aa3-c6af4283a476",
+   "name": "hydrocortisone butyrate",
+   "role": "decoy",
+   "status": "Status.COMPLETED_OK",
+   "credits": 3.23,
+   "pose_path": "results/pipeline/colorectal-cancer/cofold_poses/3959/protonated co-folding complex.pdb",
+   "scores": {
+    "ptm": 0.865,
+    "iptm": 0.95,
+    "avg_lddt": 0.825,
+    "confidence_score": 0.85
+   },
+   "constrained": false
+  },
+  "1245": {
+   "uuid": "69ceec93-3298-4e4e-9765-5248a3e879c0",
+   "name": "fosinopril",
+   "role": "decoy",
+   "status": "Status.COMPLETED_OK",
+   "credits": 4.96,
+   "pose_path": "results/pipeline/colorectal-cancer/cofold_poses/1245/protonated co-folding complex.pdb",
+   "scores": {
+    "ptm": 0.864,
+    "iptm": 0.88,
+    "avg_lddt": 0.812,
+    "confidence_score": 0.825
+   },
+   "constrained": false
+  },
+  "4291": {
+   "uuid": "cf47b67f-347a-466c-b022-1bfbd0cedb90",
+   "name": "cupric oxide",
+   "role": "decoy",
+   "status": "Status.COMPLETED_OK",
+   "credits": 5.32,
+   "pose_path": "results/pipeline/colorectal-cancer/cofold_poses/4291/protonated co-folding complex.pdb",
+   "scores": {
+    "ptm": 0.842,
+    "iptm": 0.716,
+    "avg_lddt": 0.816,
+    "confidence_score": 0.796
+   },
+   "constrained": false
+  },
+  "2960": {
+   "uuid": "9a50501b-f2de-46e2-b6d8-86d5f4cb8e2e",
+   "name": "mifamurtide",
+   "role": "decoy",
+   "status": "Status.COMPLETED_OK",
+   "credits": 4.3,
+   "pose_path": "results/pipeline/colorectal-cancer/cofold_poses/2960/protonated co-folding complex.pdb",
+   "scores": {
+    "ptm": 0.868,
+    "iptm": 0.879,
+    "avg_lddt": 0.733,
+    "confidence_score": 0.762
+   },
+   "constrained": false
+  },
+  "2322": {
+   "uuid": "9a3fe6e6-f9c0-495f-99d9-a5c67e42777e",
+   "name": "proxibarbal",
+   "role": "decoy",
+   "status": "Status.COMPLETED_OK",
+   "credits": 5.83,
+   "pose_path": "results/pipeline/colorectal-cancer/cofold_poses/2322/protonated co-folding complex.pdb",
+   "scores": {
+    "ptm": 0.938,
+    "iptm": 0.864,
+    "avg_lddt": 0.82,
+    "confidence_score": 0.829
+   },
+   "constrained": false
+  },
+  "1228": {
+   "uuid": "d0c890fc-f6e0-476c-95b4-8848d0a623de",
+   "name": "flutropium",
+   "role": "decoy",
+   "status": "Status.COMPLETED_OK",
+   "credits": 3.58,
+   "pose_path": "results/pipeline/colorectal-cancer/cofold_poses/1228/protonated co-folding complex.pdb",
+   "scores": {
+    "ptm": 0.932,
+    "iptm": 0.871,
+    "avg_lddt": 0.869,
+    "confidence_score": 0.87
+   },
+   "constrained": false
+  },
+  "1414": {
+   "uuid": "a2195049-dd36-458b-aa90-e0fa7ae2fff8",
+   "name": "idarubicin",
+   "role": "decoy",
+   "status": "Status.COMPLETED_OK",
+   "credits": 5.61,
+   "pose_path": "results/pipeline/colorectal-cancer/cofold_poses/1414/protonated co-folding complex.pdb",
+   "scores": {
+    "ptm": 0.86,
+    "iptm": 0.936,
+    "avg_lddt": 0.843,
+    "confidence_score": 0.862
+   },
+   "constrained": false
+  },
+  "202": {
+   "uuid": "34d74985-7281-4469-bc69-012e8de7d420",
+   "name": "amrubicin",
+   "role": "decoy",
+   "status": "Status.COMPLETED_OK",
+   "credits": 3.58,
+   "pose_path": "results/pipeline/colorectal-cancer/cofold_poses/202/protonated co-folding complex.pdb",
+   "scores": {
+    "ptm": 0.889,
+    "iptm": 0.934,
+    "avg_lddt": 0.864,
+    "confidence_score": 0.878
+   },
+   "constrained": false
+  },
+  "362": {
+   "uuid": "44336c3c-8e71-4297-a75b-9d61167b599a",
+   "name": "bezafibrate",
+   "role": "decoy",
+   "status": "Status.COMPLETED_OK",
+   "credits": 4.36,
+   "pose_path": "results/pipeline/colorectal-cancer/cofold_poses/362/protonated co-folding complex.pdb",
+   "scores": {
+    "ptm": 0.883,
+    "iptm": 0.887,
+    "avg_lddt": 0.825,
+    "confidence_score": 0.838
+   },
+   "constrained": false
+  },
+  "93": {
+   "uuid": "74f6b0aa-c189-461d-93c5-95703eeb5817",
+   "name": "adinazolam",
+   "role": "decoy",
+   "status": "Status.COMPLETED_OK",
+   "credits": 4.79,
+   "pose_path": "results/pipeline/colorectal-cancer/cofold_poses/93/protonated co-folding complex.pdb",
+   "scores": {
+    "ptm": 0.916,
+    "iptm": 0.947,
+    "avg_lddt": 0.85,
+    "confidence_score": 0.869
+   },
+   "constrained": false
+  },
+  "809": {
+   "uuid": "79245d8d-e162-4b6d-9f64-fa159b116eb2",
+   "name": "desalkylflurazepam",
+   "role": "decoy",
+   "status": "Status.COMPLETED_OK",
+   "credits": 3.06,
+   "pose_path": "results/pipeline/colorectal-cancer/cofold_poses/809/protonated co-folding complex.pdb",
+   "scores": {
+    "ptm": 0.941,
+    "iptm": 0.883,
+    "avg_lddt": 0.864,
+    "confidence_score": 0.868
+   },
+   "constrained": false
+  },
+  "3999": {
+   "uuid": "ec7ecc20-1289-44e7-a090-c157765c8f27",
+   "name": "perflubutane",
+   "role": "decoy",
+   "status": "Status.COMPLETED_OK",
+   "credits": 4.93,
+   "pose_path": "results/pipeline/colorectal-cancer/cofold_poses/3999/protonated co-folding complex.pdb",
+   "scores": {
+    "ptm": 0.894,
+    "iptm": 0.896,
+    "avg_lddt": 0.856,
+    "confidence_score": 0.864
+   },
+   "constrained": false
+  },
+  "5390": {
+   "uuid": "ea4b08d4-9c66-4b86-af19-c08476b90cef",
+   "name": "pemigatinib",
+   "role": "hard_decoy",
+   "status": "Status.COMPLETED_OK",
+   "credits": 4.5,
+   "pose_path": "results/pipeline/colorectal-cancer/cofold_poses/5390/protonated co-folding complex.pdb",
+   "scores": {
+    "ptm": 0.903,
+    "iptm": 0.983,
+    "avg_lddt": 0.87,
+    "confidence_score": 0.892
+   },
+   "constrained": false
+  },
+  "5306": {
+   "uuid": "c09ecb6b-de00-4dfd-b229-db45a1516f35",
+   "name": "gilteritinib",
+   "role": "hard_decoy",
+   "status": "Status.COMPLETED_OK",
+   "credits": 4.54,
+   "pose_path": "results/pipeline/colorectal-cancer/cofold_poses/5306/protonated co-folding complex.pdb",
+   "scores": {
+    "ptm": 0.916,
+    "iptm": 0.974,
+    "avg_lddt": 0.861,
+    "confidence_score": 0.883
+   },
+   "constrained": false
+  },
+  "5290": {
+   "uuid": "3405a402-bd9b-47a9-ae70-e9b23c4fead8",
+   "name": "binimetinib",
+   "role": "hard_decoy",
+   "status": "Status.COMPLETED_OK",
+   "credits": 3.91,
+   "pose_path": "results/pipeline/colorectal-cancer/cofold_poses/5290/protonated co-folding complex.pdb",
+   "scores": {
+    "ptm": 0.908,
+    "iptm": 0.943,
+    "avg_lddt": 0.889,
+    "confidence_score": 0.9
+   },
+   "constrained": false
+  },
+  "5046": {
+   "uuid": "f78babeb-1537-41c2-84c5-3d736efefaaf",
+   "name": "cobimetinib",
+   "role": "hard_decoy",
+   "status": "Status.COMPLETED_OK",
+   "credits": 3.99,
+   "pose_path": "results/pipeline/colorectal-cancer/cofold_poses/5046/protonated co-folding complex.pdb",
+   "scores": {
+    "ptm": 0.951,
+    "iptm": 0.87,
+    "avg_lddt": 0.879,
+    "confidence_score": 0.877
+   },
+   "constrained": false
+  },
+  "5062": {
+   "uuid": "cf44967d-b4b9-4779-93bf-abd87503e724",
+   "name": "osimertinib",
+   "role": "hard_decoy"
+  },
+  "1932": {
+   "uuid": "7e8c8165-c884-4696-81bc-1259b81ee397",
+   "name": "nilotinib",
+   "role": "hard_decoy"
+  },
+  "4187": {
+   "uuid": "7c446e33-ca37-4b86-b8fe-d524ffb9fbcb",
+   "name": "crizotinib",
+   "role": "hard_decoy"
+  },
+  "1548": {
+   "uuid": "bbbe9370-e346-481a-ba1e-9629a4271464",
+   "name": "lapatinib",
+   "role": "hard_decoy"
+  },
+  "4359": {
+   "uuid": "262af75b-cdbd-4d34-b033-03125b8fd73c",
+   "name": "bosutinib",
+   "role": "hard_decoy"
+  },
+  "5389": {
+   "uuid": "2db82b3f-c3b7-47b7-9d3a-bb91a56fdb28",
+   "name": "tucatinib",
+   "role": "hard_decoy"
+  },
+  "5345": {
+   "uuid": "1a9a6574-3457-4fd3-82e2-49ae4a1ea9f5",
+   "name": "entrectinib",
+   "role": "hard_decoy"
+  },
+  "5419": {
+   "uuid": "c2d13ccb-853a-4634-beca-822502ecf72c",
+   "name": "filgotinib",
+   "role": "hard_decoy"
+  }
+ }
+}

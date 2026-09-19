@@ -12,3 +12,5 @@ data/drug.target.interaction.tsv
 .env
 *.env
 !.env.example
+results/pipeline/*/designs/
+results/pipeline/*/cofold_poses/

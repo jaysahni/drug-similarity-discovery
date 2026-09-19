@@ -1,0 +1,173 @@
+{
+  "targets_queried": 500,
+  "targets_kept": 233,
+  "usable_entries": 10533,
+  "distinct_ligands": 8959,
+  "filters": {
+    "resolution_max": 3.0,
+    "min_ligand_mw": 180.0,
+    "min_ligands_per_target": 3,
+    "n_additives_blocklisted": 79
+  },
+  "drop_counts": {
+    "entries_seen": 17178,
+    "dropped_not_xray": 3437,
+    "dropped_no_drug_like_ligand": 2279,
+    "targets_too_few_ligands": 209,
+    "dropped_resolution": 806,
+    "targets_kept": 233,
+    "no_pdb_entries": 58
+  },
+  "top_targets": [
+    {
+      "gene": "ESR1",
+      "uniprot": "P03372",
+      "entries": 477,
+      "ligands": 434
+    },
+    {
+      "gene": "BRD4",
+      "uniprot": "O60885",
+      "entries": 431,
+      "ligands": 410
+    },
+    {
+      "gene": "BACE1",
+      "uniprot": "P56817",
+      "entries": 395,
+      "ligands": 378
+    },
+    {
+      "gene": "CDK2",
+      "uniprot": "P24941",
+      "entries": 435,
+      "ligands": 378
+    },
+    {
+      "gene": "PPARG",
+      "uniprot": "P37231",
+      "entries": 338,
+      "ligands": 283
+    },
+    {
+      "gene": "F2",
+      "uniprot": "P00734",
+      "entries": 381,
+      "ligands": 263
+    },
+    {
+      "gene": "CA2",
+      "uniprot": "P00918",
+      "entries": 309,
+      "ligands": 248
+    },
+    {
+      "gene": "PTPN1",
+      "uniprot": "P18031",
+      "entries": 281,
+      "ligands": 236
+    },
+    {
+      "gene": "TTR",
+      "uniprot": "P02766",
+      "entries": 278,
+      "ligands": 215
+    },
+    {
+      "gene": "MAPK14",
+      "uniprot": "Q16539",
+      "entries": 230,
+      "ligands": 212
+    },
+    {
+      "gene": "EGFR",
+      "uniprot": "P00533",
+      "entries": 282,
+      "ligands": 197
+    },
+    {
+      "gene": "BTK",
+      "uniprot": "Q06187",
+      "entries": 151,
+      "ligands": 147
+    },
+    {
+      "gene": "AURKA",
+      "uniprot": "O14965",
+      "entries": 184,
+      "ligands": 135
+    },
+    {
+      "gene": "JAK2",
+      "uniprot": "O60674",
+      "entries": 159,
+      "ligands": 133
+    },
+    {
+      "gene": "F10",
+      "uniprot": "P00742",
+      "entries": 133,
+      "ligands": 131
+    },
+    {
+      "gene": "MAPK1",
+      "uniprot": "P28482",
+      "entries": 130,
+      "ligands": 122
+    },
+    {
+      "gene": "EPHX2",
+      "uniprot": "P34913",
+      "entries": 125,
+      "ligands": 119
+    },
+    {
+      "gene": "PDE4A|PDE4B|PDE4C|PDE4D",
+      "uniprot": "Q08499",
+      "entries": 119,
+      "ligands": 112
+    },
+    {
+      "gene": "ADORA2A",
+      "uniprot": "P29274",
+      "entries": 158,
+      "ligands": 109
+    },
+    {
+      "gene": "DHODH",
+      "uniprot": "Q02127",
+      "entries": 105,
+      "ligands": 107
+    },
+    {
+      "gene": "CYP3A4",
+      "uniprot": "P08684",
+      "entries": 118,
+      "ligands": 98
+    },
+    {
+      "gene": "MET",
+      "uniprot": "P08581",
+      "entries": 109,
+      "ligands": 94
+    },
+    {
+      "gene": "PIK3CG",
+      "uniprot": "P48736",
+      "entries": 95,
+      "ligands": 93
+    },
+    {
+      "gene": "GSK3B",
+      "uniprot": "P49841",
+      "entries": 103,
+      "ligands": 91
+    },
+    {
+      "gene": "IRAK4",
+      "uniprot": "Q9NWZ3",
+      "entries": 91,
+      "ligands": 85
+    }
+  ]
+}

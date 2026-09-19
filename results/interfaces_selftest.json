@@ -1,0 +1,2375 @@
+{
+  "generated_utc": "2026-09-19T21:21:51+00:00",
+  "environment": {
+    "python": "3.14.7",
+    "biopython": "1.88",
+    "rdkit": "2026.03.6",
+    "numpy": "2.5.3"
+  },
+  "numbering": "author (auth_seq_id); no SIFTS mapping applied",
+  "contact_cutoff_a": 4.5,
+  "core_threshold": 0.6,
+  "uniprot": {
+    "accession": "P35968",
+    "length": 1356
+  },
+  "numbering_check": {
+    "4ASD": {
+      "n_compared": 305,
+      "n_match": 305,
+      "fraction_match": 1.0,
+      "example_mismatches": []
+    },
+    "3WZE": {
+      "n_compared": 298,
+      "n_match": 298,
+      "fraction_match": 1.0,
+      "example_mismatches": []
+    },
+    "4AG8": {
+      "n_compared": 296,
+      "n_match": 296,
+      "fraction_match": 1.0,
+      "example_mismatches": []
+    }
+  },
+  "type_ii_markers": {
+    "4ASD": {
+      "ligand": "BAX",
+      "engaged": {
+        "885": "GLU",
+        "919": "CYS",
+        "1046": "ASP",
+        "1047": "PHE"
+      },
+      "hinge_types": [
+        "hbond",
+        "hydrophobic"
+      ],
+      "hinge_min_distance": 2.881
+    },
+    "3WZE": {
+      "ligand": "BAX",
+      "engaged": {
+        "885": "GLU",
+        "919": "CYS",
+        "1046": "ASP",
+        "1047": "PHE"
+      },
+      "hinge_types": [
+        "hbond"
+      ],
+      "hinge_min_distance": 2.756
+    },
+    "4AG8": {
+      "ligand": "AXI",
+      "engaged": {
+        "885": "GLU",
+        "919": "CYS",
+        "1046": "ASP",
+        "1047": "PHE"
+      },
+      "hinge_types": [
+        "hbond"
+      ],
+      "hinge_min_distance": 2.97
+    }
+  },
+  "pairwise_weighted_jaccard": {
+    "4ASD_vs_3WZE": 0.9583,
+    "4ASD_vs_4AG8": 0.6296,
+    "3WZE_vs_4AG8": 0.6538
+  },
+  "interaction_types_observed": {
+    "aromatic": [
+      "1N6A",
+      "3WZE",
+      "4AG8",
+      "4ASD"
+    ],
+    "halogen": [
+      "2H79"
+    ],
+    "hbond": [
+      "1N6A",
+      "2H79",
+      "3WZE",
+      "4AG8",
+      "4ASD"
+    ],
+    "hydrophobic": [
+      "1N6A",
+      "2H79",
+      "3WZE",
+      "4AG8",
+      "4ASD"
+    ],
+    "salt_bridge": [
+      "1N6A"
+    ]
+  },
+  "measured_negatives": {
+    "vegfr2_ligand_formal_charges": {
+      "4ASD": 0,
+      "3WZE": 0,
+      "4AG8": 0
+    },
+    "note": "no salt bridge is detectable for these ligands because the CCD models all three as formally neutral; halogen bonds are absent because the nearest sorafenib Cl...O separation exceeds the 3.5 A cutoff (measured below)",
+    "4ASD_BAX_min_halogen_to_NO_a": 4.34,
+    "3WZE_BAX_min_halogen_to_NO_a": 4.713,
+    "4AG8_AXI_min_halogen_to_NO_a": "no Cl/Br/I in this ligand"
+  },
+  "aromatic_centroid_truncation": {
+    "4ASD": [],
+    "3WZE": [],
+    "4AG8": [],
+    "1N6A": [],
+    "2H79": []
+  },
+  "multichain_control": {
+    "pdb_id": "1HXW",
+    "ligand": "RIT",
+    "chains_engaged": [
+      "A",
+      "B"
+    ],
+    "warnings": [
+      "contacts span polymer chains ['A', 'B']; residue ids are author numbers and are NOT unique across chains here",
+      "residue-id collision across chains for [23, 25, 27, 28, 29, 30, 32, 47, 48, 49, 50, 81, 82, 84]: the per_residue record for each of these ids MERGES contacts from chains ['A', 'B']. Author numbering alone cannot separate them; split by chain before comparing such a site across structures"
+    ]
+  },
+  "format_check": {
+    "pdb_id": "4ASD",
+    "n_residues_cif": 24,
+    "n_residues_pdb": 24,
+    "identical": true
+  },
+  "leave_one_out": {
+    "4ASD": {
+      "held_out_ligand": "BAX",
+      "trained_on": [
+        "3WZE",
+        "4AG8"
+      ],
+      "n_core_in_consensus": 17,
+      "core_coverage": 1.0,
+      "weighted_coverage": 0.9302,
+      "missed_core_residues": []
+    },
+    "3WZE": {
+      "held_out_ligand": "BAX",
+      "trained_on": [
+        "4ASD",
+        "4AG8"
+      ],
+      "n_core_in_consensus": 17,
+      "core_coverage": 1.0,
+      "weighted_coverage": 0.9091,
+      "missed_core_residues": []
+    },
+    "4AG8": {
+      "held_out_ligand": "AXI",
+      "trained_on": [
+        "4ASD",
+        "3WZE"
+      ],
+      "n_core_in_consensus": 23,
+      "core_coverage": 0.7391,
+      "weighted_coverage": 0.7234,
+      "missed_core_residues": [
+        888,
+        892,
+        898,
+        1019,
+        1026,
+        1044
+      ]
+    }
+  },
+  "entries": {
+    "4ASD": {
+      "pdb_id": "4ASD",
+      "title": "Crystal Structure of VEGFR2 (Juxtamembrane and Kinase Domains) in Complex with SORAFENIB (BAY 43-9006)",
+      "resolution_a": 2.03,
+      "method": "X-ray",
+      "parse_seconds": 0.084,
+      "n_polymer_residues": 305,
+      "n_het_residues": 354,
+      "excluded": {
+        "exclusion list: water": {
+          "HOH": 353
+        }
+      },
+      "ligands": [
+        {
+          "resname": "BAX",
+          "chain_id": "A",
+          "resseq": 1500,
+          "n_heavy_atoms": 32,
+          "formula": "C21ClF3N4O3",
+          "reason": "drug-like candidate"
+        }
+      ],
+      "contact_seconds": 2.443,
+      "contact_seconds_no_sasa": 0.006,
+      "contacts": {
+        "ligand_info": {
+          "resname": "BAX",
+          "chain": "A",
+          "resseq": 1500,
+          "n_heavy_atoms": 32,
+          "formula": "C21ClF3N4O3",
+          "ccd_parsed": true,
+          "n_aromatic_rings": 3,
+          "n_charged_atoms": 0
+        },
+        "n_contact_residues": 24,
+        "residue_ids": [
+          840,
+          848,
+          866,
+          868,
+          885,
+          888,
+          889,
+          892,
+          898,
+          899,
+          916,
+          917,
+          918,
+          919,
+          920,
+          922,
+          1019,
+          1025,
+          1026,
+          1035,
+          1044,
+          1045,
+          1046,
+          1047
+        ],
+        "per_residue": {
+          "1046": {
+            "resname": "ASP",
+            "chain_id": "A",
+            "min_distance": 2.794,
+            "n_atom_contacts": 27,
+            "buried_area_proxy": 35.346,
+            "interaction_types": [
+              "hbond",
+              "hydrophobic"
+            ]
+          },
+          "889": {
+            "resname": "LEU",
+            "chain_id": "A",
+            "min_distance": 3.602,
+            "n_atom_contacts": 13,
+            "buried_area_proxy": 27.775,
+            "interaction_types": [
+              "hydrophobic"
+            ]
+          },
+          "1045": {
+            "resname": "CYS",
+            "chain_id": "A",
+            "min_distance": 3.226,
+            "n_atom_contacts": 18,
+            "buried_area_proxy": 14.65,
+            "interaction_types": [
+              "hydrophobic"
+            ]
+          },
+          "899": {
+            "resname": "VAL",
+            "chain_id": "A",
+            "min_distance": 3.326,
+            "n_atom_contacts": 5,
+            "buried_area_proxy": 16.771,
+            "interaction_types": []
+          },
+          "885": {
+            "resname": "GLU",
+            "chain_id": "A",
+            "min_distance": 2.581,
+            "n_atom_contacts": 11,
+            "buried_area_proxy": 24.661,
+            "interaction_types": [
+              "hbond",
+              "hydrophobic"
+            ]
+          },
+          "888": {
+            "resname": "ILE",
+            "chain_id": "A",
+            "min_distance": 4.235,
+            "n_atom_contacts": 1,
+            "buried_area_proxy": 14.492,
+            "interaction_types": []
+          },
+          "868": {
+            "resname": "LYS",
+            "chain_id": "A",
+            "min_distance": 3.485,
+            "n_atom_contacts": 12,
+            "buried_area_proxy": 16.679,
+            "interaction_types": [
+              "hydrophobic"
+            ]
+          },
+          "916": {
+            "resname": "VAL",
+            "chain_id": "A",
+            "min_distance": 3.509,
+            "n_atom_contacts": 6,
+            "buried_area_proxy": 22.945,
+            "interaction_types": [
+              "hydrophobic"
+            ]
+          },
+          "848": {
+            "resname": "VAL",
+            "chain_id": "A",
+            "min_distance": 3.277,
+            "n_atom_contacts": 13,
+            "buried_area_proxy": 15.699,
+            "interaction_types": [
+              "hydrophobic"
+            ]
+          },
+          "866": {
+            "resname": "ALA",
+            "chain_id": "A",
+            "min_distance": 3.487,
+            "n_atom_contacts": 8,
+            "buried_area_proxy": 10.869,
+            "interaction_types": [
+              "hydrophobic"
+            ]
+          },
+          "1047": {
+            "resname": "PHE",
+            "chain_id": "A",
+            "min_distance": 3.399,
+            "n_atom_contacts": 19,
+            "buried_area_proxy": 26.568,
+            "interaction_types": [
+              "aromatic",
+              "hydrophobic"
+            ]
+          },
+          "917": {
+            "resname": "GLU",
+            "chain_id": "A",
+            "min_distance": 3.17,
+            "n_atom_contacts": 4,
+            "buried_area_proxy": 2.143,
+            "interaction_types": []
+          },
+          "1035": {
+            "resname": "LEU",
+            "chain_id": "A",
+            "min_distance": 3.525,
+            "n_atom_contacts": 10,
+            "buried_area_proxy": 20.53,
+            "interaction_types": [
+              "hydrophobic"
+            ]
+          },
+          "918": {
+            "resname": "PHE",
+            "chain_id": "A",
+            "min_distance": 3.489,
+            "n_atom_contacts": 13,
+            "buried_area_proxy": 10.869,
+            "interaction_types": [
+              "hydrophobic"
+            ]
+          },
+          "919": {
+            "resname": "CYS",
+            "chain_id": "A",
+            "min_distance": 2.881,
+            "n_atom_contacts": 18,
+            "buried_area_proxy": 12.147,
+            "interaction_types": [
+              "hbond",
+              "hydrophobic"
+            ]
+          },
+          "840": {
+            "resname": "LEU",
+            "chain_id": "A",
+            "min_distance": 3.528,
+            "n_atom_contacts": 13,
+            "buried_area_proxy": 28.438,
+            "interaction_types": [
+              "hydrophobic"
+            ]
+          },
+          "922": {
+            "resname": "GLY",
+            "chain_id": "A",
+            "min_distance": 3.698,
+            "n_atom_contacts": 5,
+            "buried_area_proxy": 18.0,
+            "interaction_types": [
+              "hydrophobic"
+            ]
+          },
+          "920": {
+            "resname": "LYS",
+            "chain_id": "A",
+            "min_distance": 3.708,
+            "n_atom_contacts": 2,
+            "buried_area_proxy": 6.429,
+            "interaction_types": []
+          },
+          "1019": {
+            "resname": "LEU",
+            "chain_id": "A",
+            "min_distance": 3.295,
+            "n_atom_contacts": 8,
+            "buried_area_proxy": 13.284,
+            "interaction_types": []
+          },
+          "1044": {
+            "resname": "ILE",
+            "chain_id": "A",
+            "min_distance": 2.994,
+            "n_atom_contacts": 10,
+            "buried_area_proxy": 7.909,
+            "interaction_types": [
+              "hbond"
+            ]
+          },
+          "1026": {
+            "resname": "HIS",
+            "chain_id": "A",
+            "min_distance": 3.379,
+            "n_atom_contacts": 3,
+            "buried_area_proxy": 14.083,
+            "interaction_types": []
+          },
+          "892": {
+            "resname": "ILE",
+            "chain_id": "A",
+            "min_distance": 3.885,
+            "n_atom_contacts": 2,
+            "buried_area_proxy": 15.699,
+            "interaction_types": []
+          },
+          "898": {
+            "resname": "VAL",
+            "chain_id": "A",
+            "min_distance": 4.474,
+            "n_atom_contacts": 1,
+            "buried_area_proxy": 6.038,
+            "interaction_types": []
+          },
+          "1025": {
+            "resname": "ILE",
+            "chain_id": "A",
+            "min_distance": 4.34,
+            "n_atom_contacts": 1,
+            "buried_area_proxy": 11.786,
+            "interaction_types": []
+          }
+        },
+        "warnings": []
+      }
+    },
+    "3WZE": {
+      "pdb_id": "3WZE",
+      "title": "KDR in complex with ligand sorafenib",
+      "resolution_a": 1.9,
+      "method": "X-ray",
+      "parse_seconds": 0.277,
+      "n_polymer_residues": 298,
+      "n_het_residues": 110,
+      "excluded": {
+        "exclusion list: ion or simple salt": {
+          "ACT": 1
+        },
+        "exclusion list: cryoprotectant, precipitant or buffer additive": {
+          "DTT": 1
+        },
+        "exclusion list: water": {
+          "HOH": 107
+        }
+      },
+      "ligands": [
+        {
+          "resname": "BAX",
+          "chain_id": "A",
+          "resseq": 1201,
+          "n_heavy_atoms": 32,
+          "formula": "C21ClF3N4O3",
+          "reason": "drug-like candidate"
+        }
+      ],
+      "contact_seconds": 1.532,
+      "contact_seconds_no_sasa": 0.005,
+      "contacts": {
+        "ligand_info": {
+          "resname": "BAX",
+          "chain": "A",
+          "resseq": 1201,
+          "n_heavy_atoms": 32,
+          "formula": "C21ClF3N4O3",
+          "ccd_parsed": true,
+          "n_aromatic_rings": 3,
+          "n_charged_atoms": 0
+        },
+        "n_contact_residues": 23,
+        "residue_ids": [
+          840,
+          848,
+          866,
+          868,
+          885,
+          888,
+          889,
+          892,
+          898,
+          899,
+          916,
+          917,
+          918,
+          919,
+          920,
+          922,
+          1019,
+          1026,
+          1035,
+          1044,
+          1045,
+          1046,
+          1047
+        ],
+        "per_residue": {
+          "1046": {
+            "resname": "ASP",
+            "chain_id": "A",
+            "min_distance": 2.834,
+            "n_atom_contacts": 34,
+            "buried_area_proxy": 39.426,
+            "interaction_types": [
+              "hbond",
+              "hydrophobic"
+            ]
+          },
+          "1045": {
+            "resname": "CYS",
+            "chain_id": "A",
+            "min_distance": 3.279,
+            "n_atom_contacts": 21,
+            "buried_area_proxy": 17.144,
+            "interaction_types": [
+              "hydrophobic"
+            ]
+          },
+          "899": {
+            "resname": "VAL",
+            "chain_id": "A",
+            "min_distance": 3.378,
+            "n_atom_contacts": 4,
+            "buried_area_proxy": 13.284,
+            "interaction_types": []
+          },
+          "889": {
+            "resname": "LEU",
+            "chain_id": "A",
+            "min_distance": 3.744,
+            "n_atom_contacts": 11,
+            "buried_area_proxy": 22.945,
+            "interaction_types": [
+              "hydrophobic"
+            ]
+          },
+          "885": {
+            "resname": "GLU",
+            "chain_id": "A",
+            "min_distance": 2.698,
+            "n_atom_contacts": 14,
+            "buried_area_proxy": 28.557,
+            "interaction_types": [
+              "hbond",
+              "hydrophobic"
+            ]
+          },
+          "888": {
+            "resname": "ILE",
+            "chain_id": "A",
+            "min_distance": 4.204,
+            "n_atom_contacts": 3,
+            "buried_area_proxy": 20.53,
+            "interaction_types": []
+          },
+          "868": {
+            "resname": "LYS",
+            "chain_id": "A",
+            "min_distance": 3.736,
+            "n_atom_contacts": 8,
+            "buried_area_proxy": 14.377,
+            "interaction_types": [
+              "hydrophobic"
+            ]
+          },
+          "848": {
+            "resname": "VAL",
+            "chain_id": "A",
+            "min_distance": 3.32,
+            "n_atom_contacts": 12,
+            "buried_area_proxy": 14.492,
+            "interaction_types": [
+              "hydrophobic"
+            ]
+          },
+          "916": {
+            "resname": "VAL",
+            "chain_id": "A",
+            "min_distance": 3.533,
+            "n_atom_contacts": 5,
+            "buried_area_proxy": 21.737,
+            "interaction_types": [
+              "hydrophobic"
+            ]
+          },
+          "866": {
+            "resname": "ALA",
+            "chain_id": "A",
+            "min_distance": 3.467,
+            "n_atom_contacts": 8,
+            "buried_area_proxy": 14.355,
+            "interaction_types": [
+              "hydrophobic"
+            ]
+          },
+          "1047": {
+            "resname": "PHE",
+            "chain_id": "A",
+            "min_distance": 3.471,
+            "n_atom_contacts": 18,
+            "buried_area_proxy": 25.36,
+            "interaction_types": [
+              "aromatic",
+              "hydrophobic"
+            ]
+          },
+          "1035": {
+            "resname": "LEU",
+            "chain_id": "A",
+            "min_distance": 3.715,
+            "n_atom_contacts": 11,
+            "buried_area_proxy": 20.53,
+            "interaction_types": [
+              "hydrophobic"
+            ]
+          },
+          "917": {
+            "resname": "GLU",
+            "chain_id": "A",
+            "min_distance": 3.279,
+            "n_atom_contacts": 4,
+            "buried_area_proxy": 2.143,
+            "interaction_types": []
+          },
+          "919": {
+            "resname": "CYS",
+            "chain_id": "A",
+            "min_distance": 2.756,
+            "n_atom_contacts": 17,
+            "buried_area_proxy": 10.803,
+            "interaction_types": [
+              "hbond"
+            ]
+          },
+          "918": {
+            "resname": "PHE",
+            "chain_id": "A",
+            "min_distance": 3.509,
+            "n_atom_contacts": 11,
+            "buried_area_proxy": 9.661,
+            "interaction_types": [
+              "hydrophobic"
+            ]
+          },
+          "840": {
+            "resname": "LEU",
+            "chain_id": "A",
+            "min_distance": 3.643,
+            "n_atom_contacts": 12,
+            "buried_area_proxy": 26.023,
+            "interaction_types": [
+              "hydrophobic"
+            ]
+          },
+          "922": {
+            "resname": "GLY",
+            "chain_id": "A",
+            "min_distance": 3.712,
+            "n_atom_contacts": 6,
+            "buried_area_proxy": 15.699,
+            "interaction_types": [
+              "hydrophobic"
+            ]
+          },
+          "920": {
+            "resname": "LYS",
+            "chain_id": "A",
+            "min_distance": 3.618,
+            "n_atom_contacts": 2,
+            "buried_area_proxy": 5.357,
+            "interaction_types": []
+          },
+          "1044": {
+            "resname": "ILE",
+            "chain_id": "A",
+            "min_distance": 3.118,
+            "n_atom_contacts": 8,
+            "buried_area_proxy": 4.558,
+            "interaction_types": [
+              "hbond"
+            ]
+          },
+          "1019": {
+            "resname": "LEU",
+            "chain_id": "A",
+            "min_distance": 3.718,
+            "n_atom_contacts": 6,
+            "buried_area_proxy": 15.699,
+            "interaction_types": []
+          },
+          "898": {
+            "resname": "VAL",
+            "chain_id": "A",
+            "min_distance": 3.658,
+            "n_atom_contacts": 3,
+            "buried_area_proxy": 8.453,
+            "interaction_types": []
+          },
+          "1026": {
+            "resname": "HIS",
+            "chain_id": "A",
+            "min_distance": 3.248,
+            "n_atom_contacts": 4,
+            "buried_area_proxy": 14.105,
+            "interaction_types": [
+              "hbond"
+            ]
+          },
+          "892": {
+            "resname": "ILE",
+            "chain_id": "A",
+            "min_distance": 3.651,
+            "n_atom_contacts": 2,
+            "buried_area_proxy": 8.453,
+            "interaction_types": []
+          }
+        },
+        "warnings": []
+      }
+    },
+    "4AG8": {
+      "pdb_id": "4AG8",
+      "title": "CRYSTAL STRUCTURE OF THE VEGFR2 KINASE DOMAIN IN COMPLEX WITH AXITINIB (AG-013736) (N-Methyl-2-(3-((E)-2-pyridin-2-yl-vinyl)-1H- indazol-6-ylsulfanyl)-benzamide)",
+      "resolution_a": 1.95,
+      "method": "X-ray",
+      "parse_seconds": 0.058,
+      "n_polymer_residues": 296,
+      "n_het_residues": 327,
+      "excluded": {
+        "exclusion list: water": {
+          "HOH": 326
+        }
+      },
+      "ligands": [
+        {
+          "resname": "AXI",
+          "chain_id": "A",
+          "resseq": 2000,
+          "n_heavy_atoms": 28,
+          "formula": "C22N4OS",
+          "reason": "drug-like candidate"
+        }
+      ],
+      "contact_seconds": 2.359,
+      "contact_seconds_no_sasa": 0.005,
+      "contacts": {
+        "ligand_info": {
+          "resname": "AXI",
+          "chain": "A",
+          "resseq": 2000,
+          "n_heavy_atoms": 28,
+          "formula": "C22N4OS",
+          "ccd_parsed": true,
+          "n_aromatic_rings": 4,
+          "n_charged_atoms": 0
+        },
+        "n_contact_residues": 20,
+        "residue_ids": [
+          840,
+          848,
+          866,
+          867,
+          868,
+          885,
+          889,
+          899,
+          914,
+          916,
+          917,
+          918,
+          919,
+          920,
+          921,
+          922,
+          1035,
+          1045,
+          1046,
+          1047
+        ],
+        "per_residue": {
+          "1046": {
+            "resname": "ASP",
+            "chain_id": "A",
+            "min_distance": 2.971,
+            "n_atom_contacts": 19,
+            "buried_area_proxy": 24.953,
+            "interaction_types": [
+              "hbond"
+            ]
+          },
+          "1045": {
+            "resname": "CYS",
+            "chain_id": "A",
+            "min_distance": 3.386,
+            "n_atom_contacts": 8,
+            "buried_area_proxy": 12.393,
+            "interaction_types": []
+          },
+          "899": {
+            "resname": "VAL",
+            "chain_id": "A",
+            "min_distance": 3.463,
+            "n_atom_contacts": 5,
+            "buried_area_proxy": 12.076,
+            "interaction_types": []
+          },
+          "868": {
+            "resname": "LYS",
+            "chain_id": "A",
+            "min_distance": 3.502,
+            "n_atom_contacts": 23,
+            "buried_area_proxy": 13.056,
+            "interaction_types": [
+              "hydrophobic"
+            ]
+          },
+          "885": {
+            "resname": "GLU",
+            "chain_id": "A",
+            "min_distance": 2.697,
+            "n_atom_contacts": 11,
+            "buried_area_proxy": 15.681,
+            "interaction_types": [
+              "hbond",
+              "hydrophobic"
+            ]
+          },
+          "889": {
+            "resname": "LEU",
+            "chain_id": "A",
+            "min_distance": 4.043,
+            "n_atom_contacts": 5,
+            "buried_area_proxy": 14.492,
+            "interaction_types": []
+          },
+          "916": {
+            "resname": "VAL",
+            "chain_id": "A",
+            "min_distance": 3.489,
+            "n_atom_contacts": 16,
+            "buried_area_proxy": 19.322,
+            "interaction_types": [
+              "hydrophobic"
+            ]
+          },
+          "914": {
+            "resname": "VAL",
+            "chain_id": "A",
+            "min_distance": 3.33,
+            "n_atom_contacts": 6,
+            "buried_area_proxy": 3.351,
+            "interaction_types": [
+              "hydrophobic"
+            ]
+          },
+          "866": {
+            "resname": "ALA",
+            "chain_id": "A",
+            "min_distance": 3.329,
+            "n_atom_contacts": 10,
+            "buried_area_proxy": 11.94,
+            "interaction_types": [
+              "hydrophobic"
+            ]
+          },
+          "848": {
+            "resname": "VAL",
+            "chain_id": "A",
+            "min_distance": 3.633,
+            "n_atom_contacts": 12,
+            "buried_area_proxy": 19.322,
+            "interaction_types": [
+              "hydrophobic"
+            ]
+          },
+          "867": {
+            "resname": "VAL",
+            "chain_id": "A",
+            "min_distance": 4.109,
+            "n_atom_contacts": 2,
+            "buried_area_proxy": 0.0,
+            "interaction_types": []
+          },
+          "1047": {
+            "resname": "PHE",
+            "chain_id": "A",
+            "min_distance": 3.395,
+            "n_atom_contacts": 11,
+            "buried_area_proxy": 18.114,
+            "interaction_types": [
+              "aromatic",
+              "hydrophobic"
+            ]
+          },
+          "1035": {
+            "resname": "LEU",
+            "chain_id": "A",
+            "min_distance": 3.346,
+            "n_atom_contacts": 14,
+            "buried_area_proxy": 25.36,
+            "interaction_types": [
+              "hydrophobic"
+            ]
+          },
+          "917": {
+            "resname": "GLU",
+            "chain_id": "A",
+            "min_distance": 2.884,
+            "n_atom_contacts": 5,
+            "buried_area_proxy": 3.214,
+            "interaction_types": [
+              "hbond"
+            ]
+          },
+          "919": {
+            "resname": "CYS",
+            "chain_id": "A",
+            "min_distance": 2.97,
+            "n_atom_contacts": 20,
+            "buried_area_proxy": 8.616,
+            "interaction_types": [
+              "hbond"
+            ]
+          },
+          "918": {
+            "resname": "PHE",
+            "chain_id": "A",
+            "min_distance": 3.539,
+            "n_atom_contacts": 17,
+            "buried_area_proxy": 12.076,
+            "interaction_types": [
+              "hydrophobic"
+            ]
+          },
+          "840": {
+            "resname": "LEU",
+            "chain_id": "A",
+            "min_distance": 3.82,
+            "n_atom_contacts": 13,
+            "buried_area_proxy": 43.457,
+            "interaction_types": [
+              "hydrophobic"
+            ]
+          },
+          "922": {
+            "resname": "GLY",
+            "chain_id": "A",
+            "min_distance": 3.478,
+            "n_atom_contacts": 12,
+            "buried_area_proxy": 22.831,
+            "interaction_types": [
+              "hydrophobic"
+            ]
+          },
+          "920": {
+            "resname": "LYS",
+            "chain_id": "A",
+            "min_distance": 3.257,
+            "n_atom_contacts": 5,
+            "buried_area_proxy": 12.858,
+            "interaction_types": []
+          },
+          "921": {
+            "resname": "PHE",
+            "chain_id": "A",
+            "min_distance": 4.11,
+            "n_atom_contacts": 2,
+            "buried_area_proxy": 3.351,
+            "interaction_types": []
+          }
+        },
+        "warnings": []
+      }
+    },
+    "1N6A": {
+      "pdb_id": "1N6A",
+      "title": "Structure of SET7/9",
+      "resolution_a": 1.7,
+      "method": "X-ray",
+      "parse_seconds": 0.054,
+      "n_polymer_residues": 234,
+      "n_het_residues": 213,
+      "excluded": {
+        "exclusion list: water": {
+          "HOH": 212
+        }
+      },
+      "ligands": [
+        {
+          "resname": "SAM",
+          "chain_id": "A",
+          "resseq": 402,
+          "n_heavy_atoms": 27,
+          "formula": "C15N6O5S",
+          "reason": "drug-like candidate"
+        }
+      ],
+      "contact_seconds": 1.432,
+      "contacts": {
+        "ligand_info": {
+          "resname": "SAM",
+          "chain": "A",
+          "resseq": 402,
+          "n_heavy_atoms": 27,
+          "formula": "C15N6O5S",
+          "ccd_parsed": true,
+          "n_aromatic_rings": 2,
+          "n_charged_atoms": 3
+        },
+        "n_contact_residues": 17,
+        "residue_ids": [
+          223,
+          225,
+          226,
+          227,
+          228,
+          245,
+          264,
+          265,
+          282,
+          293,
+          294,
+          295,
+          296,
+          297,
+          335,
+          352,
+          356
+        ],
+        "per_residue": {
+          "228": {
+            "resname": "GLU",
+            "chain_id": "A",
+            "min_distance": 2.858,
+            "n_atom_contacts": 19,
+            "buried_area_proxy": 14.334,
+            "interaction_types": [
+              "hbond"
+            ]
+          },
+          "227": {
+            "resname": "GLY",
+            "chain_id": "A",
+            "min_distance": 3.923,
+            "n_atom_contacts": 4,
+            "buried_area_proxy": 4.831,
+            "interaction_types": []
+          },
+          "226": {
+            "resname": "ALA",
+            "chain_id": "A",
+            "min_distance": 2.659,
+            "n_atom_contacts": 17,
+            "buried_area_proxy": 27.485,
+            "interaction_types": [
+              "hbond",
+              "hydrophobic"
+            ]
+          },
+          "296": {
+            "resname": "ASN",
+            "chain_id": "A",
+            "min_distance": 2.842,
+            "n_atom_contacts": 27,
+            "buried_area_proxy": 21.006,
+            "interaction_types": [
+              "hbond",
+              "hydrophobic"
+            ]
+          },
+          "294": {
+            "resname": "LYS",
+            "chain_id": "A",
+            "min_distance": 2.884,
+            "n_atom_contacts": 15,
+            "buried_area_proxy": 22.784,
+            "interaction_types": [
+              "hbond",
+              "hydrophobic",
+              "salt_bridge"
+            ]
+          },
+          "282": {
+            "resname": "ASN",
+            "chain_id": "A",
+            "min_distance": 4.301,
+            "n_atom_contacts": 1,
+            "buried_area_proxy": 6.837,
+            "interaction_types": []
+          },
+          "293": {
+            "resname": "HIS",
+            "chain_id": "A",
+            "min_distance": 2.998,
+            "n_atom_contacts": 8,
+            "buried_area_proxy": 15.0,
+            "interaction_types": [
+              "hydrophobic"
+            ]
+          },
+          "295": {
+            "resname": "ALA",
+            "chain_id": "A",
+            "min_distance": 3.533,
+            "n_atom_contacts": 4,
+            "buried_area_proxy": 2.143,
+            "interaction_types": [
+              "hydrophobic"
+            ]
+          },
+          "335": {
+            "resname": "TYR",
+            "chain_id": "A",
+            "min_distance": 3.28,
+            "n_atom_contacts": 15,
+            "buried_area_proxy": 22.246,
+            "interaction_types": [
+              "hydrophobic"
+            ]
+          },
+          "265": {
+            "resname": "ASN",
+            "chain_id": "A",
+            "min_distance": 3.072,
+            "n_atom_contacts": 6,
+            "buried_area_proxy": 16.36,
+            "interaction_types": []
+          },
+          "264": {
+            "resname": "GLY",
+            "chain_id": "A",
+            "min_distance": 3.492,
+            "n_atom_contacts": 7,
+            "buried_area_proxy": 24.934,
+            "interaction_types": []
+          },
+          "245": {
+            "resname": "TYR",
+            "chain_id": "A",
+            "min_distance": 4.331,
+            "n_atom_contacts": 1,
+            "buried_area_proxy": 3.214,
+            "interaction_types": []
+          },
+          "352": {
+            "resname": "TRP",
+            "chain_id": "A",
+            "min_distance": 3.472,
+            "n_atom_contacts": 47,
+            "buried_area_proxy": 57.555,
+            "interaction_types": [
+              "aromatic",
+              "hydrophobic"
+            ]
+          },
+          "297": {
+            "resname": "HIS",
+            "chain_id": "A",
+            "min_distance": 2.791,
+            "n_atom_contacts": 17,
+            "buried_area_proxy": 6.495,
+            "interaction_types": [
+              "hbond"
+            ]
+          },
+          "223": {
+            "resname": "ILE",
+            "chain_id": "A",
+            "min_distance": 3.763,
+            "n_atom_contacts": 4,
+            "buried_area_proxy": 8.453,
+            "interaction_types": []
+          },
+          "356": {
+            "resname": "GLU",
+            "chain_id": "A",
+            "min_distance": 2.624,
+            "n_atom_contacts": 5,
+            "buried_area_proxy": 8.572,
+            "interaction_types": [
+              "hbond"
+            ]
+          },
+          "225": {
+            "resname": "SER",
+            "chain_id": "A",
+            "min_distance": 3.983,
+            "n_atom_contacts": 2,
+            "buried_area_proxy": 8.572,
+            "interaction_types": []
+          }
+        },
+        "warnings": []
+      }
+    },
+    "2H79": {
+      "pdb_id": "2H79",
+      "title": "Crystal Structure of human TR alpha bound T3 in orthorhombic space group",
+      "resolution_a": 1.87,
+      "method": "X-ray",
+      "parse_seconds": 0.162,
+      "n_polymer_residues": 267,
+      "n_het_residues": 428,
+      "excluded": {
+        "exclusion list: water": {
+          "HOH": 427
+        }
+      },
+      "ligands": [
+        {
+          "resname": "T3",
+          "chain_id": "A",
+          "resseq": 1,
+          "n_heavy_atoms": 23,
+          "formula": "C15I3NO4",
+          "reason": "drug-like candidate"
+        }
+      ],
+      "contact_seconds": 1.379,
+      "contacts": {
+        "ligand_info": {
+          "resname": "T3",
+          "chain": "A",
+          "resseq": 1,
+          "n_heavy_atoms": 23,
+          "formula": "C15I3NO4",
+          "ccd_parsed": true,
+          "n_aromatic_rings": 2,
+          "n_charged_atoms": 0
+        },
+        "n_contact_residues": 24,
+        "residue_ids": [
+          215,
+          218,
+          221,
+          222,
+          225,
+          228,
+          256,
+          259,
+          260,
+          262,
+          263,
+          266,
+          275,
+          276,
+          277,
+          278,
+          287,
+          290,
+          291,
+          292,
+          299,
+          381,
+          388,
+          401
+        ],
+        "per_residue": {
+          "277": {
+            "resname": "SER",
+            "chain_id": "A",
+            "min_distance": 2.994,
+            "n_atom_contacts": 17,
+            "buried_area_proxy": 18.845,
+            "interaction_types": [
+              "hbond",
+              "hydrophobic"
+            ]
+          },
+          "276": {
+            "resname": "LEU",
+            "chain_id": "A",
+            "min_distance": 3.41,
+            "n_atom_contacts": 18,
+            "buried_area_proxy": 25.36,
+            "interaction_types": [
+              "hydrophobic"
+            ]
+          },
+          "259": {
+            "resname": "MET",
+            "chain_id": "A",
+            "min_distance": 3.457,
+            "n_atom_contacts": 20,
+            "buried_area_proxy": 29.554,
+            "interaction_types": [
+              "hydrophobic"
+            ]
+          },
+          "225": {
+            "resname": "ALA",
+            "chain_id": "A",
+            "min_distance": 3.625,
+            "n_atom_contacts": 4,
+            "buried_area_proxy": 13.012,
+            "interaction_types": [
+              "hydrophobic"
+            ]
+          },
+          "222": {
+            "resname": "ILE",
+            "chain_id": "A",
+            "min_distance": 3.57,
+            "n_atom_contacts": 11,
+            "buried_area_proxy": 31.398,
+            "interaction_types": [
+              "hydrophobic"
+            ]
+          },
+          "292": {
+            "resname": "LEU",
+            "chain_id": "A",
+            "min_distance": 3.559,
+            "n_atom_contacts": 19,
+            "buried_area_proxy": 24.153,
+            "interaction_types": [
+              "hydrophobic"
+            ]
+          },
+          "218": {
+            "resname": "PHE",
+            "chain_id": "A",
+            "min_distance": 3.054,
+            "n_atom_contacts": 6,
+            "buried_area_proxy": 24.816,
+            "interaction_types": [
+              "halogen"
+            ]
+          },
+          "401": {
+            "resname": "PHE",
+            "chain_id": "A",
+            "min_distance": 3.321,
+            "n_atom_contacts": 5,
+            "buried_area_proxy": 7.246,
+            "interaction_types": []
+          },
+          "381": {
+            "resname": "HIS",
+            "chain_id": "A",
+            "min_distance": 2.772,
+            "n_atom_contacts": 9,
+            "buried_area_proxy": 4.831,
+            "interaction_types": [
+              "hydrophobic"
+            ]
+          },
+          "256": {
+            "resname": "MET",
+            "chain_id": "A",
+            "min_distance": 3.735,
+            "n_atom_contacts": 5,
+            "buried_area_proxy": 13.759,
+            "interaction_types": [
+              "hydrophobic"
+            ]
+          },
+          "263": {
+            "resname": "ALA",
+            "chain_id": "A",
+            "min_distance": 3.72,
+            "n_atom_contacts": 6,
+            "buried_area_proxy": 7.246,
+            "interaction_types": []
+          },
+          "228": {
+            "resname": "ARG",
+            "chain_id": "A",
+            "min_distance": 3.051,
+            "n_atom_contacts": 9,
+            "buried_area_proxy": 9.842,
+            "interaction_types": [
+              "hbond"
+            ]
+          },
+          "262": {
+            "resname": "ARG",
+            "chain_id": "A",
+            "min_distance": 3.501,
+            "n_atom_contacts": 14,
+            "buried_area_proxy": 20.143,
+            "interaction_types": [
+              "hydrophobic"
+            ]
+          },
+          "221": {
+            "resname": "ILE",
+            "chain_id": "A",
+            "min_distance": 3.953,
+            "n_atom_contacts": 2,
+            "buried_area_proxy": 3.623,
+            "interaction_types": []
+          },
+          "290": {
+            "resname": "GLY",
+            "chain_id": "A",
+            "min_distance": 3.483,
+            "n_atom_contacts": 2,
+            "buried_area_proxy": 4.286,
+            "interaction_types": [
+              "halogen"
+            ]
+          },
+          "215": {
+            "resname": "PHE",
+            "chain_id": "A",
+            "min_distance": 4.001,
+            "n_atom_contacts": 2,
+            "buried_area_proxy": 3.623,
+            "interaction_types": []
+          },
+          "291": {
+            "resname": "GLY",
+            "chain_id": "A",
+            "min_distance": 4.214,
+            "n_atom_contacts": 2,
+            "buried_area_proxy": 2.415,
+            "interaction_types": []
+          },
+          "388": {
+            "resname": "CAS",
+            "chain_id": "A",
+            "min_distance": 3.596,
+            "n_atom_contacts": 2,
+            "buried_area_proxy": 4.831,
+            "interaction_types": []
+          },
+          "260": {
+            "resname": "SER",
+            "chain_id": "A",
+            "min_distance": 4.224,
+            "n_atom_contacts": 2,
+            "buried_area_proxy": 3.509,
+            "interaction_types": []
+          },
+          "299": {
+            "resname": "ILE",
+            "chain_id": "A",
+            "min_distance": 3.546,
+            "n_atom_contacts": 1,
+            "buried_area_proxy": 4.831,
+            "interaction_types": []
+          },
+          "275": {
+            "resname": "THR",
+            "chain_id": "A",
+            "min_distance": 3.562,
+            "n_atom_contacts": 2,
+            "buried_area_proxy": 2.143,
+            "interaction_types": []
+          },
+          "287": {
+            "resname": "LEU",
+            "chain_id": "A",
+            "min_distance": 4.266,
+            "n_atom_contacts": 1,
+            "buried_area_proxy": 8.453,
+            "interaction_types": []
+          },
+          "278": {
+            "resname": "GLY",
+            "chain_id": "A",
+            "min_distance": 4.212,
+            "n_atom_contacts": 1,
+            "buried_area_proxy": 0.0,
+            "interaction_types": []
+          },
+          "266": {
+            "resname": "ARG",
+            "chain_id": "A",
+            "min_distance": 4.12,
+            "n_atom_contacts": 1,
+            "buried_area_proxy": 6.562,
+            "interaction_types": []
+          }
+        },
+        "warnings": []
+      }
+    },
+    "1HXW": {
+      "pdb_id": "1HXW",
+      "title": "HIV-1 PROTEASE DIMER COMPLEXED WITH A-84538",
+      "resolution_a": 1.8,
+      "method": "X-ray",
+      "parse_seconds": 0.065,
+      "n_polymer_residues": 198,
+      "n_het_residues": 101,
+      "excluded": {
+        "exclusion list: water": {
+          "HOH": 100
+        }
+      },
+      "ligands": [
+        {
+          "resname": "RIT",
+          "chain_id": "B",
+          "resseq": 301,
+          "n_heavy_atoms": 50,
+          "formula": "C37N6O5S2",
+          "reason": "drug-like candidate"
+        }
+      ],
+      "contact_seconds": 1.562,
+      "contacts": {
+        "ligand_info": {
+          "resname": "RIT",
+          "chain": "B",
+          "resseq": 301,
+          "n_heavy_atoms": 50,
+          "formula": "C37N6O5S2",
+          "ccd_parsed": true,
+          "n_aromatic_rings": 4,
+          "n_charged_atoms": 0
+        },
+        "n_contact_residues": 15,
+        "residue_ids": [
+          8,
+          23,
+          25,
+          27,
+          28,
+          29,
+          30,
+          32,
+          47,
+          48,
+          49,
+          50,
+          81,
+          82,
+          84
+        ],
+        "per_residue": {
+          "47": {
+            "resname": "ILE",
+            "chain_id": "B",
+            "min_distance": 4.011,
+            "n_atom_contacts": 10,
+            "buried_area_proxy": 28.983,
+            "interaction_types": []
+          },
+          "32": {
+            "resname": "VAL",
+            "chain_id": "B",
+            "min_distance": 3.294,
+            "n_atom_contacts": 5,
+            "buried_area_proxy": 14.492,
+            "interaction_types": [
+              "hydrophobic"
+            ]
+          },
+          "30": {
+            "resname": "ASP",
+            "chain_id": "B",
+            "min_distance": 2.991,
+            "n_atom_contacts": 20,
+            "buried_area_proxy": 21.625,
+            "interaction_types": [
+              "hbond",
+              "hydrophobic"
+            ]
+          },
+          "28": {
+            "resname": "ALA",
+            "chain_id": "B",
+            "min_distance": 3.728,
+            "n_atom_contacts": 23,
+            "buried_area_proxy": 30.191,
+            "interaction_types": [
+              "hydrophobic"
+            ]
+          },
+          "29": {
+            "resname": "ASP",
+            "chain_id": "B",
+            "min_distance": 3.091,
+            "n_atom_contacts": 22,
+            "buried_area_proxy": 38.558,
+            "interaction_types": [
+              "hbond",
+              "hydrophobic"
+            ]
+          },
+          "48": {
+            "resname": "GLY",
+            "chain_id": "B",
+            "min_distance": 3.124,
+            "n_atom_contacts": 17,
+            "buried_area_proxy": 72.833,
+            "interaction_types": [
+              "hbond"
+            ]
+          },
+          "50": {
+            "resname": "ILE",
+            "chain_id": "A",
+            "min_distance": 3.481,
+            "n_atom_contacts": 25,
+            "buried_area_proxy": 52.008,
+            "interaction_types": [
+              "hydrophobic"
+            ]
+          },
+          "27": {
+            "resname": "GLY",
+            "chain_id": "B",
+            "min_distance": 3.184,
+            "n_atom_contacts": 32,
+            "buried_area_proxy": 46.209,
+            "interaction_types": [
+              "hbond"
+            ]
+          },
+          "49": {
+            "resname": "GLY",
+            "chain_id": "B",
+            "min_distance": 3.388,
+            "n_atom_contacts": 24,
+            "buried_area_proxy": 38.508,
+            "interaction_types": [
+              "hydrophobic"
+            ]
+          },
+          "25": {
+            "resname": "ASP",
+            "chain_id": "B",
+            "min_distance": 2.652,
+            "n_atom_contacts": 21,
+            "buried_area_proxy": 24.644,
+            "interaction_types": [
+              "hbond",
+              "hydrophobic"
+            ]
+          },
+          "84": {
+            "resname": "ILE",
+            "chain_id": "A",
+            "min_distance": 3.766,
+            "n_atom_contacts": 8,
+            "buried_area_proxy": 33.814,
+            "interaction_types": [
+              "hydrophobic"
+            ]
+          },
+          "82": {
+            "resname": "VAL",
+            "chain_id": "A",
+            "min_distance": 3.644,
+            "n_atom_contacts": 15,
+            "buried_area_proxy": 60.381,
+            "interaction_types": [
+              "hydrophobic"
+            ]
+          },
+          "81": {
+            "resname": "PRO",
+            "chain_id": "A",
+            "min_distance": 3.695,
+            "n_atom_contacts": 7,
+            "buried_area_proxy": 37.555,
+            "interaction_types": [
+              "hydrophobic"
+            ]
+          },
+          "23": {
+            "resname": "LEU",
+            "chain_id": "A",
+            "min_distance": 3.901,
+            "n_atom_contacts": 2,
+            "buried_area_proxy": 20.53,
+            "interaction_types": [
+              "hydrophobic"
+            ]
+          },
+          "8": {
+            "resname": "ARG",
+            "chain_id": "B",
+            "min_distance": 3.498,
+            "n_atom_contacts": 21,
+            "buried_area_proxy": 43.169,
+            "interaction_types": [
+              "hydrophobic"
+            ]
+          }
+        },
+        "warnings": [
+          "contacts span polymer chains ['A', 'B']; residue ids are author numbers and are NOT unique across chains here",
+          "residue-id collision across chains for [23, 25, 27, 28, 29, 30, 32, 47, 48, 49, 50, 81, 82, 84]: the per_residue record for each of these ids MERGES contacts from chains ['A', 'B']. Author numbering alone cannot separate them; split by chain before comparing such a site across structures"
+        ]
+      }
+    }
+  },
+  "timings_seconds": {
+    "4ASD": {
+      "parse": 0.084,
+      "contacts_with_sasa": 2.443,
+      "contacts_without_sasa": 0.006
+    },
+    "3WZE": {
+      "parse": 0.277,
+      "contacts_with_sasa": 1.532,
+      "contacts_without_sasa": 0.005
+    },
+    "4AG8": {
+      "parse": 0.058,
+      "contacts_with_sasa": 2.359,
+      "contacts_without_sasa": 0.005
+    },
+    "1N6A": {
+      "parse": 0.054,
+      "contacts_with_sasa": 1.432,
+      "contacts_without_sasa": null
+    },
+    "2H79": {
+      "parse": 0.162,
+      "contacts_with_sasa": 1.379,
+      "contacts_without_sasa": null
+    },
+    "1HXW": {
+      "parse": 0.065,
+      "contacts_with_sasa": 1.562,
+      "contacts_without_sasa": null
+    }
+  },
+  "consensus_vegfr2": {
+    "source": "known_ligand",
+    "warnings": [],
+    "n_inputs": 3,
+    "core_threshold": 0.6,
+    "residues": [
+      {
+        "residue_id": 840,
+        "chain_id": "A",
+        "residue_name": "LEU",
+        "frequency": 1.0,
+        "interaction_types": {
+          "hydrophobic": 1.0
+        },
+        "mean_buried_area": 32.639,
+        "mean_buried_area_when_engaged": 32.639,
+        "is_core": true
+      },
+      {
+        "residue_id": 848,
+        "chain_id": "A",
+        "residue_name": "VAL",
+        "frequency": 1.0,
+        "interaction_types": {
+          "hydrophobic": 1.0
+        },
+        "mean_buried_area": 16.504,
+        "mean_buried_area_when_engaged": 16.504,
+        "is_core": true
+      },
+      {
+        "residue_id": 866,
+        "chain_id": "A",
+        "residue_name": "ALA",
+        "frequency": 1.0,
+        "interaction_types": {
+          "hydrophobic": 1.0
+        },
+        "mean_buried_area": 12.388,
+        "mean_buried_area_when_engaged": 12.388,
+        "is_core": true
+      },
+      {
+        "residue_id": 867,
+        "chain_id": "A",
+        "residue_name": "VAL",
+        "frequency": 0.3333333333333333,
+        "interaction_types": {},
+        "mean_buried_area": 0.0,
+        "mean_buried_area_when_engaged": 0.0,
+        "is_core": false
+      },
+      {
+        "residue_id": 868,
+        "chain_id": "A",
+        "residue_name": "LYS",
+        "frequency": 1.0,
+        "interaction_types": {
+          "hydrophobic": 1.0
+        },
+        "mean_buried_area": 14.704,
+        "mean_buried_area_when_engaged": 14.704,
+        "is_core": true
+      },
+      {
+        "residue_id": 885,
+        "chain_id": "A",
+        "residue_name": "GLU",
+        "frequency": 1.0,
+        "interaction_types": {
+          "hbond": 1.0,
+          "hydrophobic": 1.0
+        },
+        "mean_buried_area": 22.966,
+        "mean_buried_area_when_engaged": 22.966,
+        "is_core": true
+      },
+      {
+        "residue_id": 888,
+        "chain_id": "A",
+        "residue_name": "ILE",
+        "frequency": 0.6666666666666666,
+        "interaction_types": {},
+        "mean_buried_area": 11.674,
+        "mean_buried_area_when_engaged": 17.511,
+        "is_core": true
+      },
+      {
+        "residue_id": 889,
+        "chain_id": "A",
+        "residue_name": "LEU",
+        "frequency": 1.0,
+        "interaction_types": {
+          "hydrophobic": 0.6666666666666666
+        },
+        "mean_buried_area": 21.737,
+        "mean_buried_area_when_engaged": 21.737,
+        "is_core": true
+      },
+      {
+        "residue_id": 892,
+        "chain_id": "A",
+        "residue_name": "ILE",
+        "frequency": 0.6666666666666666,
+        "interaction_types": {},
+        "mean_buried_area": 8.051,
+        "mean_buried_area_when_engaged": 12.076,
+        "is_core": true
+      },
+      {
+        "residue_id": 898,
+        "chain_id": "A",
+        "residue_name": "VAL",
+        "frequency": 0.6666666666666666,
+        "interaction_types": {},
+        "mean_buried_area": 4.83,
+        "mean_buried_area_when_engaged": 7.245,
+        "is_core": true
+      },
+      {
+        "residue_id": 899,
+        "chain_id": "A",
+        "residue_name": "VAL",
+        "frequency": 1.0,
+        "interaction_types": {},
+        "mean_buried_area": 14.044,
+        "mean_buried_area_when_engaged": 14.044,
+        "is_core": true
+      },
+      {
+        "residue_id": 914,
+        "chain_id": "A",
+        "residue_name": "VAL",
+        "frequency": 0.3333333333333333,
+        "interaction_types": {
+          "hydrophobic": 0.3333333333333333
+        },
+        "mean_buried_area": 1.117,
+        "mean_buried_area_when_engaged": 3.351,
+        "is_core": false
+      },
+      {
+        "residue_id": 916,
+        "chain_id": "A",
+        "residue_name": "VAL",
+        "frequency": 1.0,
+        "interaction_types": {
+          "hydrophobic": 1.0
+        },
+        "mean_buried_area": 21.335,
+        "mean_buried_area_when_engaged": 21.335,
+        "is_core": true
+      },
+      {
+        "residue_id": 917,
+        "chain_id": "A",
+        "residue_name": "GLU",
+        "frequency": 1.0,
+        "interaction_types": {
+          "hbond": 0.3333333333333333
+        },
+        "mean_buried_area": 2.5,
+        "mean_buried_area_when_engaged": 2.5,
+        "is_core": true
+      },
+      {
+        "residue_id": 918,
+        "chain_id": "A",
+        "residue_name": "PHE",
+        "frequency": 1.0,
+        "interaction_types": {
+          "hydrophobic": 1.0
+        },
+        "mean_buried_area": 10.869,
+        "mean_buried_area_when_engaged": 10.869,
+        "is_core": true
+      },
+      {
+        "residue_id": 919,
+        "chain_id": "A",
+        "residue_name": "CYS",
+        "frequency": 1.0,
+        "interaction_types": {
+          "hbond": 1.0,
+          "hydrophobic": 0.3333333333333333
+        },
+        "mean_buried_area": 10.522,
+        "mean_buried_area_when_engaged": 10.522,
+        "is_core": true
+      },
+      {
+        "residue_id": 920,
+        "chain_id": "A",
+        "residue_name": "LYS",
+        "frequency": 1.0,
+        "interaction_types": {},
+        "mean_buried_area": 8.215,
+        "mean_buried_area_when_engaged": 8.215,
+        "is_core": true
+      },
+      {
+        "residue_id": 921,
+        "chain_id": "A",
+        "residue_name": "PHE",
+        "frequency": 0.3333333333333333,
+        "interaction_types": {},
+        "mean_buried_area": 1.117,
+        "mean_buried_area_when_engaged": 3.351,
+        "is_core": false
+      },
+      {
+        "residue_id": 922,
+        "chain_id": "A",
+        "residue_name": "GLY",
+        "frequency": 1.0,
+        "interaction_types": {
+          "hydrophobic": 1.0
+        },
+        "mean_buried_area": 18.843,
+        "mean_buried_area_when_engaged": 18.843,
+        "is_core": true
+      },
+      {
+        "residue_id": 1019,
+        "chain_id": "A",
+        "residue_name": "LEU",
+        "frequency": 0.6666666666666666,
+        "interaction_types": {},
+        "mean_buried_area": 9.661,
+        "mean_buried_area_when_engaged": 14.492,
+        "is_core": true
+      },
+      {
+        "residue_id": 1025,
+        "chain_id": "A",
+        "residue_name": "ILE",
+        "frequency": 0.3333333333333333,
+        "interaction_types": {},
+        "mean_buried_area": 3.929,
+        "mean_buried_area_when_engaged": 11.786,
+        "is_core": false
+      },
+      {
+        "residue_id": 1026,
+        "chain_id": "A",
+        "residue_name": "HIS",
+        "frequency": 0.6666666666666666,
+        "interaction_types": {
+          "hbond": 0.3333333333333333
+        },
+        "mean_buried_area": 9.396,
+        "mean_buried_area_when_engaged": 14.094,
+        "is_core": true
+      },
+      {
+        "residue_id": 1035,
+        "chain_id": "A",
+        "residue_name": "LEU",
+        "frequency": 1.0,
+        "interaction_types": {
+          "hydrophobic": 1.0
+        },
+        "mean_buried_area": 22.14,
+        "mean_buried_area_when_engaged": 22.14,
+        "is_core": true
+      },
+      {
+        "residue_id": 1044,
+        "chain_id": "A",
+        "residue_name": "ILE",
+        "frequency": 0.6666666666666666,
+        "interaction_types": {
+          "hbond": 0.6666666666666666
+        },
+        "mean_buried_area": 4.156,
+        "mean_buried_area_when_engaged": 6.233,
+        "is_core": true
+      },
+      {
+        "residue_id": 1045,
+        "chain_id": "A",
+        "residue_name": "CYS",
+        "frequency": 1.0,
+        "interaction_types": {
+          "hydrophobic": 0.6666666666666666
+        },
+        "mean_buried_area": 14.729,
+        "mean_buried_area_when_engaged": 14.729,
+        "is_core": true
+      },
+      {
+        "residue_id": 1046,
+        "chain_id": "A",
+        "residue_name": "ASP",
+        "frequency": 1.0,
+        "interaction_types": {
+          "hbond": 1.0,
+          "hydrophobic": 0.6666666666666666
+        },
+        "mean_buried_area": 33.242,
+        "mean_buried_area_when_engaged": 33.242,
+        "is_core": true
+      },
+      {
+        "residue_id": 1047,
+        "chain_id": "A",
+        "residue_name": "PHE",
+        "frequency": 1.0,
+        "interaction_types": {
+          "aromatic": 1.0,
+          "hydrophobic": 1.0
+        },
+        "mean_buried_area": 23.347,
+        "mean_buried_area_when_engaged": 23.347,
+        "is_core": true
+      }
+    ],
+    "core_residue_ids": [
+      840,
+      848,
+      866,
+      868,
+      885,
+      888,
+      889,
+      892,
+      898,
+      899,
+      916,
+      917,
+      918,
+      919,
+      920,
+      922,
+      1019,
+      1026,
+      1035,
+      1044,
+      1045,
+      1046,
+      1047
+    ],
+    "mean_buried_area": 354.655,
+    "numbering": "author (auth_seq_id); no SIFTS mapping applied",
+    "members": [
+      {
+        "resname": "BAX",
+        "chain": "A",
+        "resseq": 1500,
+        "n_heavy_atoms": 32,
+        "formula": "C21ClF3N4O3",
+        "ccd_parsed": true,
+        "n_aromatic_rings": 3,
+        "n_charged_atoms": 0,
+        "structure_id": "4ASD"
+      },
+      {
+        "resname": "BAX",
+        "chain": "A",
+        "resseq": 1201,
+        "n_heavy_atoms": 32,
+        "formula": "C21ClF3N4O3",
+        "ccd_parsed": true,
+        "n_aromatic_rings": 3,
+        "n_charged_atoms": 0,
+        "structure_id": "3WZE"
+      },
+      {
+        "resname": "AXI",
+        "chain": "A",
+        "resseq": 2000,
+        "n_heavy_atoms": 28,
+        "formula": "C22N4OS",
+        "ccd_parsed": true,
+        "n_aromatic_rings": 4,
+        "n_charged_atoms": 0,
+        "structure_id": "4AG8"
+      }
+    ]
+  },
+  "failures": [],
+  "not_evaluated": [
+    {
+      "item": "source='boltzgen_consensus' signature",
+      "why": "BoltzGen needs a GPU or a Rowan API key; neither exists on this machine. The same consensus_signature code path is exercised with source='known_ligand' from crystal contacts instead."
+    },
+    {
+      "item": "Boltz-2 co-folding of approved molecules into the site",
+      "why": "no GPU, no Rowan API key"
+    },
+    {
+      "item": "SIFTS residue mapping to UniProt numbering",
+      "why": "not applied. Author numbering is used throughout and verified against the UniProt P35968 sequence in check 2; a structure whose author numbering is not UniProt numbering would fail that check rather than silently produce incomparable ids."
+    },
+    {
+      "item": "validation of interaction typing against PLIP",
+      "why": "PLIP is not installed and no ground-truth contact-type set was available offline. Types are distance-based geometric compatibility only; no angular term is applied except the ring-centroid criterion, and hydrogens are absent from these crystal models so donor/acceptor roles are not assigned."
+    },
+    {
+      "item": "salt bridges through groups the CCD models as neutral",
+      "why": "ligand formal charges come from the deposited CCD definition and there is no pKa model available offline. Verified: BAX, AXI, T3, RIT and ATP all return zero charged atoms, so a carboxylic acid or amine that is charged at pH 7.4 is invisible to the salt_bridge criterion. The criterion itself is exercised on 1N6A, where SAM's CCD carboxylate does carry a formal -1."
+    },
+    {
+      "item": "cation-pi and pi-stacking geometry split",
+      "why": "not implemented; 'aromatic' is a single centroid-distance type"
+    },
+    {
+      "item": "sm_addressable subsignature (PROJECT_GOAL.md 1.4b)",
+      "why": "needs pocket geometry from P2Rank, which is a different task's scope; the signature's source discriminator is in place for it"
+    }
+  ],
+  "checks": [
+    {
+      "name": "4ASD has >=1 drug-like ligand",
+      "passed": true,
+      "detail": "['BAX'] from 354 het residues; 2.03 A"
+    },
+    {
+      "name": "3WZE has >=1 drug-like ligand",
+      "passed": true,
+      "detail": "['BAX'] from 110 het residues; 1.9 A"
+    },
+    {
+      "name": "4AG8 has >=1 drug-like ligand",
+      "passed": true,
+      "detail": "['AXI'] from 327 het residues; 1.95 A"
+    },
+    {
+      "name": "4ASD chain A author numbering == UniProt numbering",
+      "passed": true,
+      "detail": "305/305 residues match (1.0000); mismatches []"
+    },
+    {
+      "name": "3WZE chain A author numbering == UniProt numbering",
+      "passed": true,
+      "detail": "298/298 residues match (1.0000); mismatches []"
+    },
+    {
+      "name": "4AG8 chain A author numbering == UniProt numbering",
+      "passed": true,
+      "detail": "296/296 residues match (1.0000); mismatches []"
+    },
+    {
+      "name": "4ASD contacts include hinge Cys919",
+      "passed": true,
+      "detail": "residue 919 = CYS, min_distance 2.881 A, types ['hbond', 'hydrophobic']"
+    },
+    {
+      "name": "4ASD reaches the DFG-out back pocket (type-II markers)",
+      "passed": true,
+      "detail": "all of ['885GLU', '919CYS', '1046ASP', '1047PHE'] engaged"
+    },
+    {
+      "name": "3WZE contacts include hinge Cys919",
+      "passed": true,
+      "detail": "residue 919 = CYS, min_distance 2.756 A, types ['hbond']"
+    },
+    {
+      "name": "3WZE reaches the DFG-out back pocket (type-II markers)",
+      "passed": true,
+      "detail": "all of ['885GLU', '919CYS', '1046ASP', '1047PHE'] engaged"
+    },
+    {
+      "name": "4AG8 contacts include hinge Cys919",
+      "passed": true,
+      "detail": "residue 919 = CYS, min_distance 2.97 A, types ['hbond']"
+    },
+    {
+      "name": "4AG8 reaches the DFG-out back pocket (type-II markers)",
+      "passed": true,
+      "detail": "all of ['885GLU', '919CYS', '1046ASP', '1047PHE'] engaged"
+    },
+    {
+      "name": "duplicate consensus (4ASD): every frequency == 1.0",
+      "passed": true,
+      "detail": "n_residues=24, min=1.0, max=1.0"
+    },
+    {
+      "name": "duplicate consensus: every residue is core",
+      "passed": true,
+      "detail": "24/24"
+    },
+    {
+      "name": "1N6A control loads with SAM",
+      "passed": true,
+      "detail": "17 contact residues in 1.432s"
+    },
+    {
+      "name": "2H79 control loads with T3",
+      "passed": true,
+      "detail": "24 contact residues in 1.379s"
+    },
+    {
+      "name": "disjoint consensus (4ASD + 1N6A): every frequency == 0.5",
+      "passed": true,
+      "detail": "n_residues=41 = 24+17, min=0.5, max=0.5"
+    },
+    {
+      "name": "disjoint consensus: no residue is core at threshold 0.6",
+      "passed": true,
+      "detail": "core=[]"
+    },
+    {
+      "name": "weighted_jaccard(sig, sig) == 1.0",
+      "passed": true,
+      "detail": "1.0"
+    },
+    {
+      "name": "weighted_jaccard of disjoint signatures (4ASD vs 1N6A) == 0.0",
+      "passed": true,
+      "detail": "0.0"
+    },
+    {
+      "name": "coverage() of a signature with no core residues is None, not 0.0",
+      "passed": true,
+      "detail": "None"
+    },
+    {
+      "name": "coverage(sig, its own core residues).core_coverage == 1.0",
+      "passed": true,
+      "detail": "1.0"
+    },
+    {
+      "name": "coverage(sig, []).core_coverage == 0.0",
+      "passed": true,
+      "detail": "0.0"
+    },
+    {
+      "name": "interaction type 'hydrophobic' fires on a real structure",
+      "passed": true,
+      "detail": "seen in ['1N6A', '2H79', '3WZE', '4AG8', '4ASD']"
+    },
+    {
+      "name": "interaction type 'hbond' fires on a real structure",
+      "passed": true,
+      "detail": "seen in ['1N6A', '2H79', '3WZE', '4AG8', '4ASD']"
+    },
+    {
+      "name": "interaction type 'aromatic' fires on a real structure",
+      "passed": true,
+      "detail": "seen in ['1N6A', '3WZE', '4AG8', '4ASD']"
+    },
+    {
+      "name": "interaction type 'salt_bridge' fires on a real structure",
+      "passed": true,
+      "detail": "seen in ['1N6A']"
+    },
+    {
+      "name": "interaction type 'halogen' fires on a real structure",
+      "passed": true,
+      "detail": "seen in ['2H79']"
+    },
+    {
+      "name": "no aromatic ring is within 5.5 A by centroid yet outside the 4.5 A heavy-atom cutoff",
+      "passed": true,
+      "detail": "missed per structure: {'4ASD': [], '3WZE': [], '4AG8': [], '1N6A': [], '2H79': []}"
+    },
+    {
+      "name": "1HXW contacts span >1 polymer chain",
+      "passed": true,
+      "detail": "chains ['A', 'B'], 15 residue ids in 1.562s"
+    },
+    {
+      "name": "1HXW reports the residue-id collision instead of merging silently",
+      "passed": true,
+      "detail": "residue-id collision across chains for [23, 25, 27, 28, 29, 30, 32, 47, 48, 49, 50, 81, 82, 84]: the per_residue record for each of these ids MERGES contacts from chains ['A', 'B']. Author numbering alone cannot separate them; split by chain before comparing such a site across structures"
+    },
+    {
+      "name": "every VEGFR2 test structure engages exactly one polymer chain",
+      "passed": true,
+      "detail": "{'4ASD': ['A'], '3WZE': ['A'], '4AG8': ['A']}"
+    },
+    {
+      "name": "SAM has primed heavy-atom names to test with",
+      "passed": true,
+      "detail": "[\"C1'\", \"C2'\", \"C3'\", \"C4'\", \"C5'\", \"O2'\", \"O3'\", \"O4'\"]"
+    },
+    {
+      "name": "every SAM heavy atom in the structure maps to a CCD atom",
+      "passed": true,
+      "detail": "27/27 mapped"
+    },
+    {
+      "name": "4ASD: .pdb and .cif give identical contact residue ids",
+      "passed": true,
+      "detail": "24 vs 24 residues"
+    },
+    {
+      "name": "VEGFR2 consensus reports no residue-id disagreement",
+      "passed": true,
+      "detail": "[]"
+    }
+  ],
+  "n_checks": 36,
+  "n_failed": 0
+}
