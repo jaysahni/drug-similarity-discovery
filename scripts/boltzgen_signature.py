@@ -36,7 +36,6 @@ import numpy as np
 
 warnings.filterwarnings("ignore")
 ROOT = Path(__file__).resolve().parent.parent
-PIPE = ROOT / "results" / "pipeline" / "colorectal-cancer"
 CUTOFF = 4.5           # same cutoff interfaces.py uses, so the arms are comparable
 CORE_THRESHOLD = 0.6   # PROJECT_GOAL.md 4.3 default
 
@@ -96,7 +95,12 @@ def main():
     ap.add_argument("uuid")
     ap.add_argument("--tag", default="run")
     ap.add_argument("--core-threshold", type=float, default=CORE_THRESHOLD)
+    ap.add_argument("--pipeline", default="colorectal-cancer",
+                    help="which prepared target the designs were made against. This MUST "
+                         "match the design run: the residue map is per-target, and using "
+                         "another target's map silently produces meaningless overlap counts")
     args = ap.parse_args()
+    PIPE = ROOT / "results" / "pipeline" / args.pipeline
 
     rmap = json.loads((PIPE / "target" / "boltzgen_residue_map.json").read_text())
     idx2auth = {v: int(k) for k, v in rmap["auth_to_index"].items()}
