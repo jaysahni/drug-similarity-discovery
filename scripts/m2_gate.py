@@ -46,7 +46,6 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import metrics as M  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
-PIPE = ROOT / "results" / "pipeline" / "colorectal-cancer"
 P2RANK_DIR = ROOT / "data" / "raw" / "p2rank"
 SEED = 0
 
@@ -95,8 +94,14 @@ def score(pred, truth):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--core-threshold", type=float, default=0.6)
-    ap.add_argument("--designs", default="v4")
+    ap.add_argument("--designs", default="v4",
+                    help="tag of results/boltzgen_signature_<tag>.json")
+    ap.add_argument("--pipeline", default="colorectal-cancer",
+                    help="directory under results/pipeline/ holding the prepared target")
+    ap.add_argument("--label", default=None, help="name for this target in the output")
+    ap.add_argument("--out", default=None)
     args = ap.parse_args()
+    PIPE = ROOT / "results" / "pipeline" / args.pipeline
 
     sig = json.loads((ROOT / "results" / f"boltzgen_signature_{args.designs}.json").read_text())
     boltz_core = set(sig["core_residue_ids_auth"])
@@ -220,8 +225,11 @@ def main():
                     "where a real ligand binds?",
         "ground_truth": "known-ligand contact residues, 4.5 A heavy atom, per structure",
         "n_structures": n, "skipped": skipped,
-        "target": {"symbol": "KDR", "uniprot": "P35968",
-                   "design_structure": "3VHE chain A (ligand-stripped)"},
+        "target": {"label": args.label or args.pipeline,
+                   "uniprot": json.loads((PIPE / "target" / "pocket.json").read_text())
+                              .get("uniprot_id"),
+                   "design_structure": json.loads((PIPE / "target" / "pocket.json").read_text())
+                              .get("structure_id")},
         "boltzgen": {"n_designs": sig["n_designs"], "workflow": sig["workflow_uuid"],
                      "core_threshold": sig["core_threshold"],
                      "n_core": len(boltz_core), "core_auth": sorted(boltz_core),
@@ -232,17 +240,17 @@ def main():
         "convergence_c5": conv,
         "per_structure": per_structure,
         "caveats": [
-            "the BoltzGen consensus is built on one structure (3VHE chain A) and scored "
-            "against 38 co-crystals of the same protein; author numbering is shared "
-            "across KDR entries, which is what makes that comparison legitimate",
-            "n = 38 held-out ligands but ONE target, so this does not generalise across "
-            "targets - PROJECT_GOAL.md's I6.1 anticipates several",
+            "the BoltzGen consensus is built on ONE structure and scored against the "
+            "other co-crystals of the same protein; author numbering is shared across "
+            "entries of one protein, which is what makes that comparison legitimate",
+            f"n = {n} held-out ligands for this target. PROJECT_GOAL.md's I6.1 "
+            "anticipates several targets; run this script once per prepared target",
             "ipTM of every design is far below the 0.85 the plan suggests filtering at, "
             "so this is an UNFILTERED consensus; the plan's filter could not be applied "
             "without generating far more designs than the credit budget allowed",
         ],
     }
-    dest = ROOT / "results" / "m2_gate.json"
+    dest = Path(args.out) if args.out else ROOT / "results" / "m2_gate.json"
     dest.write_text(json.dumps(out, indent=1))
     print(f"\nwrote {dest}")
 

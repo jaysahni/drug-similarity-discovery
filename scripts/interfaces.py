@@ -98,6 +98,41 @@ _exclude(
 )
 COFACTOR_REASON_PREFIX = "cofactor or nucleotide"
 
+# Membrane lipids, detergents and heavy-atom phasing reagents. These pass the
+# >= 10 heavy-atom filter and are not on any list above, so before this class
+# existed they were scored as "drug-like candidates". They are not: they are in
+# the deposit because the protein needed a membrane mimetic (cholesterol,
+# monoolein, phospholipids in a GPCR's lipidic cubic phase), because the sample
+# needed a detergent (glucosides, maltosides, zwittergents), or because the
+# crystallographer needed a heavy atom to phase with (organomercurials, which
+# bind surface cysteines, not pockets). All three bind where the chemistry puts
+# them rather than at a druggable site, so they are neither plausible queries
+# nor plausible evidence about a pocket.
+# Every code here was verified by name against the PDB chemical component
+# dictionary (data/raw/ccd/*.cif); the list is deliberately wider than what any
+# one dataset contains, and which codes are actually PRESENT is reported by the
+# consumer (scripts/hotspot_recovery.py -> lipid_detergent_exclusion) rather
+# than assumed here.
+# NOTE this class is COMPONENT-level and therefore target-blind: a fatty acid is
+# a membrane lipid in a GPCR and a genuine orthosteric ligand in a fatty-acid
+# receptor (PPARA, RXRA). Consumers that care must report the collateral.
+LIPID_DETERGENT_REASON = (
+    "membrane lipid, detergent or heavy-atom phasing reagent (in the deposit "
+    "for the membrane mimetic, the detergent or the phasing, not a drug-like "
+    "candidate)"
+)
+_exclude(
+    LIPID_DETERGENT_REASON,
+    # sterols, fatty acids, mono/di-acylglycerols, phospholipids, alkanes
+    "CLR Y01 OLA OLB OLC A6L PLM MYR STE DAO D12 UND TRD DD9 HP6 8K6 ER0 "
+    "POV PEE PGT PC1 PLC PX4 PEF 9PE "
+    # detergents: alkyl glucosides/maltosides, zwittergents, bile-salt detergents
+    "B7G JZR C15 ZWI DDQ LMT LMU DMU LMN CPS CHD SDS "
+    # organomercurials and other heavy-atom phasing reagents
+    "MBO MMC HGC HGB PMB",
+)
+LIPID_DETERGENT_REASON_PREFIX = "membrane lipid, detergent or heavy-atom"
+
 # Residues that belong to the polymer even though the parser flags them HETATM.
 # Anything here is target, never ligand. Checked for, not assumed.
 POLYMER_HET = {
