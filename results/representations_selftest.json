@@ -1,0 +1,202 @@
+{
+  "n_molecules": 2114,
+  "n_unparseable_smiles": 0,
+  "representations": [
+    {
+      "name": "morgan",
+      "dim": 2048,
+      "binary": true,
+      "seconds": 1.33,
+      "n_failed": 0,
+      "failed_indices": [],
+      "blurb": "Morgan (ECFP4) 2048-bit fingerprints - the baseline every model must beat."
+    },
+    {
+      "name": "fcfp4",
+      "dim": 2048,
+      "binary": true,
+      "seconds": 0.36,
+      "n_failed": 0,
+      "failed_indices": [],
+      "blurb": "Feature-Morgan (FCFP4) 2048 bits: same radius as ECFP4 but pharmacophoric atom types."
+    },
+    {
+      "name": "morgan_count",
+      "dim": 2048,
+      "binary": false,
+      "seconds": 0.23,
+      "n_failed": 0,
+      "failed_indices": [],
+      "blurb": "Count-based ECFP4 (2048 hashed counts, cosine) - substructure multiplicity, not just presence."
+    },
+    {
+      "name": "maccs",
+      "dim": 167,
+      "binary": true,
+      "seconds": 2.17,
+      "n_failed": 0,
+      "failed_indices": [],
+      "blurb": "MACCS keys: 167 hand-written SMARTS substructure questions (bit 0 unused)."
+    },
+    {
+      "name": "rdkit_fp",
+      "dim": 2048,
+      "binary": true,
+      "seconds": 1.86,
+      "n_failed": 0,
+      "failed_indices": [],
+      "blurb": "RDKit path fingerprint, 2048 bits: hashed linear subgraphs up to 7 bonds."
+    },
+    {
+      "name": "atom_pair",
+      "dim": 2048,
+      "binary": true,
+      "seconds": 0.71,
+      "n_failed": 0,
+      "failed_indices": [],
+      "blurb": "Atom-pair fingerprint, 2048 bits: (atom type, atom type, topological distance) triples."
+    },
+    {
+      "name": "topological_torsion",
+      "dim": 2048,
+      "binary": true,
+      "seconds": 0.29,
+      "n_failed": 0,
+      "failed_indices": [],
+      "blurb": "Topological-torsion fingerprint, 2048 bits: hashed 4-atom paths - local backbone shape."
+    },
+    {
+      "name": "avalon",
+      "dim": 1024,
+      "binary": true,
+      "seconds": 3.74,
+      "n_failed": 0,
+      "failed_indices": [],
+      "blurb": "Avalon fingerprint, 1024 bits: a curated enumeration of paths, rings and atom environments."
+    },
+    {
+      "name": "pattern_fp",
+      "dim": 2048,
+      "binary": true,
+      "seconds": 1.85,
+      "n_failed": 0,
+      "failed_indices": [],
+      "blurb": "RDKit pattern fingerprint, 2048 bits: substructure-screening bits, deliberately coarse."
+    },
+    {
+      "name": "layered_fp",
+      "dim": 2048,
+      "binary": true,
+      "seconds": 3.78,
+      "n_failed": 0,
+      "failed_indices": [],
+      "blurb": "RDKit layered fingerprint, 2048 bits: path bits hashed over several atom/bond abstraction layers."
+    },
+    {
+      "name": "gobbi_pharm2d",
+      "dim": 16083,
+      "binary": true,
+      "seconds": 0.1,
+      "n_failed": 23,
+      "failed_indices": [
+        185,
+        253,
+        580,
+        996,
+        1156,
+        1269,
+        1323,
+        1500,
+        1510,
+        1511,
+        1704,
+        1789,
+        1810,
+        1811,
+        1858,
+        1884,
+        1889,
+        1899,
+        1932,
+        1933,
+        1997,
+        2012,
+        2108
+      ],
+      "blurb": "Gobbi 2D pharmacophore fingerprint, feature triangles by topological distance bin; >150 heavy atoms skipped."
+    },
+    {
+      "name": "usrcat",
+      "dim": 60,
+      "binary": false,
+      "seconds": 0.01,
+      "n_failed": 6,
+      "failed_indices": [
+        452,
+        1016,
+        1215,
+        1744,
+        1812,
+        1816
+      ],
+      "blurb": "USRCAT on one ETKDGv3/MMFF conformer: 60 shape+pharmacophore moments, z-scored, cosine."
+    },
+    {
+      "name": "rdkit_descriptors",
+      "dim": 217,
+      "binary": false,
+      "seconds": 21.71,
+      "n_failed": 0,
+      "failed_indices": [],
+      "blurb": "Physicochemical descriptors, z-scored. Tests whether bulk properties suffice."
+    },
+    {
+      "name": "mw_logp",
+      "dim": 2,
+      "binary": false,
+      "seconds": 0.51,
+      "n_failed": 0,
+      "failed_indices": [],
+      "blurb": "Molecular weight + cLogP only, z-scored - a deliberately weak 2-feature control."
+    },
+    {
+      "name": "murcko_scaffold",
+      "dim": 1242,
+      "binary": true,
+      "seconds": 0.88,
+      "n_failed": 0,
+      "failed_indices": [],
+      "blurb": "One-hot Bemis-Murcko scaffold identity: similarity 1 iff same scaffold, else 0."
+    },
+    {
+      "name": "chemberta",
+      "dim": 384,
+      "binary": false,
+      "seconds": 0.01,
+      "n_failed": 0,
+      "failed_indices": [],
+      "blurb": "ChemBERTa-77M-MLM, mean-pooled last hidden state over non-pad tokens (not the CLS token)."
+    },
+    {
+      "name": "random",
+      "dim": 64,
+      "binary": false,
+      "seconds": 0.05,
+      "n_failed": 0,
+      "failed_indices": [],
+      "blurb": "Random vectors - the floor. Any representation must beat this."
+    }
+  ],
+  "determinism_identical": {
+    "morgan": true,
+    "maccs": true,
+    "murcko_scaffold": true,
+    "usrcat": true,
+    "chemberta": true
+  },
+  "not_evaluated": {
+    "gobbi_pharm2d over 150 heavy atoms": "23 of 2114 drugs exceed the cap and get a zero row (counted in n_failed). Measured: <10 ms at the median 24 heavy atoms, 31-60+ s each at 279-342 atoms",
+    "multi-conformer usrcat": "one ETKDGv3 conformer per molecule only; a conformer ensemble is the correct way to use USRCAT but costs ~20x the CPU and was not run",
+    "GPU-backed molecular encoders": "no GPU and no hosted-inference credential on this machine (docs/03-SCOPE-AND-CONSTRAINTS.md); chemberta runs on CPU, anything larger does not"
+  }
+}
