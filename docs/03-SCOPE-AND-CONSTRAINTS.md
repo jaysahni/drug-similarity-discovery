@@ -18,10 +18,21 @@ checked by running the command, not by assuming. Verified 2026-09-19.
 | **P2Rank 2.5** | **available** | runs on the local JDK; `prank` prints its version banner |
 | **CUDA GPU** | **absent** | Apple silicon, no NVIDIA device |
 | **Rowan API key** | **absent** | no `.env` in the repo; `.env.example` is a template only |
+| **Modal account** | **CPU yes, GPU blocked** | `~/.modal.toml` profile `evankxiang` authenticates, and a remote CPU function ran (returned `python=3.14.2 machine=x86_64`). Every GPU tier is refused: `InvalidError: Please add a payment method to use {T4,L4,A10G,A100-40GB} GPU functions.` Probed all four, not inferred from one |
 | `boltz` (Boltz-1/2) local | **not installable** | requires Python `>=3.10,<3.13`; `env/` is 3.14 (recorded in `00-ENVIRONMENT.md`) |
 
 Two of those are load-bearing and they are the reason the plan below departs from
 `PROJECT_GOAL.md`: **there is no GPU and no hosted-inference credential.**
+
+**Update, later the same day.** A Modal account was supplied, which removes the
+Python-3.14 obstacle entirely (on Modal we choose the image, so `boltz` and
+`boltzgen` can have the 3.12 they require). Modal authenticates and runs CPU
+functions. GPU functions are still refused on all four tiers pending a payment
+method on the account, so the BoltzGen arm remains **built but not run**. The
+runner, its cost guard and its dry-run mode are in the repo; the moment a card
+is added, `scripts/run_design.py smoke` is the first thing to execute. Until
+then every number in this repo comes from CPU work, and the BoltzGen arm is
+still reported as absent rather than estimated.
 
 ## Consequence for `PROJECT_GOAL.md` (AutoRepurpose v0.2)
 
