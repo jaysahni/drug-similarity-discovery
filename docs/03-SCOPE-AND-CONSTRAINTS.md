@@ -17,7 +17,7 @@ checked by running the command, not by assuming. Verified 2026-09-19.
 | **Java** | **installed by us** | macOS ships a stub only (`Unable to locate a Java Runtime`). Temurin JDK 21.0.12.1 aarch64 tarball extracted under the session scratchpad — no Homebrew, no admin, nothing installed system-wide |
 | **P2Rank 2.5** | **available** | runs on the local JDK; `prank` prints its version banner |
 | **CUDA GPU** | **absent** | Apple silicon, no NVIDIA device |
-| **Rowan API key** | **absent** | no `.env` in the repo; `.env.example` is a template only |
+| **Rowan API key** | **present, working** | supplied mid-session; `.env` (gitignored, mode 600). `list_workflows()` authenticates. A 2-design `protein-anything` BoltzGen run against KDR/3VHE was accepted and queued, so the design arm is reachable after all |
 | **Modal account** | **CPU yes, GPU blocked** | `~/.modal.toml` profile `evankxiang` authenticates, and a remote CPU function ran (returned `python=3.14.2 machine=x86_64`). Every GPU tier is refused: `InvalidError: Please add a payment method to use {T4,L4,A10G,A100-40GB} GPU functions.` Probed all four, not inferred from one |
 | `boltz` (Boltz-1/2) local | **not installable** | requires Python `>=3.10,<3.13`; `env/` is 3.14 (recorded in `00-ENVIRONMENT.md`) |
 
