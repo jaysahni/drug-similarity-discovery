@@ -10,7 +10,15 @@ this repo and can be reproduced by running it.
 
 ---
 
-## The three results
+## The results
+
+**0. The project's own decisive experiment fails, and that is the headline.**
+`PROJECT_GOAL.md` is built around one gate: does a BoltzGen design consensus beat a
+pocket finder at saying where a ligand binds? It does not. A 0.47-second pocket
+prediction reaches Jaccard **0.6355** against held-out ligand contacts; a 24-design,
+85-credit, 28-minute-of-A100 BoltzGen consensus reaches **0.3115** (Δ −0.324, Holm
+p=0.0016, n=38 paired). The plan says to be willing to accept that outcome; it is
+accepted below, with its caveats quantified rather than asserted.
 
 **1. Nothing beats ECFP4.** Across 16 representations on a 2,069-query retrieval task,
 a 2048-bit Morgan fingerprint is the best thing tested. Three others tie it; the
@@ -208,7 +216,53 @@ Kept negative results:
 
 ---
 
-## BoltzGen — the generated arm
+## The M2 gate — ablation I6.1
+
+`PROJECT_GOAL.md` §8.3 calls this "the decisive ablation" and §7 makes it the gate the
+project turns on: *if a generated consensus gives you what P2Rank gives you for free,
+ship the cheap pipeline.*
+
+Ground truth: the residues the known ligand actually contacts (4.5 Å heavy atom) in each
+of **38 KDR co-crystals**. All arms scored on the same 38, so comparisons are paired.
+
+| arm | precision | recall | F1 | Jaccard | \|pred\| |
+|---|---|---|---|---|---|
+| **p2rank_geometry** | 0.8267 | 0.7441 | 0.7718 | **0.6355** | 19.5 |
+| known_ligand *(ceiling, I6.2)* | 0.8366 | 0.7321 | 0.7771 | 0.6630 | 19.0 |
+| **boltzgen_consensus** | 0.4565 | 0.4890 | 0.4698 | **0.3115** | 23.0 |
+| random *(floor)* | 0.0745 | 0.0791 | 0.0763 | 0.0405 | 23.0 |
+
+Δ boltzgen − p2rank, Jaccard **−0.3240** [−0.3526, −0.2941], Holm p=0.0016. It also
+loses on precision (−0.370), recall (−0.255) and F1 (−0.302).
+
+**P2Rank lands within 0.03 Jaccard of the known-ligand ceiling.** There is almost no
+headroom above pocket geometry on this target for anything to occupy.
+
+### Why this isn't a cheap dismissal
+
+**Design count is not the excuse.** Task C5's convergence study, by sub-sampling the
+same 24 designs: Jaccard to the final consensus is 0.850 at N=12, 0.891 at N=16, 0.897
+at N=20. The contact map had largely converged before the budget ran out — which is what
+C5 predicted, and it means more designs would not obviously rescue it.
+
+**Design quality is the real caveat, and it is measured.** **Zero of 24 designs pass the
+ipTM > 0.85 filter the plan suggests. Zero pass even 0.5** (min 0.119, median 0.210, max
+0.420). This is an *unfiltered* consensus, and the plan is explicit that the filters do
+enormous work. Reaching 10 filtered survivors at the published ~3-in-100 rate needs ~333
+designs at 3.56 credits each ≈ **1,188 credits against a 500-credit tier** — 2.4× beyond
+what was available.
+
+So the bounded claim: **BoltzGen, as we could afford to run it, is decisively worse than
+pocket geometry at locating a ligand's contacts** on one target with 38 held-out ligands.
+Whether a properly filtered ensemble closes a 0.32 Jaccard gap is *not answered here*.
+
+```bash
+./env/bin/python scripts/m2_gate.py
+```
+
+---
+
+## BoltzGen — getting the generated arm to run at all
 
 Reachable via Rowan (no local GPU). `protein-anything` against KDR/VEGFR2 (3VHE chain A,
 ligand-stripped), A100-80GB. Two findings, both from running it:
@@ -238,7 +292,8 @@ is what worked. Measured cost: **~5–7 credits per design**, 396–564 s per 4-
 
 | Item | Why |
 |---|---|
-| Ablation I6.1 proper (BoltzGen consensus vs pocket) at scale | ~5–7 credits/design and a published ~3-in-100 filter pass rate put a *filtered* consensus beyond the free tier. Targeting is now solved, so this is a budget limit, not a method limit |
+| A **filtered** BoltzGen consensus (ipTM > 0.85) | 0 of 24 designs reached even ipTM 0.5; ~333 designs ≈ 1,188 credits would be needed for 10 survivors, against a 500-credit tier. The unfiltered arm was run and lost; the filtered one is genuinely untested |
+| I6.1 across multiple targets | run on KDR only (n=38 held-out ligands, 1 target). `PROJECT_GOAL.md` anticipates several |
 | Boltz-2 co-folding of the approved library | needs GPU-hours; `boltz` also cannot install on Python 3.14 |
 | Predicted affinity (pIC50, Kd, IC50) | no affinity model is run anywhere, so no affinity number is reported anywhere |
 | Approved peptide + biologic tiers | only scoreable with a co-folding backend |
@@ -260,6 +315,7 @@ is what worked. Measured cost: **~5–7 credits per design**, 396–564 s per 4-
 | `scripts/run_p2rank.py`, `build_interface_set.py`, `fetch_structures.py` | the E2 baseline arm and its data |
 | `scripts/match_candidates.py` | E3 — similarity shortlist + the rediscovery check |
 | `scripts/boltzgen_signature.py` | BoltzGen run → InterfaceSignature + targeting diagnostics |
+| `scripts/m2_gate.py` | **the M2 gate — ablation I6.1, plus the C5 convergence study** |
 | `docs/03-SCOPE-AND-CONSTRAINTS.md` | what this machine can and cannot do, stated before building on it |
 | `docs/05-E2-DESIGN-CRITIQUE.md` | the adversarial critique E2 had to survive |
 | `results/` | computed outputs only — never hand-edited |
@@ -274,6 +330,7 @@ python3.14 -m venv env && ./env/bin/pip install -r requirements.txt
 ./env/bin/python scripts/run_p2rank.py                # baseline arm (~12 min)
 ./env/bin/python scripts/hotspot_recovery.py          # E2
 ./env/bin/python scripts/match_candidates.py          # E3
+./env/bin/python scripts/m2_gate.py                   # the M2 gate (needs the design run)
 ./env/bin/python scripts/test_metrics.py              # 23 tests
 ```
 
