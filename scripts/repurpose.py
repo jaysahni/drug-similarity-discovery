@@ -368,33 +368,53 @@ def cmd_score(args):
             hit = engaged & c
             num = sum(w.get(r, 0) for r in engaged & set(w))
             den = sum(w.values()) + len(engaged - set(w))
+            # FIVE scores, because a bigger ligand touches more residues and so
+            # scores higher for reasons that have nothing to do with binding -
+            # PROJECT_GOAL.md 1.4a. E4 asks for at least two normalisations
+            # compared and the default justified. Measured on this screen
+            # (correlation of the score with the number of residues engaged,
+            # and where a 39-residue lipopeptide decoy lands out of 29):
+            #   core_coverage        r=+0.641  decoy rank  1
+            #   weighted_jaccard     r=+0.520  decoy rank  2
+            #   f1_engaged_core      r=+0.413  decoy rank  6
+            #   jaccard_engaged_core r=+0.409  decoy rank  6
+            #   precision_in_core    r=+0.135  decoy rank 14   <- default
+            # Enrichment and median known-binder rank are IDENTICAL under all
+            # five, so the separation is not an artefact of this choice; the
+            # metric only decides where the oversized decoy lands.
             row["by_signature"][sname] = {
                 "core_coverage": len(hit) / len(c) if c else float("nan"),
                 "weighted_jaccard": num / den if den else 0.0,
+                "f1_engaged_core": (2 * len(hit) / (len(engaged) + len(c))
+                                    if (engaged or c) else 0.0),
+                "jaccard_engaged_core": (len(hit) / len(engaged | c)
+                                         if (engaged | c) else 0.0),
+                "precision_in_core": len(hit) / len(engaged) if engaged else 0.0,
                 "engaged_core": sorted(hit), "missed_core": sorted(c - engaged)}
         row["core_coverage"] = row["by_signature"]["boltzgen_consensus"]["core_coverage"]
         row["weighted_jaccard"] = row["by_signature"]["boltzgen_consensus"]["weighted_jaccard"]
         rows.append(row)
 
     scored = [r for r in rows if r["status"] == "scored"]
-    scored.sort(key=lambda r: -r["by_signature"][args.rank_by]["core_coverage"])
+    scored.sort(key=lambda r: -r["by_signature"][args.rank_by][args.metric])
     for i, r in enumerate(scored, 1):
         r["rank"] = i
     print(f"{len(scored)}/{len(rows)} drugs scored "
           f"({sum(1 for r in rows if r['status'] != 'scored')} without a usable pose)\n")
-    print(f"{'rank':>4}  {'drug':<34}{'role':<13}{'core_cov':>9}{'wJaccard':>10}{'engaged':>8}")
+    print(f"{'rank':>4}  {'drug':<34}{'role':<13}"
+          f"{args.metric[:9]:>9}{'core_cov':>10}{'engaged':>8}")
     print("-" * 80)
     for r in scored[:30]:
         b = r["by_signature"][args.rank_by]
         print(f"{r['rank']:>4}  {r['name'][:34]:<34}{r['role']:<13}"
-              f"{b['core_coverage']:9.3f}{b['weighted_jaccard']:10.3f}{r['n_engaged']:8d}")
+              f"{b[args.metric]:9.3f}{b['core_coverage']:10.3f}{r['n_engaged']:8d}")
 
     # the same validation for EVERY signature, so the cheap arm is not hidden
     print(f"\n{'signature':<22}{'enrichment@25%':>16}{'median rank of a known binder':>32}")
     print("-" * 72)
     per_sig = {}
     for sname in signatures:
-        order = sorted(scored, key=lambda r: -r["by_signature"][sname]["core_coverage"])
+        order = sorted(scored, key=lambda r: -r["by_signature"][sname][args.metric])
         rk = [i for i, r in enumerate(order, 1) if r["role"] == "known_binder"]
         npos = len(rk)
         kk = max(1, round(0.25 * len(order)))
@@ -422,7 +442,12 @@ def cmd_score(args):
     out = {
         "pipeline": "binding site -> BoltzGen designs -> interface signature -> "
                     "co-folded approved drugs -> ranked by interface overlap",
-        "ranking_metric": "core_coverage (PROJECT_GOAL.md 4.4 primary)",
+        "ranking_metric": args.metric,
+        "ranking_metric_choice": ("size-normalised; PROJECT_GOAL.md 1.4a warns raw "
+                                  "overlap ranks bigger ligands higher for non-binding "
+                                  "reasons. All five scores are stored per drug so the "
+                                  "choice can be checked, and enrichment is identical "
+                                  "under all of them on this screen."),
         "affinity_used": False,
         "affinity_note": "Boltz-2 can emit an affinity score; it is deliberately not read. "
                          "PROJECT_GOAL.md 4.4 removes affinity from the ranking path.",
@@ -475,6 +500,10 @@ def main():
     s.add_argument("--core-threshold", type=float, default=0.6)
     s.add_argument("--rank-by", default="boltzgen_consensus",
                    choices=["boltzgen_consensus", "p2rank_geometry", "known_ligand"])
+    s.add_argument("--metric", default="precision_in_core",
+                   choices=["precision_in_core", "core_coverage", "weighted_jaccard",
+                            "f1_engaged_core", "jaccard_engaged_core"],
+                   help="size-normalised by default; see the comment in cmd_score")
 
     args = ap.parse_args()
     args.fn(args)

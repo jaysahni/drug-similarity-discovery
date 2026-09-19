@@ -1,6 +1,7 @@
 {
  "pipeline": "binding site -> BoltzGen designs -> interface signature -> co-folded approved drugs -> ranked by interface overlap",
- "ranking_metric": "core_coverage (PROJECT_GOAL.md 4.4 primary)",
+ "ranking_metric": "precision_in_core",
+ "ranking_metric_choice": "size-normalised; PROJECT_GOAL.md 1.4a warns raw overlap ranks bigger ligands higher for non-binding reasons. All five scores are stored per drug so the choice can be checked, and enrichment is identical under all of them on this screen.",
  "affinity_used": false,
  "affinity_note": "Boltz-2 can emit an affinity score; it is deliberately not read. PROJECT_GOAL.md 4.4 removes affinity from the ranking path.",
  "ranked_by": "boltzgen_consensus",
@@ -91,6 +92,22 @@
   "boltzgen_consensus": {
    "enrichment_at_top_quartile": 2.4857142857142853,
    "known_binder_ranks": [
+    1,
+    2,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    11,
+    13
+   ],
+   "median_rank": 6.5
+  },
+  "p2rank_geometry": {
+   "enrichment_at_top_quartile": 2.4857142857142853,
+   "known_binder_ranks": [
     2,
     3,
     4,
@@ -98,43 +115,27 @@
     6,
     7,
     8,
-    9,
     10,
-    11
-   ],
-   "median_rank": 6.5
-  },
-  "p2rank_geometry": {
-   "enrichment_at_top_quartile": 2.4857142857142853,
-   "known_binder_ranks": [
-    1,
-    2,
-    4,
-    5,
-    6,
-    7,
-    9,
-    10,
-    11,
+    12,
     14
    ],
    "median_rank": 6.5
   },
   "known_ligand": {
-   "enrichment_at_top_quartile": 1.657142857142857,
+   "enrichment_at_top_quartile": 0.8285714285714285,
    "known_binder_ranks": [
-    2,
-    5,
+    4,
     6,
-    7,
     8,
-    9,
-    11,
+    10,
+    12,
     13,
-    14,
-    23
+    15,
+    19,
+    23,
+    24
    ],
-   "median_rank": 8.5
+   "median_rank": 12.5
   }
  },
  "target": {
@@ -146,16 +147,16 @@
  "n_known_binders": 10,
  "enrichment_at_top_quartile": 2.4857142857142853,
  "known_binder_ranks": [
+  1,
   2,
-  3,
   4,
   5,
   6,
   7,
   8,
   9,
-  10,
-  11
+  11,
+  13
  ],
  "results": [
   {
@@ -186,6 +187,9 @@
     "boltzgen_consensus": {
      "core_coverage": 0.43478260869565216,
      "weighted_jaccard": 0.37380627557980894,
+     "f1_engaged_core": 0.5128205128205128,
+     "jaccard_engaged_core": 0.3448275862068966,
+     "precision_in_core": 0.625,
      "engaged_core": [
       840,
       841,
@@ -217,6 +221,9 @@
     "p2rank_geometry": {
      "core_coverage": 0.6470588235294118,
      "weighted_jaccard": 0.5,
+     "f1_engaged_core": 0.6666666666666666,
+     "jaccard_engaged_core": 0.5,
+     "precision_in_core": 0.6875,
      "engaged_core": [
       840,
       848,
@@ -242,6 +249,9 @@
     "known_ligand": {
      "core_coverage": 0.4782608695652174,
      "weighted_jaccard": 0.39285714285714285,
+     "f1_engaged_core": 0.5641025641025641,
+     "jaccard_engaged_core": 0.39285714285714285,
+     "precision_in_core": 0.6875,
      "engaged_core": [
       840,
       848,
@@ -273,7 +283,7 @@
    },
    "core_coverage": 0.43478260869565216,
    "weighted_jaccard": 0.37380627557980894,
-   "rank": 11
+   "rank": 7
   },
   {
    "struct_id": "2544",
@@ -303,6 +313,9 @@
     "boltzgen_consensus": {
      "core_coverage": 0.4782608695652174,
      "weighted_jaccard": 0.38472032742155526,
+     "f1_engaged_core": 0.5641025641025641,
+     "jaccard_engaged_core": 0.39285714285714285,
+     "precision_in_core": 0.6875,
      "engaged_core": [
       840,
       848,
@@ -334,6 +347,9 @@
     "p2rank_geometry": {
      "core_coverage": 0.7647058823529411,
      "weighted_jaccard": 0.65,
+     "f1_engaged_core": 0.7878787878787878,
+     "jaccard_engaged_core": 0.65,
+     "precision_in_core": 0.8125,
      "engaged_core": [
       840,
       848,
@@ -359,6 +375,9 @@
     "known_ligand": {
      "core_coverage": 0.6086956521739131,
      "weighted_jaccard": 0.56,
+     "f1_engaged_core": 0.717948717948718,
+     "jaccard_engaged_core": 0.56,
+     "precision_in_core": 0.875,
      "engaged_core": [
       840,
       848,
@@ -390,7 +409,7 @@
    },
    "core_coverage": 0.4782608695652174,
    "weighted_jaccard": 0.38472032742155526,
-   "rank": 9
+   "rank": 4
   },
   {
    "struct_id": "4903",
@@ -425,6 +444,9 @@
     "boltzgen_consensus": {
      "core_coverage": 0.6086956521739131,
      "weighted_jaccard": 0.4884038199181446,
+     "f1_engaged_core": 0.6363636363636364,
+     "jaccard_engaged_core": 0.4666666666666667,
+     "precision_in_core": 0.6666666666666666,
      "engaged_core": [
       840,
       841,
@@ -456,6 +478,9 @@
     "p2rank_geometry": {
      "core_coverage": 0.9411764705882353,
      "weighted_jaccard": 0.7272727272727273,
+     "f1_engaged_core": 0.8421052631578947,
+     "jaccard_engaged_core": 0.7272727272727273,
+     "precision_in_core": 0.7619047619047619,
      "engaged_core": [
       840,
       848,
@@ -481,6 +506,9 @@
     "known_ligand": {
      "core_coverage": 0.6956521739130435,
      "weighted_jaccard": 0.5714285714285714,
+     "f1_engaged_core": 0.7272727272727273,
+     "jaccard_engaged_core": 0.5714285714285714,
+     "precision_in_core": 0.7619047619047619,
      "engaged_core": [
       840,
       848,
@@ -512,7 +540,7 @@
    },
    "core_coverage": 0.6086956521739131,
    "weighted_jaccard": 0.4884038199181446,
-   "rank": 3
+   "rank": 5
   },
   {
    "struct_id": "5231",
@@ -547,6 +575,9 @@
     "boltzgen_consensus": {
      "core_coverage": 0.7391304347826086,
      "weighted_jaccard": 0.5165125495376486,
+     "f1_engaged_core": 0.7727272727272727,
+     "jaccard_engaged_core": 0.6296296296296297,
+     "precision_in_core": 0.8095238095238095,
      "engaged_core": [
       840,
       841,
@@ -578,6 +609,9 @@
     "p2rank_geometry": {
      "core_coverage": 0.8235294117647058,
      "weighted_jaccard": 0.5833333333333334,
+     "f1_engaged_core": 0.7368421052631579,
+     "jaccard_engaged_core": 0.5833333333333334,
+     "precision_in_core": 0.6666666666666666,
      "engaged_core": [
       840,
       848,
@@ -603,6 +637,9 @@
     "known_ligand": {
      "core_coverage": 0.6086956521739131,
      "weighted_jaccard": 0.4666666666666667,
+     "f1_engaged_core": 0.6363636363636364,
+     "jaccard_engaged_core": 0.4666666666666667,
+     "precision_in_core": 0.6666666666666666,
      "engaged_core": [
       840,
       848,
@@ -634,7 +671,7 @@
    },
    "core_coverage": 0.7391304347826086,
    "weighted_jaccard": 0.5165125495376486,
-   "rank": 2
+   "rank": 1
   },
   {
    "struct_id": "785",
@@ -668,6 +705,9 @@
     "boltzgen_consensus": {
      "core_coverage": 0.5217391304347826,
      "weighted_jaccard": 0.4297407912687585,
+     "f1_engaged_core": 0.5581395348837209,
+     "jaccard_engaged_core": 0.3870967741935484,
+     "precision_in_core": 0.6,
      "engaged_core": [
       840,
       848,
@@ -699,6 +739,9 @@
     "p2rank_geometry": {
      "core_coverage": 0.9411764705882353,
      "weighted_jaccard": 0.7619047619047619,
+     "f1_engaged_core": 0.8648648648648649,
+     "jaccard_engaged_core": 0.7619047619047619,
+     "precision_in_core": 0.8,
      "engaged_core": [
       840,
       848,
@@ -724,6 +767,9 @@
     "known_ligand": {
      "core_coverage": 0.7391304347826086,
      "weighted_jaccard": 0.6538461538461539,
+     "f1_engaged_core": 0.7906976744186046,
+     "jaccard_engaged_core": 0.6538461538461539,
+     "precision_in_core": 0.85,
      "engaged_core": [
       840,
       848,
@@ -755,7 +801,7 @@
    },
    "core_coverage": 0.5217391304347826,
    "weighted_jaccard": 0.4297407912687585,
-   "rank": 6
+   "rank": 9
   },
   {
    "struct_id": "2459",
@@ -792,6 +838,9 @@
     "boltzgen_consensus": {
      "core_coverage": 0.4782608695652174,
      "weighted_jaccard": 0.3582629674306393,
+     "f1_engaged_core": 0.4782608695652174,
+     "jaccard_engaged_core": 0.3142857142857143,
+     "precision_in_core": 0.4782608695652174,
      "engaged_core": [
       840,
       848,
@@ -823,6 +872,9 @@
     "p2rank_geometry": {
      "core_coverage": 0.8823529411764706,
      "weighted_jaccard": 0.6,
+     "f1_engaged_core": 0.75,
+     "jaccard_engaged_core": 0.6,
+     "precision_in_core": 0.6521739130434783,
      "engaged_core": [
       840,
       848,
@@ -848,6 +900,9 @@
     "known_ligand": {
      "core_coverage": 0.9565217391304348,
      "weighted_jaccard": 0.9166666666666666,
+     "f1_engaged_core": 0.9565217391304348,
+     "jaccard_engaged_core": 0.9166666666666666,
+     "precision_in_core": 0.9565217391304348,
      "engaged_core": [
       840,
       848,
@@ -879,7 +934,7 @@
    },
    "core_coverage": 0.4782608695652174,
    "weighted_jaccard": 0.3582629674306393,
-   "rank": 10
+   "rank": 13
   },
   {
    "struct_id": "3514",
@@ -909,6 +964,9 @@
     "boltzgen_consensus": {
      "core_coverage": 0.5217391304347826,
      "weighted_jaccard": 0.4024556616643929,
+     "f1_engaged_core": 0.6153846153846154,
+     "jaccard_engaged_core": 0.4444444444444444,
+     "precision_in_core": 0.75,
      "engaged_core": [
       840,
       841,
@@ -940,6 +998,9 @@
     "p2rank_geometry": {
      "core_coverage": 0.8235294117647058,
      "weighted_jaccard": 0.7368421052631579,
+     "f1_engaged_core": 0.8484848484848485,
+     "jaccard_engaged_core": 0.7368421052631579,
+     "precision_in_core": 0.875,
      "engaged_core": [
       840,
       848,
@@ -965,6 +1026,9 @@
     "known_ligand": {
      "core_coverage": 0.6521739130434783,
      "weighted_jaccard": 0.625,
+     "f1_engaged_core": 0.7692307692307693,
+     "jaccard_engaged_core": 0.625,
+     "precision_in_core": 0.9375,
      "engaged_core": [
       840,
       848,
@@ -996,7 +1060,7 @@
    },
    "core_coverage": 0.5217391304347826,
    "weighted_jaccard": 0.4024556616643929,
-   "rank": 7
+   "rank": 2
   },
   {
    "struct_id": "4178",
@@ -1031,6 +1095,9 @@
     "boltzgen_consensus": {
      "core_coverage": 0.5652173913043478,
      "weighted_jaccard": 0.46248294679399726,
+     "f1_engaged_core": 0.5909090909090909,
+     "jaccard_engaged_core": 0.41935483870967744,
+     "precision_in_core": 0.6190476190476191,
      "engaged_core": [
       840,
       841,
@@ -1062,6 +1129,9 @@
     "p2rank_geometry": {
      "core_coverage": 0.9411764705882353,
      "weighted_jaccard": 0.7272727272727273,
+     "f1_engaged_core": 0.8421052631578947,
+     "jaccard_engaged_core": 0.7272727272727273,
+     "precision_in_core": 0.7619047619047619,
      "engaged_core": [
       840,
       848,
@@ -1087,6 +1157,9 @@
     "known_ligand": {
      "core_coverage": 0.7391304347826086,
      "weighted_jaccard": 0.6296296296296297,
+     "f1_engaged_core": 0.7727272727272727,
+     "jaccard_engaged_core": 0.6296296296296297,
+     "precision_in_core": 0.8095238095238095,
      "engaged_core": [
       840,
       848,
@@ -1118,7 +1191,7 @@
    },
    "core_coverage": 0.5652173913043478,
    "weighted_jaccard": 0.46248294679399726,
-   "rank": 4
+   "rank": 8
   },
   {
    "struct_id": "4118",
@@ -1152,6 +1225,9 @@
     "boltzgen_consensus": {
      "core_coverage": 0.5652173913043478,
      "weighted_jaccard": 0.4720327421555252,
+     "f1_engaged_core": 0.6046511627906976,
+     "jaccard_engaged_core": 0.43333333333333335,
+     "precision_in_core": 0.65,
      "engaged_core": [
       840,
       841,
@@ -1183,6 +1259,9 @@
     "p2rank_geometry": {
      "core_coverage": 1.0,
      "weighted_jaccard": 0.85,
+     "f1_engaged_core": 0.918918918918919,
+     "jaccard_engaged_core": 0.85,
+     "precision_in_core": 0.85,
      "engaged_core": [
       840,
       848,
@@ -1207,6 +1286,9 @@
     "known_ligand": {
      "core_coverage": 0.7391304347826086,
      "weighted_jaccard": 0.6538461538461539,
+     "f1_engaged_core": 0.7906976744186046,
+     "jaccard_engaged_core": 0.6538461538461539,
+     "precision_in_core": 0.85,
      "engaged_core": [
       840,
       848,
@@ -1238,7 +1320,7 @@
    },
    "core_coverage": 0.5652173913043478,
    "weighted_jaccard": 0.4720327421555252,
-   "rank": 5
+   "rank": 6
   },
   {
    "struct_id": "5252",
@@ -1273,6 +1355,9 @@
     "boltzgen_consensus": {
      "core_coverage": 0.5217391304347826,
      "weighted_jaccard": 0.42668428005284015,
+     "f1_engaged_core": 0.5454545454545454,
+     "jaccard_engaged_core": 0.375,
+     "precision_in_core": 0.5714285714285714,
      "engaged_core": [
       840,
       848,
@@ -1304,6 +1389,9 @@
     "p2rank_geometry": {
      "core_coverage": 1.0,
      "weighted_jaccard": 0.8095238095238095,
+     "f1_engaged_core": 0.8947368421052632,
+     "jaccard_engaged_core": 0.8095238095238095,
+     "precision_in_core": 0.8095238095238095,
      "engaged_core": [
       840,
       848,
@@ -1328,6 +1416,9 @@
     "known_ligand": {
      "core_coverage": 0.782608695652174,
      "weighted_jaccard": 0.6923076923076923,
+     "f1_engaged_core": 0.8181818181818182,
+     "jaccard_engaged_core": 0.6923076923076923,
+     "precision_in_core": 0.8571428571428571,
      "engaged_core": [
       840,
       848,
@@ -1359,7 +1450,7 @@
    },
    "core_coverage": 0.5217391304347826,
    "weighted_jaccard": 0.42668428005284015,
-   "rank": 8
+   "rank": 11
   },
   {
    "struct_id": "1832",
@@ -1393,6 +1484,9 @@
     "boltzgen_consensus": {
      "core_coverage": 0.21739130434782608,
      "weighted_jaccard": 0.16761687571265677,
+     "f1_engaged_core": 0.23255813953488372,
+     "jaccard_engaged_core": 0.13157894736842105,
+     "precision_in_core": 0.25,
      "engaged_core": [
       868,
       885,
@@ -1424,6 +1518,9 @@
     "p2rank_geometry": {
      "core_coverage": 0.5294117647058824,
      "weighted_jaccard": 0.32142857142857145,
+     "f1_engaged_core": 0.4864864864864865,
+     "jaccard_engaged_core": 0.32142857142857145,
+     "precision_in_core": 0.45,
      "engaged_core": [
       868,
       885,
@@ -1449,6 +1546,9 @@
     "known_ligand": {
      "core_coverage": 0.6521739130434783,
      "weighted_jaccard": 0.5357142857142857,
+     "f1_engaged_core": 0.6976744186046512,
+     "jaccard_engaged_core": 0.5357142857142857,
+     "precision_in_core": 0.75,
      "engaged_core": [
       868,
       885,
@@ -1480,7 +1580,7 @@
    },
    "core_coverage": 0.21739130434782608,
    "weighted_jaccard": 0.16761687571265677,
-   "rank": 19
+   "rank": 24
   },
   {
    "struct_id": "4672",
@@ -1516,6 +1616,9 @@
     "boltzgen_consensus": {
      "core_coverage": 0.43478260869565216,
      "weighted_jaccard": 0.32207478890229185,
+     "f1_engaged_core": 0.4444444444444444,
+     "jaccard_engaged_core": 0.2857142857142857,
+     "precision_in_core": 0.45454545454545453,
      "engaged_core": [
       840,
       848,
@@ -1547,6 +1650,9 @@
     "p2rank_geometry": {
      "core_coverage": 0.8823529411764706,
      "weighted_jaccard": 0.625,
+     "f1_engaged_core": 0.7692307692307693,
+     "jaccard_engaged_core": 0.625,
+     "precision_in_core": 0.6818181818181818,
      "engaged_core": [
       840,
       848,
@@ -1572,6 +1678,9 @@
     "known_ligand": {
      "core_coverage": 0.9565217391304348,
      "weighted_jaccard": 0.9565217391304348,
+     "f1_engaged_core": 0.9777777777777777,
+     "jaccard_engaged_core": 0.9565217391304348,
+     "precision_in_core": 1.0,
      "engaged_core": [
       840,
       848,
@@ -1603,7 +1712,7 @@
    },
    "core_coverage": 0.43478260869565216,
    "weighted_jaccard": 0.32207478890229185,
-   "rank": 12
+   "rank": 15
   },
   {
    "struct_id": "1705",
@@ -1639,6 +1748,9 @@
     "boltzgen_consensus": {
      "core_coverage": 0.34782608695652173,
      "weighted_jaccard": 0.2519954389965792,
+     "f1_engaged_core": 0.35555555555555557,
+     "jaccard_engaged_core": 0.21621621621621623,
+     "precision_in_core": 0.36363636363636365,
      "engaged_core": [
       840,
       848,
@@ -1670,6 +1782,9 @@
     "p2rank_geometry": {
      "core_coverage": 0.7058823529411765,
      "weighted_jaccard": 0.4444444444444444,
+     "f1_engaged_core": 0.6153846153846154,
+     "jaccard_engaged_core": 0.4444444444444444,
+     "precision_in_core": 0.5454545454545454,
      "engaged_core": [
       840,
       848,
@@ -1695,6 +1810,9 @@
     "known_ligand": {
      "core_coverage": 0.8260869565217391,
      "weighted_jaccard": 0.7307692307692307,
+     "f1_engaged_core": 0.8444444444444444,
+     "jaccard_engaged_core": 0.7307692307692307,
+     "precision_in_core": 0.8636363636363636,
      "engaged_core": [
       840,
       848,
@@ -1726,7 +1844,7 @@
    },
    "core_coverage": 0.34782608695652173,
    "weighted_jaccard": 0.2519954389965792,
-   "rank": 15
+   "rank": 18
   },
   {
    "struct_id": "2811",
@@ -1758,6 +1876,9 @@
     "boltzgen_consensus": {
      "core_coverage": 0.17391304347826086,
      "weighted_jaccard": 0.11431742508324083,
+     "f1_engaged_core": 0.1951219512195122,
+     "jaccard_engaged_core": 0.10810810810810811,
+     "precision_in_core": 0.2222222222222222,
      "engaged_core": [
       885,
       916,
@@ -1789,6 +1910,9 @@
     "p2rank_geometry": {
      "core_coverage": 0.35294117647058826,
      "weighted_jaccard": 0.20689655172413793,
+     "f1_engaged_core": 0.34285714285714286,
+     "jaccard_engaged_core": 0.20689655172413793,
+     "precision_in_core": 0.3333333333333333,
      "engaged_core": [
       885,
       889,
@@ -1814,6 +1938,9 @@
     "known_ligand": {
      "core_coverage": 0.5217391304347826,
      "weighted_jaccard": 0.41379310344827586,
+     "f1_engaged_core": 0.5853658536585366,
+     "jaccard_engaged_core": 0.41379310344827586,
+     "precision_in_core": 0.6666666666666666,
      "engaged_core": [
       885,
       888,
@@ -1845,7 +1972,7 @@
    },
    "core_coverage": 0.17391304347826086,
    "weighted_jaccard": 0.11431742508324083,
-   "rank": 23
+   "rank": 26
   },
   {
    "struct_id": "1067",
@@ -1875,6 +2002,9 @@
     "boltzgen_consensus": {
      "core_coverage": 0.08695652173913043,
      "weighted_jaccard": 0.07325194228634849,
+     "f1_engaged_core": 0.10256410256410256,
+     "jaccard_engaged_core": 0.05405405405405406,
+     "precision_in_core": 0.125,
      "engaged_core": [
       1045,
       1046
@@ -1906,6 +2036,9 @@
     "p2rank_geometry": {
      "core_coverage": 0.23529411764705882,
      "weighted_jaccard": 0.13793103448275862,
+     "f1_engaged_core": 0.24242424242424243,
+     "jaccard_engaged_core": 0.13793103448275862,
+     "precision_in_core": 0.25,
      "engaged_core": [
       889,
       899,
@@ -1931,6 +2064,9 @@
     "known_ligand": {
      "core_coverage": 0.43478260869565216,
      "weighted_jaccard": 0.3448275862068966,
+     "f1_engaged_core": 0.5128205128205128,
+     "jaccard_engaged_core": 0.3448275862068966,
+     "precision_in_core": 0.625,
      "engaged_core": [
       888,
       889,
@@ -1991,6 +2127,9 @@
     "boltzgen_consensus": {
      "core_coverage": 0.17391304347826086,
      "weighted_jaccard": 0.11744583808437856,
+     "f1_engaged_core": 0.21052631578947367,
+     "jaccard_engaged_core": 0.11764705882352941,
+     "precision_in_core": 0.26666666666666666,
      "engaged_core": [
       868,
       885,
@@ -2022,6 +2161,9 @@
     "p2rank_geometry": {
      "core_coverage": 0.35294117647058826,
      "weighted_jaccard": 0.23076923076923078,
+     "f1_engaged_core": 0.375,
+     "jaccard_engaged_core": 0.23076923076923078,
+     "precision_in_core": 0.4,
      "engaged_core": [
       868,
       885,
@@ -2047,6 +2189,9 @@
     "known_ligand": {
      "core_coverage": 0.5217391304347826,
      "weighted_jaccard": 0.46153846153846156,
+     "f1_engaged_core": 0.631578947368421,
+     "jaccard_engaged_core": 0.46153846153846156,
+     "precision_in_core": 0.8,
      "engaged_core": [
       868,
       885,
@@ -2078,7 +2223,7 @@
    },
    "core_coverage": 0.17391304347826086,
    "weighted_jaccard": 0.11744583808437856,
-   "rank": 24
+   "rank": 23
   },
   {
    "struct_id": "3565",
@@ -2109,6 +2254,9 @@
     "boltzgen_consensus": {
      "core_coverage": 0.30434782608695654,
      "weighted_jaccard": 0.19695193434935518,
+     "f1_engaged_core": 0.35,
+     "jaccard_engaged_core": 0.21212121212121213,
+     "precision_in_core": 0.4117647058823529,
      "engaged_core": [
       848,
       868,
@@ -2140,6 +2288,9 @@
     "p2rank_geometry": {
      "core_coverage": 0.5882352941176471,
      "weighted_jaccard": 0.4166666666666667,
+     "f1_engaged_core": 0.5882352941176471,
+     "jaccard_engaged_core": 0.4166666666666667,
+     "precision_in_core": 0.5882352941176471,
      "engaged_core": [
       848,
       868,
@@ -2165,6 +2316,9 @@
     "known_ligand": {
      "core_coverage": 0.6956521739130435,
      "weighted_jaccard": 0.6666666666666666,
+     "f1_engaged_core": 0.8,
+     "jaccard_engaged_core": 0.6666666666666666,
+     "precision_in_core": 0.9411764705882353,
      "engaged_core": [
       848,
       868,
@@ -2196,7 +2350,7 @@
    },
    "core_coverage": 0.30434782608695654,
    "weighted_jaccard": 0.19695193434935518,
-   "rank": 17
+   "rank": 16
   },
   {
    "struct_id": "3129",
@@ -2227,6 +2381,9 @@
     "boltzgen_consensus": {
      "core_coverage": 0.21739130434782608,
      "weighted_jaccard": 0.16060961313012892,
+     "f1_engaged_core": 0.25,
+     "jaccard_engaged_core": 0.14285714285714285,
+     "precision_in_core": 0.29411764705882354,
      "engaged_core": [
       868,
       885,
@@ -2258,6 +2415,9 @@
     "p2rank_geometry": {
      "core_coverage": 0.47058823529411764,
      "weighted_jaccard": 0.3076923076923077,
+     "f1_engaged_core": 0.47058823529411764,
+     "jaccard_engaged_core": 0.3076923076923077,
+     "precision_in_core": 0.47058823529411764,
      "engaged_core": [
       868,
       885,
@@ -2283,6 +2443,9 @@
     "known_ligand": {
      "core_coverage": 0.5652173913043478,
      "weighted_jaccard": 0.48148148148148145,
+     "f1_engaged_core": 0.65,
+     "jaccard_engaged_core": 0.48148148148148145,
+     "precision_in_core": 0.7647058823529411,
      "engaged_core": [
       868,
       885,
@@ -2314,7 +2477,7 @@
    },
    "core_coverage": 0.21739130434782608,
    "weighted_jaccard": 0.16060961313012892,
-   "rank": 20
+   "rank": 21
   },
   {
    "struct_id": "3959",
@@ -2347,6 +2510,9 @@
     "boltzgen_consensus": {
      "core_coverage": 0.17391304347826086,
      "weighted_jaccard": 0.13683010262257694,
+     "f1_engaged_core": 0.19047619047619047,
+     "jaccard_engaged_core": 0.10526315789473684,
+     "precision_in_core": 0.21052631578947367,
      "engaged_core": [
       885,
       916,
@@ -2378,6 +2544,9 @@
     "p2rank_geometry": {
      "core_coverage": 0.35294117647058826,
      "weighted_jaccard": 0.2,
+     "f1_engaged_core": 0.3333333333333333,
+     "jaccard_engaged_core": 0.2,
+     "precision_in_core": 0.3157894736842105,
      "engaged_core": [
       885,
       889,
@@ -2403,6 +2572,9 @@
     "known_ligand": {
      "core_coverage": 0.5217391304347826,
      "weighted_jaccard": 0.4,
+     "f1_engaged_core": 0.5714285714285714,
+     "jaccard_engaged_core": 0.4,
+     "precision_in_core": 0.631578947368421,
      "engaged_core": [
       885,
       888,
@@ -2434,7 +2606,7 @@
    },
    "core_coverage": 0.17391304347826086,
    "weighted_jaccard": 0.13683010262257694,
-   "rank": 25
+   "rank": 27
   },
   {
    "struct_id": "1245",
@@ -2465,6 +2637,9 @@
     "boltzgen_consensus": {
      "core_coverage": 0.13043478260869565,
      "weighted_jaccard": 0.10378378378378376,
+     "f1_engaged_core": 0.15,
+     "jaccard_engaged_core": 0.08108108108108109,
+     "precision_in_core": 0.17647058823529413,
      "engaged_core": [
       885,
       1045,
@@ -2496,6 +2671,9 @@
     "p2rank_geometry": {
      "core_coverage": 0.29411764705882354,
      "weighted_jaccard": 0.1724137931034483,
+     "f1_engaged_core": 0.29411764705882354,
+     "jaccard_engaged_core": 0.1724137931034483,
+     "precision_in_core": 0.29411764705882354,
      "engaged_core": [
       885,
       889,
@@ -2521,6 +2699,9 @@
     "known_ligand": {
      "core_coverage": 0.4782608695652174,
      "weighted_jaccard": 0.3793103448275862,
+     "f1_engaged_core": 0.55,
+     "jaccard_engaged_core": 0.3793103448275862,
+     "precision_in_core": 0.6470588235294118,
      "engaged_core": [
       885,
       888,
@@ -2552,7 +2733,7 @@
    },
    "core_coverage": 0.13043478260869565,
    "weighted_jaccard": 0.10378378378378376,
-   "rank": 26
+   "rank": 28
   },
   {
    "struct_id": "4291",
@@ -2611,6 +2792,9 @@
     "boltzgen_consensus": {
      "core_coverage": 0.782608695652174,
      "weighted_jaccard": 0.4899894625922023,
+     "f1_engaged_core": 0.5806451612903226,
+     "jaccard_engaged_core": 0.4090909090909091,
+     "precision_in_core": 0.46153846153846156,
      "engaged_core": [
       840,
       841,
@@ -2642,6 +2826,9 @@
     "p2rank_geometry": {
      "core_coverage": 0.9411764705882353,
      "weighted_jaccard": 0.4,
+     "f1_engaged_core": 0.5714285714285714,
+     "jaccard_engaged_core": 0.4,
+     "precision_in_core": 0.41025641025641024,
      "engaged_core": [
       840,
       848,
@@ -2667,6 +2854,9 @@
     "known_ligand": {
      "core_coverage": 0.9565217391304348,
      "weighted_jaccard": 0.55,
+     "f1_engaged_core": 0.7096774193548387,
+     "jaccard_engaged_core": 0.55,
+     "precision_in_core": 0.5641025641025641,
      "engaged_core": [
       840,
       848,
@@ -2698,7 +2888,7 @@
    },
    "core_coverage": 0.782608695652174,
    "weighted_jaccard": 0.4899894625922023,
-   "rank": 1
+   "rank": 14
   },
   {
    "struct_id": "2322",
@@ -2725,6 +2915,9 @@
     "boltzgen_consensus": {
      "core_coverage": 0.391304347826087,
      "weighted_jaccard": 0.3124147339699863,
+     "f1_engaged_core": 0.5,
+     "jaccard_engaged_core": 0.3333333333333333,
+     "precision_in_core": 0.6923076923076923,
      "engaged_core": [
       840,
       848,
@@ -2756,6 +2949,9 @@
     "p2rank_geometry": {
      "core_coverage": 0.7058823529411765,
      "weighted_jaccard": 0.6666666666666666,
+     "f1_engaged_core": 0.8,
+     "jaccard_engaged_core": 0.6666666666666666,
+     "precision_in_core": 0.9230769230769231,
      "engaged_core": [
       840,
       848,
@@ -2781,6 +2977,9 @@
     "known_ligand": {
      "core_coverage": 0.5652173913043478,
      "weighted_jaccard": 0.5652173913043478,
+     "f1_engaged_core": 0.7222222222222222,
+     "jaccard_engaged_core": 0.5652173913043478,
+     "precision_in_core": 1.0,
      "engaged_core": [
       840,
       848,
@@ -2812,7 +3011,7 @@
    },
    "core_coverage": 0.391304347826087,
    "weighted_jaccard": 0.3124147339699863,
-   "rank": 13
+   "rank": 3
   },
   {
    "struct_id": "1228",
@@ -2845,6 +3044,9 @@
     "boltzgen_consensus": {
      "core_coverage": 0.2608695652173913,
      "weighted_jaccard": 0.16305587229190419,
+     "f1_engaged_core": 0.2857142857142857,
+     "jaccard_engaged_core": 0.16666666666666666,
+     "precision_in_core": 0.3157894736842105,
      "engaged_core": [
       848,
       868,
@@ -2876,6 +3078,9 @@
     "p2rank_geometry": {
      "core_coverage": 0.47058823529411764,
      "weighted_jaccard": 0.2857142857142857,
+     "f1_engaged_core": 0.4444444444444444,
+     "jaccard_engaged_core": 0.2857142857142857,
+     "precision_in_core": 0.42105263157894735,
      "engaged_core": [
       848,
       868,
@@ -2901,6 +3106,9 @@
     "known_ligand": {
      "core_coverage": 0.6086956521739131,
      "weighted_jaccard": 0.5,
+     "f1_engaged_core": 0.6666666666666666,
+     "jaccard_engaged_core": 0.5,
+     "precision_in_core": 0.7368421052631579,
      "engaged_core": [
       848,
       868,
@@ -2932,7 +3140,7 @@
    },
    "core_coverage": 0.2608695652173913,
    "weighted_jaccard": 0.16305587229190419,
-   "rank": 18
+   "rank": 20
   },
   {
    "struct_id": "1414",
@@ -2960,6 +3168,9 @@
     "boltzgen_consensus": {
      "core_coverage": 0.34782608695652173,
      "weighted_jaccard": 0.3219645293315143,
+     "f1_engaged_core": 0.43243243243243246,
+     "jaccard_engaged_core": 0.27586206896551724,
+     "precision_in_core": 0.5714285714285714,
      "engaged_core": [
       840,
       841,
@@ -2991,6 +3202,9 @@
     "p2rank_geometry": {
      "core_coverage": 0.5882352941176471,
      "weighted_jaccard": 0.47619047619047616,
+     "f1_engaged_core": 0.6451612903225806,
+     "jaccard_engaged_core": 0.47619047619047616,
+     "precision_in_core": 0.7142857142857143,
      "engaged_core": [
       840,
       848,
@@ -3016,6 +3230,9 @@
     "known_ligand": {
      "core_coverage": 0.4782608695652174,
      "weighted_jaccard": 0.4230769230769231,
+     "f1_engaged_core": 0.5945945945945946,
+     "jaccard_engaged_core": 0.4230769230769231,
+     "precision_in_core": 0.7857142857142857,
      "engaged_core": [
       840,
       848,
@@ -3047,7 +3264,7 @@
    },
    "core_coverage": 0.34782608695652173,
    "weighted_jaccard": 0.3219645293315143,
-   "rank": 16
+   "rank": 12
   },
   {
    "struct_id": "202",
@@ -3076,6 +3293,9 @@
     "boltzgen_consensus": {
      "core_coverage": 0.391304347826087,
      "weighted_jaccard": 0.35334242837653473,
+     "f1_engaged_core": 0.47368421052631576,
+     "jaccard_engaged_core": 0.3103448275862069,
+     "precision_in_core": 0.6,
      "engaged_core": [
       840,
       841,
@@ -3107,6 +3327,9 @@
     "p2rank_geometry": {
      "core_coverage": 0.5882352941176471,
      "weighted_jaccard": 0.45454545454545453,
+     "f1_engaged_core": 0.625,
+     "jaccard_engaged_core": 0.45454545454545453,
+     "precision_in_core": 0.6666666666666666,
      "engaged_core": [
       840,
       848,
@@ -3132,6 +3355,9 @@
     "known_ligand": {
      "core_coverage": 0.4782608695652174,
      "weighted_jaccard": 0.4074074074074074,
+     "f1_engaged_core": 0.5789473684210527,
+     "jaccard_engaged_core": 0.4074074074074074,
+     "precision_in_core": 0.7333333333333333,
      "engaged_core": [
       840,
       848,
@@ -3163,7 +3389,7 @@
    },
    "core_coverage": 0.391304347826087,
    "weighted_jaccard": 0.35334242837653473,
-   "rank": 14
+   "rank": 10
   },
   {
    "struct_id": "362",
@@ -3188,6 +3414,9 @@
     "boltzgen_consensus": {
      "core_coverage": 0.13043478260869565,
      "weighted_jaccard": 0.082063305978898,
+     "f1_engaged_core": 0.17647058823529413,
+     "jaccard_engaged_core": 0.0967741935483871,
+     "precision_in_core": 0.2727272727272727,
      "engaged_core": [
       885,
       1045,
@@ -3219,6 +3448,9 @@
     "p2rank_geometry": {
      "core_coverage": 0.23529411764705882,
      "weighted_jaccard": 0.16666666666666666,
+     "f1_engaged_core": 0.2857142857142857,
+     "jaccard_engaged_core": 0.16666666666666666,
+     "precision_in_core": 0.36363636363636365,
      "engaged_core": [
       885,
       889,
@@ -3244,6 +3476,9 @@
     "known_ligand": {
      "core_coverage": 0.391304347826087,
      "weighted_jaccard": 0.36,
+     "f1_engaged_core": 0.5294117647058824,
+     "jaccard_engaged_core": 0.36,
+     "precision_in_core": 0.8181818181818182,
      "engaged_core": [
       885,
       888,
@@ -3275,7 +3510,7 @@
    },
    "core_coverage": 0.13043478260869565,
    "weighted_jaccard": 0.082063305978898,
-   "rank": 27
+   "rank": 22
   },
   {
    "struct_id": "93",
@@ -3303,6 +3538,9 @@
     "boltzgen_consensus": {
      "core_coverage": 0.21739130434782608,
      "weighted_jaccard": 0.15922798552472855,
+     "f1_engaged_core": 0.2702702702702703,
+     "jaccard_engaged_core": 0.15625,
+     "precision_in_core": 0.35714285714285715,
      "engaged_core": [
       868,
       885,
@@ -3334,6 +3572,9 @@
     "p2rank_geometry": {
      "core_coverage": 0.4117647058823529,
      "weighted_jaccard": 0.2916666666666667,
+     "f1_engaged_core": 0.45161290322580644,
+     "jaccard_engaged_core": 0.2916666666666667,
+     "precision_in_core": 0.5,
      "engaged_core": [
       868,
       885,
@@ -3359,6 +3600,9 @@
     "known_ligand": {
      "core_coverage": 0.5217391304347826,
      "weighted_jaccard": 0.48,
+     "f1_engaged_core": 0.6486486486486487,
+     "jaccard_engaged_core": 0.48,
+     "precision_in_core": 0.8571428571428571,
      "engaged_core": [
       868,
       885,
@@ -3390,7 +3634,7 @@
    },
    "core_coverage": 0.21739130434782608,
    "weighted_jaccard": 0.15922798552472855,
-   "rank": 21
+   "rank": 19
   },
   {
    "struct_id": "809",
@@ -3417,6 +3661,9 @@
     "boltzgen_consensus": {
      "core_coverage": 0.21739130434782608,
      "weighted_jaccard": 0.14716525934861277,
+     "f1_engaged_core": 0.2777777777777778,
+     "jaccard_engaged_core": 0.16129032258064516,
+     "precision_in_core": 0.38461538461538464,
      "engaged_core": [
       868,
       885,
@@ -3448,6 +3695,9 @@
     "p2rank_geometry": {
      "core_coverage": 0.47058823529411764,
      "weighted_jaccard": 0.36363636363636365,
+     "f1_engaged_core": 0.5333333333333333,
+     "jaccard_engaged_core": 0.36363636363636365,
+     "precision_in_core": 0.6153846153846154,
      "engaged_core": [
       868,
       885,
@@ -3473,6 +3723,9 @@
     "known_ligand": {
      "core_coverage": 0.5652173913043478,
      "weighted_jaccard": 0.5652173913043478,
+     "f1_engaged_core": 0.7222222222222222,
+     "jaccard_engaged_core": 0.5652173913043478,
+     "precision_in_core": 1.0,
      "engaged_core": [
       868,
       885,
@@ -3504,7 +3757,7 @@
    },
    "core_coverage": 0.21739130434782608,
    "weighted_jaccard": 0.14716525934861277,
-   "rank": 22
+   "rank": 17
   },
   {
    "struct_id": "3999",
@@ -3530,6 +3783,9 @@
     "boltzgen_consensus": {
      "core_coverage": 0.13043478260869565,
      "weighted_jaccard": 0.09261430246189917,
+     "f1_engaged_core": 0.17142857142857143,
+     "jaccard_engaged_core": 0.09375,
+     "precision_in_core": 0.25,
      "engaged_core": [
       885,
       1045,
@@ -3561,6 +3817,9 @@
     "p2rank_geometry": {
      "core_coverage": 0.29411764705882354,
      "weighted_jaccard": 0.20833333333333334,
+     "f1_engaged_core": 0.3448275862068966,
+     "jaccard_engaged_core": 0.20833333333333334,
+     "precision_in_core": 0.4166666666666667,
      "engaged_core": [
       885,
       889,
@@ -3586,6 +3845,9 @@
     "known_ligand": {
      "core_coverage": 0.4782608695652174,
      "weighted_jaccard": 0.4583333333333333,
+     "f1_engaged_core": 0.6285714285714286,
+     "jaccard_engaged_core": 0.4583333333333333,
+     "precision_in_core": 0.9166666666666666,
      "engaged_core": [
       885,
       888,
@@ -3617,7 +3879,7 @@
    },
    "core_coverage": 0.13043478260869565,
    "weighted_jaccard": 0.09261430246189917,
-   "rank": 28
+   "rank": 25
   }
  ]
 }
