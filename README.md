@@ -20,7 +20,13 @@ learned chemical-language embedding is significantly *worse*.
 (p@1) and loses on global ranking quality (AUROC) to four other representations.
 Reporting one number would have hidden that.
 
-**3. Target-side beats ligand-side — but for a smaller reason than it first appears.**
+**3. And where it fails is the interesting part.** Ranking approved drugs by similarity
+to a potent VEGFR2 ligand enriches known VEGFR2 binders **10.2×** — and still buries
+sunitinib at rank 464 and pazopanib at 764. Chemical similarity finds the drugs that
+*look* like the query. The ones that engage the same residues without resembling it are
+exactly what it cannot see.
+
+**4. Target-side beats ligand-side — but for a smaller reason than it first appears.**
 A consensus of which residues a target's known ligands engage predicts a *held-out*
 ligand's contacts far better than a pocket finder does (+0.27 precision, n=1,531). But
 a single randomly chosen other ligand already gets most of the way there. Aggregation
@@ -73,10 +79,50 @@ this task — while being *better* on AUROC, which is the same disagreement agai
 `mw_logp` is a deliberately weak control (molecular weight + cLogP only). It lands near
 the bottom, which is the evidence that the benchmark can distinguish anything at all.
 
+**It replicates on a stricter ground truth.** Re-run against shared *mechanism-of-action*
+target (n=1,319 queries, 1,408 drugs, base rate 0.0171): morgan p@1 **0.6960**
+[0.6725, 0.7202] is again first, with topological_torsion (−0.011), fcfp4 (−0.011) and
+atom_pair (−0.017) again tying it (Holm p = 0.42, 0.42, 0.21). The AUROC inversion
+replicates too — fcfp4 reaches 0.8299 against morgan's 0.8139.
+
 ```bash
 ./env/bin/python scripts/benchmark.py            # full panel, ~10 min first run
 ./env/bin/python scripts/benchmark.py --quick    # skips conformers + neural
+./env/bin/python scripts/benchmark.py --truth moa_targets
 ```
+
+---
+
+## E3 — where chemical similarity fails, and why that motivates E2
+
+The pipeline end to end: disease → target → best literature ligand → similar approved
+drugs. For colorectal cancer the target is KDR/VEGFR2 and the ligand resolved from
+ChEMBL is **axitinib** (IC50 0.02 nM, pChEMBL 10.70, assay CHEMBL5621867 confidence 9,
+PMID 37285684). Rank the 4,099-structure approved corpus by ECFP4 similarity to it —
+ECFP4 because E1 measured it to be the best, not because it is conventional — and ask
+where the **32 approved drugs DrugCentral annotates against KDR** land.
+
+| | |
+|---|---|
+| known binders in top 25 | 2 of 25, base rate 0.0078 → **enrichment 10.2×** |
+| axitinib | rank 1 — *it is the query; a sanity check, not a discovery* |
+| sorafenib / regorafenib / apatinib | 21 / 39 / 51 |
+| **sunitinib** | **464** |
+| **nintedanib / pazopanib** | **755 / 764** |
+| **vandetanib** | **1,760** |
+| **gefitinib** | **2,363** |
+
+So similarity-to-axitinib is genuinely enriched — 10× is not nothing — and it is also
+useless for most of the drugs that actually bind this target. Every drug in the lower
+half of that table is a real VEGFR2 binder that a chemical-similarity shortlist would
+never surface.
+
+That is the whole motivation for asking the question on the target side instead. Two
+drugs that share a binding site need not share any chemistry, and E2 measures exactly
+how much is recoverable from the site rather than the molecule.
+
+*No affinity, potency or binding strength is predicted or implied anywhere in this
+ranking; it is chemical similarity only.*
 
 ---
 
@@ -212,6 +258,7 @@ is what worked. Measured cost: **~5–7 credits per design**, 396–564 s per 4-
 | `scripts/interfaces.py` | target-side contact extraction + InterfaceSignature |
 | `scripts/hotspot_recovery.py` | E2 — leave-one-ligand-out hotspot recovery |
 | `scripts/run_p2rank.py`, `build_interface_set.py`, `fetch_structures.py` | the E2 baseline arm and its data |
+| `scripts/match_candidates.py` | E3 — similarity shortlist + the rediscovery check |
 | `scripts/boltzgen_signature.py` | BoltzGen run → InterfaceSignature + targeting diagnostics |
 | `docs/03-SCOPE-AND-CONSTRAINTS.md` | what this machine can and cannot do, stated before building on it |
 | `docs/05-E2-DESIGN-CRITIQUE.md` | the adversarial critique E2 had to survive |
@@ -226,6 +273,7 @@ python3.14 -m venv env && ./env/bin/pip install -r requirements.txt
 ./env/bin/python scripts/fetch_structures.py          # ~1 GB of mmCIF
 ./env/bin/python scripts/run_p2rank.py                # baseline arm (~12 min)
 ./env/bin/python scripts/hotspot_recovery.py          # E2
+./env/bin/python scripts/match_candidates.py          # E3
 ./env/bin/python scripts/test_metrics.py              # 23 tests
 ```
 
