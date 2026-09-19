@@ -1,0 +1,12 @@
+# Validated in env/ (Python 3.14.7, macOS arm64). Recreate with:
+#   python3.14 -m venv env && ./env/bin/pip install -r requirements.txt
+numpy==2.5.3
+pandas==3.0.6
+scikit-learn==1.9.1
+rdkit==2026.03.6
+certifi>=2025.0.0   # python.org 3.14 ships no CA bundle; fetch scripts need this
+
+# Added by pipeline tasks (see docs/02-PIPELINE-PLAN.md):
+#   torch + transformers  -> T6 embeddings (platform-specific install)
+#   rowan-python          -> T8 affinity prediction (needs ROWAN_API_KEY)
+# NOTE: boltz requires Python <3.13 and cannot be installed in env/.

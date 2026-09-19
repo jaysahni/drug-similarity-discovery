@@ -7,3 +7,8 @@ results/**/*.parquet
 .ipynb_checkpoints/
 data/structures.smiles.tsv
 data/drug.target.interaction.tsv
+
+# secrets - never commit API keys
+.env
+*.env
+!.env.example
