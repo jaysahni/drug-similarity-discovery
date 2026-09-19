@@ -1,0 +1,7 @@
+* text=auto
+*.csv text eol=lf
+*.tsv text eol=lf
+*.npy binary
+*.parquet binary
+*.cif binary
+*.pdb binary
