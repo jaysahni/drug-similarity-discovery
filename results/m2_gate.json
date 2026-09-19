@@ -1,0 +1,1704 @@
+{
+ "ablation": "I6.1 (PROJECT_GOAL.md 8.3) - the M2 gate",
+ "question": "does a BoltzGen design consensus beat pocket geometry at predicting where a real ligand binds?",
+ "ground_truth": "known-ligand contact residues, 4.5 A heavy atom, per structure",
+ "n_structures": 38,
+ "skipped": [],
+ "target": {
+  "symbol": "KDR",
+  "uniprot": "P35968",
+  "design_structure": "3VHE chain A (ligand-stripped)"
+ },
+ "boltzgen": {
+  "n_designs": 24,
+  "workflow": "6fa0a492-5bbb-475d-a501-f371fa43ef5f",
+  "core_threshold": 0.6,
+  "n_core": 23,
+  "core_auth": [
+   840,
+   841,
+   842,
+   843,
+   844,
+   845,
+   846,
+   848,
+   868,
+   885,
+   916,
+   918,
+   919,
+   921,
+   922,
+   923,
+   926,
+   1032,
+   1033,
+   1035,
+   1045,
+   1046,
+   1048
+  ],
+  "credits": 85.54,
+  "mean_pairwise_jaccard_between_designs": 0.509079079335996
+ },
+ "arms": {
+  "boltzgen_consensus": {
+   "precision": 0.45652173913043476,
+   "recall": 0.4890158481656681,
+   "f1": 0.4697597443620602,
+   "jaccard": 0.31150453413533463,
+   "jaccard_ci": [
+    0.28698471139378107,
+    0.3344361952044417
+   ],
+   "mean_n_pred": 23
+  },
+  "p2rank_geometry": {
+   "precision": 0.826741691239144,
+   "recall": 0.7441101437433469,
+   "f1": 0.771792493038644,
+   "jaccard": 0.635503169781655,
+   "jaccard_ci": [
+    0.6011411831246514,
+    0.6672595918184407
+   ],
+   "mean_n_pred": 19.526315789473685
+  },
+  "known_ligand": {
+   "precision": 0.8365650969529085,
+   "recall": 0.7320685358351536,
+   "f1": 0.7771277169278455,
+   "jaccard": 0.6630060512436169,
+   "jaccard_ci": [
+    0.5993206414811967,
+    0.7194580273204688
+   ],
+   "mean_n_pred": 19.0
+  },
+  "random": {
+   "precision": 0.07452829207405866,
+   "recall": 0.07914251727619558,
+   "f1": 0.07633283668291732,
+   "jaccard": 0.0405227665919848,
+   "jaccard_ci": [
+    0.039188816269270385,
+    0.04181709087378959
+   ],
+   "mean_n_pred": 23
+  }
+ },
+ "comparisons": {
+  "boltzgen_consensus - p2rank_geometry [jaccard]": {
+   "delta": -0.32399863564632037,
+   "ci_lo": -0.35261992900223643,
+   "ci_hi": -0.2940887348253722,
+   "p_value": 9.99950002499875e-05,
+   "n": 38,
+   "wilcoxon": {
+    "statistic": 0.0,
+    "p_value": 7.275957614183426e-12,
+    "n": 38,
+    "n_effective": 38
+   },
+   "p_holm": 0.0015999200039998
+  },
+  "boltzgen_consensus - p2rank_geometry [precision]": {
+   "delta": -0.3702199521087092,
+   "ci_lo": -0.4076010009160667,
+   "ci_hi": -0.33077309588807985,
+   "p_value": 9.99950002499875e-05,
+   "n": 38,
+   "wilcoxon": {
+    "statistic": 0.0,
+    "p_value": 7.721554051560781e-08,
+    "n": 38,
+    "n_effective": 38
+   },
+   "p_holm": 0.0015999200039998
+  },
+  "boltzgen_consensus - p2rank_geometry [recall]": {
+   "delta": -0.2550942955776788,
+   "ci_lo": -0.28999744068153444,
+   "ci_hi": -0.22190769984735978,
+   "p_value": 9.99950002499875e-05,
+   "n": 38,
+   "wilcoxon": {
+    "statistic": 0.0,
+    "p_value": 1.135979452166962e-07,
+    "n": 38,
+    "n_effective": 37
+   },
+   "p_holm": 0.0015999200039998
+  },
+  "boltzgen_consensus - p2rank_geometry [f1]": {
+   "delta": -0.30203274867658375,
+   "ci_lo": -0.3306502570456199,
+   "ci_hi": -0.2733179250388025,
+   "p_value": 9.99950002499875e-05,
+   "n": 38,
+   "wilcoxon": {
+    "statistic": 0.0,
+    "p_value": 7.275957614183426e-12,
+    "n": 38,
+    "n_effective": 38
+   },
+   "p_holm": 0.0015999200039998
+  },
+  "boltzgen_consensus - known_ligand [jaccard]": {
+   "delta": -0.35150151710828226,
+   "ci_lo": -0.3913686187184104,
+   "ci_hi": -0.30542505176280726,
+   "p_value": 9.99950002499875e-05,
+   "n": 38,
+   "wilcoxon": {
+    "statistic": 0.0,
+    "p_value": 7.697373814440203e-08,
+    "n": 38,
+    "n_effective": 38
+   },
+   "p_holm": 0.0015999200039998
+  },
+  "boltzgen_consensus - known_ligand [precision]": {
+   "delta": -0.3800433578224737,
+   "ci_lo": -0.4181621100806935,
+   "ci_hi": -0.33674575454654937,
+   "p_value": 9.99950002499875e-05,
+   "n": 38,
+   "wilcoxon": {
+    "statistic": 0.0,
+    "p_value": 7.184621556709936e-08,
+    "n": 38,
+    "n_effective": 38
+   },
+   "p_holm": 0.0015999200039998
+  },
+  "boltzgen_consensus - known_ligand [recall]": {
+   "delta": -0.2430526876694855,
+   "ci_lo": -0.270303104075583,
+   "ci_hi": -0.21098431616299784,
+   "p_value": 9.99950002499875e-05,
+   "n": 38,
+   "wilcoxon": {
+    "statistic": 0.0,
+    "p_value": 2.442896735984374e-07,
+    "n": 38,
+    "n_effective": 35
+   },
+   "p_holm": 0.0015999200039998
+  },
+  "boltzgen_consensus - known_ligand [f1]": {
+   "delta": -0.30736797256578535,
+   "ci_lo": -0.3379938345760481,
+   "ci_hi": -0.2712974101573167,
+   "p_value": 9.99950002499875e-05,
+   "n": 38,
+   "wilcoxon": {
+    "statistic": 0.0,
+    "p_value": 7.697373814440203e-08,
+    "n": 38,
+    "n_effective": 38
+   },
+   "p_holm": 0.0015999200039998
+  },
+  "boltzgen_consensus - random [jaccard]": {
+   "delta": 0.27098176754334985,
+   "ci_lo": 0.24639427804121283,
+   "ci_hi": 0.2945345886767145,
+   "p_value": 9.99950002499875e-05,
+   "n": 38,
+   "wilcoxon": {
+    "statistic": 0.0,
+    "p_value": 7.275957614183426e-12,
+    "n": 38,
+    "n_effective": 38
+   },
+   "p_holm": 0.0015999200039998
+  },
+  "boltzgen_consensus - random [precision]": {
+   "delta": 0.3819934470563761,
+   "ci_lo": 0.3519526081755774,
+   "ci_hi": 0.40907444872061566,
+   "p_value": 9.99950002499875e-05,
+   "n": 38,
+   "wilcoxon": {
+    "statistic": 0.0,
+    "p_value": 7.736700151388091e-08,
+    "n": 38,
+    "n_effective": 38
+   },
+   "p_holm": 0.0015999200039998
+  },
+  "boltzgen_consensus - random [recall]": {
+   "delta": 0.40987333088947253,
+   "ci_lo": 0.3765416151382858,
+   "ci_hi": 0.44295379150908504,
+   "p_value": 9.99950002499875e-05,
+   "n": 38,
+   "wilcoxon": {
+    "statistic": 0.0,
+    "p_value": 7.736700151388091e-08,
+    "n": 38,
+    "n_effective": 38
+   },
+   "p_holm": 0.0015999200039998
+  },
+  "boltzgen_consensus - random [f1]": {
+   "delta": 0.3934269076791429,
+   "ci_lo": 0.3628397223166497,
+   "ci_hi": 0.42212766094094833,
+   "p_value": 9.99950002499875e-05,
+   "n": 38,
+   "wilcoxon": {
+    "statistic": 0.0,
+    "p_value": 7.736700151388091e-08,
+    "n": 38,
+    "n_effective": 38
+   },
+   "p_holm": 0.0015999200039998
+  },
+  "known_ligand - p2rank_geometry [jaccard]": {
+   "delta": 0.027502881461961892,
+   "ci_lo": -0.03318293421458207,
+   "ci_hi": 0.08291870024670381,
+   "p_value": 0.35318234088295586,
+   "n": 38,
+   "wilcoxon": {
+    "statistic": 209.0,
+    "p_value": 0.051398052935824286,
+    "n": 38,
+    "n_effective": 36
+   },
+   "p_holm": 1.0
+  },
+  "known_ligand - p2rank_geometry [precision]": {
+   "delta": 0.0098234057137645,
+   "ci_lo": -0.05455532699237258,
+   "ci_hi": 0.06851062108891484,
+   "p_value": 0.7474626268686566,
+   "n": 38,
+   "wilcoxon": {
+    "statistic": 230.5,
+    "p_value": 0.10728161263173558,
+    "n": 38,
+    "n_effective": 36
+   },
+   "p_holm": 1.0
+  },
+  "known_ligand - p2rank_geometry [recall]": {
+   "delta": -0.012041607908193308,
+   "ci_lo": -0.06638425693930662,
+   "ci_hi": 0.03667561901709826,
+   "p_value": 0.6625668716564171,
+   "n": 38,
+   "wilcoxon": {
+    "statistic": 207.0,
+    "p_value": 0.5998491109818039,
+    "n": 38,
+    "n_effective": 30
+   },
+   "p_holm": 1.0
+  },
+  "known_ligand - p2rank_geometry [f1]": {
+   "delta": 0.005335223889201601,
+   "ci_lo": -0.05079365355614738,
+   "ci_hi": 0.05519183434380742,
+   "p_value": 0.8275586220688965,
+   "n": 38,
+   "wilcoxon": {
+    "statistic": 215.0,
+    "p_value": 0.06376093173548066,
+    "n": 38,
+    "n_effective": 36
+   },
+   "p_holm": 1.0
+  }
+ },
+ "convergence_c5": [
+  {
+   "n_designs": 2,
+   "mean_jaccard_to_full": 0.6271843958971403,
+   "sd": 0.14667366325692494,
+   "mean_core_size": 20.783333333333335
+  },
+  {
+   "n_designs": 4,
+   "mean_jaccard_to_full": 0.7139428048228568,
+   "sd": 0.09539812484204323,
+   "mean_core_size": 23.433333333333334
+  },
+  {
+   "n_designs": 6,
+   "mean_jaccard_to_full": 0.7801179872255503,
+   "sd": 0.06715388677330966,
+   "mean_core_size": 25.75
+  },
+  {
+   "n_designs": 8,
+   "mean_jaccard_to_full": 0.8061091212024426,
+   "sd": 0.04844585131567074,
+   "mean_core_size": 26.35
+  },
+  {
+   "n_designs": 12,
+   "mean_jaccard_to_full": 0.8496914627240714,
+   "sd": 0.050380738979158284,
+   "mean_core_size": 23.333333333333332
+  },
+  {
+   "n_designs": 16,
+   "mean_jaccard_to_full": 0.8914067113777261,
+   "sd": 0.04370800054193177,
+   "mean_core_size": 24.433333333333334
+  },
+  {
+   "n_designs": 20,
+   "mean_jaccard_to_full": 0.8966975659504397,
+   "sd": 0.038048687042996236,
+   "mean_core_size": 25.516666666666666
+  },
+  {
+   "n_designs": 24,
+   "mean_jaccard_to_full": 1.0,
+   "sd": 0.0,
+   "mean_core_size": 23.0
+  }
+ ],
+ "per_structure": [
+  {
+   "pdb_id": "1Y6A",
+   "chain": "A",
+   "ligand": "AAZ",
+   "resolution": 2.1,
+   "n_chain": 261,
+   "n_known_contacts": 15,
+   "boltzgen_consensus": {
+    "precision": 0.34782608695652173,
+    "recall": 0.5333333333333333,
+    "f1": 0.4210526315789474,
+    "jaccard": 0.26666666666666666,
+    "n_pred": 23
+   },
+   "p2rank_geometry": {
+    "precision": 0.6842105263157895,
+    "recall": 0.8666666666666667,
+    "f1": 0.7647058823529413,
+    "jaccard": 0.6190476190476191,
+    "n_pred": 19
+   },
+   "known_ligand": {
+    "precision": 0.42105263157894735,
+    "recall": 0.5333333333333333,
+    "f1": 0.47058823529411764,
+    "jaccard": 0.3076923076923077,
+    "n_pred": 19
+   },
+   "random": {
+    "precision": 0.05217391304347825,
+    "recall": 0.08,
+    "f1": 0.06315789473684211,
+    "jaccard": 0.03364874729580612
+   }
+  },
+  {
+   "pdb_id": "1Y6B",
+   "chain": "A",
+   "ligand": "AAX",
+   "resolution": 2.1,
+   "n_chain": 266,
+   "n_known_contacts": 20,
+   "boltzgen_consensus": {
+    "precision": 0.391304347826087,
+    "recall": 0.45,
+    "f1": 0.4186046511627907,
+    "jaccard": 0.2647058823529412,
+    "n_pred": 23
+   },
+   "p2rank_geometry": {
+    "precision": 0.8235294117647058,
+    "recall": 0.7,
+    "f1": 0.7567567567567567,
+    "jaccard": 0.6086956521739131,
+    "n_pred": 17
+   },
+   "known_ligand": {
+    "precision": 0.47368421052631576,
+    "recall": 0.45,
+    "f1": 0.46153846153846156,
+    "jaccard": 0.3,
+    "n_pred": 19
+   },
+   "random": {
+    "precision": 0.07826086956521738,
+    "recall": 0.09,
+    "f1": 0.08372093023255815,
+    "jaccard": 0.04462243201813163
+   }
+  },
+  {
+   "pdb_id": "1YWN",
+   "chain": "A",
+   "ligand": "LIF",
+   "resolution": 1.71,
+   "n_chain": 281,
+   "n_known_contacts": 23,
+   "boltzgen_consensus": {
+    "precision": 0.21739130434782608,
+    "recall": 0.21739130434782608,
+    "f1": 0.21739130434782608,
+    "jaccard": 0.12195121951219512,
+    "n_pred": 23
+   },
+   "p2rank_geometry": {
+    "precision": 0.8571428571428571,
+    "recall": 0.5217391304347826,
+    "f1": 0.6486486486486486,
+    "jaccard": 0.48,
+    "n_pred": 14
+   },
+   "known_ligand": {
+    "precision": 0.3157894736842105,
+    "recall": 0.2608695652173913,
+    "f1": 0.28571428571428575,
+    "jaccard": 0.16666666666666666,
+    "n_pred": 19
+   },
+   "random": {
+    "precision": 0.07913043478260869,
+    "recall": 0.07913043478260869,
+    "f1": 0.07913043478260869,
+    "jaccard": 0.04209942427270844
+   }
+  },
+  {
+   "pdb_id": "2OH4",
+   "chain": "A",
+   "ligand": "GIG",
+   "resolution": 2.05,
+   "n_chain": 299,
+   "n_known_contacts": 24,
+   "boltzgen_consensus": {
+    "precision": 0.2608695652173913,
+    "recall": 0.25,
+    "f1": 0.2553191489361702,
+    "jaccard": 0.14634146341463414,
+    "n_pred": 23
+   },
+   "p2rank_geometry": {
+    "precision": 0.8,
+    "recall": 0.6666666666666666,
+    "f1": 0.7272727272727272,
+    "jaccard": 0.5714285714285714,
+    "n_pred": 20
+   },
+   "known_ligand": {
+    "precision": 0.47368421052631576,
+    "recall": 0.375,
+    "f1": 0.4186046511627907,
+    "jaccard": 0.2647058823529412,
+    "n_pred": 19
+   },
+   "random": {
+    "precision": 0.07695652173913042,
+    "recall": 0.07375,
+    "f1": 0.07531914893617021,
+    "jaccard": 0.03998227646262123
+   }
+  },
+  {
+   "pdb_id": "2P2H",
+   "chain": "A",
+   "ligand": "994",
+   "resolution": 1.95,
+   "n_chain": 292,
+   "n_known_contacts": 18,
+   "boltzgen_consensus": {
+    "precision": 0.5217391304347826,
+    "recall": 0.6666666666666666,
+    "f1": 0.5853658536585366,
+    "jaccard": 0.41379310344827586,
+    "n_pred": 23
+   },
+   "p2rank_geometry": {
+    "precision": 0.6956521739130435,
+    "recall": 0.8888888888888888,
+    "f1": 0.7804878048780488,
+    "jaccard": 0.64,
+    "n_pred": 23
+   },
+   "known_ligand": {
+    "precision": 0.8947368421052632,
+    "recall": 0.9444444444444444,
+    "f1": 0.918918918918919,
+    "jaccard": 0.85,
+    "n_pred": 19
+   },
+   "random": {
+    "precision": 0.06217391304347826,
+    "recall": 0.07944444444444444,
+    "f1": 0.06975609756097562,
+    "jaccard": 0.036985258537890114
+   }
+  },
+  {
+   "pdb_id": "2P2I",
+   "chain": "A",
+   "ligand": "608",
+   "resolution": 2.4,
+   "n_chain": 289,
+   "n_known_contacts": 25,
+   "boltzgen_consensus": {
+    "precision": 0.43478260869565216,
+    "recall": 0.4,
+    "f1": 0.41666666666666663,
+    "jaccard": 0.2631578947368421,
+    "n_pred": 23
+   },
+   "p2rank_geometry": {
+    "precision": 0.8,
+    "recall": 0.64,
+    "f1": 0.7111111111111111,
+    "jaccard": 0.5517241379310345,
+    "n_pred": 20
+   },
+   "known_ligand": {
+    "precision": 0.8947368421052632,
+    "recall": 0.68,
+    "f1": 0.7727272727272727,
+    "jaccard": 0.6296296296296297,
+    "n_pred": 19
+   },
+   "random": {
+    "precision": 0.0917391304347826,
+    "recall": 0.08439999999999999,
+    "f1": 0.08791666666666664,
+    "jaccard": 0.047085141493333725
+   }
+  },
+  {
+   "pdb_id": "2QU5",
+   "chain": "A",
+   "ligand": "276",
+   "resolution": 2.95,
+   "n_chain": 292,
+   "n_known_contacts": 24,
+   "boltzgen_consensus": {
+    "precision": 0.4782608695652174,
+    "recall": 0.4583333333333333,
+    "f1": 0.4680851063829787,
+    "jaccard": 0.3055555555555556,
+    "n_pred": 23
+   },
+   "p2rank_geometry": {
+    "precision": 0.8888888888888888,
+    "recall": 0.6666666666666666,
+    "f1": 0.761904761904762,
+    "jaccard": 0.6153846153846154,
+    "n_pred": 18
+   },
+   "known_ligand": {
+    "precision": 0.9473684210526315,
+    "recall": 0.75,
+    "f1": 0.8372093023255814,
+    "jaccard": 0.72,
+    "n_pred": 19
+   },
+   "random": {
+    "precision": 0.08217391304347826,
+    "recall": 0.07875,
+    "f1": 0.08042553191489361,
+    "jaccard": 0.042772242476341205
+   }
+  },
+  {
+   "pdb_id": "2QU6",
+   "chain": "A",
+   "ligand": "857",
+   "resolution": 2.1,
+   "n_chain": 283,
+   "n_known_contacts": 24,
+   "boltzgen_consensus": {
+    "precision": 0.4782608695652174,
+    "recall": 0.4583333333333333,
+    "f1": 0.4680851063829787,
+    "jaccard": 0.3055555555555556,
+    "n_pred": 23
+   },
+   "p2rank_geometry": {
+    "precision": 0.8947368421052632,
+    "recall": 0.7083333333333334,
+    "f1": 0.7906976744186046,
+    "jaccard": 0.6538461538461539,
+    "n_pred": 19
+   },
+   "known_ligand": {
+    "precision": 0.9473684210526315,
+    "recall": 0.75,
+    "f1": 0.8372093023255814,
+    "jaccard": 0.72,
+    "n_pred": 19
+   },
+   "random": {
+    "precision": 0.08956521739130434,
+    "recall": 0.08583333333333334,
+    "f1": 0.08765957446808509,
+    "jaccard": 0.046920502431686426
+   }
+  },
+  {
+   "pdb_id": "2RL5",
+   "chain": "A",
+   "ligand": "2RL",
+   "resolution": 2.65,
+   "n_chain": 294,
+   "n_known_contacts": 21,
+   "boltzgen_consensus": {
+    "precision": 0.4782608695652174,
+    "recall": 0.5238095238095238,
+    "f1": 0.5,
+    "jaccard": 0.3333333333333333,
+    "n_pred": 23
+   },
+   "p2rank_geometry": {
+    "precision": 0.7692307692307693,
+    "recall": 0.9523809523809523,
+    "f1": 0.8510638297872339,
+    "jaccard": 0.7407407407407407,
+    "n_pred": 26
+   },
+   "known_ligand": {
+    "precision": 0.9473684210526315,
+    "recall": 0.8571428571428571,
+    "f1": 0.9,
+    "jaccard": 0.8181818181818182,
+    "n_pred": 19
+   },
+   "random": {
+    "precision": 0.06695652173913043,
+    "recall": 0.07333333333333332,
+    "f1": 0.07,
+    "jaccard": 0.03702653400375584
+   }
+  },
+  {
+   "pdb_id": "2XIR",
+   "chain": "A",
+   "ligand": "00J",
+   "resolution": 1.5,
+   "n_chain": 296,
+   "n_known_contacts": 19,
+   "boltzgen_consensus": {
+    "precision": 0.5217391304347826,
+    "recall": 0.631578947368421,
+    "f1": 0.5714285714285715,
+    "jaccard": 0.4,
+    "n_pred": 23
+   },
+   "p2rank_geometry": {
+    "precision": 0.6,
+    "recall": 0.9473684210526315,
+    "f1": 0.7346938775510204,
+    "jaccard": 0.5806451612903226,
+    "n_pred": 30
+   },
+   "known_ligand": {
+    "precision": 0.9473684210526315,
+    "recall": 0.9473684210526315,
+    "f1": 0.9473684210526315,
+    "jaccard": 0.9,
+    "n_pred": 19
+   },
+   "random": {
+    "precision": 0.06521739130434782,
+    "recall": 0.07894736842105263,
+    "f1": 0.07142857142857144,
+    "jaccard": 0.037947727375840345
+   }
+  },
+  {
+   "pdb_id": "3B8Q",
+   "chain": "A",
+   "ligand": "900",
+   "resolution": 2.75,
+   "n_chain": 292,
+   "n_known_contacts": 19,
+   "boltzgen_consensus": {
+    "precision": 0.5217391304347826,
+    "recall": 0.631578947368421,
+    "f1": 0.5714285714285715,
+    "jaccard": 0.4,
+    "n_pred": 23
+   },
+   "p2rank_geometry": {
+    "precision": 0.8571428571428571,
+    "recall": 0.9473684210526315,
+    "f1": 0.9,
+    "jaccard": 0.8181818181818182,
+    "n_pred": 21
+   },
+   "known_ligand": {
+    "precision": 0.8947368421052632,
+    "recall": 0.8947368421052632,
+    "f1": 0.8947368421052632,
+    "jaccard": 0.8095238095238095,
+    "n_pred": 19
+   },
+   "random": {
+    "precision": 0.06521739130434784,
+    "recall": 0.07894736842105263,
+    "f1": 0.07142857142857142,
+    "jaccard": 0.03780005284241484
+   }
+  },
+  {
+   "pdb_id": "3B8R",
+   "chain": "A",
+   "ligand": "887",
+   "resolution": 2.7,
+   "n_chain": 289,
+   "n_known_contacts": 21,
+   "boltzgen_consensus": {
+    "precision": 0.5217391304347826,
+    "recall": 0.5714285714285714,
+    "f1": 0.5454545454545454,
+    "jaccard": 0.375,
+    "n_pred": 23
+   },
+   "p2rank_geometry": {
+    "precision": 0.9,
+    "recall": 0.8571428571428571,
+    "f1": 0.8780487804878048,
+    "jaccard": 0.782608695652174,
+    "n_pred": 20
+   },
+   "known_ligand": {
+    "precision": 0.9473684210526315,
+    "recall": 0.8571428571428571,
+    "f1": 0.9,
+    "jaccard": 0.8181818181818182,
+    "n_pred": 19
+   },
+   "random": {
+    "precision": 0.06913043478260868,
+    "recall": 0.0757142857142857,
+    "f1": 0.07227272727272728,
+    "jaccard": 0.038129453832233186
+   }
+  },
+  {
+   "pdb_id": "3BE2",
+   "chain": "A",
+   "ligand": "RAJ",
+   "resolution": 1.75,
+   "n_chain": 290,
+   "n_known_contacts": 24,
+   "boltzgen_consensus": {
+    "precision": 0.4782608695652174,
+    "recall": 0.4583333333333333,
+    "f1": 0.4680851063829787,
+    "jaccard": 0.3055555555555556,
+    "n_pred": 23
+   },
+   "p2rank_geometry": {
+    "precision": 0.75,
+    "recall": 0.75,
+    "f1": 0.75,
+    "jaccard": 0.6,
+    "n_pred": 24
+   },
+   "known_ligand": {
+    "precision": 0.8947368421052632,
+    "recall": 0.7083333333333334,
+    "f1": 0.7906976744186046,
+    "jaccard": 0.6538461538461539,
+    "n_pred": 19
+   },
+   "random": {
+    "precision": 0.08304347826086955,
+    "recall": 0.07958333333333333,
+    "f1": 0.08127659574468085,
+    "jaccard": 0.04296027733641484
+   }
+  },
+  {
+   "pdb_id": "3C7Q",
+   "chain": "A",
+   "ligand": "XIN",
+   "resolution": 2.1,
+   "n_chain": 291,
+   "n_known_contacts": 19,
+   "boltzgen_consensus": {
+    "precision": 0.5652173913043478,
+    "recall": 0.6842105263157895,
+    "f1": 0.6190476190476191,
+    "jaccard": 0.4482758620689655,
+    "n_pred": 23
+   },
+   "p2rank_geometry": {
+    "precision": 0.8,
+    "recall": 0.8421052631578947,
+    "f1": 0.8205128205128205,
+    "jaccard": 0.6956521739130435,
+    "n_pred": 20
+   },
+   "known_ligand": {
+    "precision": 0.8421052631578947,
+    "recall": 0.8421052631578947,
+    "f1": 0.8421052631578947,
+    "jaccard": 0.7272727272727273,
+    "n_pred": 19
+   },
+   "random": {
+    "precision": 0.06434782608695651,
+    "recall": 0.07789473684210525,
+    "f1": 0.0704761904761905,
+    "jaccard": 0.0372413617330177
+   }
+  },
+  {
+   "pdb_id": "3CJF",
+   "chain": "A",
+   "ligand": "SAV",
+   "resolution": 2.15,
+   "n_chain": 281,
+   "n_known_contacts": 15,
+   "boltzgen_consensus": {
+    "precision": 0.2608695652173913,
+    "recall": 0.4,
+    "f1": 0.31578947368421056,
+    "jaccard": 0.1875,
+    "n_pred": 23
+   },
+   "p2rank_geometry": {
+    "precision": 0.7058823529411765,
+    "recall": 0.8,
+    "f1": 0.7500000000000001,
+    "jaccard": 0.6,
+    "n_pred": 17
+   },
+   "known_ligand": {
+    "precision": 0.3157894736842105,
+    "recall": 0.4,
+    "f1": 0.35294117647058826,
+    "jaccard": 0.21428571428571427,
+    "n_pred": 19
+   },
+   "random": {
+    "precision": 0.05565217391304347,
+    "recall": 0.08533333333333333,
+    "f1": 0.06736842105263158,
+    "jaccard": 0.035767477179241884
+   }
+  },
+  {
+   "pdb_id": "3CJG",
+   "chain": "A",
+   "ligand": "KIM",
+   "resolution": 2.25,
+   "n_chain": 282,
+   "n_known_contacts": 16,
+   "boltzgen_consensus": {
+    "precision": 0.21739130434782608,
+    "recall": 0.3125,
+    "f1": 0.2564102564102564,
+    "jaccard": 0.14705882352941177,
+    "n_pred": 23
+   },
+   "p2rank_geometry": {
+    "precision": 0.7142857142857143,
+    "recall": 0.9375,
+    "f1": 0.8108108108108109,
+    "jaccard": 0.6818181818181818,
+    "n_pred": 21
+   },
+   "known_ligand": {
+    "precision": 0.3684210526315789,
+    "recall": 0.4375,
+    "f1": 0.39999999999999997,
+    "jaccard": 0.25,
+    "n_pred": 19
+   },
+   "random": {
+    "precision": 0.053913043478260876,
+    "recall": 0.0775,
+    "f1": 0.06358974358974358,
+    "jaccard": 0.03361405501033984
+   }
+  },
+  {
+   "pdb_id": "3CP9",
+   "chain": "A",
+   "ligand": "C19",
+   "resolution": 2.5,
+   "n_chain": 288,
+   "n_known_contacts": 24,
+   "boltzgen_consensus": {
+    "precision": 0.43478260869565216,
+    "recall": 0.4166666666666667,
+    "f1": 0.425531914893617,
+    "jaccard": 0.2702702702702703,
+    "n_pred": 23
+   },
+   "p2rank_geometry": {
+    "precision": 0.8888888888888888,
+    "recall": 0.6666666666666666,
+    "f1": 0.761904761904762,
+    "jaccard": 0.6153846153846154,
+    "n_pred": 18
+   },
+   "known_ligand": {
+    "precision": 0.8947368421052632,
+    "recall": 0.7083333333333334,
+    "f1": 0.7906976744186046,
+    "jaccard": 0.6538461538461539,
+    "n_pred": 19
+   },
+   "random": {
+    "precision": 0.08782608695652173,
+    "recall": 0.08416666666666667,
+    "f1": 0.08595744680851063,
+    "jaccard": 0.04590376498147343
+   }
+  },
+  {
+   "pdb_id": "3CPB",
+   "chain": "A",
+   "ligand": "C92",
+   "resolution": 2.7,
+   "n_chain": 285,
+   "n_known_contacts": 23,
+   "boltzgen_consensus": {
+    "precision": 0.4782608695652174,
+    "recall": 0.4782608695652174,
+    "f1": 0.4782608695652174,
+    "jaccard": 0.3142857142857143,
+    "n_pred": 23
+   },
+   "p2rank_geometry": {
+    "precision": 0.9473684210526315,
+    "recall": 0.782608695652174,
+    "f1": 0.8571428571428571,
+    "jaccard": 0.75,
+    "n_pred": 19
+   },
+   "known_ligand": {
+    "precision": 0.9473684210526315,
+    "recall": 0.782608695652174,
+    "f1": 0.8571428571428571,
+    "jaccard": 0.75,
+    "n_pred": 19
+   },
+   "random": {
+    "precision": 0.08086956521739129,
+    "recall": 0.08086956521739129,
+    "f1": 0.08086956521739129,
+    "jaccard": 0.04293801764505111
+   }
+  },
+  {
+   "pdb_id": "3CPC",
+   "chain": "A",
+   "ligand": "C52",
+   "resolution": 2.4,
+   "n_chain": 284,
+   "n_known_contacts": 21,
+   "boltzgen_consensus": {
+    "precision": 0.43478260869565216,
+    "recall": 0.47619047619047616,
+    "f1": 0.4545454545454545,
+    "jaccard": 0.29411764705882354,
+    "n_pred": 23
+   },
+   "p2rank_geometry": {
+    "precision": 0.8888888888888888,
+    "recall": 0.7619047619047619,
+    "f1": 0.8205128205128205,
+    "jaccard": 0.6956521739130435,
+    "n_pred": 18
+   },
+   "known_ligand": {
+    "precision": 0.8947368421052632,
+    "recall": 0.8095238095238095,
+    "f1": 0.8500000000000001,
+    "jaccard": 0.7391304347826086,
+    "n_pred": 19
+   },
+   "random": {
+    "precision": 0.07608695652173914,
+    "recall": 0.08333333333333331,
+    "f1": 0.07954545454545454,
+    "jaccard": 0.042106052141129904
+   }
+  },
+  {
+   "pdb_id": "3DTW",
+   "chain": "A",
+   "ligand": "A96",
+   "resolution": 2.9,
+   "n_chain": 288,
+   "n_known_contacts": 23,
+   "boltzgen_consensus": {
+    "precision": 0.43478260869565216,
+    "recall": 0.43478260869565216,
+    "f1": 0.43478260869565216,
+    "jaccard": 0.2777777777777778,
+    "n_pred": 23
+   },
+   "p2rank_geometry": {
+    "precision": 0.8888888888888888,
+    "recall": 0.6956521739130435,
+    "f1": 0.7804878048780488,
+    "jaccard": 0.64,
+    "n_pred": 18
+   },
+   "known_ligand": {
+    "precision": 0.8947368421052632,
+    "recall": 0.7391304347826086,
+    "f1": 0.8095238095238095,
+    "jaccard": 0.68,
+    "n_pred": 19
+   },
+   "random": {
+    "precision": 0.0791304347826087,
+    "recall": 0.0791304347826087,
+    "f1": 0.0791304347826087,
+    "jaccard": 0.04251451350061673
+   }
+  },
+  {
+   "pdb_id": "3EFL",
+   "chain": "A",
+   "ligand": "706",
+   "resolution": 2.2,
+   "n_chain": 286,
+   "n_known_contacts": 23,
+   "boltzgen_consensus": {
+    "precision": 0.43478260869565216,
+    "recall": 0.43478260869565216,
+    "f1": 0.43478260869565216,
+    "jaccard": 0.2777777777777778,
+    "n_pred": 23
+   },
+   "p2rank_geometry": {
+    "precision": 0.8421052631578947,
+    "recall": 0.6956521739130435,
+    "f1": 0.761904761904762,
+    "jaccard": 0.6153846153846154,
+    "n_pred": 19
+   },
+   "known_ligand": {
+    "precision": 0.8947368421052632,
+    "recall": 0.7391304347826086,
+    "f1": 0.8095238095238095,
+    "jaccard": 0.68,
+    "n_pred": 19
+   },
+   "random": {
+    "precision": 0.08304347826086955,
+    "recall": 0.08304347826086955,
+    "f1": 0.08304347826086955,
+    "jaccard": 0.04399959730192289
+   }
+  },
+  {
+   "pdb_id": "3EWH",
+   "chain": "A",
+   "ligand": "K11",
+   "resolution": 1.6,
+   "n_chain": 300,
+   "n_known_contacts": 24,
+   "boltzgen_consensus": {
+    "precision": 0.5217391304347826,
+    "recall": 0.5,
+    "f1": 0.5106382978723404,
+    "jaccard": 0.34285714285714286,
+    "n_pred": 23
+   },
+   "p2rank_geometry": {
+    "precision": 0.9473684210526315,
+    "recall": 0.75,
+    "f1": 0.8372093023255814,
+    "jaccard": 0.72,
+    "n_pred": 19
+   },
+   "known_ligand": {
+    "precision": 0.9473684210526315,
+    "recall": 0.75,
+    "f1": 0.8372093023255814,
+    "jaccard": 0.72,
+    "n_pred": 19
+   },
+   "random": {
+    "precision": 0.0717391304347826,
+    "recall": 0.06875,
+    "f1": 0.0702127659574468,
+    "jaccard": 0.03714680095772108
+   }
+  },
+  {
+   "pdb_id": "3U6J",
+   "chain": "A",
+   "ligand": "03X",
+   "resolution": 2.15,
+   "n_chain": 308,
+   "n_known_contacts": 24,
+   "boltzgen_consensus": {
+    "precision": 0.5217391304347826,
+    "recall": 0.5,
+    "f1": 0.5106382978723404,
+    "jaccard": 0.34285714285714286,
+    "n_pred": 23
+   },
+   "p2rank_geometry": {
+    "precision": 0.9444444444444444,
+    "recall": 0.7083333333333334,
+    "f1": 0.8095238095238096,
+    "jaccard": 0.68,
+    "n_pred": 18
+   },
+   "known_ligand": {
+    "precision": 0.9473684210526315,
+    "recall": 0.75,
+    "f1": 0.8372093023255814,
+    "jaccard": 0.72,
+    "n_pred": 19
+   },
+   "random": {
+    "precision": 0.09011857707509881,
+    "recall": 0.08625,
+    "f1": 0.08814061054579092,
+    "jaccard": 0.04692036645525016
+   }
+  },
+  {
+   "pdb_id": "3VHE",
+   "chain": "A",
+   "ligand": "42Q",
+   "resolution": 1.55,
+   "n_chain": 303,
+   "n_known_contacts": 23,
+   "boltzgen_consensus": {
+    "precision": 0.4782608695652174,
+    "recall": 0.4782608695652174,
+    "f1": 0.4782608695652174,
+    "jaccard": 0.3142857142857143,
+    "n_pred": 23
+   },
+   "p2rank_geometry": {
+    "precision": 0.9411764705882353,
+    "recall": 0.6956521739130435,
+    "f1": 0.7999999999999999,
+    "jaccard": 0.6666666666666666,
+    "n_pred": 17
+   },
+   "known_ligand": {
+    "precision": 0.9473684210526315,
+    "recall": 0.782608695652174,
+    "f1": 0.8571428571428571,
+    "jaccard": 0.75,
+    "n_pred": 19
+   },
+   "random": {
+    "precision": 0.07739130434782608,
+    "recall": 0.07739130434782608,
+    "f1": 0.07739130434782608,
+    "jaccard": 0.04087333467566026
+   }
+  },
+  {
+   "pdb_id": "3VHK",
+   "chain": "A",
+   "ligand": "BPK",
+   "resolution": 2.49,
+   "n_chain": 297,
+   "n_known_contacts": 17,
+   "boltzgen_consensus": {
+    "precision": 0.30434782608695654,
+    "recall": 0.4117647058823529,
+    "f1": 0.35,
+    "jaccard": 0.21212121212121213,
+    "n_pred": 23
+   },
+   "p2rank_geometry": {
+    "precision": 0.4444444444444444,
+    "recall": 0.47058823529411764,
+    "f1": 0.45714285714285713,
+    "jaccard": 0.2962962962962963,
+    "n_pred": 18
+   },
+   "known_ligand": {
+    "precision": 0.631578947368421,
+    "recall": 0.7058823529411765,
+    "f1": 0.6666666666666667,
+    "jaccard": 0.5,
+    "n_pred": 19
+   },
+   "random": {
+    "precision": 0.06782608695652174,
+    "recall": 0.09176470588235293,
+    "f1": 0.07800000000000001,
+    "jaccard": 0.04149106307001044
+   }
+  },
+  {
+   "pdb_id": "3VNT",
+   "chain": "A",
+   "ligand": "0JA",
+   "resolution": 1.64,
+   "n_chain": 301,
+   "n_known_contacts": 24,
+   "boltzgen_consensus": {
+    "precision": 0.5217391304347826,
+    "recall": 0.5,
+    "f1": 0.5106382978723404,
+    "jaccard": 0.34285714285714286,
+    "n_pred": 23
+   },
+   "p2rank_geometry": {
+    "precision": 0.7916666666666666,
+    "recall": 0.7916666666666666,
+    "f1": 0.7916666666666666,
+    "jaccard": 0.6551724137931034,
+    "n_pred": 24
+   },
+   "known_ligand": {
+    "precision": 1.0,
+    "recall": 0.7916666666666666,
+    "f1": 0.8837209302325582,
+    "jaccard": 0.7916666666666666,
+    "n_pred": 19
+   },
+   "random": {
+    "precision": 0.07565217391304349,
+    "recall": 0.0725,
+    "f1": 0.07404255319148936,
+    "jaccard": 0.03919237806345996
+   }
+  },
+  {
+   "pdb_id": "3VO3",
+   "chain": "A",
+   "ligand": "0KF",
+   "resolution": 1.52,
+   "n_chain": 303,
+   "n_known_contacts": 23,
+   "boltzgen_consensus": {
+    "precision": 0.5217391304347826,
+    "recall": 0.5217391304347826,
+    "f1": 0.5217391304347826,
+    "jaccard": 0.35294117647058826,
+    "n_pred": 23
+   },
+   "p2rank_geometry": {
+    "precision": 0.782608695652174,
+    "recall": 0.782608695652174,
+    "f1": 0.782608695652174,
+    "jaccard": 0.6428571428571429,
+    "n_pred": 23
+   },
+   "known_ligand": {
+    "precision": 1.0,
+    "recall": 0.8260869565217391,
+    "f1": 0.9047619047619047,
+    "jaccard": 0.8260869565217391,
+    "n_pred": 19
+   },
+   "random": {
+    "precision": 0.06826086956521739,
+    "recall": 0.06826086956521739,
+    "f1": 0.06826086956521739,
+    "jaccard": 0.03594581173537498
+   }
+  },
+  {
+   "pdb_id": "3WZD",
+   "chain": "A",
+   "ligand": "LEV",
+   "resolution": 1.57,
+   "n_chain": 278,
+   "n_known_contacts": 20,
+   "boltzgen_consensus": {
+    "precision": 0.5217391304347826,
+    "recall": 0.6,
+    "f1": 0.5581395348837209,
+    "jaccard": 0.3870967741935484,
+    "n_pred": 23
+   },
+   "p2rank_geometry": {
+    "precision": 0.75,
+    "recall": 0.9,
+    "f1": 0.8181818181818182,
+    "jaccard": 0.6923076923076923,
+    "n_pred": 24
+   },
+   "known_ligand": {
+    "precision": 0.8947368421052632,
+    "recall": 0.85,
+    "f1": 0.8717948717948718,
+    "jaccard": 0.7727272727272727,
+    "n_pred": 19
+   },
+   "random": {
+    "precision": 0.07956521739130436,
+    "recall": 0.09150000000000003,
+    "f1": 0.08511627906976744,
+    "jaccard": 0.04543803222878961
+   }
+  },
+  {
+   "pdb_id": "3WZE",
+   "chain": "A",
+   "ligand": "BAX",
+   "resolution": 1.9,
+   "n_chain": 298,
+   "n_known_contacts": 23,
+   "boltzgen_consensus": {
+    "precision": 0.4782608695652174,
+    "recall": 0.4782608695652174,
+    "f1": 0.4782608695652174,
+    "jaccard": 0.3142857142857143,
+    "n_pred": 23
+   },
+   "p2rank_geometry": {
+    "precision": 0.9375,
+    "recall": 0.6521739130434783,
+    "f1": 0.7692307692307693,
+    "jaccard": 0.625,
+    "n_pred": 16
+   },
+   "known_ligand": {
+    "precision": 0.9473684210526315,
+    "recall": 0.782608695652174,
+    "f1": 0.8571428571428571,
+    "jaccard": 0.75,
+    "n_pred": 19
+   },
+   "random": {
+    "precision": 0.07521739130434783,
+    "recall": 0.07521739130434783,
+    "f1": 0.07521739130434783,
+    "jaccard": 0.03972408470082888
+   }
+  },
+  {
+   "pdb_id": "4AG8",
+   "chain": "A",
+   "ligand": "AXI",
+   "resolution": 1.95,
+   "n_chain": 296,
+   "n_known_contacts": 20,
+   "boltzgen_consensus": {
+    "precision": 0.5217391304347826,
+    "recall": 0.6,
+    "f1": 0.5581395348837209,
+    "jaccard": 0.3870967741935484,
+    "n_pred": 23
+   },
+   "p2rank_geometry": {
+    "precision": 0.6206896551724138,
+    "recall": 0.9,
+    "f1": 0.7346938775510204,
+    "jaccard": 0.5806451612903226,
+    "n_pred": 29
+   },
+   "known_ligand": {
+    "precision": 0.9473684210526315,
+    "recall": 0.9,
+    "f1": 0.9230769230769231,
+    "jaccard": 0.8571428571428571,
+    "n_pred": 19
+   },
+   "random": {
+    "precision": 0.06869565217391306,
+    "recall": 0.079,
+    "f1": 0.07348837209302327,
+    "jaccard": 0.0389594455435277
+   }
+  },
+  {
+   "pdb_id": "4AGC",
+   "chain": "A",
+   "ligand": "AXI",
+   "resolution": 2.0,
+   "n_chain": 305,
+   "n_known_contacts": 21,
+   "boltzgen_consensus": {
+    "precision": 0.5217391304347826,
+    "recall": 0.5714285714285714,
+    "f1": 0.5454545454545454,
+    "jaccard": 0.375,
+    "n_pred": 23
+   },
+   "p2rank_geometry": {
+    "precision": 0.9333333333333333,
+    "recall": 0.6666666666666666,
+    "f1": 0.7777777777777778,
+    "jaccard": 0.6363636363636364,
+    "n_pred": 15
+   },
+   "known_ligand": {
+    "precision": 0.9473684210526315,
+    "recall": 0.8571428571428571,
+    "f1": 0.9,
+    "jaccard": 0.8181818181818182,
+    "n_pred": 19
+   },
+   "random": {
+    "precision": 0.06608695652173913,
+    "recall": 0.07238095238095238,
+    "f1": 0.0690909090909091,
+    "jaccard": 0.036513431359716096
+   }
+  },
+  {
+   "pdb_id": "4AGD",
+   "chain": "A",
+   "ligand": "B49",
+   "resolution": 2.81,
+   "n_chain": 304,
+   "n_known_contacts": 18,
+   "boltzgen_consensus": {
+    "precision": 0.5217391304347826,
+    "recall": 0.6666666666666666,
+    "f1": 0.5853658536585366,
+    "jaccard": 0.41379310344827586,
+    "n_pred": 23
+   },
+   "p2rank_geometry": {
+    "precision": 0.9333333333333333,
+    "recall": 0.7777777777777778,
+    "f1": 0.8484848484848485,
+    "jaccard": 0.7368421052631579,
+    "n_pred": 15
+   },
+   "known_ligand": {
+    "precision": 0.7894736842105263,
+    "recall": 0.8333333333333334,
+    "f1": 0.8108108108108109,
+    "jaccard": 0.6818181818181818,
+    "n_pred": 19
+   },
+   "random": {
+    "precision": 0.05391304347826089,
+    "recall": 0.06888888888888889,
+    "f1": 0.06048780487804878,
+    "jaccard": 0.031919860722492296
+   }
+  },
+  {
+   "pdb_id": "4ASD",
+   "chain": "A",
+   "ligand": "BAX",
+   "resolution": 2.03,
+   "n_chain": 305,
+   "n_known_contacts": 24,
+   "boltzgen_consensus": {
+    "precision": 0.4782608695652174,
+    "recall": 0.4583333333333333,
+    "f1": 0.4680851063829787,
+    "jaccard": 0.3055555555555556,
+    "n_pred": 23
+   },
+   "p2rank_geometry": {
+    "precision": 0.7333333333333333,
+    "recall": 0.4583333333333333,
+    "f1": 0.5641025641025641,
+    "jaccard": 0.39285714285714285,
+    "n_pred": 15
+   },
+   "known_ligand": {
+    "precision": 0.9473684210526315,
+    "recall": 0.75,
+    "f1": 0.8372093023255814,
+    "jaccard": 0.72,
+    "n_pred": 19
+   },
+   "random": {
+    "precision": 0.07964426877470357,
+    "recall": 0.07625000000000001,
+    "f1": 0.07790934320074004,
+    "jaccard": 0.0413302963186684
+   }
+  },
+  {
+   "pdb_id": "4ASE",
+   "chain": "A",
+   "ligand": "AV9",
+   "resolution": 1.83,
+   "n_chain": 307,
+   "n_known_contacts": 21,
+   "boltzgen_consensus": {
+    "precision": 0.5217391304347826,
+    "recall": 0.5714285714285714,
+    "f1": 0.5454545454545454,
+    "jaccard": 0.375,
+    "n_pred": 23
+   },
+   "p2rank_geometry": {
+    "precision": 1.0,
+    "recall": 0.8571428571428571,
+    "f1": 0.923076923076923,
+    "jaccard": 0.8571428571428571,
+    "n_pred": 18
+   },
+   "known_ligand": {
+    "precision": 0.9473684210526315,
+    "recall": 0.8571428571428571,
+    "f1": 0.9,
+    "jaccard": 0.8181818181818182,
+    "n_pred": 19
+   },
+   "random": {
+    "precision": 0.0666600790513834,
+    "recall": 0.07285714285714286,
+    "f1": 0.06961945031712474,
+    "jaccard": 0.036805273333208675
+   }
+  },
+  {
+   "pdb_id": "5EW3",
+   "chain": "A",
+   "ligand": "5T2",
+   "resolution": 2.5,
+   "n_chain": 274,
+   "n_known_contacts": 22,
+   "boltzgen_consensus": {
+    "precision": 0.43478260869565216,
+    "recall": 0.45454545454545453,
+    "f1": 0.4444444444444445,
+    "jaccard": 0.2857142857142857,
+    "n_pred": 23
+   },
+   "p2rank_geometry": {
+    "precision": 0.8823529411764706,
+    "recall": 0.6818181818181818,
+    "f1": 0.7692307692307693,
+    "jaccard": 0.625,
+    "n_pred": 17
+   },
+   "known_ligand": {
+    "precision": 0.8947368421052632,
+    "recall": 0.7727272727272727,
+    "f1": 0.8292682926829269,
+    "jaccard": 0.7083333333333334,
+    "n_pred": 19
+   },
+   "random": {
+    "precision": 0.08217391304347825,
+    "recall": 0.08590909090909093,
+    "f1": 0.08399999999999996,
+    "jaccard": 0.04475436645033923
+   }
+  },
+  {
+   "pdb_id": "6GQP",
+   "chain": "A",
+   "ligand": "F88",
+   "resolution": 2.09,
+   "n_chain": 298,
+   "n_known_contacts": 22,
+   "boltzgen_consensus": {
+    "precision": 0.5217391304347826,
+    "recall": 0.5454545454545454,
+    "f1": 0.5333333333333332,
+    "jaccard": 0.36363636363636365,
+    "n_pred": 23
+   },
+   "p2rank_geometry": {
+    "precision": 0.8947368421052632,
+    "recall": 0.7727272727272727,
+    "f1": 0.8292682926829269,
+    "jaccard": 0.7083333333333334,
+    "n_pred": 19
+   },
+   "known_ligand": {
+    "precision": 0.9473684210526315,
+    "recall": 0.8181818181818182,
+    "f1": 0.8780487804878049,
+    "jaccard": 0.782608695652174,
+    "n_pred": 19
+   },
+   "random": {
+    "precision": 0.08217391304347825,
+    "recall": 0.0859090909090909,
+    "f1": 0.08399999999999999,
+    "jaccard": 0.04479117238405382
+   }
+  },
+  {
+   "pdb_id": "6XVJ",
+   "chain": "A",
+   "ligand": "O35",
+   "resolution": 1.78,
+   "n_chain": 305,
+   "n_known_contacts": 26,
+   "boltzgen_consensus": {
+    "precision": 0.5217391304347826,
+    "recall": 0.46153846153846156,
+    "f1": 0.4897959183673469,
+    "jaccard": 0.32432432432432434,
+    "n_pred": 23
+   },
+   "p2rank_geometry": {
+    "precision": 0.9411764705882353,
+    "recall": 0.6153846153846154,
+    "f1": 0.744186046511628,
+    "jaccard": 0.5925925925925926,
+    "n_pred": 17
+   },
+   "known_ligand": {
+    "precision": 1.0,
+    "recall": 0.7307692307692307,
+    "f1": 0.8444444444444443,
+    "jaccard": 0.7307692307692307,
+    "n_pred": 19
+   },
+   "random": {
+    "precision": 0.07826086956521737,
+    "recall": 0.06923076923076922,
+    "f1": 0.07346938775510203,
+    "jaccard": 0.038980454052171126
+   }
+  },
+  {
+   "pdb_id": "6XVK",
+   "chain": "A",
+   "ligand": "O3E",
+   "resolution": 1.99,
+   "n_chain": 298,
+   "n_known_contacts": 32,
+   "boltzgen_consensus": {
+    "precision": 0.5217391304347826,
+    "recall": 0.375,
+    "f1": 0.43636363636363634,
+    "jaccard": 0.27906976744186046,
+    "n_pred": 23
+   },
+   "p2rank_geometry": {
+    "precision": 0.9411764705882353,
+    "recall": 0.5,
+    "f1": 0.6530612244897959,
+    "jaccard": 0.48484848484848486,
+    "n_pred": 17
+   },
+   "known_ligand": {
+    "precision": 1.0,
+    "recall": 0.59375,
+    "f1": 0.7450980392156863,
+    "jaccard": 0.59375,
+    "n_pred": 19
+   },
+   "random": {
+    "precision": 0.10608695652173912,
+    "recall": 0.07625,
+    "f1": 0.08872727272727272,
+    "jaccard": 0.047014048572178425
+   }
+  }
+ ],
+ "caveats": [
+  "the BoltzGen consensus is built on one structure (3VHE chain A) and scored against 38 co-crystals of the same protein; author numbering is shared across KDR entries, which is what makes that comparison legitimate",
+  "n = 38 held-out ligands but ONE target, so this does not generalise across targets - PROJECT_GOAL.md's I6.1 anticipates several",
+  "ipTM of every design is far below the 0.85 the plan suggests filtering at, so this is an UNFILTERED consensus; the plan's filter could not be applied without generating far more designs than the credit budget allowed"
+ ]
+}
