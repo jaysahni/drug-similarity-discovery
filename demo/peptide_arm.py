@@ -119,6 +119,62 @@ def shuffled_decoys(sequences: list[str], n: int, seed: int = SEED) -> list[str]
     return out
 
 
+def positive_control(corpus: list[dict], vecs: np.ndarray, symbol: str) -> dict:
+    """Do the approved drugs that DO bind this target retrieve each other?
+
+    This is the check that separates "our designs are bad" from "the metric is
+    bad", and it has to run before any claim about a design is believable. If
+    the two approved thrombin peptides cannot find one another in this corpus
+    with this metric, nothing else in this file means anything.
+    """
+    names = [r["name"] for r in corpus]
+    known = [i for i, r in enumerate(corpus) if r["novelty"] != "novel_pairing"]
+    if len(known) < 2:
+        return {"status": "not_evaluated", "reason": f"fewer than 2 entries annotated to {symbol}"}
+
+    out = []
+    for i in known:
+        sims = md.cosine(vecs[i], vecs)
+        order = [j for j in np.argsort(-sims) if j != i]
+        for other in known:
+            if other == i:
+                continue
+            rank = order.index(other) + 1
+            out.append(
+                {
+                    "query": names[i],
+                    "retrieves": names[other],
+                    "rank": rank,
+                    "of": len(order),
+                    "cosine": round(float(sims[other]), 4),
+                }
+            )
+    return {"status": "evaluated", "pairs": out}
+
+
+def hub_check(corpus: list[dict], vecs: np.ndarray, sequences: list[str], n: int = 60) -> dict:
+    """Which corpus entry do RANDOM sequences land on?
+
+    Embedding spaces have hubs -- entries that are nearest neighbour to far more
+    queries than their share. If a design's nearest neighbour is also the hub
+    that shuffled sequences fall on, the match carries no information about the
+    design, and a bare similarity score would hide that completely.
+    """
+    from collections import Counter
+
+    names = [r["name"] for r in corpus]
+    decoys = esmc.embed(shuffled_decoys(sequences, n))
+    hits = Counter(names[int(np.argmax(md.cosine(v, vecs)))] for v in decoys)
+    top, count = hits.most_common(1)[0]
+    return {
+        "n_random_queries": n,
+        "most_frequent_nearest_neighbour": top,
+        "times_selected": count,
+        "fraction": round(count / n, 3),
+        "distribution": dict(hits.most_common(5)),
+    }
+
+
 def main() -> None:
     target_name = os.environ.get("DEMO_TARGET", "thrombin")
     from demo import pipeline  # imported here so DEMO_TARGET is already set
@@ -139,6 +195,16 @@ def main() -> None:
 
     corpus_vecs = esmc.embed([r["sequence"] for r in corpus])
     design_vecs = esmc.embed(sequences)
+
+    control = positive_control(corpus, corpus_vecs, symbol)
+    if control["status"] == "evaluated":
+        for pair in control["pairs"]:
+            print(f'  control: {pair["query"]} -> {pair["retrieves"]} '
+                  f'ranks {pair["rank"]}/{pair["of"]} (cos {pair["cosine"]})')
+
+    hubs = hub_check(corpus, corpus_vecs, sequences)
+    print(f'  hub: {hubs["fraction"]:.0%} of random sequences land on '
+          f'{hubs["most_frequent_nearest_neighbour"]}')
 
     # The null: shuffled versions of the designs themselves.
     decoys = shuffled_decoys(sequences, N_NULL)
@@ -200,6 +266,8 @@ def main() -> None:
             **md.calibration(null),
         },
         "embedding": {"model": esmc.MODEL, "dim": int(corpus_vecs.shape[1])},
+        "positive_control": control,
+        "hub_check": hubs,
         "designs": results,
         "caveats": [
             "ESM-C is trained on domains, not on 8-16mers; its behaviour at this "
@@ -209,6 +277,10 @@ def main() -> None:
             "nearest neighbour exists by construction. Only the null percentile "
             "says whether it is a meaningful one.",
             "Similarity is not affinity. Nothing here predicts binding.",
+            "The null is a distribution of MAXIMA over the corpus, so it sits high "
+            "by construction. Per-pair cosines span a wide range; it is the "
+            "best-of-37 that concentrates near the top. Read the percentile, not "
+            "the raw cosine.",
         ],
     }
 

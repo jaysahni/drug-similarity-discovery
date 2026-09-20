@@ -1,0 +1,85 @@
+{
+ "workflow_uuid": "bc26c048-265f-46c3-aad9-423685fb8a98",
+ "n_designs": 4,
+ "protocol": "peptide-anything",
+ "binder_length": "8..16",
+ "budget": 4,
+ "binding_spec_1based": "27,28,29,30,40,41,43,44,99,201,202,203,204,205,206,207,224,225,226,227",
+ "binding_residues_author": [
+  390,
+  391,
+  392,
+  393,
+  403,
+  404,
+  406,
+  407,
+  462,
+  564,
+  565,
+  566,
+  567,
+  568,
+  569,
+  570,
+  587,
+  588,
+  589,
+  590
+ ],
+ "designs": [
+  {
+   "design_id": 0,
+   "bound_structure_uuid": "92b48a1c-0b8c-44c8-aa65-9882c8536296",
+   "sequence": "PPARPMAVY",
+   "iptm": 0.64,
+   "design_to_target_iptm": 0.64,
+   "quality_score": 1.0,
+   "delta_sasa_refolded": 631.324,
+   "num_filters_passed": 9
+  },
+  {
+   "design_id": 1,
+   "bound_structure_uuid": "30109442-c4de-4c25-b7e8-4f3ace9efc00",
+   "sequence": "GGQTFIEGKPVTIMG",
+   "iptm": 0.621,
+   "design_to_target_iptm": 0.621,
+   "quality_score": 0.947,
+   "delta_sasa_refolded": 711.163,
+   "num_filters_passed": 9
+  },
+  {
+   "design_id": 2,
+   "bound_structure_uuid": "a766531e-14a9-44e3-b523-c45511adad4f",
+   "sequence": "GGIPTSGGLVPMTSI",
+   "iptm": 0.605,
+   "design_to_target_iptm": 0.605,
+   "quality_score": 0.895,
+   "delta_sasa_refolded": 680.826,
+   "num_filters_passed": 9
+  },
+  {
+   "design_id": 3,
+   "bound_structure_uuid": "82226611-9424-4a36-86e0-83079fc53586",
+   "sequence": "GSTIVFPA",
+   "iptm": 0.525,
+   "design_to_target_iptm": 0.525,
+   "quality_score": 0.842,
+   "delta_sasa_refolded": 508.146,
+   "num_filters_passed": 9
+  }
+ ],
+ "iptm": {
+  "min": 0.525,
+  "max": 0.64,
+  "mean": 0.5978,
+  "n_above_0.85": 0,
+  "note": "PROJECT_GOAL.md 4.3 suggests filtering designs at ipTM 0.85. Report the count above it; if it is zero the consensus below is UNFILTERED and must be labelled as such."
+ },
+ "credits_charged": 57.28,
+ "compute_hardware": "A100_80GB",
+ "elapsed_s": 1145.53,
+ "toolkit": [
+  "rowan.design_protein_binder"
+ ]
+}
