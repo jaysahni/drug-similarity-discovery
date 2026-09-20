@@ -1,0 +1,4902 @@
+{
+ "experiment": "E3 metric bias - Jaccard vs coverage vs overlap coefficient vs F1 for cross-modality site comparison",
+ "question": "does Jaccard confound containment with partial overlap, so that a small-molecule footprint number and a biologic epitope number cannot be pooled?",
+ "definitions": {
+  "A": "small-molecule footprint: receptor residues within 4.5 A (heavy atom) of the HET ligand (interfaces.ligand_contacts)",
+  "B": "biologic footprint: receptor residues within 4.5 A (heavy atom) of the polymer binder (interfaces.chain_contacts), unioned over the binder's chains",
+  "jaccard": "|A & B| / |A | B|",
+  "coverage_a": "|A & B| / |A|",
+  "overlap_coefficient": "|A & B| / min(|A|, |B|)",
+  "f1": "2|A & B| / (|A| + |B|)"
+ },
+ "analytic": {
+  "nested_containment_table": [
+   {
+    "a": 2,
+    "b": 40,
+    "n_a": 2,
+    "n_b": 40,
+    "n_intersection": 2,
+    "n_union": 40,
+    "size_ratio": 0.05,
+    "jaccard": 0.05,
+    "coverage_a": 1.0,
+    "coverage_b": 0.05,
+    "overlap_coefficient": 1.0,
+    "f1": 0.09523809523809523
+   },
+   {
+    "a": 4,
+    "b": 40,
+    "n_a": 4,
+    "n_b": 40,
+    "n_intersection": 4,
+    "n_union": 40,
+    "size_ratio": 0.1,
+    "jaccard": 0.1,
+    "coverage_a": 1.0,
+    "coverage_b": 0.1,
+    "overlap_coefficient": 1.0,
+    "f1": 0.18181818181818182
+   },
+   {
+    "a": 6,
+    "b": 40,
+    "n_a": 6,
+    "n_b": 40,
+    "n_intersection": 6,
+    "n_union": 40,
+    "size_ratio": 0.15,
+    "jaccard": 0.15,
+    "coverage_a": 1.0,
+    "coverage_b": 0.15,
+    "overlap_coefficient": 1.0,
+    "f1": 0.2608695652173913
+   },
+   {
+    "a": 8,
+    "b": 40,
+    "n_a": 8,
+    "n_b": 40,
+    "n_intersection": 8,
+    "n_union": 40,
+    "size_ratio": 0.2,
+    "jaccard": 0.2,
+    "coverage_a": 1.0,
+    "coverage_b": 0.2,
+    "overlap_coefficient": 1.0,
+    "f1": 0.3333333333333333
+   },
+   {
+    "a": 10,
+    "b": 40,
+    "n_a": 10,
+    "n_b": 40,
+    "n_intersection": 10,
+    "n_union": 40,
+    "size_ratio": 0.25,
+    "jaccard": 0.25,
+    "coverage_a": 1.0,
+    "coverage_b": 0.25,
+    "overlap_coefficient": 1.0,
+    "f1": 0.4
+   },
+   {
+    "a": 12,
+    "b": 40,
+    "n_a": 12,
+    "n_b": 40,
+    "n_intersection": 12,
+    "n_union": 40,
+    "size_ratio": 0.3,
+    "jaccard": 0.3,
+    "coverage_a": 1.0,
+    "coverage_b": 0.3,
+    "overlap_coefficient": 1.0,
+    "f1": 0.46153846153846156
+   },
+   {
+    "a": 16,
+    "b": 40,
+    "n_a": 16,
+    "n_b": 40,
+    "n_intersection": 16,
+    "n_union": 40,
+    "size_ratio": 0.4,
+    "jaccard": 0.4,
+    "coverage_a": 1.0,
+    "coverage_b": 0.4,
+    "overlap_coefficient": 1.0,
+    "f1": 0.5714285714285714
+   },
+   {
+    "a": 20,
+    "b": 40,
+    "n_a": 20,
+    "n_b": 40,
+    "n_intersection": 20,
+    "n_union": 40,
+    "size_ratio": 0.5,
+    "jaccard": 0.5,
+    "coverage_a": 1.0,
+    "coverage_b": 0.5,
+    "overlap_coefficient": 1.0,
+    "f1": 0.6666666666666666
+   },
+   {
+    "a": 24,
+    "b": 40,
+    "n_a": 24,
+    "n_b": 40,
+    "n_intersection": 24,
+    "n_union": 40,
+    "size_ratio": 0.6,
+    "jaccard": 0.6,
+    "coverage_a": 1.0,
+    "coverage_b": 0.6,
+    "overlap_coefficient": 1.0,
+    "f1": 0.75
+   },
+   {
+    "a": 30,
+    "b": 40,
+    "n_a": 30,
+    "n_b": 40,
+    "n_intersection": 30,
+    "n_union": 40,
+    "size_ratio": 0.75,
+    "jaccard": 0.75,
+    "coverage_a": 1.0,
+    "coverage_b": 0.75,
+    "overlap_coefficient": 1.0,
+    "f1": 0.8571428571428571
+   },
+   {
+    "a": 36,
+    "b": 40,
+    "n_a": 36,
+    "n_b": 40,
+    "n_intersection": 36,
+    "n_union": 40,
+    "size_ratio": 0.9,
+    "jaccard": 0.9,
+    "coverage_a": 1.0,
+    "coverage_b": 0.9,
+    "overlap_coefficient": 1.0,
+    "f1": 0.9473684210526315
+   },
+   {
+    "a": 40,
+    "b": 40,
+    "n_a": 40,
+    "n_b": 40,
+    "n_intersection": 40,
+    "n_union": 40,
+    "size_ratio": 1.0,
+    "jaccard": 1.0,
+    "coverage_a": 1.0,
+    "coverage_b": 1.0,
+    "overlap_coefficient": 1.0,
+    "f1": 1.0
+   }
+  ],
+  "same_jaccard_opposite_geometry": [
+   {
+    "jaccard_target": 0.1,
+    "nested": {
+     "description": "|A|=4 entirely inside |B|=40",
+     "n_a": 4,
+     "n_b": 40,
+     "n_intersection": 4,
+     "n_union": 40,
+     "size_ratio": 0.1,
+     "jaccard": 0.1,
+     "coverage_a": 1.0,
+     "coverage_b": 0.1,
+     "overlap_coefficient": 1.0,
+     "f1": 0.18181818181818182
+    },
+    "partial": {
+     "description": "|A|=|B|=40 sharing 7 residues",
+     "n_a": 40,
+     "n_b": 40,
+     "n_intersection": 7,
+     "n_union": 73,
+     "size_ratio": 1.0,
+     "jaccard": 0.0958904109589041,
+     "coverage_a": 0.175,
+     "coverage_b": 0.175,
+     "overlap_coefficient": 0.175,
+     "f1": 0.175
+    },
+    "jaccard_difference": 0.004109589041095901,
+    "coverage_a_difference": 0.825
+   },
+   {
+    "jaccard_target": 0.2,
+    "nested": {
+     "description": "|A|=8 entirely inside |B|=40",
+     "n_a": 8,
+     "n_b": 40,
+     "n_intersection": 8,
+     "n_union": 40,
+     "size_ratio": 0.2,
+     "jaccard": 0.2,
+     "coverage_a": 1.0,
+     "coverage_b": 0.2,
+     "overlap_coefficient": 1.0,
+     "f1": 0.3333333333333333
+    },
+    "partial": {
+     "description": "|A|=|B|=40 sharing 13 residues",
+     "n_a": 40,
+     "n_b": 40,
+     "n_intersection": 13,
+     "n_union": 67,
+     "size_ratio": 1.0,
+     "jaccard": 0.19402985074626866,
+     "coverage_a": 0.325,
+     "coverage_b": 0.325,
+     "overlap_coefficient": 0.325,
+     "f1": 0.325
+    },
+    "jaccard_difference": 0.005970149253731349,
+    "coverage_a_difference": 0.675
+   },
+   {
+    "jaccard_target": 0.3,
+    "nested": {
+     "description": "|A|=12 entirely inside |B|=40",
+     "n_a": 12,
+     "n_b": 40,
+     "n_intersection": 12,
+     "n_union": 40,
+     "size_ratio": 0.3,
+     "jaccard": 0.3,
+     "coverage_a": 1.0,
+     "coverage_b": 0.3,
+     "overlap_coefficient": 1.0,
+     "f1": 0.46153846153846156
+    },
+    "partial": {
+     "description": "|A|=|B|=40 sharing 18 residues",
+     "n_a": 40,
+     "n_b": 40,
+     "n_intersection": 18,
+     "n_union": 62,
+     "size_ratio": 1.0,
+     "jaccard": 0.2903225806451613,
+     "coverage_a": 0.45,
+     "coverage_b": 0.45,
+     "overlap_coefficient": 0.45,
+     "f1": 0.45
+    },
+    "jaccard_difference": 0.009677419354838679,
+    "coverage_a_difference": 0.55
+   },
+   {
+    "jaccard_target": 0.4,
+    "nested": {
+     "description": "|A|=16 entirely inside |B|=40",
+     "n_a": 16,
+     "n_b": 40,
+     "n_intersection": 16,
+     "n_union": 40,
+     "size_ratio": 0.4,
+     "jaccard": 0.4,
+     "coverage_a": 1.0,
+     "coverage_b": 0.4,
+     "overlap_coefficient": 1.0,
+     "f1": 0.5714285714285714
+    },
+    "partial": {
+     "description": "|A|=|B|=40 sharing 23 residues",
+     "n_a": 40,
+     "n_b": 40,
+     "n_intersection": 23,
+     "n_union": 57,
+     "size_ratio": 1.0,
+     "jaccard": 0.40350877192982454,
+     "coverage_a": 0.575,
+     "coverage_b": 0.575,
+     "overlap_coefficient": 0.575,
+     "f1": 0.575
+    },
+    "jaccard_difference": 0.003508771929824517,
+    "coverage_a_difference": 0.42500000000000004
+   },
+   {
+    "jaccard_target": 0.5,
+    "nested": {
+     "description": "|A|=20 entirely inside |B|=40",
+     "n_a": 20,
+     "n_b": 40,
+     "n_intersection": 20,
+     "n_union": 40,
+     "size_ratio": 0.5,
+     "jaccard": 0.5,
+     "coverage_a": 1.0,
+     "coverage_b": 0.5,
+     "overlap_coefficient": 1.0,
+     "f1": 0.6666666666666666
+    },
+    "partial": {
+     "description": "|A|=|B|=40 sharing 27 residues",
+     "n_a": 40,
+     "n_b": 40,
+     "n_intersection": 27,
+     "n_union": 53,
+     "size_ratio": 1.0,
+     "jaccard": 0.5094339622641509,
+     "coverage_a": 0.675,
+     "coverage_b": 0.675,
+     "overlap_coefficient": 0.675,
+     "f1": 0.675
+    },
+    "jaccard_difference": 0.009433962264150941,
+    "coverage_a_difference": 0.32499999999999996
+   },
+   {
+    "jaccard_target": 0.6,
+    "nested": {
+     "description": "|A|=24 entirely inside |B|=40",
+     "n_a": 24,
+     "n_b": 40,
+     "n_intersection": 24,
+     "n_union": 40,
+     "size_ratio": 0.6,
+     "jaccard": 0.6,
+     "coverage_a": 1.0,
+     "coverage_b": 0.6,
+     "overlap_coefficient": 1.0,
+     "f1": 0.75
+    },
+    "partial": {
+     "description": "|A|=|B|=40 sharing 30 residues",
+     "n_a": 40,
+     "n_b": 40,
+     "n_intersection": 30,
+     "n_union": 50,
+     "size_ratio": 1.0,
+     "jaccard": 0.6,
+     "coverage_a": 0.75,
+     "coverage_b": 0.75,
+     "overlap_coefficient": 0.75,
+     "f1": 0.75
+    },
+    "jaccard_difference": 0.0,
+    "coverage_a_difference": 0.25
+   }
+  ],
+  "breakpoints": [
+   {
+    "metric": "jaccard",
+    "breaks_when": "perfect containment of a small site in a large one reads as partial overlap",
+    "example": "|A|=12, |B|=40, |A&B|=12",
+    "values": {
+     "n_a": 12,
+     "n_b": 40,
+     "n_intersection": 12,
+     "n_union": 40,
+     "size_ratio": 0.3,
+     "jaccard": 0.3,
+     "coverage_a": 1.0,
+     "coverage_b": 0.3,
+     "overlap_coefficient": 1.0,
+     "f1": 0.46153846153846156
+    }
+   },
+   {
+    "metric": "f1",
+    "breaks_when": "same failure as Jaccard: F1 = 2J/(1+J) is a strictly increasing function of J, so it carries no information Jaccard does not",
+    "example": "|A|=12, |B|=40, |A&B|=12",
+    "values": {
+     "n_a": 12,
+     "n_b": 40,
+     "n_intersection": 12,
+     "n_union": 40,
+     "size_ratio": 0.3,
+     "jaccard": 0.3,
+     "coverage_a": 1.0,
+     "coverage_b": 0.3,
+     "overlap_coefficient": 1.0,
+     "f1": 0.46153846153846156
+    }
+   },
+   {
+    "metric": "overlap_coefficient",
+    "breaks_when": "saturates at 1.0 whenever the smaller set is contained, however small it is - a 2-residue footprint inside a 40-residue epitope is a perfect score",
+    "example": "|A|=2, |B|=40, |A&B|=2",
+    "values": {
+     "n_a": 2,
+     "n_b": 40,
+     "n_intersection": 2,
+     "n_union": 40,
+     "size_ratio": 0.05,
+     "jaccard": 0.05,
+     "coverage_a": 1.0,
+     "coverage_b": 0.05,
+     "overlap_coefficient": 1.0,
+     "f1": 0.09523809523809523
+    }
+   },
+   {
+    "metric": "coverage_a",
+    "breaks_when": "one-sided: a prediction that engulfs the truth covers it completely and is not penalised for the 60 residues it invented",
+    "example": "|A|=80, |B|=20, |A&B|=20",
+    "values": {
+     "n_a": 80,
+     "n_b": 20,
+     "n_intersection": 20,
+     "n_union": 80,
+     "size_ratio": 0.25,
+     "jaccard": 0.25,
+     "coverage_a": 0.25,
+     "coverage_b": 1.0,
+     "overlap_coefficient": 1.0,
+     "f1": 0.4
+    }
+   }
+  ]
+ },
+ "credits_spent": 0,
+ "real_structures": {
+  "gold_set": {
+   "construction": "targets in the epitope-gate prepared set (one entry per target, best resolution) that also have an X-ray entry <= 2.5 A carrying a HET ligand of >= 14 heavy atoms on a chain of the same UniProt accession",
+   "numbering_check": "author numbering on BOTH receptor chains must match the UniProt sequence on >= 0.95 of >= 30 compared residues (interfaces.check_author_numbering)",
+   "n_pairs": 30,
+   "n_targets_searched": 148,
+   "n_targets_offered": 193,
+   "class_counts": {
+    "peptide": 18,
+    "ppi": 9,
+    "antibody": 3
+   },
+   "cutoff_a": 4.5
+  },
+  "statistics": {
+   "n_pairs": 30,
+   "n_pairs_with_any_overlap": 15,
+   "power": {
+    "min_detectable_rho_all_pairs": 0.49235589004462516,
+    "min_detectable_rho_overlapping_pairs": 0.6688990105951951,
+    "definition": "smallest |rho| detectable at 80% power, two-sided alpha=0.05, Fisher z approximation; a null below this is 'not detected at this n', not 'absent'"
+   },
+   "size_ratio_is_the_jaccard_ceiling": {
+    "mean_size_ratio": 0.5950303198036857,
+    "ci": [
+     0.5329563350036041,
+     0.6596647486827091
+    ],
+    "n": 30,
+    "meaning": "the largest Jaccard these pairs could score if the smaller footprint were entirely inside the larger"
+   },
+   "perfectly_contained_pairs": {
+    "definition": "pairs where at least this fraction of the small-molecule footprint lies inside the biologic footprint; coverage calls them containments, Jaccard scores them as partial overlaps",
+    "by_threshold": [
+     {
+      "coverage_threshold": 1.0,
+      "n": 2,
+      "pairs": [
+       "3FEA/6CW vs 4RXZ",
+       "6E1Z/HLP vs 8WXX"
+      ],
+      "jaccard_values": [
+       0.44,
+       0.4667
+      ],
+      "mean_jaccard": 0.45333333333333337,
+      "mean_coverage_a": 1.0
+     },
+     {
+      "coverage_threshold": 0.9,
+      "n": 2,
+      "pairs": [
+       "3FEA/6CW vs 4RXZ",
+       "6E1Z/HLP vs 8WXX"
+      ],
+      "jaccard_values": [
+       0.44,
+       0.4667
+      ],
+      "mean_jaccard": 0.45333333333333337,
+      "mean_coverage_a": 1.0
+     },
+     {
+      "coverage_threshold": 0.8,
+      "n": 4,
+      "pairs": [
+       "9T9F/A1JUR vs 5AFW",
+       "3FEA/6CW vs 4RXZ",
+       "5GPG/RAP vs 9DL0",
+       "6E1Z/HLP vs 8WXX"
+      ],
+      "jaccard_values": [
+       0.4286,
+       0.44,
+       0.4667,
+       0.5294
+      ],
+      "mean_jaccard": 0.4661624649859944,
+      "mean_coverage_a": 0.9090909090909092
+     }
+    ],
+    "headline": {
+     "coverage_threshold": 0.8,
+     "n": 4,
+     "pairs": [
+      "9T9F/A1JUR vs 5AFW",
+      "3FEA/6CW vs 4RXZ",
+      "5GPG/RAP vs 9DL0",
+      "6E1Z/HLP vs 8WXX"
+     ],
+     "jaccard_values": [
+      0.4286,
+      0.44,
+      0.4667,
+      0.5294
+     ],
+     "mean_jaccard": 0.4661624649859944,
+     "mean_coverage_a": 0.9090909090909092
+    }
+   },
+   "size_ratio_definition": "min(|A|,|B|) / max(|A|,|B|), A = small-molecule footprint, B = biologic footprint",
+   "spearman_vs_size_ratio_all_pairs": {
+    "jaccard": {
+     "rho": -0.03639143562821322,
+     "p_value": 0.8485902422770656,
+     "n": 30,
+     "ci_lo": -0.37885539852949013,
+     "ci_hi": 0.30749719564308653,
+     "p_holm": 1.0
+    },
+    "coverage_a": {
+     "rho": -0.07827337333637716,
+     "p_value": 0.6809730364781339,
+     "n": 30,
+     "ci_lo": -0.4142633473102717,
+     "ci_hi": 0.2678157779637314,
+     "p_holm": 1.0
+    },
+    "coverage_b": {
+     "rho": -0.038294255791779926,
+     "p_value": 0.840771087101177,
+     "n": 30,
+     "ci_lo": -0.37281083577439506,
+     "ci_hi": 0.30115248378281756,
+     "p_holm": 1.0
+    },
+    "overlap_coefficient": {
+     "rho": -0.08636241495776566,
+     "p_value": 0.6499898736712499,
+     "n": 30,
+     "ci_lo": -0.4171461161170722,
+     "ci_hi": 0.2601774738119884,
+     "p_holm": 1.0
+    },
+    "f1": {
+     "rho": -0.03639143562821322,
+     "p_value": 0.8485902422770656,
+     "n": 30,
+     "ci_lo": -0.37885539852949013,
+     "ci_hi": 0.30749719564308653,
+     "p_holm": 1.0
+    }
+   },
+   "spearman_vs_size_ratio_overlapping_pairs_only": {
+    "jaccard": {
+     "rho": 0.08928571428571427,
+     "p_value": 0.7516725173502768,
+     "n": 15,
+     "ci_lo": -0.5503041321647488,
+     "ci_hi": 0.678832116788321
+    },
+    "coverage_a": {
+     "rho": -0.08944558140439413,
+     "p_value": 0.7512408247322834,
+     "n": 15,
+     "ci_lo": -0.6654840427072737,
+     "ci_hi": 0.5547330331236088
+    },
+    "coverage_b": {
+     "rho": 0.09999999999999999,
+     "p_value": 0.7228973252791182,
+     "n": 15,
+     "ci_lo": -0.5438036711034778,
+     "ci_hi": 0.6966433896881233
+    },
+    "overlap_coefficient": {
+     "rho": -0.10733469768527296,
+     "p_value": 0.703392982788632,
+     "n": 15,
+     "ci_lo": -0.6955961186514604,
+     "ci_hi": 0.5628415300546448
+    },
+    "f1": {
+     "rho": 0.08928571428571427,
+     "p_value": 0.7516725173502768,
+     "n": 15,
+     "ci_lo": -0.5503041321647488,
+     "ci_hi": 0.678832116788321
+    }
+   },
+   "jaccard_vs_coverage": {
+    "rho": 0.9946619538430742,
+    "p_value": 3.6155624391213236e-29,
+    "n": 30,
+    "ci_lo": 0.970082037968588,
+    "ci_hi": 1.0
+   },
+   "partial_jaccard_vs_ratio_given_coverage": {
+    "partial_rho": 0.4030705194566784,
+    "n": 30,
+    "ci_lo": -0.030448637617260934,
+    "ci_hi": 0.6041690867842957,
+    "p_permutation": 0.024297570242975703,
+    "n_bootstrap_resamples_finite": 9927,
+    "n_bootstrap_resamples_requested": 10000,
+    "controlled_for": "coverage_a",
+    "method": "Pearson correlation of rank residuals; permutation p; percentile bootstrap CI over pairs"
+   },
+   "f1_is_a_monotone_function_of_jaccard": {
+    "max_abs_deviation_from_2J_over_1_plus_J": 1.1102230246251565e-16,
+    "meaning": "F1 and Jaccard have identical rank order, so F1 inherits every Jaccard failure and adds no information"
+   }
+  },
+  "containment_examples": {
+   "nearest_contained_to_partial_jaccard_gap": 0.23809523809523808,
+   "n_contained": 4,
+   "n_partial": 9,
+   "coverage_thresholds": {
+    "contained_at_least": 0.7,
+    "partial_at_most": 0.45
+   },
+   "contained_but_low_jaccard": [
+    {
+     "uniprot": "P42345",
+     "klass": "antibody",
+     "sm": "5GPG/RAP",
+     "biologic": "9DL0",
+     "n_a": 11,
+     "n_b": 19,
+     "n_intersection": 9,
+     "jaccard": 0.42857142857142855,
+     "coverage_a": 0.8181818181818182,
+     "overlap_coefficient": 0.8181818181818182,
+     "size_ratio": 0.5789473684210527
+    },
+    {
+     "uniprot": "P61964",
+     "klass": "peptide",
+     "sm": "6E1Z/HLP",
+     "biologic": "8WXX",
+     "n_a": 11,
+     "n_b": 25,
+     "n_intersection": 11,
+     "jaccard": 0.44,
+     "coverage_a": 1.0,
+     "overlap_coefficient": 1.0,
+     "size_ratio": 0.44
+    },
+    {
+     "uniprot": "O15151",
+     "klass": "peptide",
+     "sm": "3FEA/6CW",
+     "biologic": "4RXZ",
+     "n_a": 7,
+     "n_b": 15,
+     "n_intersection": 7,
+     "jaccard": 0.4666666666666667,
+     "coverage_a": 1.0,
+     "overlap_coefficient": 1.0,
+     "size_ratio": 0.4666666666666667
+    },
+    {
+     "uniprot": "O14646",
+     "klass": "peptide",
+     "sm": "9T9F/A1JUR",
+     "biologic": "5AFW",
+     "n_a": 11,
+     "n_b": 15,
+     "n_intersection": 9,
+     "jaccard": 0.5294117647058824,
+     "coverage_a": 0.8181818181818182,
+     "overlap_coefficient": 0.8181818181818182,
+     "size_ratio": 0.7333333333333333
+    }
+   ],
+   "genuinely_partial": [
+    {
+     "uniprot": "P53350",
+     "klass": "peptide",
+     "sm": "6AX4/56A",
+     "biologic": "4O56",
+     "n_a": 9,
+     "n_b": 16,
+     "n_intersection": 4,
+     "jaccard": 0.19047619047619047,
+     "coverage_a": 0.4444444444444444,
+     "overlap_coefficient": 0.4444444444444444,
+     "size_ratio": 0.5625
+    },
+    {
+     "uniprot": "P31947",
+     "klass": "peptide",
+     "sm": "7AZ2/SFW",
+     "biologic": "7OBC",
+     "n_a": 9,
+     "n_b": 19,
+     "n_intersection": 3,
+     "jaccard": 0.12,
+     "coverage_a": 0.3333333333333333,
+     "overlap_coefficient": 0.3333333333333333,
+     "size_ratio": 0.47368421052631576
+    },
+    {
+     "uniprot": "O96013",
+     "klass": "peptide",
+     "sm": "5VEF/M77",
+     "biologic": "4L67",
+     "n_a": 15,
+     "n_b": 27,
+     "n_intersection": 4,
+     "jaccard": 0.10526315789473684,
+     "coverage_a": 0.26666666666666666,
+     "overlap_coefficient": 0.26666666666666666,
+     "size_ratio": 0.5555555555555556
+    },
+    {
+     "uniprot": "P28482",
+     "klass": "peptide",
+     "sm": "8AOJ/N8L",
+     "biologic": "4H3Q",
+     "n_a": 16,
+     "n_b": 17,
+     "n_intersection": 2,
+     "jaccard": 0.06451612903225806,
+     "coverage_a": 0.125,
+     "overlap_coefficient": 0.125,
+     "size_ratio": 0.9411764705882353
+    },
+    {
+     "uniprot": "O60507",
+     "klass": "peptide",
+     "sm": "5WRI/A3P",
+     "biologic": "5WRJ",
+     "n_a": 23,
+     "n_b": 11,
+     "n_intersection": 2,
+     "jaccard": 0.0625,
+     "coverage_a": 0.08695652173913043,
+     "overlap_coefficient": 0.18181818181818182,
+     "size_ratio": 0.4782608695652174
+    },
+    {
+     "uniprot": "O15392",
+     "klass": "peptide",
+     "sm": "9TPI/A1JXR",
+     "biologic": "9TPI",
+     "n_a": 12,
+     "n_b": 11,
+     "n_intersection": 1,
+     "jaccard": 0.045454545454545456,
+     "coverage_a": 0.08333333333333333,
+     "overlap_coefficient": 0.09090909090909091,
+     "size_ratio": 0.9166666666666666
+    },
+    {
+     "uniprot": "Q570C0",
+     "klass": "ppi",
+     "sm": "2P1M/IHP",
+     "biologic": "3C6O",
+     "n_a": 15,
+     "n_b": 35,
+     "n_intersection": 2,
+     "jaccard": 0.041666666666666664,
+     "coverage_a": 0.13333333333333333,
+     "overlap_coefficient": 0.13333333333333333,
+     "size_ratio": 0.42857142857142855
+    },
+    {
+     "uniprot": "P11309",
+     "klass": "peptide",
+     "sm": "3R04/UNQ",
+     "biologic": "8R0H",
+     "n_a": 14,
+     "n_b": 22,
+     "n_intersection": 1,
+     "jaccard": 0.02857142857142857,
+     "coverage_a": 0.07142857142857142,
+     "overlap_coefficient": 0.07142857142857142,
+     "size_ratio": 0.6363636363636364
+    },
+    {
+     "uniprot": "O76290",
+     "klass": "ppi",
+     "sm": "2X9G/LYA",
+     "biologic": "4CM8",
+     "n_a": 15,
+     "n_b": 40,
+     "n_intersection": 1,
+     "jaccard": 0.018518518518518517,
+     "coverage_a": 0.06666666666666667,
+     "overlap_coefficient": 0.06666666666666667,
+     "size_ratio": 0.375
+    }
+   ],
+   "jaccard_collisions": [],
+   "n_jaccard_collisions": 0
+  },
+  "pairs": [
+   {
+    "uniprot": "P61073",
+    "klass": "peptide",
+    "receptor_description": null,
+    "same_entry": false,
+    "small_molecule": {
+     "pdb_id": "3ODU",
+     "resolution_a": 2.5,
+     "ligand": "ITD",
+     "ligand_n_heavy_atoms": 27,
+     "ligand_formula": "C21N4S2",
+     "receptor_chain": "A",
+     "residue_ids": [
+      32,
+      94,
+      97,
+      98,
+      102,
+      112,
+      113,
+      116,
+      183,
+      185,
+      186,
+      187,
+      188,
+      288
+     ],
+     "numbering_fraction_match": 0.9701986754966887,
+     "numbering_n_compared": 302,
+     "contacts_restricted_to_receptor_chain": false,
+     "title": "The 2.5 A structure of the CXCR4 chemokine receptor in complex with small molecule antagonist IT1t"
+    },
+    "biologic": {
+     "pdb_id": "3OE0",
+     "resolution_a": null,
+     "binder_description": "chain I (peptide, 12 residues)",
+     "binder_seq_len": 12,
+     "receptor_chain": "A",
+     "binder_chains": [
+      "I"
+     ],
+     "residues_per_binder_chain": {
+      "I": 26
+     },
+     "residue_ids": [
+      26,
+      27,
+      32,
+      113,
+      116,
+      117,
+      171,
+      178,
+      185,
+      186,
+      187,
+      188,
+      189,
+      190,
+      191,
+      192,
+      193,
+      196,
+      200,
+      262,
+      265,
+      266,
+      277,
+      281,
+      284,
+      288
+     ],
+     "numbering_fraction_match": 0.9926739926739927,
+     "numbering_n_compared": 273
+    },
+    "metrics": {
+     "n_a": 14,
+     "n_b": 26,
+     "n_intersection": 8,
+     "n_union": 32,
+     "size_ratio": 0.5384615384615384,
+     "jaccard": 0.25,
+     "coverage_a": 0.5714285714285714,
+     "coverage_b": 0.3076923076923077,
+     "overlap_coefficient": 0.5714285714285714,
+     "f1": 0.4
+    },
+    "note": "task-brief starter: CXCR4 IT1t (3ODU) vs CVX15 (3OE0)"
+   },
+   {
+    "uniprot": "C3W5S0",
+    "klass": "ppi",
+    "receptor_description": "Polymerase acidic protein",
+    "same_entry": false,
+    "small_molecule": {
+     "pdb_id": "8T5W",
+     "resolution_a": 1.65,
+     "ligand": "E4Z",
+     "ligand_n_heavy_atoms": 34,
+     "ligand_formula": "C24F2N3O4S",
+     "receptor_chain": "A",
+     "residue_ids": [
+      20,
+      21,
+      24,
+      26,
+      34,
+      37,
+      38,
+      41,
+      80,
+      108,
+      119,
+      120,
+      121,
+      130,
+      134
+     ],
+     "numbering_fraction_match": 0.9942857142857143,
+     "numbering_n_compared": 175,
+     "contacts_restricted_to_receptor_chain": false,
+     "title": "Influenza PAN endonuclease I38T mutant with Baloxavir"
+    },
+    "biologic": {
+     "pdb_id": "29SL",
+     "resolution_a": 2.0,
+     "binder_description": "Polymerase acidic protein",
+     "binder_seq_len": 193,
+     "receptor_chain": "A",
+     "binder_chains": [
+      "B"
+     ],
+     "residues_per_binder_chain": {
+      "B": 12
+     },
+     "residue_ids": [
+      19,
+      50,
+      71,
+      74,
+      77,
+      82,
+      86,
+      89,
+      90,
+      93,
+      94,
+      97
+     ],
+     "numbering_fraction_match": 1.0,
+     "numbering_n_compared": 177
+    },
+    "metrics": {
+     "n_a": 15,
+     "n_b": 12,
+     "n_intersection": 0,
+     "n_union": 27,
+     "size_ratio": 0.8,
+     "jaccard": 0.0,
+     "coverage_a": 0.0,
+     "coverage_b": 0.0,
+     "overlap_coefficient": 0.0,
+     "f1": 0.0
+    }
+   },
+   {
+    "uniprot": "K9N5Q8",
+    "klass": "antibody",
+    "receptor_description": "Spike glycoprotein",
+    "same_entry": false,
+    "small_molecule": {
+     "pdb_id": "5VYH",
+     "resolution_a": 2.0,
+     "ligand": "FOL",
+     "ligand_n_heavy_atoms": 32,
+     "ligand_formula": "C19N7O6",
+     "receptor_chain": "A",
+     "residue_ids": [
+      44,
+      45,
+      46,
+      47,
+      81,
+      86,
+      123,
+      127,
+      128,
+      129,
+      131,
+      140,
+      309,
+      310,
+      311,
+      312
+     ],
+     "numbering_fraction_match": 0.9824561403508771,
+     "numbering_n_compared": 342,
+     "contacts_restricted_to_receptor_chain": false,
+     "title": "Crystal Structure of MERS-CoV S1 N-terminal Domain"
+    },
+    "biologic": {
+     "pdb_id": "4XAK",
+     "resolution_a": 2.45,
+     "binder_description": "Heavy chain of neutralizing antibody m336 + Light chain of neutralizing antibody m336",
+     "binder_seq_len": 466,
+     "receptor_chain": "B",
+     "binder_chains": [
+      "D",
+      "E"
+     ],
+     "residues_per_binder_chain": {
+      "D": 18,
+      "E": 2
+     },
+     "residue_ids": [
+      502,
+      504,
+      506,
+      510,
+      511,
+      513,
+      531,
+      535,
+      536,
+      538,
+      539,
+      540,
+      541,
+      542,
+      553,
+      555,
+      556,
+      557
+     ],
+     "numbering_fraction_match": 1.0,
+     "numbering_n_compared": 211
+    },
+    "metrics": {
+     "n_a": 16,
+     "n_b": 18,
+     "n_intersection": 0,
+     "n_union": 34,
+     "size_ratio": 0.8888888888888888,
+     "jaccard": 0.0,
+     "coverage_a": 0.0,
+     "coverage_b": 0.0,
+     "overlap_coefficient": 0.0,
+     "f1": 0.0
+    }
+   },
+   {
+    "uniprot": "O14646",
+    "klass": "peptide",
+    "receptor_description": "CHROMODOMAIN-HELICASE-DNA-BINDING PROTEIN 1",
+    "same_entry": false,
+    "small_molecule": {
+     "pdb_id": "9T9F",
+     "resolution_a": 1.35,
+     "ligand": "A1JUR",
+     "ligand_n_heavy_atoms": 36,
+     "ligand_formula": "C30N5O",
+     "receptor_chain": "A",
+     "residue_ids": [
+      272,
+      295,
+      322,
+      325,
+      329,
+      341,
+      408,
+      425,
+      427,
+      428,
+      431
+     ],
+     "numbering_fraction_match": 1.0,
+     "numbering_n_compared": 174,
+     "contacts_restricted_to_receptor_chain": false,
+     "title": "Crystal structure of human CHD1 tandem chromodomain in complex with the ethoxyquinoline-based inhibitor 2l"
+    },
+    "biologic": {
+     "pdb_id": "5AFW",
+     "resolution_a": 1.6,
+     "binder_description": "LYSINE-SPECIFIC HISTONE DEMETHYLASE 1A",
+     "binder_seq_len": 12,
+     "receptor_chain": "A",
+     "binder_chains": [
+      "B"
+     ],
+     "residues_per_binder_chain": {
+      "B": 15
+     },
+     "residue_ids": [
+      272,
+      290,
+      293,
+      295,
+      322,
+      324,
+      325,
+      329,
+      331,
+      408,
+      423,
+      424,
+      425,
+      428,
+      431
+     ],
+     "numbering_fraction_match": 1.0,
+     "numbering_n_compared": 163
+    },
+    "metrics": {
+     "n_a": 11,
+     "n_b": 15,
+     "n_intersection": 9,
+     "n_union": 17,
+     "size_ratio": 0.7333333333333333,
+     "jaccard": 0.5294117647058824,
+     "coverage_a": 0.8181818181818182,
+     "coverage_b": 0.6,
+     "overlap_coefficient": 0.8181818181818182,
+     "f1": 0.6923076923076923
+    }
+   },
+   {
+    "uniprot": "O15151",
+    "klass": "peptide",
+    "receptor_description": "Protein Mdm4",
+    "same_entry": false,
+    "small_molecule": {
+     "pdb_id": "3FEA",
+     "resolution_a": 1.33,
+     "ligand": "6CW",
+     "ligand_n_heavy_atoms": 15,
+     "ligand_formula": "C11ClN2O",
+     "receptor_chain": "A",
+     "residue_ids": [
+      53,
+      56,
+      57,
+      60,
+      90,
+      92,
+      98
+     ],
+     "numbering_fraction_match": 1.0,
+     "numbering_n_compared": 83,
+     "contacts_restricted_to_receptor_chain": true,
+     "title": "Crystal Structure of HdmX bound to the p53-peptidomimetic Ac-Phe-Met-Aib-Pmp-6-Cl-Trp-Glu-Ac3c-Leu-NH2 at 1.33A"
+    },
+    "biologic": {
+     "pdb_id": "4RXZ",
+     "resolution_a": 1.55,
+     "binder_description": "12-MER PEPTIDE INHIBITOR",
+     "binder_seq_len": 12,
+     "receptor_chain": "A",
+     "binder_chains": [
+      "C"
+     ],
+     "residues_per_binder_chain": {
+      "C": 15
+     },
+     "residue_ids": [
+      53,
+      56,
+      57,
+      60,
+      61,
+      66,
+      71,
+      72,
+      74,
+      90,
+      92,
+      93,
+      95,
+      98,
+      99
+     ],
+     "numbering_fraction_match": 1.0,
+     "numbering_n_compared": 84
+    },
+    "metrics": {
+     "n_a": 7,
+     "n_b": 15,
+     "n_intersection": 7,
+     "n_union": 15,
+     "size_ratio": 0.4666666666666667,
+     "jaccard": 0.4666666666666667,
+     "coverage_a": 1.0,
+     "coverage_b": 0.4666666666666667,
+     "overlap_coefficient": 1.0,
+     "f1": 0.6363636363636364
+    }
+   },
+   {
+    "uniprot": "O15392",
+    "klass": "peptide",
+    "receptor_description": "Baculoviral IAP repeat-containing protein 5",
+    "same_entry": true,
+    "small_molecule": {
+     "pdb_id": "9TPI",
+     "resolution_a": 1.8,
+     "ligand": "A1JXR",
+     "ligand_n_heavy_atoms": 59,
+     "ligand_formula": "C46N3O8P2",
+     "receptor_chain": "B",
+     "residue_ids": [
+      24,
+      25,
+      26,
+      27,
+      28,
+      31,
+      33,
+      52,
+      53,
+      67,
+      68,
+      69
+     ],
+     "numbering_fraction_match": 1.0,
+     "numbering_n_compared": 118,
+     "contacts_restricted_to_receptor_chain": true,
+     "title": "Survivin 1-122 in complex with a molecular tweezer-Histone-H3-peptide conjugate"
+    },
+    "biologic": {
+     "pdb_id": "9TPI",
+     "resolution_a": 1.8,
+     "binder_description": "Histone-H3-peptide conjugated to molecular tweezer",
+     "binder_seq_len": 6,
+     "receptor_chain": "A",
+     "binder_chains": [
+      "C"
+     ],
+     "residues_per_binder_chain": {
+      "C": 11
+     },
+     "residue_ids": [
+      51,
+      54,
+      62,
+      63,
+      64,
+      65,
+      66,
+      67,
+      71,
+      76,
+      80
+     ],
+     "numbering_fraction_match": 1.0,
+     "numbering_n_compared": 117
+    },
+    "metrics": {
+     "n_a": 12,
+     "n_b": 11,
+     "n_intersection": 1,
+     "n_union": 22,
+     "size_ratio": 0.9166666666666666,
+     "jaccard": 0.045454545454545456,
+     "coverage_a": 0.08333333333333333,
+     "coverage_b": 0.09090909090909091,
+     "overlap_coefficient": 0.09090909090909091,
+     "f1": 0.08695652173913043
+    }
+   },
+   {
+    "uniprot": "O60507",
+    "klass": "peptide",
+    "receptor_description": "Protein-tyrosine sulfotransferase 1",
+    "same_entry": false,
+    "small_molecule": {
+     "pdb_id": "5WRI",
+     "resolution_a": 1.6,
+     "ligand": "A3P",
+     "ligand_n_heavy_atoms": 27,
+     "ligand_formula": "C10N5O10P2",
+     "receptor_chain": "A",
+     "residue_ids": [
+      78,
+      79,
+      80,
+      81,
+      82,
+      83,
+      84,
+      159,
+      184,
+      192,
+      196,
+      239,
+      243,
+      268,
+      286,
+      289,
+      290,
+      292,
+      293,
+      294,
+      295,
+      298,
+      301
+     ],
+     "numbering_fraction_match": 1.0,
+     "numbering_n_compared": 274,
+     "contacts_restricted_to_receptor_chain": false,
+     "title": "Crystal structure of human tyrosylprotein sulfotransferase-1 complexed with PAP and C4 peptide"
+    },
+    "biologic": {
+     "pdb_id": "5WRJ",
+     "resolution_a": 2.31,
+     "binder_description": "gastrin peptide",
+     "binder_seq_len": 12,
+     "receptor_chain": "B",
+     "binder_chains": [
+      "H"
+     ],
+     "residues_per_binder_chain": {
+      "H": 11
+     },
+     "residue_ids": [
+      78,
+      100,
+      102,
+      106,
+      161,
+      162,
+      198,
+      199,
+      200,
+      201,
+      286
+     ],
+     "numbering_fraction_match": 1.0,
+     "numbering_n_compared": 275
+    },
+    "metrics": {
+     "n_a": 23,
+     "n_b": 11,
+     "n_intersection": 2,
+     "n_union": 32,
+     "size_ratio": 0.4782608695652174,
+     "jaccard": 0.0625,
+     "coverage_a": 0.08695652173913043,
+     "coverage_b": 0.18181818181818182,
+     "overlap_coefficient": 0.18181818181818182,
+     "f1": 0.11764705882352941
+    }
+   },
+   {
+    "uniprot": "O76290",
+    "klass": "ppi",
+    "receptor_description": "PTERIDINE REDUCTASE 1",
+    "same_entry": false,
+    "small_molecule": {
+     "pdb_id": "2X9G",
+     "resolution_a": 1.1,
+     "ligand": "LYA",
+     "ligand_n_heavy_atoms": 31,
+     "ligand_formula": "C20N5O6",
+     "receptor_chain": "A",
+     "residue_ids": [
+      14,
+      95,
+      97,
+      99,
+      161,
+      168,
+      171,
+      174,
+      206,
+      208,
+      209,
+      210,
+      213,
+      217,
+      221
+     ],
+     "numbering_fraction_match": 1.0,
+     "numbering_n_compared": 251,
+     "contacts_restricted_to_receptor_chain": false,
+     "title": "High resolution structure of TbPTR1 in complex with Pemetrexed"
+    },
+    "biologic": {
+     "pdb_id": "4CM8",
+     "resolution_a": 1.9,
+     "binder_description": "PTERIDINE REDUCTASE 1",
+     "binder_seq_len": 288,
+     "receptor_chain": "D",
+     "binder_chains": [
+      "B"
+     ],
+     "residues_per_binder_chain": {
+      "B": 40
+     },
+     "residue_ids": [
+      65,
+      67,
+      70,
+      101,
+      102,
+      103,
+      116,
+      117,
+      120,
+      124,
+      128,
+      129,
+      132,
+      133,
+      135,
+      136,
+      139,
+      140,
+      164,
+      165,
+      167,
+      169,
+      170,
+      171,
+      172,
+      173,
+      175,
+      176,
+      179,
+      180,
+      182,
+      183,
+      184,
+      186,
+      187,
+      188,
+      190,
+      191,
+      192,
+      195
+     ],
+     "numbering_fraction_match": 1.0,
+     "numbering_n_compared": 249
+    },
+    "metrics": {
+     "n_a": 15,
+     "n_b": 40,
+     "n_intersection": 1,
+     "n_union": 54,
+     "size_ratio": 0.375,
+     "jaccard": 0.018518518518518517,
+     "coverage_a": 0.06666666666666667,
+     "coverage_b": 0.025,
+     "overlap_coefficient": 0.06666666666666667,
+     "f1": 0.03636363636363636
+    }
+   },
+   {
+    "uniprot": "O96013",
+    "klass": "peptide",
+    "receptor_description": "Serine/threonine-protein kinase PAK 4",
+    "same_entry": false,
+    "small_molecule": {
+     "pdb_id": "5VEF",
+     "resolution_a": 1.752,
+     "ligand": "M77",
+     "ligand_n_heavy_atoms": 20,
+     "ligand_formula": "C14N3O2S",
+     "receptor_chain": "A",
+     "residue_ids": [
+      327,
+      328,
+      329,
+      330,
+      335,
+      348,
+      395,
+      396,
+      397,
+      398,
+      402,
+      444,
+      447,
+      457,
+      458
+     ],
+     "numbering_fraction_match": 1.0,
+     "numbering_n_compared": 290,
+     "contacts_restricted_to_receptor_chain": false,
+     "title": "PAK4 kinase domain in complex with fasudil"
+    },
+    "biologic": {
+     "pdb_id": "4L67",
+     "resolution_a": 2.8,
+     "binder_description": "Serine/threonine-protein kinase PAK 4",
+     "binder_seq_len": 25,
+     "receptor_chain": "A",
+     "binder_chains": [
+      "B"
+     ],
+     "residues_per_binder_chain": {
+      "B": 27
+     },
+     "residue_ids": [
+      325,
+      326,
+      327,
+      328,
+      329,
+      358,
+      359,
+      362,
+      404,
+      408,
+      440,
+      442,
+      443,
+      444,
+      461,
+      475,
+      476,
+      477,
+      478,
+      479,
+      480,
+      481,
+      482,
+      489,
+      507,
+      516,
+      586
+     ],
+     "numbering_fraction_match": 1.0,
+     "numbering_n_compared": 290
+    },
+    "metrics": {
+     "n_a": 15,
+     "n_b": 27,
+     "n_intersection": 4,
+     "n_union": 38,
+     "size_ratio": 0.5555555555555556,
+     "jaccard": 0.10526315789473684,
+     "coverage_a": 0.26666666666666666,
+     "coverage_b": 0.14814814814814814,
+     "overlap_coefficient": 0.26666666666666666,
+     "f1": 0.19047619047619047
+    }
+   },
+   {
+    "uniprot": "P03418",
+    "klass": "ppi",
+    "receptor_description": "NUCLEOPROTEIN",
+    "same_entry": false,
+    "small_molecule": {
+     "pdb_id": "4UCC",
+     "resolution_a": 2.05,
+     "ligand": "ZKW",
+     "ligand_n_heavy_atoms": 20,
+     "ligand_formula": "C12Cl2N2O4",
+     "receptor_chain": "A",
+     "residue_ids": [
+      50,
+      53,
+      128,
+      131,
+      132,
+      135,
+      150,
+      151
+     ],
+     "numbering_fraction_match": 0.9955156950672646,
+     "numbering_n_compared": 223,
+     "contacts_restricted_to_receptor_chain": false,
+     "title": "N-terminal globular domain of the RSV Nucleoprotein in complex with the Nucleoprotein Phosphoprotein interaction inhibitor M76"
+    },
+    "biologic": {
+     "pdb_id": "4UC7",
+     "resolution_a": 2.45,
+     "binder_description": "NUCLEOPROTEIN",
+     "binder_seq_len": 233,
+     "receptor_chain": "A",
+     "binder_chains": [
+      "B"
+     ],
+     "residues_per_binder_chain": {
+      "B": 10
+     },
+     "residue_ids": [
+      55,
+      56,
+      137,
+      141,
+      149,
+      191,
+      194,
+      195,
+      198,
+      201
+     ],
+     "numbering_fraction_match": 0.9953488372093023,
+     "numbering_n_compared": 215
+    },
+    "metrics": {
+     "n_a": 8,
+     "n_b": 10,
+     "n_intersection": 0,
+     "n_union": 18,
+     "size_ratio": 0.8,
+     "jaccard": 0.0,
+     "coverage_a": 0.0,
+     "coverage_b": 0.0,
+     "overlap_coefficient": 0.0,
+     "f1": 0.0
+    }
+   },
+   {
+    "uniprot": "P08235",
+    "klass": "peptide",
+    "receptor_description": "Mineralocorticoid receptor",
+    "same_entry": false,
+    "small_molecule": {
+     "pdb_id": "4PF3",
+     "resolution_a": 1.1,
+     "ligand": "HFN",
+     "ligand_n_heavy_atoms": 30,
+     "ligand_formula": "C21F3N3O3",
+     "receptor_chain": "A",
+     "residue_ids": [
+      766,
+      769,
+      770,
+      772,
+      773,
+      776,
+      806,
+      807,
+      810,
+      811,
+      814,
+      817,
+      827,
+      829,
+      845,
+      848,
+      849,
+      852,
+      938,
+      941,
+      942,
+      945,
+      954,
+      956,
+      960
+     ],
+     "numbering_fraction_match": 0.9879518072289156,
+     "numbering_n_compared": 249,
+     "contacts_restricted_to_receptor_chain": false,
+     "title": "Mineralocorticoid receptor ligand-binding domain with compuond 37a"
+    },
+    "biologic": {
+     "pdb_id": "5L7H",
+     "resolution_a": 1.84,
+     "binder_description": "NCOA1 peptide",
+     "binder_seq_len": 10,
+     "receptor_chain": "A",
+     "binder_chains": [
+      "B"
+     ],
+     "residues_per_binder_chain": {
+      "B": 13
+     },
+     "residue_ids": [
+      778,
+      781,
+      785,
+      790,
+      795,
+      798,
+      799,
+      802,
+      803,
+      958,
+      959,
+      962,
+      963
+     ],
+     "numbering_fraction_match": 0.9799196787148594,
+     "numbering_n_compared": 249
+    },
+    "metrics": {
+     "n_a": 25,
+     "n_b": 13,
+     "n_intersection": 0,
+     "n_union": 38,
+     "size_ratio": 0.52,
+     "jaccard": 0.0,
+     "coverage_a": 0.0,
+     "coverage_b": 0.0,
+     "overlap_coefficient": 0.0,
+     "f1": 0.0
+    }
+   },
+   {
+    "uniprot": "P09391",
+    "klass": "peptide",
+    "receptor_description": "Rhomboid protease GlpG",
+    "same_entry": false,
+    "small_molecule": {
+     "pdb_id": "2XTV",
+     "resolution_a": 1.7,
+     "ligand": "MC3",
+     "ligand_n_heavy_atoms": 34,
+     "ligand_formula": "C24NO8P",
+     "receptor_chain": "A",
+     "residue_ids": [
+      213,
+      217,
+      262,
+      263,
+      266
+     ],
+     "numbering_fraction_match": 0.9943820224719101,
+     "numbering_n_compared": 178,
+     "contacts_restricted_to_receptor_chain": false,
+     "title": "Structure of E.coli rhomboid protease GlpG, active site mutant, S201T, orthorhombic crystal form"
+    },
+    "biologic": {
+     "pdb_id": "6XRP",
+     "resolution_a": 2.4,
+     "binder_description": "peptide ketoamide inhibitor",
+     "binder_seq_len": 6,
+     "receptor_chain": "A",
+     "binder_chains": [
+      "B"
+     ],
+     "residues_per_binder_chain": {
+      "B": 19
+     },
+     "residue_ids": [
+      120,
+      146,
+      150,
+      154,
+      189,
+      193,
+      196,
+      197,
+      198,
+      199,
+      200,
+      201,
+      202,
+      247,
+      248,
+      249,
+      250,
+      253,
+      254
+     ],
+     "numbering_fraction_match": 1.0,
+     "numbering_n_compared": 180
+    },
+    "metrics": {
+     "n_a": 5,
+     "n_b": 19,
+     "n_intersection": 0,
+     "n_union": 24,
+     "size_ratio": 0.2631578947368421,
+     "jaccard": 0.0,
+     "coverage_a": 0.0,
+     "coverage_b": 0.0,
+     "overlap_coefficient": 0.0,
+     "f1": 0.0
+    }
+   },
+   {
+    "uniprot": "P0A334",
+    "klass": "antibody",
+    "receptor_description": "pH-gated potassium channel KcsA",
+    "same_entry": false,
+    "small_molecule": {
+     "pdb_id": "2IH3",
+     "resolution_a": 1.72,
+     "ligand": "1EM",
+     "ligand_n_heavy_atoms": 31,
+     "ligand_formula": "C26O5",
+     "receptor_chain": "C",
+     "residue_ids": [
+      84,
+      85,
+      86,
+      89,
+      90,
+      93
+     ],
+     "numbering_fraction_match": 0.979381443298969,
+     "numbering_n_compared": 97,
+     "contacts_restricted_to_receptor_chain": false,
+     "title": "Ion selectivity in a semi-synthetic K+ channel locked in the conductive conformation"
+    },
+    "biologic": {
+     "pdb_id": "5EC2",
+     "resolution_a": 2.3,
+     "binder_description": "Antibody Fab Fragment Light Chain + Antibody Fab Fragment Light Chain",
+     "binder_seq_len": 431,
+     "receptor_chain": "C",
+     "binder_chains": [
+      "A",
+      "B"
+     ],
+     "residues_per_binder_chain": {
+      "A": 10,
+      "B": 9
+     },
+     "residue_ids": [
+      45,
+      48,
+      49,
+      50,
+      52,
+      53,
+      54,
+      55,
+      56,
+      57,
+      58,
+      60,
+      61,
+      62,
+      63,
+      64
+     ],
+     "numbering_fraction_match": 0.97,
+     "numbering_n_compared": 100
+    },
+    "metrics": {
+     "n_a": 6,
+     "n_b": 16,
+     "n_intersection": 0,
+     "n_union": 22,
+     "size_ratio": 0.375,
+     "jaccard": 0.0,
+     "coverage_a": 0.0,
+     "coverage_b": 0.0,
+     "overlap_coefficient": 0.0,
+     "f1": 0.0
+    }
+   },
+   {
+    "uniprot": "P10276",
+    "klass": "peptide",
+    "receptor_description": "Retinoic acid receptor alpha",
+    "same_entry": false,
+    "small_molecule": {
+     "pdb_id": "9GFE",
+     "resolution_a": 1.583,
+     "ligand": "EQN",
+     "ligand_n_heavy_atoms": 26,
+     "ligand_formula": "C22NO3",
+     "receptor_chain": "A",
+     "residue_ids": [
+      225,
+      228,
+      231,
+      232,
+      235,
+      266,
+      269,
+      270,
+      272,
+      273,
+      276,
+      286,
+      287,
+      301,
+      302,
+      305,
+      391,
+      394,
+      395,
+      398,
+      410,
+      414
+     ],
+     "numbering_fraction_match": 1.0,
+     "numbering_n_compared": 235,
+     "contacts_restricted_to_receptor_chain": false,
+     "title": "hRAR LBD protein in complex with AM580 agonist ligand and a stapled peptide"
+    },
+    "biologic": {
+     "pdb_id": "7WQQ",
+     "resolution_a": 1.9,
+     "binder_description": "Peptide from Nuclear receptor coactivator 1",
+     "binder_seq_len": 13,
+     "receptor_chain": "A",
+     "binder_chains": [
+      "C"
+     ],
+     "residues_per_binder_chain": {
+      "C": 13
+     },
+     "residue_ids": [
+      237,
+      240,
+      244,
+      249,
+      254,
+      257,
+      258,
+      261,
+      262,
+      408,
+      409,
+      412,
+      413
+     ],
+     "numbering_fraction_match": 0.9956140350877193,
+     "numbering_n_compared": 228
+    },
+    "metrics": {
+     "n_a": 22,
+     "n_b": 13,
+     "n_intersection": 0,
+     "n_union": 35,
+     "size_ratio": 0.5909090909090909,
+     "jaccard": 0.0,
+     "coverage_a": 0.0,
+     "coverage_b": 0.0,
+     "overlap_coefficient": 0.0,
+     "f1": 0.0
+    }
+   },
+   {
+    "uniprot": "P10828",
+    "klass": "peptide",
+    "receptor_description": "Isoform Beta-2 of Thyroid hormone receptor beta",
+    "same_entry": false,
+    "small_molecule": {
+     "pdb_id": "6KKB",
+     "resolution_a": 1.7,
+     "ligand": "8HO",
+     "ligand_n_heavy_atoms": 26,
+     "ligand_formula": "C19N2O5",
+     "receptor_chain": "X",
+     "residue_ids": [
+      269,
+      272,
+      273,
+      275,
+      276,
+      279,
+      282,
+      310,
+      313,
+      314,
+      316,
+      317,
+      320,
+      329,
+      330,
+      331,
+      332,
+      344,
+      345,
+      346,
+      353,
+      435,
+      442,
+      451,
+      455
+     ],
+     "numbering_fraction_match": 1.0,
+     "numbering_n_compared": 243,
+     "contacts_restricted_to_receptor_chain": false,
+     "title": "A novel agonist of THRb"
+    },
+    "biologic": {
+     "pdb_id": "7WMN",
+     "resolution_a": 2.57,
+     "binder_description": "Nuclear receptor coactivator 2",
+     "binder_seq_len": 11,
+     "receptor_chain": "A",
+     "binder_chains": [
+      "B"
+     ],
+     "residues_per_binder_chain": {
+      "B": 13
+     },
+     "residue_ids": [
+      284,
+      288,
+      293,
+      298,
+      299,
+      301,
+      302,
+      305,
+      306,
+      453,
+      454,
+      457,
+      458
+     ],
+     "numbering_fraction_match": 1.0,
+     "numbering_n_compared": 232
+    },
+    "metrics": {
+     "n_a": 25,
+     "n_b": 13,
+     "n_intersection": 0,
+     "n_union": 38,
+     "size_ratio": 0.52,
+     "jaccard": 0.0,
+     "coverage_a": 0.0,
+     "coverage_b": 0.0,
+     "overlap_coefficient": 0.0,
+     "f1": 0.0
+    }
+   },
+   {
+    "uniprot": "P11309",
+    "klass": "peptide",
+    "receptor_description": "Serine/threonine-protein kinase pim-1",
+    "same_entry": false,
+    "small_molecule": {
+     "pdb_id": "3R04",
+     "resolution_a": 1.7,
+     "ligand": "UNQ",
+     "ligand_n_heavy_atoms": 26,
+     "ligand_formula": "C19N4O3",
+     "receptor_chain": "A",
+     "residue_ids": [
+      44,
+      52,
+      65,
+      67,
+      104,
+      120,
+      121,
+      122,
+      123,
+      126,
+      128,
+      174,
+      185,
+      186
+     ],
+     "numbering_fraction_match": 1.0,
+     "numbering_n_compared": 271,
+     "contacts_restricted_to_receptor_chain": false,
+     "title": "The discovery of novel benzofuran-2-carboxylic acids as potent Pim-1 inhibitors"
+    },
+    "biologic": {
+     "pdb_id": "8R0H",
+     "resolution_a": 1.88,
+     "binder_description": "Pimtide",
+     "binder_seq_len": 14,
+     "receptor_chain": "A",
+     "binder_chains": [
+      "B"
+     ],
+     "residues_per_binder_chain": {
+      "B": 22
+     },
+     "residue_ids": [
+      48,
+      128,
+      129,
+      130,
+      131,
+      133,
+      134,
+      167,
+      169,
+      170,
+      171,
+      189,
+      202,
+      203,
+      204,
+      206,
+      234,
+      238,
+      239,
+      240,
+      243,
+      256
+     ],
+     "numbering_fraction_match": 0.9963369963369964,
+     "numbering_n_compared": 273
+    },
+    "metrics": {
+     "n_a": 14,
+     "n_b": 22,
+     "n_intersection": 1,
+     "n_union": 35,
+     "size_ratio": 0.6363636363636364,
+     "jaccard": 0.02857142857142857,
+     "coverage_a": 0.07142857142857142,
+     "coverage_b": 0.045454545454545456,
+     "overlap_coefficient": 0.07142857142857142,
+     "f1": 0.05555555555555555
+    }
+   },
+   {
+    "uniprot": "P21802",
+    "klass": "ppi",
+    "receptor_description": "FIBROBLAST GROWTH FACTOR RECEPTOR 2",
+    "same_entry": false,
+    "small_molecule": {
+     "pdb_id": "10OU",
+     "resolution_a": 1.77,
+     "ligand": "A1C67",
+     "ligand_n_heavy_atoms": 29,
+     "ligand_formula": "C21N7O",
+     "receptor_chain": "A",
+     "residue_ids": [
+      487,
+      488,
+      489,
+      490,
+      491,
+      495,
+      515,
+      517,
+      565,
+      566,
+      567,
+      568,
+      570,
+      633,
+      644,
+      647
+     ],
+     "numbering_fraction_match": 0.9902912621359223,
+     "numbering_n_compared": 309,
+     "contacts_restricted_to_receptor_chain": false,
+     "title": "FGFR2 mutant D650V with compound 12"
+    },
+    "biologic": {
+     "pdb_id": "1II4",
+     "resolution_a": 2.7,
+     "binder_description": "HEPARIN-BINDING GROWTH FACTOR 2",
+     "binder_seq_len": 155,
+     "receptor_chain": "E",
+     "binder_chains": [
+      "A"
+     ],
+     "residues_per_binder_chain": {
+      "A": 38
+     },
+     "residue_ids": [
+      163,
+      164,
+      166,
+      167,
+      168,
+      169,
+      170,
+      171,
+      173,
+      247,
+      249,
+      250,
+      251,
+      252,
+      253,
+      257,
+      279,
+      280,
+      281,
+      282,
+      283,
+      284,
+      285,
+      286,
+      287,
+      288,
+      315,
+      316,
+      317,
+      319,
+      320,
+      321,
+      325,
+      345,
+      346,
+      347,
+      349,
+      350
+     ],
+     "numbering_fraction_match": 0.995,
+     "numbering_n_compared": 200
+    },
+    "metrics": {
+     "n_a": 16,
+     "n_b": 38,
+     "n_intersection": 0,
+     "n_union": 54,
+     "size_ratio": 0.42105263157894735,
+     "jaccard": 0.0,
+     "coverage_a": 0.0,
+     "coverage_b": 0.0,
+     "overlap_coefficient": 0.0,
+     "f1": 0.0
+    }
+   },
+   {
+    "uniprot": "P28482",
+    "klass": "peptide",
+    "receptor_description": "Mitogen-activated protein kinase 1",
+    "same_entry": false,
+    "small_molecule": {
+     "pdb_id": "8AOJ",
+     "resolution_a": 1.12,
+     "ligand": "N8L",
+     "ligand_n_heavy_atoms": 21,
+     "ligand_formula": "C16N4O",
+     "receptor_chain": "A",
+     "residue_ids": [
+      31,
+      39,
+      52,
+      54,
+      105,
+      106,
+      107,
+      108,
+      109,
+      110,
+      111,
+      114,
+      154,
+      156,
+      166,
+      167
+     ],
+     "numbering_fraction_match": 1.0,
+     "numbering_n_compared": 340,
+     "contacts_restricted_to_receptor_chain": false,
+     "title": "Specific covalent inhibitor of ERK2"
+    },
+    "biologic": {
+     "pdb_id": "4H3Q",
+     "resolution_a": 2.2,
+     "binder_description": "Dual specificity mitogen-activated protein kinase kinase 2",
+     "binder_seq_len": 13,
+     "receptor_chain": "A",
+     "binder_chains": [
+      "B"
+     ],
+     "residues_per_binder_chain": {
+      "B": 17
+     },
+     "residue_ids": [
+      81,
+      109,
+      110,
+      115,
+      118,
+      119,
+      124,
+      125,
+      128,
+      129,
+      135,
+      158,
+      159,
+      161,
+      162,
+      316,
+      321
+     ],
+     "numbering_fraction_match": 0.9886363636363636,
+     "numbering_n_compared": 352
+    },
+    "metrics": {
+     "n_a": 16,
+     "n_b": 17,
+     "n_intersection": 2,
+     "n_union": 31,
+     "size_ratio": 0.9411764705882353,
+     "jaccard": 0.06451612903225806,
+     "coverage_a": 0.125,
+     "coverage_b": 0.11764705882352941,
+     "overlap_coefficient": 0.125,
+     "f1": 0.12121212121212122
+    }
+   },
+   {
+    "uniprot": "P31947",
+    "klass": "peptide",
+    "receptor_description": "14-3-3 protein sigma",
+    "same_entry": false,
+    "small_molecule": {
+     "pdb_id": "7AZ2",
+     "resolution_a": 1.081,
+     "ligand": "SFW",
+     "ligand_n_heavy_atoms": 22,
+     "ligand_formula": "C17F3N2",
+     "receptor_chain": "A",
+     "residue_ids": [
+      38,
+      42,
+      115,
+      119,
+      122,
+      167,
+      168,
+      171,
+      219
+     ],
+     "numbering_fraction_match": 1.0,
+     "numbering_n_compared": 226,
+     "contacts_restricted_to_receptor_chain": true,
+     "title": "14-3-3 sigma with Pin1 binding site pS72 and covalently bound LvD1014"
+    },
+    "biologic": {
+     "pdb_id": "7OBC",
+     "resolution_a": 1.9,
+     "binder_description": "Rho-related GTP-binding protein RhoE",
+     "binder_seq_len": 11,
+     "receptor_chain": "A",
+     "binder_chains": [
+      "B"
+     ],
+     "residues_per_binder_chain": {
+      "B": 19
+     },
+     "residue_ids": [
+      49,
+      56,
+      60,
+      122,
+      126,
+      129,
+      130,
+      133,
+      171,
+      174,
+      175,
+      178,
+      182,
+      219,
+      222,
+      225,
+      226,
+      229,
+      230
+     ],
+     "numbering_fraction_match": 1.0,
+     "numbering_n_compared": 231
+    },
+    "metrics": {
+     "n_a": 9,
+     "n_b": 19,
+     "n_intersection": 3,
+     "n_union": 25,
+     "size_ratio": 0.47368421052631576,
+     "jaccard": 0.12,
+     "coverage_a": 0.3333333333333333,
+     "coverage_b": 0.15789473684210525,
+     "overlap_coefficient": 0.3333333333333333,
+     "f1": 0.21428571428571427
+    }
+   },
+   {
+    "uniprot": "P41182",
+    "klass": "peptide",
+    "receptor_description": "B-cell lymphoma 6 protein",
+    "same_entry": false,
+    "small_molecule": {
+     "pdb_id": "7LWE",
+     "resolution_a": 1.17,
+     "ligand": "YND",
+     "ligand_n_heavy_atoms": 22,
+     "ligand_formula": "C14ClN5O2",
+     "receptor_chain": "A",
+     "residue_ids": [
+      51,
+      52,
+      53,
+      54,
+      55,
+      58,
+      113,
+      114,
+      115,
+      116
+     ],
+     "numbering_fraction_match": 0.9763779527559056,
+     "numbering_n_compared": 127,
+     "contacts_restricted_to_receptor_chain": false,
+     "title": "Crystal structure of the BCL6 BTB domain in complex with OICR-7629"
+    },
+    "biologic": {
+     "pdb_id": "7GUD",
+     "resolution_a": 1.8,
+     "binder_description": "WVIP tetrapeptide",
+     "binder_seq_len": 6,
+     "receptor_chain": "A",
+     "binder_chains": [
+      "D"
+     ],
+     "residues_per_binder_chain": {
+      "D": 5
+     },
+     "residue_ids": [
+      8,
+      9,
+      10,
+      11,
+      12
+     ],
+     "numbering_fraction_match": 1.0,
+     "numbering_n_compared": 124
+    },
+    "metrics": {
+     "n_a": 10,
+     "n_b": 5,
+     "n_intersection": 0,
+     "n_union": 15,
+     "size_ratio": 0.5,
+     "jaccard": 0.0,
+     "coverage_a": 0.0,
+     "coverage_b": 0.0,
+     "overlap_coefficient": 0.0,
+     "f1": 0.0
+    }
+   },
+   {
+    "uniprot": "P42345",
+    "klass": "antibody",
+    "receptor_description": "Serine/threonine-protein kinase mTOR",
+    "same_entry": false,
+    "small_molecule": {
+     "pdb_id": "5GPG",
+     "resolution_a": 1.67,
+     "ligand": "RAP",
+     "ligand_n_heavy_atoms": 65,
+     "ligand_formula": "C51NO13",
+     "receptor_chain": "B",
+     "residue_ids": [
+      2031,
+      2032,
+      2035,
+      2036,
+      2039,
+      2040,
+      2098,
+      2101,
+      2102,
+      2105,
+      2108
+     ],
+     "numbering_fraction_match": 0.9891304347826086,
+     "numbering_n_compared": 92,
+     "contacts_restricted_to_receptor_chain": true,
+     "title": "Co-crystal structure of the FK506 binding domain of human FKBP25, Rapamycin and the FRB domain of human mTOR"
+    },
+    "biologic": {
+     "pdb_id": "9DL0",
+     "resolution_a": 2.0,
+     "binder_description": "Fab heavy chain + Fab light chain",
+     "binder_seq_len": 436,
+     "receptor_chain": "G",
+     "binder_chains": [
+      "A",
+      "Y"
+     ],
+     "residues_per_binder_chain": {
+      "A": 12,
+      "Y": 12
+     },
+     "residue_ids": [
+      2035,
+      2036,
+      2038,
+      2039,
+      2040,
+      2041,
+      2042,
+      2093,
+      2094,
+      2095,
+      2098,
+      2099,
+      2101,
+      2102,
+      2104,
+      2105,
+      2108,
+      2109,
+      2112
+     ],
+     "numbering_fraction_match": 1.0,
+     "numbering_n_compared": 92
+    },
+    "metrics": {
+     "n_a": 11,
+     "n_b": 19,
+     "n_intersection": 9,
+     "n_union": 21,
+     "size_ratio": 0.5789473684210527,
+     "jaccard": 0.42857142857142855,
+     "coverage_a": 0.8181818181818182,
+     "coverage_b": 0.47368421052631576,
+     "overlap_coefficient": 0.8181818181818182,
+     "f1": 0.6
+    }
+   },
+   {
+    "uniprot": "P46828",
+    "klass": "ppi",
+    "receptor_description": "Catabolite control protein",
+    "same_entry": false,
+    "small_molecule": {
+     "pdb_id": "2NZU",
+     "resolution_a": 2.5,
+     "ligand": "BG6",
+     "ligand_n_heavy_atoms": 16,
+     "ligand_formula": "C6O9P",
+     "receptor_chain": "G",
+     "residue_ids": [
+      72,
+      73,
+      74,
+      75,
+      189,
+      196,
+      221,
+      247,
+      248,
+      249,
+      274,
+      275,
+      277,
+      279
+     ],
+     "numbering_fraction_match": 1.0,
+     "numbering_n_compared": 275,
+     "contacts_restricted_to_receptor_chain": false,
+     "title": "Structural mechanism for the fine-tuning of CcpA function by the small molecule effectors G6P and FBP"
+    },
+    "biologic": {
+     "pdb_id": "2NZV",
+     "resolution_a": 3.0,
+     "binder_description": "Phosphocarrier protein HPr",
+     "binder_seq_len": 88,
+     "receptor_chain": "G",
+     "binder_chains": [
+      "L"
+     ],
+     "residues_per_binder_chain": {
+      "L": 15
+     },
+     "residue_ids": [
+      80,
+      84,
+      85,
+      88,
+      295,
+      296,
+      299,
+      300,
+      303,
+      304,
+      307,
+      319,
+      321,
+      322,
+      324
+     ],
+     "numbering_fraction_match": 1.0,
+     "numbering_n_compared": 275
+    },
+    "metrics": {
+     "n_a": 14,
+     "n_b": 15,
+     "n_intersection": 0,
+     "n_union": 29,
+     "size_ratio": 0.9333333333333333,
+     "jaccard": 0.0,
+     "coverage_a": 0.0,
+     "coverage_b": 0.0,
+     "overlap_coefficient": 0.0,
+     "f1": 0.0
+    }
+   },
+   {
+    "uniprot": "P49336",
+    "klass": "ppi",
+    "receptor_description": "Cyclin-dependent kinase 8",
+    "same_entry": false,
+    "small_molecule": {
+     "pdb_id": "5XS2",
+     "resolution_a": 2.04,
+     "ligand": "8D6",
+     "ligand_n_heavy_atoms": 15,
+     "ligand_formula": "C10ClN3O",
+     "receptor_chain": "A",
+     "residue_ids": [
+      32,
+      35,
+      50,
+      52,
+      66,
+      79,
+      97,
+      98,
+      99,
+      100,
+      156,
+      158,
+      172,
+      173,
+      356
+     ],
+     "numbering_fraction_match": 1.0,
+     "numbering_n_compared": 363,
+     "contacts_restricted_to_receptor_chain": false,
+     "title": "CDK8-CYCC IN COMPLEX WITH COMPOUND 17:3-chloro-4-(4-pyridyl)-1H-pyrrole-2-carboxamide"
+    },
+    "biologic": {
+     "pdb_id": "4F70",
+     "resolution_a": 3.0,
+     "binder_description": "Cyclin-C",
+     "binder_seq_len": 287,
+     "receptor_chain": "A",
+     "binder_chains": [
+      "B"
+     ],
+     "residues_per_binder_chain": {
+      "B": 28
+     },
+     "residue_ids": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      9,
+      13,
+      58,
+      59,
+      61,
+      64,
+      65,
+      67,
+      68,
+      69,
+      71,
+      72,
+      73,
+      84,
+      86,
+      87,
+      88,
+      91,
+      145,
+      146,
+      147
+     ],
+     "numbering_fraction_match": 1.0,
+     "numbering_n_compared": 326
+    },
+    "metrics": {
+     "n_a": 15,
+     "n_b": 28,
+     "n_intersection": 0,
+     "n_union": 43,
+     "size_ratio": 0.5357142857142857,
+     "jaccard": 0.0,
+     "coverage_a": 0.0,
+     "coverage_b": 0.0,
+     "overlap_coefficient": 0.0,
+     "f1": 0.0
+    }
+   },
+   {
+    "uniprot": "P53350",
+    "klass": "peptide",
+    "receptor_description": "Serine/threonine-protein kinase PLK1",
+    "same_entry": false,
+    "small_molecule": {
+     "pdb_id": "6AX4",
+     "resolution_a": 1.45,
+     "ligand": "56A",
+     "ligand_n_heavy_atoms": 24,
+     "ligand_formula": "C20N3O",
+     "receptor_chain": "A",
+     "residue_ids": [
+      414,
+      415,
+      417,
+      421,
+      478,
+      481,
+      482,
+      485,
+      490
+     ],
+     "numbering_fraction_match": 1.0,
+     "numbering_n_compared": 221,
+     "contacts_restricted_to_receptor_chain": true,
+     "title": "Plk-1 polo-box domain in complex with histidine N(tau)-cyclized Macrocycle 5b."
+    },
+    "biologic": {
+     "pdb_id": "4O56",
+     "resolution_a": 1.8,
+     "binder_description": "synthetic peptide",
+     "binder_seq_len": 8,
+     "receptor_chain": "A",
+     "binder_chains": [
+      "B"
+     ],
+     "residues_per_binder_chain": {
+      "B": 16
+     },
+     "residue_ids": [
+      413,
+      414,
+      415,
+      416,
+      485,
+      487,
+      488,
+      489,
+      490,
+      491,
+      516,
+      533,
+      534,
+      535,
+      538,
+      540
+     ],
+     "numbering_fraction_match": 0.9713114754098361,
+     "numbering_n_compared": 244
+    },
+    "metrics": {
+     "n_a": 9,
+     "n_b": 16,
+     "n_intersection": 4,
+     "n_union": 21,
+     "size_ratio": 0.5625,
+     "jaccard": 0.19047619047619047,
+     "coverage_a": 0.4444444444444444,
+     "coverage_b": 0.25,
+     "overlap_coefficient": 0.4444444444444444,
+     "f1": 0.32
+    }
+   },
+   {
+    "uniprot": "P61964",
+    "klass": "peptide",
+    "receptor_description": "WD repeat-containing protein 5",
+    "same_entry": false,
+    "small_molecule": {
+     "pdb_id": "6E1Z",
+     "resolution_a": 1.1,
+     "ligand": "HLP",
+     "ligand_n_heavy_atoms": 14,
+     "ligand_formula": "C9N2O3",
+     "receptor_chain": "A",
+     "residue_ids": [
+      49,
+      91,
+      92,
+      133,
+      175,
+      191,
+      259,
+      260,
+      261,
+      263,
+      305
+     ],
+     "numbering_fraction_match": 1.0,
+     "numbering_n_compared": 307,
+     "contacts_restricted_to_receptor_chain": false,
+     "title": "Displacement of WDR5 from chromatin by a pharmacological WIN site inhibitor with picomolar affinity"
+    },
+    "biologic": {
+     "pdb_id": "8WXX",
+     "resolution_a": 2.1,
+     "binder_description": "SET1B",
+     "binder_seq_len": 10,
+     "receptor_chain": "B",
+     "binder_chains": [
+      "C"
+     ],
+     "residues_per_binder_chain": {
+      "C": 25
+     },
+     "residue_ids": [
+      46,
+      47,
+      49,
+      65,
+      89,
+      90,
+      91,
+      92,
+      107,
+      131,
+      133,
+      134,
+      149,
+      172,
+      173,
+      175,
+      191,
+      217,
+      234,
+      259,
+      260,
+      261,
+      263,
+      305,
+      321
+     ],
+     "numbering_fraction_match": 1.0,
+     "numbering_n_compared": 303
+    },
+    "metrics": {
+     "n_a": 11,
+     "n_b": 25,
+     "n_intersection": 11,
+     "n_union": 25,
+     "size_ratio": 0.44,
+     "jaccard": 0.44,
+     "coverage_a": 1.0,
+     "coverage_b": 0.44,
+     "overlap_coefficient": 1.0,
+     "f1": 0.6111111111111112
+    }
+   },
+   {
+    "uniprot": "Q00535",
+    "klass": "ppi",
+    "receptor_description": "CELL DIVISION PROTEIN KINASE 5",
+    "same_entry": false,
+    "small_molecule": {
+     "pdb_id": "4AU8",
+     "resolution_a": 1.9,
+     "ligand": "Z3R",
+     "ligand_n_heavy_atoms": 18,
+     "ligand_formula": "C11N2O2S3",
+     "receptor_chain": "A",
+     "residue_ids": [
+      10,
+      18,
+      31,
+      33,
+      64,
+      80,
+      81,
+      82,
+      83,
+      84,
+      85,
+      86,
+      89,
+      133,
+      143,
+      144
+     ],
+     "numbering_fraction_match": 0.9963636363636363,
+     "numbering_n_compared": 275,
+     "contacts_restricted_to_receptor_chain": false,
+     "title": "Crystal structure of compound 4a in complex with cdk5, showing an unusual binding mode to the hinge region via a water molecule"
+    },
+    "biologic": {
+     "pdb_id": "1H4L",
+     "resolution_a": 2.65,
+     "binder_description": "CYCLIN-DEPENDENT KINASE 5 ACTIVATOR",
+     "binder_seq_len": 147,
+     "receptor_chain": "A",
+     "binder_chains": [
+      "D"
+     ],
+     "residues_per_binder_chain": {
+      "D": 31
+     },
+     "residue_ids": [
+      37,
+      43,
+      45,
+      46,
+      47,
+      49,
+      50,
+      52,
+      53,
+      54,
+      56,
+      57,
+      69,
+      71,
+      76,
+      120,
+      121,
+      122,
+      147,
+      149,
+      150,
+      151,
+      152,
+      153,
+      155,
+      156,
+      157,
+      158,
+      159,
+      161,
+      162
+     ],
+     "numbering_fraction_match": 0.9964028776978417,
+     "numbering_n_compared": 278
+    },
+    "metrics": {
+     "n_a": 16,
+     "n_b": 31,
+     "n_intersection": 0,
+     "n_union": 47,
+     "size_ratio": 0.5161290322580645,
+     "jaccard": 0.0,
+     "coverage_a": 0.0,
+     "coverage_b": 0.0,
+     "overlap_coefficient": 0.0,
+     "f1": 0.0
+    }
+   },
+   {
+    "uniprot": "Q12834",
+    "klass": "peptide",
+    "receptor_description": "Cell division cycle protein 20 homolog",
+    "same_entry": false,
+    "small_molecule": {
+     "pdb_id": "4N14",
+     "resolution_a": 2.1,
+     "ligand": "WR7",
+     "ligand_n_heavy_atoms": 27,
+     "ligand_formula": "C13Cl3N7O4",
+     "receptor_chain": "A",
+     "residue_ids": [
+      176,
+      177,
+      178,
+      179,
+      200,
+      202,
+      207,
+      209,
+      216
+     ],
+     "numbering_fraction_match": 1.0,
+     "numbering_n_compared": 313,
+     "contacts_restricted_to_receptor_chain": false,
+     "title": "Crystal structure of Cdc20 and apcin complex"
+    },
+    "biologic": {
+     "pdb_id": "4GGD",
+     "resolution_a": 2.435,
+     "binder_description": "Mitotic checkpoint serine/threonine-protein kinase BUB1 beta",
+     "binder_seq_len": 23,
+     "receptor_chain": "A",
+     "binder_chains": [
+      "C"
+     ],
+     "residues_per_binder_chain": {
+      "C": 14
+     },
+     "residue_ids": [
+      183,
+      184,
+      185,
+      186,
+      310,
+      329,
+      331,
+      356,
+      357,
+      376,
+      377,
+      378,
+      401,
+      445
+     ],
+     "numbering_fraction_match": 1.0,
+     "numbering_n_compared": 312
+    },
+    "metrics": {
+     "n_a": 9,
+     "n_b": 14,
+     "n_intersection": 0,
+     "n_union": 23,
+     "size_ratio": 0.6428571428571429,
+     "jaccard": 0.0,
+     "coverage_a": 0.0,
+     "coverage_b": 0.0,
+     "overlap_coefficient": 0.0,
+     "f1": 0.0
+    }
+   },
+   {
+    "uniprot": "Q13418",
+    "klass": "ppi",
+    "receptor_description": "Integrin-linked protein kinase",
+    "same_entry": false,
+    "small_molecule": {
+     "pdb_id": "9TP9",
+     "resolution_a": 1.45,
+     "ligand": "A1JW8",
+     "ligand_n_heavy_atoms": 33,
+     "ligand_formula": "C24ClFN5O2",
+     "receptor_chain": "A",
+     "residue_ids": [
+      199,
+      200,
+      207,
+      218,
+      219,
+      220,
+      251,
+      267,
+      269,
+      270,
+      271,
+      272,
+      273,
+      274,
+      275,
+      326,
+      336,
+      338,
+      339
+     ],
+     "numbering_fraction_match": 0.9888475836431226,
+     "numbering_n_compared": 269,
+     "contacts_restricted_to_receptor_chain": false,
+     "title": "Crystal structure of integrin-linked kinase (ILK) in complex with Alpha-Parvin and dihydroPelitinib"
+    },
+    "biologic": {
+     "pdb_id": "4HI8",
+     "resolution_a": 1.203,
+     "binder_description": "LIM and senescent cell antigen-like-containing domain protein 1",
+     "binder_seq_len": 72,
+     "receptor_chain": "A",
+     "binder_chains": [
+      "B"
+     ],
+     "residues_per_binder_chain": {
+      "B": 23
+     },
+     "residue_ids": [
+      33,
+      35,
+      43,
+      64,
+      65,
+      66,
+      68,
+      76,
+      77,
+      97,
+      98,
+      99,
+      101,
+      105,
+      106,
+      109,
+      110,
+      112,
+      130,
+      132,
+      134,
+      139,
+      141
+     ],
+     "numbering_fraction_match": 1.0,
+     "numbering_n_compared": 170
+    },
+    "metrics": {
+     "n_a": 19,
+     "n_b": 23,
+     "n_intersection": 0,
+     "n_union": 42,
+     "size_ratio": 0.8260869565217391,
+     "jaccard": 0.0,
+     "coverage_a": 0.0,
+     "coverage_b": 0.0,
+     "overlap_coefficient": 0.0,
+     "f1": 0.0
+    }
+   },
+   {
+    "uniprot": "Q16548",
+    "klass": "peptide",
+    "receptor_description": "Bcl-2-related protein A1",
+    "same_entry": false,
+    "small_molecule": {
+     "pdb_id": "9GIR",
+     "resolution_a": 1.075,
+     "ligand": "A1ILX",
+     "ligand_n_heavy_atoms": 38,
+     "ligand_formula": "C27Cl2N3O5S",
+     "receptor_chain": "A",
+     "residue_ids": [
+      48,
+      52,
+      55,
+      56,
+      59,
+      61,
+      70,
+      74,
+      78,
+      87,
+      88,
+      91,
+      95,
+      98,
+      99,
+      102
+     ],
+     "numbering_fraction_match": 1.0,
+     "numbering_n_compared": 147,
+     "contacts_restricted_to_receptor_chain": false,
+     "title": "BFL1 covalently bound to inhibitor compound 39"
+    },
+    "biologic": {
+     "pdb_id": "3MQP",
+     "resolution_a": 2.24,
+     "binder_description": "Phorbol-12-myristate-13-acetate-induced protein 1",
+     "binder_seq_len": 25,
+     "receptor_chain": "A",
+     "binder_chains": [
+      "B"
+     ],
+     "residues_per_binder_chain": {
+      "B": 27
+     },
+     "residue_ids": [
+      40,
+      44,
+      47,
+      48,
+      51,
+      52,
+      55,
+      56,
+      58,
+      59,
+      73,
+      74,
+      75,
+      77,
+      78,
+      79,
+      80,
+      81,
+      85,
+      86,
+      87,
+      88,
+      90,
+      91,
+      95,
+      147,
+      148
+     ],
+     "numbering_fraction_match": 1.0,
+     "numbering_n_compared": 150
+    },
+    "metrics": {
+     "n_a": 16,
+     "n_b": 27,
+     "n_intersection": 11,
+     "n_union": 32,
+     "size_ratio": 0.5925925925925926,
+     "jaccard": 0.34375,
+     "coverage_a": 0.6875,
+     "coverage_b": 0.4074074074074074,
+     "overlap_coefficient": 0.6875,
+     "f1": 0.5116279069767442
+    }
+   },
+   {
+    "uniprot": "Q570C0",
+    "klass": "ppi",
+    "receptor_description": "TRANSPORT INHIBITOR RESPONSE 1",
+    "same_entry": false,
+    "small_molecule": {
+     "pdb_id": "2P1M",
+     "resolution_a": 1.8,
+     "ligand": "IHP",
+     "ligand_n_heavy_atoms": 36,
+     "ligand_formula": "C6O24P6",
+     "receptor_chain": "B",
+     "residue_ids": [
+      49,
+      74,
+      78,
+      81,
+      113,
+      114,
+      344,
+      401,
+      403,
+      435,
+      436,
+      460,
+      484,
+      485,
+      509
+     ],
+     "numbering_fraction_match": 1.0,
+     "numbering_n_compared": 567,
+     "contacts_restricted_to_receptor_chain": false,
+     "title": "TIR1-ASK1 complex structure"
+    },
+    "biologic": {
+     "pdb_id": "3C6O",
+     "resolution_a": 2.7,
+     "binder_description": "SKP1-like protein 1A",
+     "binder_seq_len": 160,
+     "receptor_chain": "B",
+     "binder_chains": [
+      "A"
+     ],
+     "residues_per_binder_chain": {
+      "A": 35
+     },
+     "residue_ids": [
+      12,
+      13,
+      16,
+      17,
+      20,
+      21,
+      24,
+      25,
+      26,
+      28,
+      29,
+      30,
+      31,
+      32,
+      33,
+      34,
+      35,
+      37,
+      38,
+      45,
+      48,
+      49,
+      50,
+      55,
+      56,
+      60,
+      61,
+      64,
+      65,
+      506,
+      509,
+      532,
+      560,
+      561,
+      562
+     ],
+     "numbering_fraction_match": 1.0,
+     "numbering_n_compared": 567
+    },
+    "metrics": {
+     "n_a": 15,
+     "n_b": 35,
+     "n_intersection": 2,
+     "n_union": 48,
+     "size_ratio": 0.42857142857142855,
+     "jaccard": 0.041666666666666664,
+     "coverage_a": 0.13333333333333333,
+     "coverage_b": 0.05714285714285714,
+     "overlap_coefficient": 0.13333333333333333,
+     "f1": 0.08
+    }
+   }
+  ],
+  "not_evaluated": [
+   {
+    "uniprot": "A0A024B7W1",
+    "stage": "sm_side",
+    "reason": "6LD2: author numbering does not index A0A024B7W1 on any chain ([('A', 0.083, 565)])",
+    "tried": [
+     "5KQR",
+     "6LD1",
+     "6LD2"
+    ]
+   },
+   {
+    "uniprot": "A0A096YGU7",
+    "stage": "sm_search",
+    "reason": "no X-ray entry <= 2.5 A with a nonpolymer entity and a chain of this accession"
+   },
+   {
+    "uniprot": "A0A0B4JDC9",
+    "stage": "sm_side",
+    "reason": "6Q9M: no HET residue with >= 14 heavy atoms survived the ligand filter (40 HET residues, {'exclusion list': 40})",
+    "tried": [
+     "4Z88",
+     "6Q9M"
+    ]
+   },
+   {
+    "uniprot": "A0A0H2XGN0",
+    "stage": "sm_side",
+    "reason": "7VFM: no HET residue with >= 14 heavy atoms survived the ligand filter (19 HET residues, {'exclusion list': 19})",
+    "tried": [
+     "7VFK",
+     "7EC1",
+     "7VFM"
+    ]
+   },
+   {
+    "uniprot": "A0A0X8GJ44",
+    "stage": "sm_side",
+    "reason": "5KVD: author numbering does not index A0A0X8GJ44 on any chain ([('E', 0.056, 108)])",
+    "tried": [
+     "5KVF",
+     "5KVG",
+     "5KVD"
+    ]
+   },
+   {
+    "uniprot": "A0A1X8XLE9",
+    "stage": "sm_side",
+    "reason": "6W9K: author numbering does not index A0A1X8XLE9 on any chain ([('A', 0.065, 246)])",
+    "tried": [
+     "6W9L",
+     "6W9M",
+     "6W9K"
+    ]
+   },
+   {
+    "uniprot": "A0A564ZTL5",
+    "stage": "sm_side",
+    "reason": "9YIO: author numbering does not index A0A564ZTL5 on any chain ([('B', 0.94, 83)])",
+    "tried": [
+     "9YIO"
+    ]
+   },
+   {
+    "uniprot": "A0A6L8PLA6",
+    "stage": "sm_side",
+    "reason": "4FK1: no HET residue with >= 14 heavy atoms survived the ligand filter (152 HET residues, {'exclusion list': 151, '9 heavy atoms < min_heavy_atoms=14': 1})",
+    "tried": [
+     "4FK1"
+    ]
+   },
+   {
+    "uniprot": "A0A7H0DND2",
+    "stage": "sm_side",
+    "reason": "9MSP: no HET residue with >= 14 heavy atoms survived the ligand filter (463 HET residues, {'exclusion list': 463})",
+    "tried": [
+     "9MSP"
+    ]
+   },
+   {
+    "uniprot": "A5K736",
+    "stage": "sm_side",
+    "reason": "9DZC: author numbering does not index A5K736 on any chain ([('A', 0.063, 301), ('B', 0.063, 302)])",
+    "tried": [
+     "5W53",
+     "9DZC"
+    ]
+   },
+   {
+    "uniprot": "B4UPF7",
+    "stage": "sm_side",
+    "reason": "6Q0L: author numbering does not index B4UPF7 on any chain ([('A', 0.104, 212)])",
+    "tried": [
+     "6Q0E",
+     "6Q0L"
+    ]
+   },
+   {
+    "uniprot": "B5Y388",
+    "stage": "sm_search",
+    "reason": "no X-ray entry <= 2.5 A with a nonpolymer entity and a chain of this accession"
+   },
+   {
+    "uniprot": "B9EY07",
+    "stage": "sm_search",
+    "reason": "no X-ray entry <= 2.5 A with a nonpolymer entity and a chain of this accession"
+   },
+   {
+    "uniprot": "C7C6F1",
+    "stage": "sm_search",
+    "reason": "no X-ray entry <= 2.5 A with a nonpolymer entity and a chain of this accession"
+   },
+   {
+    "uniprot": "CAA05093",
+    "stage": "sm_search",
+    "reason": "no X-ray entry <= 2.5 A with a nonpolymer entity and a chain of this accession"
+   },
+   {
+    "uniprot": "E2I7G7",
+    "stage": "sm_side",
+    "reason": "7KYL: author numbering does not index E2I7G7 on any chain ([('E', 0.086, 93), ('Z', 0.086, 93)])",
+    "tried": [
+     "7KYL"
+    ]
+   },
+   {
+    "uniprot": "E7FEV5",
+    "stage": "sm_side",
+    "reason": "3WXF: author numbering does not index E7FEV5 on any chain ([('A', 0.679, 299), ('C', 0.682, 299)])",
+    "tried": [
+     "3WXF"
+    ]
+   },
+   {
+    "uniprot": "F6YBP7",
+    "stage": "sm_side",
+    "reason": "4D9Q: author numbering does not index F6YBP7 on any chain ([('A', 0.07, 228), ('B', 0.07, 228)])",
+    "tried": [
+     "4D9Q"
+    ]
+   },
+   {
+    "uniprot": "G3KCK8",
+    "stage": "sm_search",
+    "reason": "no X-ray entry <= 2.5 A with a nonpolymer entity and a chain of this accession"
+   },
+   {
+    "uniprot": "O43927",
+    "stage": "sm_side",
+    "reason": "5CBA: author numbering does not index O43927 on any chain ([('E', 0.082, 61), ('F', 0.094, 64)])",
+    "tried": [
+     "5CBE",
+     "5CBA"
+    ]
+   },
+   {
+    "uniprot": "O60609",
+    "stage": "sm_side",
+    "reason": "2GH0: no HET residue with >= 14 heavy atoms survived the ligand filter (242 HET residues, {'exclusion list': 242})",
+    "tried": [
+     "2GH0"
+    ]
+   },
+   {
+    "uniprot": "O87916",
+    "stage": "sm_side",
+    "reason": "1JTD: no HET residue with >= 14 heavy atoms survived the ligand filter (371 HET residues, {'exclusion list': 371})",
+    "tried": [
+     "1JTD"
+    ]
+   },
+   {
+    "uniprot": "O89343",
+    "stage": "sm_side",
+    "reason": "6PD4: no HET residue with >= 14 heavy atoms survived the ligand filter (636 HET residues, {'exclusion list': 636})",
+    "tried": [
+     "6VY4",
+     "6PD4"
+    ]
+   },
+   {
+    "uniprot": "O93426",
+    "stage": "sm_search",
+    "reason": "no X-ray entry <= 2.5 A with a nonpolymer entity and a chain of this accession"
+   },
+   {
+    "uniprot": "P00437",
+    "stage": "sm_side",
+    "reason": "4WHP: author numbering does not index P00437 on any chain ([('B', 0.0, 0), ('D', 0.0, 0), ('F', 0.0, 0)])",
+    "tried": [
+     "4WHS",
+     "3T63",
+     "4WHP"
+    ]
+   },
+   {
+    "uniprot": "P00442",
+    "stage": "sm_side",
+    "reason": "2Z7Y: author numbering does not index P00442 on any chain ([('A', 0.066, 151), ('B', 0.066, 151)])",
+    "tried": [
+     "1Q0E",
+     "2ZOW",
+     "2Z7Y"
+    ]
+   },
+   {
+    "uniprot": "P00517",
+    "stage": "sm_side",
+    "reason": "1XH8: author numbering does not index P00517 on any chain ([('A', 0.059, 339)])",
+    "tried": [
+     "4Z84",
+     "4C38",
+     "1XH8"
+    ]
+   },
+   {
+    "uniprot": "P00698",
+    "stage": "sm_side",
+    "reason": "7P6M: author numbering does not index P00698 on any chain ([('A', 0.07, 129)])",
+    "tried": [
+     "2VB1",
+     "8ZST",
+     "7P6M"
+    ]
+   },
+   {
+    "uniprot": "P00734",
+    "stage": "sm_side",
+    "reason": "4UE7: author numbering does not index P00734 on any chain ([('H', 0.064, 251), ('L', 0.0, 28)])",
+    "tried": [
+     "5AFY",
+     "4UD9",
+     "4UE7"
+    ]
+   },
+   {
+    "uniprot": "P00742",
+    "stage": "sm_side",
+    "reason": "2Y5F: author numbering does not index P00742 on any chain ([('L', 0.037, 54), ('A', 0.03, 234)])",
+    "tried": [
+     "9I24",
+     "2JKH",
+     "2Y5F"
+    ]
+   },
+   {
+    "uniprot": "P00749",
+    "stage": "sm_side",
+    "reason": "4ZKN: author numbering does not index P00749 on any chain ([('U', 0.037, 245)])",
+    "tried": [
+     "5YC6",
+     "4ZKO",
+     "4ZKN"
+    ]
+   },
+   {
+    "uniprot": "P00760",
+    "stage": "sm_side",
+    "reason": "5MNK: author numbering does not index P00760 on any chain ([('A', 0.072, 223)])",
+    "tried": [
+     "4I8H",
+     "5MN1",
+     "5MNK"
+    ]
+   },
+   {
+    "uniprot": "P00766",
+    "stage": "sm_side",
+    "reason": "5R44: no HET residue with >= 14 heavy atoms survived the ligand filter (172 HET residues, {'exclusion list': 172})",
+    "tried": [
+     "5R43",
+     "5R42",
+     "5R44"
+    ]
+   },
+   {
+    "uniprot": "P00782",
+    "stage": "sm_side",
+    "reason": "1LW6: author numbering does not index P00782 on any chain ([('E', 0.078, 281)])",
+    "tried": [
+     "1TO2",
+     "1TM5",
+     "1LW6"
+    ]
+   },
+   {
+    "uniprot": "P00924",
+    "stage": "sm_side",
+    "reason": "2XH4: author numbering does not index P00924 on any chain ([('A', 0.066, 437), ('B', 0.068, 414), ('C', 0.066, 437), ('D', 0.068, 414)])",
+    "tried": [
+     "2AL1",
+     "2XH0",
+     "2XH4"
+    ]
+   },
+   {
+    "uniprot": "P01730",
+    "stage": "sm_side",
+    "reason": "2NXY: author numbering does not index P01730 on any chain ([('B', 0.0, 0)])",
+    "tried": [
+     "4H8W",
+     "2NY1",
+     "2NXY"
+    ]
+   },
+   {
+    "uniprot": "P03366",
+    "stage": "sm_side",
+    "reason": "2IDW: author numbering does not index P03366 on any chain ([('A', 0.01, 99), ('B', 0.071, 99)])",
+    "tried": [
+     "2HS1",
+     "3NU3",
+     "2IDW"
+    ]
+   },
+   {
+    "uniprot": "P03372",
+    "stage": "sm_side",
+    "reason": "8BZW: author numbering does not index P03372 on any chain ([('B', 1.0, 6)])",
+    "tried": [
+     "7BAA",
+     "8BZC",
+     "8BZW"
+    ]
+   },
+   {
+    "uniprot": "P03406",
+    "stage": "sm_side",
+    "reason": "1EFN: no HET residue with >= 14 heavy atoms survived the ligand filter (101 HET residues, {'exclusion list': 99, '4 heavy atoms < min_heavy_atoms=14': 2})",
+    "tried": [
+     "1EFN"
+    ]
+   },
+   {
+    "uniprot": "P03420",
+    "stage": "polymer_numbering",
+    "reason": "8WSQ chain F: author numbering matches P03420 on only 0.826 of 437 residues; ids are not comparable with the small-molecule entry"
+   },
+   {
+    "uniprot": "P03438",
+    "stage": "sm_search",
+    "reason": "no X-ray entry <= 2.5 A with a nonpolymer entity and a chain of this accession"
+   },
+   {
+    "uniprot": "P03452",
+    "stage": "sm_side",
+    "reason": "9PHS: author numbering does not index P03452 on any chain ([('B', 0.099, 171), ('D', 0.099, 171), ('F', 0.099, 171), ('A', 0.062, 321), ('C', 0.062, 321), ('E', 0.062, 321)])",
+    "tried": [
+     "9PHD",
+     "5VLI",
+     "9PHS"
+    ]
+   },
+   {
+    "uniprot": "P03472",
+    "stage": "polymer_numbering",
+    "reason": "1NCA chain N: author numbering matches P03472 on only 0.111 of 389 residues; ids are not comparable with the small-molecule entry"
+   },
+   {
+    "uniprot": "P04117",
+    "stage": "sm_side",
+    "reason": "1ADL: author numbering does not index P04117 on any chain ([('A', 0.062, 129)])",
+    "tried": [
+     "7FZG",
+     "1G7N",
+     "1ADL"
+    ]
+   },
+   {
+    "uniprot": "P04141",
+    "stage": "sm_side",
+    "reason": "5D71: author numbering does not index P04141 on any chain ([('A', 0.044, 114)])",
+    "tried": [
+     "5D70",
+     "5D71"
+    ]
+   },
+   {
+    "uniprot": "P04419",
+    "stage": "sm_side",
+    "reason": "3U43: author numbering does not index P04419 on any chain ([('B', 0.053, 132)])",
+    "tried": [
+     "3U43"
+    ]
+   },
+   {
+    "uniprot": "P04585",
+    "stage": "sm_side",
+    "reason": "6DV0: author numbering does not index P04585 on any chain ([('A', 0.02, 99), ('B', 0.02, 99)])",
+    "tried": [
+     "6DV4",
+     "6DIF",
+     "6DV0"
+    ]
+   },
+   {
+    "uniprot": "P05132",
+    "stage": "sm_side",
+    "reason": "4HPU: author numbering does not index P05132 on any chain ([('E', 0.059, 339)])",
+    "tried": [
+     "1RDQ",
+     "4DFX",
+     "4HPU"
+    ]
+   },
+   {
+    "uniprot": "P05759",
+    "stage": "sm_side",
+    "reason": "5U4P: no HET residue with >= 14 heavy atoms survived the ligand filter (64 HET residues, {'exclusion list': 64})",
+    "tried": [
+     "6ZQH",
+     "5L6H",
+     "5U4P"
+    ]
+   },
+   {
+    "uniprot": "P06717",
+    "stage": "sm_side",
+    "reason": "1LTA: author numbering does not index P06717 on any chain ([('C', 0.0, 45), ('A', 0.037, 188)])",
+    "tried": [
+     "1LTI",
+     "1LTA"
+    ]
+   },
+   {
+    "uniprot": "P08407",
+    "stage": "sm_search",
+    "reason": "no X-ray entry <= 2.5 A with a nonpolymer entity and a chain of this accession"
+   },
+   {
+    "uniprot": "P08709",
+    "stage": "polymer_numbering",
+    "reason": "4JYU chain H: author numbering matches P08709 on only 0.051 of 254 residues; ids are not comparable with the small-molecule entry"
+   },
+   {
+    "uniprot": "P09883",
+    "stage": "sm_side",
+    "reason": "2GZJ: author numbering does not index P09883 on any chain ([('B', 0.054, 130), ('F', 0.053, 132)])",
+    "tried": [
+     "1FR2",
+     "2GYK",
+     "2GZJ"
+    ]
+   },
+   {
+    "uniprot": "P0A110",
+    "stage": "sm_side",
+    "reason": "1UUV: no HET residue with >= 14 heavy atoms survived the ligand filter (475 HET residues, {'4 heavy atoms < min_heavy_atoms=14': 1, 'exclusion list': 472, '9 heavy atoms < min_heavy_atoms=14': 1, '2 heavy atoms < min_heavy_atoms=14': 1})",
+    "tried": [
+     "1O7N",
+     "1EG9",
+     "1UUV"
+    ]
+   },
+   {
+    "uniprot": "P0A786",
+    "stage": "sm_side",
+    "reason": "1EKX: author numbering does not index P0A786 on any chain ([('A', 0.042, 310), ('B', 0.042, 308), ('C', 0.042, 308)])",
+    "tried": [
+     "3CSU",
+     "4FYY",
+     "1EKX"
+    ]
+   },
+   {
+    "uniprot": "P0A855",
+    "stage": "sm_side",
+    "reason": "1C5K: author numbering does not index P0A855 on any chain ([('A', 0.056, 396)])",
+    "tried": [
+     "2HQS",
+     "2W8B",
+     "1C5K"
+    ]
+   },
+   {
+    "uniprot": "P0A988",
+    "stage": "sm_side",
+    "reason": "8CIY: no HET residue with >= 14 heavy atoms survived the ligand filter (432 HET residues, {'exclusion list': 425, '8 heavy atoms < min_heavy_atoms=14': 5, '13 heavy atoms < min_heavy_atoms=14': 1, '9 heavy atoms < min_heavy_atoms=14': 1})",
+    "tried": [
+     "8PAY",
+     "4K3L",
+     "8CIY"
+    ]
+   },
+   {
+    "uniprot": "P0AEX9",
+    "stage": "sm_side",
+    "reason": "3Q27: author numbering does not index P0AEX9 on any chain ([('A', 0.085, 389)])",
+    "tried": [
+     "8C8F",
+     "4EXK",
+     "3Q27"
+    ]
+   },
+   {
+    "uniprot": "P0DMV8",
+    "stage": "sm_side",
+    "reason": "6ZYI: no HET residue with >= 14 heavy atoms survived the ligand filter (433 HET residues, {'exclusion list': 433})",
+    "tried": [
+     "5BN8",
+     "6G3R",
+     "6ZYI"
+    ]
+   },
+   {
+    "uniprot": "P0DP23",
+    "stage": "sm_side",
+    "reason": "6XXX: no HET residue with >= 14 heavy atoms survived the ligand filter (213 HET residues, {'exclusion list': 213})",
+    "tried": [
+     "9MXD",
+     "7BF1",
+     "6XXX"
+    ]
+   },
+   {
+    "uniprot": "P0DP29",
+    "stage": "sm_side",
+    "reason": "1G4Y: author numbering does not index P0DP29 on any chain ([('R', 0.061, 147)])",
+    "tried": [
+     "2PQ3",
+     "4J9Y",
+     "1G4Y"
+    ]
+   },
+   {
+    "uniprot": "P0DPI1",
+    "stage": "sm_side",
+    "reason": "3BOO: no HET residue with >= 14 heavy atoms survived the ligand filter (614 HET residues, {'exclusion list': 614})",
+    "tried": [
+     "3BON",
+     "4EL4",
+     "3BOO"
+    ]
+   },
+   {
+    "uniprot": "P0DTC2",
+    "stage": "sm_side",
+    "reason": "7EAM: no HET residue with >= 14 heavy atoms survived the ligand filter (1192 HET residues, {'exclusion list': 1192})",
+    "tried": [
+     "7Z8O",
+     "9FC2",
+     "7EAM"
+    ]
+   },
+   {
+    "uniprot": "P12694",
+    "stage": "sm_side",
+    "reason": "1X7Y: author numbering does not index P12694 on any chain ([('A', 0.051, 369)])",
+    "tried": [
+     "2BFD",
+     "2BFF",
+     "1X7Y"
+    ]
+   },
+   {
+    "uniprot": "P13449",
+    "stage": "sm_side",
+    "reason": "3X20: no HET residue with >= 14 heavy atoms survived the ligand filter (445 HET residues, {'exclusion list': 444, '6 heavy atoms < min_heavy_atoms=14': 1})",
+    "tried": [
+     "3A8G",
+     "3WVD",
+     "3X20"
+    ]
+   },
+   {
+    "uniprot": "P15248",
+    "stage": "sm_side",
+    "reason": "7OX3: no HET residue with >= 14 heavy atoms survived the ligand filter (429 HET residues, {'exclusion list': 429})",
+    "tried": [
+     "7OX3"
+    ]
+   },
+   {
+    "uniprot": "P15494",
+    "stage": "sm_side",
+    "reason": "4A87: author numbering does not index P15494 on any chain ([('A', 0.057, 159)])",
+    "tried": [
+     "4BK7",
+     "4MNS",
+     "4A87"
+    ]
+   },
+   {
+    "uniprot": "P16311",
+    "stage": "sm_side",
+    "reason": "5VPK: author numbering does not index P16311 on any chain ([('A', 0.054, 223), ('B', 0.054, 223), ('C', 0.054, 223)])",
+    "tried": [
+     "5VPL",
+     "5VPK"
+    ]
+   },
+   {
+    "uniprot": "P16871",
+    "stage": "sm_side",
+    "reason": "3UP1: author numbering does not index P16871 on any chain ([('A', 0.06, 201), ('B', 0.056, 196)])",
+    "tried": [
+     "7OPB",
+     "3UP1"
+    ]
+   },
+   {
+    "uniprot": "P17612",
+    "stage": "sm_side",
+    "reason": "3POO: author numbering does not index P17612 on any chain ([('A', 0.06, 333)])",
+    "tried": [
+     "4WB8",
+     "3OVV",
+     "3POO"
+    ]
+   },
+   {
+    "uniprot": "P18188",
+    "stage": "sm_side",
+    "reason": "4URH: no HET residue with >= 14 heavy atoms survived the ligand filter (2049 HET residues, {'8 heavy atoms < min_heavy_atoms=14': 6, '7 heavy atoms < min_heavy_atoms=14': 9, 'exclusion list': 2034})",
+    "tried": [
+     "4UQL",
+     "4UQP",
+     "4URH"
+    ]
+   },
+   {
+    "uniprot": "P19909",
+    "stage": "sm_side",
+    "reason": "9I2I: author numbering does not index P19909 on any chain ([('A', 0.125, 56), ('B', 0.13, 54)])",
+    "tried": [
+     "3FIL",
+     "2QMT",
+     "9I2I"
+    ]
+   },
+   {
+    "uniprot": "P22455",
+    "stage": "polymer_numbering",
+    "reason": "6J6Y chain D: author numbering matches P22455 on only 0.030 of 101 residues; ids are not comparable with the small-molecule entry"
+   },
+   {
+    "uniprot": "P22681",
+    "stage": "sm_side",
+    "reason": "5HKZ: no HET residue with >= 14 heavy atoms survived the ligand filter (208 HET residues, {'exclusion list': 208})",
+    "tried": [
+     "7SIY",
+     "5HKY",
+     "5HKZ"
+    ]
+   },
+   {
+    "uniprot": "P25321",
+    "stage": "sm_side",
+    "reason": "5N1G: author numbering does not index P25321 on any chain ([('A', 0.062, 340)])",
+    "tried": [
+     "5N1F",
+     "5N3J",
+     "5N1G"
+    ]
+   },
+   {
+    "uniprot": "P26039",
+    "stage": "sm_side",
+    "reason": "5IC0: no HET residue with >= 14 heavy atoms survived the ligand filter (228 HET residues, {'exclusion list': 228})",
+    "tried": [
+     "4W8P",
+     "7V1A",
+     "5IC0"
+    ]
+   },
+   {
+    "uniprot": "P26043",
+    "stage": "sm_search",
+    "reason": "no X-ray entry <= 2.5 A with a nonpolymer entity and a chain of this accession"
+   },
+   {
+    "uniprot": "P26045",
+    "stage": "sm_side",
+    "reason": "8CQY: author numbering does not index P26045 on any chain ([('A', 0.032, 93)])",
+    "tried": [
+     "4RI5",
+     "4RI4",
+     "8CQY"
+    ]
+   },
+   {
+    "uniprot": "P27958",
+    "stage": "sm_side",
+    "reason": "2XI3: author numbering does not index P27958 on any chain ([('A', 0.043, 562), ('B', 0.043, 562)])",
+    "tried": [
+     "5FGB",
+     "6BQJ",
+     "2XI3"
+    ]
+   },
+   {
+    "uniprot": "P29074",
+    "stage": "sm_side",
+    "reason": "5EZ0: no HET residue with >= 14 heavy atoms survived the ligand filter (97 HET residues, {'exclusion list': 97})",
+    "tried": [
+     "3NFK",
+     "5EYZ",
+     "5EZ0"
+    ]
+   },
+   {
+    "uniprot": "P30750",
+    "stage": "sm_side",
+    "reason": "3DHX: author numbering does not index P30750 on any chain ([('A', 0.071, 99), ('B', 0.071, 99)])",
+    "tried": [
+     "3DHX"
+    ]
+   },
+   {
+    "uniprot": "P31948",
+    "stage": "sm_side",
+    "reason": "3ESK: no HET residue with >= 14 heavy atoms survived the ligand filter (95 HET residues, {'exclusion list': 95})",
+    "tried": [
+     "1ELW",
+     "1ELR",
+     "3ESK"
+    ]
+   },
+   {
+    "uniprot": "P32372",
+    "stage": "sm_side",
+    "reason": "6HM3: no HET residue with >= 14 heavy atoms survived the ligand filter (229 HET residues, {'exclusion list': 229})",
+    "tried": [
+     "4BU0",
+     "6HM4",
+     "6HM3"
+    ]
+   },
+   {
+    "uniprot": "P32447",
+    "stage": "sm_side",
+    "reason": "4ZBJ: no HET residue with >= 14 heavy atoms survived the ligand filter (168 HET residues, {'exclusion list': 168})",
+    "tried": [
+     "1ROC",
+     "2HUE",
+     "4ZBJ"
+    ]
+   },
+   {
+    "uniprot": "P32909",
+    "stage": "sm_search",
+    "reason": "no X-ray entry <= 2.5 A with a nonpolymer entity and a chain of this accession"
+   },
+   {
+    "uniprot": "P35030",
+    "stage": "sm_side",
+    "reason": "2R9P: author numbering does not index P35030 on any chain ([('A', 0.049, 224), ('B', 0.049, 224), ('C', 0.049, 224), ('D', 0.049, 224)])",
+    "tried": [
+     "5TP0",
+     "3P95",
+     "2R9P"
+    ]
+   },
+   {
+    "uniprot": "P36969",
+    "stage": "sm_side",
+    "reason": "5H5R: no HET residue with >= 14 heavy atoms survived the ligand filter (181 HET residues, {'exclusion list': 181})",
+    "tried": [
+     "6HN3",
+     "5H5Q",
+     "5H5R"
+    ]
+   },
+   {
+    "uniprot": "P37019",
+    "stage": "sm_side",
+    "reason": "4ENE: no HET residue with >= 14 heavy atoms survived the ligand filter (193 HET residues, {'exclusion list': 193})",
+    "tried": [
+     "4ENE"
+    ]
+   },
+   {
+    "uniprot": "P37231",
+    "stage": "sm_side",
+    "reason": "9V8H: author numbering does not index P37231 on any chain ([('A', 0.044, 251)])",
+    "tried": [
+     "9F7W",
+     "9V8G",
+     "9V8H"
+    ]
+   },
+   {
+    "uniprot": "P39081",
+    "stage": "sm_side",
+    "reason": "4OI4: author numbering does not index P39081 on any chain ([('B', 1.0, 25), ('D', 1.0, 24), ('U', 0.625, 8)])",
+    "tried": [
+     "2BF0",
+     "4OI4"
+    ]
+   },
+   {
+    "uniprot": "P47523",
+    "stage": "sm_side",
+    "reason": "4NZR: no HET residue with >= 14 heavy atoms survived the ligand filter (866 HET residues, {'exclusion list': 866})",
+    "tried": [
+     "4NZR"
+    ]
+   },
+   {
+    "uniprot": "P49597",
+    "stage": "sm_side",
+    "reason": "3NMN: 1 drug-like HET component(s) present but none made >= 5 contacts on a chain of P49597 without a cross-chain residue-id collision",
+    "tried": [
+     "3KDJ",
+     "3JRQ",
+     "3NMN"
+    ]
+   },
+   {
+    "uniprot": "P49757",
+    "stage": "sm_search",
+    "reason": "no X-ray entry <= 2.5 A with a nonpolymer entity and a chain of this accession"
+   },
+   {
+    "uniprot": "P52293",
+    "stage": "sm_side",
+    "reason": "8HE3: no HET residue with >= 14 heavy atoms survived the ligand filter (332 HET residues, {'exclusion list': 332})",
+    "tried": [
+     "4UAF",
+     "5UMZ",
+     "8HE3"
+    ]
+   },
+   {
+    "uniprot": "P55210",
+    "stage": "sm_side",
+    "reason": "4JR1: no HET residue with >= 14 heavy atoms survived the ligand filter (211 HET residues, {'exclusion list': 207, '8 heavy atoms < min_heavy_atoms=14': 2, '1 heavy atoms < min_heavy_atoms=14': 2})",
+    "tried": [
+     "4JR2",
+     "2QL9",
+     "4JR1"
+    ]
+   },
+   {
+    "uniprot": "P62826",
+    "stage": "sm_side",
+    "reason": "7MO1: no HET residue with >= 14 heavy atoms survived the ligand filter (225 HET residues, {'exclusion list': 225})",
+    "tried": [
+     "3GJ0",
+     "7MO5",
+     "7MO1"
+    ]
+   },
+   {
+    "uniprot": "P62979",
+    "stage": "sm_side",
+    "reason": "7F0N: no HET residue with >= 14 heavy atoms survived the ligand filter (187 HET residues, {'exclusion list': 187})",
+    "tried": [
+     "3NHE",
+     "6SQO",
+     "7F0N"
+    ]
+   },
+   {
+    "uniprot": "P67861",
+    "stage": "sm_search",
+    "reason": "no X-ray entry <= 2.5 A with a nonpolymer entity and a chain of this accession"
+   },
+   {
+    "uniprot": "P68871",
+    "stage": "sm_side",
+    "reason": "2DN1: author numbering does not index P68871 on any chain ([('B', 0.076, 145)])",
+    "tried": [
+     "2W72",
+     "1IRD",
+     "2DN1"
+    ]
+   },
+   {
+    "uniprot": "P77173",
+    "stage": "sm_side",
+    "reason": "1S1S: author numbering does not index P77173 on any chain ([('A', 0.05, 139), ('B', 0.044, 137)])",
+    "tried": [
+     "1Y2G",
+     "1Y2F",
+     "1S1S"
+    ]
+   },
+   {
+    "uniprot": "P78324",
+    "stage": "sm_side",
+    "reason": "2JJS: author numbering does not index P78324 on any chain ([('A', 0.034, 116), ('B', 0.034, 119)])",
+    "tried": [
+     "9TF5",
+     "2UV3",
+     "2JJS"
+    ]
+   },
+   {
+    "uniprot": "P80044",
+    "stage": "sm_side",
+    "reason": "2PEG: author numbering does not index P80044 on any chain ([('B', 0.064, 141)])",
+    "tried": [
+     "2H8F",
+     "3GKV",
+     "2PEG"
+    ]
+   },
+   {
+    "uniprot": "P9WF97",
+    "stage": "sm_side",
+    "reason": "4CHG: no HET residue with >= 14 heavy atoms survived the ligand filter (559 HET residues, {'exclusion list': 559})",
+    "tried": [
+     "4CHG"
+    ]
+   },
+   {
+    "uniprot": "P9WHU1",
+    "stage": "sm_side",
+    "reason": "3H6I: no HET residue with >= 14 heavy atoms survived the ligand filter (2497 HET residues, {'exclusion list': 2483, '9 heavy atoms < min_heavy_atoms=14': 14})",
+    "tried": [
+     "3MI0",
+     "6WNK",
+     "3H6I"
+    ]
+   },
+   {
+    "uniprot": "P9WNI7",
+    "stage": "sm_search",
+    "reason": "no X-ray entry <= 2.5 A with a nonpolymer entity and a chain of this accession"
+   },
+   {
+    "uniprot": "Q01974",
+    "stage": "sm_side",
+    "reason": "9FSE: no HET residue with >= 14 heavy atoms survived the ligand filter (14 HET residues, {'exclusion list': 14})",
+    "tried": [
+     "6OSN",
+     "4GT4",
+     "9FSE"
+    ]
+   },
+   {
+    "uniprot": "Q03133",
+    "stage": "sm_side",
+    "reason": "6MLK: author numbering does not index Q03133 on any chain ([('A', 0.093, 257)])",
+    "tried": [
+     "5D3K",
+     "5D3Z",
+     "6MLK"
+    ]
+   },
+   {
+    "uniprot": "Q08685",
+    "stage": "sm_side",
+    "reason": "4OI4: no HET residue with >= 14 heavy atoms survived the ligand filter (254 HET residues, {'exclusion list': 254})",
+    "tried": [
+     "4OI4"
+    ]
+   },
+   {
+    "uniprot": "Q0ED31",
+    "stage": "sm_side",
+    "reason": "4DKR: author numbering does not index Q0ED31 on any chain ([('A', 0.153, 339), ('C', 0.153, 339)])",
+    "tried": [
+     "4XVT",
+     "4DKP",
+     "4DKR"
+    ]
+   },
+   {
+    "uniprot": "Q0TR53",
+    "stage": "sm_side",
+    "reason": "2W1N: no HET residue with >= 14 heavy atoms survived the ligand filter (317 HET residues, {'exclusion list': 317})",
+    "tried": [
+     "2J1A",
+     "2OZN",
+     "2W1N"
+    ]
+   },
+   {
+    "uniprot": "Q12797",
+    "stage": "sm_side",
+    "reason": "9FVV: no HET residue with >= 14 heavy atoms survived the ligand filter (633 HET residues, {'10 heavy atoms < min_heavy_atoms=14': 1, 'exclusion list': 632})",
+    "tried": [
+     "6YYX",
+     "7YB9",
+     "9FVV"
+    ]
+   },
+   {
+    "uniprot": "Q13105",
+    "stage": "sm_side",
+    "reason": "7AZW: no HET residue with >= 14 heavy atoms survived the ligand filter (26 HET residues, {'exclusion list': 26})",
+    "tried": [
+     "7T58",
+     "2Q81",
+     "7AZW"
+    ]
+   },
+   {
+    "uniprot": "Q13477",
+    "stage": "sm_side",
+    "reason": "1BQS: author numbering does not index Q13477 on any chain ([('A', 0.096, 209)])",
+    "tried": [
+     "4HBQ",
+     "4HD9",
+     "1BQS"
+    ]
+   },
+   {
+    "uniprot": "Q14116",
+    "stage": "sm_side",
+    "reason": "4XFS: author numbering does not index Q14116 on any chain ([('A', 0.071, 156), ('B', 0.07, 157)])",
+    "tried": [
+     "2VXT",
+     "7AL7",
+     "4XFS"
+    ]
+   },
+   {
+    "uniprot": "Q14318",
+    "stage": "sm_search",
+    "reason": "no X-ray entry <= 2.5 A with a nonpolymer entity and a chain of this accession"
+   },
+   {
+    "uniprot": "Q15116",
+    "stage": "sm_side",
+    "reason": "7VUX: no HET residue with >= 14 heavy atoms survived the ligand filter (808 HET residues, {'8 heavy atoms < min_heavy_atoms=14': 1, 'exclusion list': 807})",
+    "tried": [
+     "6UMU",
+     "6UMV",
+     "7VUX"
+    ]
+   },
+   {
+    "uniprot": "Q1PSF3",
+    "stage": "sm_search",
+    "reason": "no X-ray entry <= 2.5 A with a nonpolymer entity and a chain of this accession"
+   },
+   {
+    "uniprot": "Q3U0X8",
+    "stage": "sm_side",
+    "reason": "7S13: no HET residue with >= 14 heavy atoms survived the ligand filter (43 HET residues, {'exclusion list': 43})",
+    "tried": [
+     "7S13"
+    ]
+   }
+  ],
+  "not_evaluated_by_stage": {
+   "sm_side": 98,
+   "sm_search": 16,
+   "polymer_numbering": 4
+  }
+ },
+ "jaccard_size_ceiling_on_existing_gates": {
+  "antibody": {
+   "n": 39,
+   "mean_jaccard_ceiling": 0.5800931576750514,
+   "ceiling_ci": [
+    0.5219670207822725,
+    0.6410020069597355
+   ],
+   "mean_jaccard_observed": 0.03789275633371167,
+   "mean_fraction_of_ceiling_attained": 0.07696105938206287,
+   "mean_n_pred": 14.743589743589743,
+   "mean_n_truth": 19.384615384615383,
+   "n_rows_in_class": 58,
+   "n_rows_without_a_top1_prediction": 19,
+   "observed_mean_is_over": "the rows with a top-1 pocket only; the published class mean includes the no-pocket rows as Jaccard 0",
+   "source": "results/epitope_gate.json per_structure (p2rank_top1.n_pred, n_interface_residues)"
+  },
+  "peptide": {
+   "n": 63,
+   "mean_jaccard_ceiling": 0.5858293200104226,
+   "ceiling_ci": [
+    0.5375847263205611,
+    0.6365159457888965
+   ],
+   "mean_jaccard_observed": 0.2040218868514863,
+   "mean_fraction_of_ceiling_attained": 0.38731228667089207,
+   "mean_n_pred": 17.206349206349206,
+   "mean_n_truth": 20.349206349206348,
+   "n_rows_in_class": 70,
+   "n_rows_without_a_top1_prediction": 7,
+   "observed_mean_is_over": "the rows with a top-1 pocket only; the published class mean includes the no-pocket rows as Jaccard 0",
+   "source": "results/epitope_gate.json per_structure (p2rank_top1.n_pred, n_interface_residues)"
+  },
+  "ppi": {
+   "n": 59,
+   "mean_jaccard_ceiling": 0.4829228135407194,
+   "ceiling_ci": [
+    0.4197302026028331,
+    0.5480544174929115
+   ],
+   "mean_jaccard_observed": 0.11018140457365434,
+   "mean_fraction_of_ceiling_attained": 0.28709321660338766,
+   "mean_n_pred": 16.508474576271187,
+   "mean_n_truth": 35.16949152542373,
+   "n_rows_in_class": 72,
+   "n_rows_without_a_top1_prediction": 13,
+   "observed_mean_is_over": "the rows with a top-1 pocket only; the published class mean includes the no-pocket rows as Jaccard 0",
+   "source": "results/epitope_gate.json per_structure (p2rank_top1.n_pred, n_interface_residues)"
+  },
+  "small_molecule_KDR": {
+   "n": 38,
+   "mean_jaccard_ceiling": 0.8009272005171169,
+   "ceiling_ci": [
+    0.7652926561193966,
+    0.8352889381553024
+   ],
+   "mean_jaccard_observed": 0.635503169781655,
+   "mean_fraction_of_ceiling_attained": 0.801338844733371,
+   "mean_n_pred": 19.526315789473685,
+   "mean_n_truth": 21.710526315789473,
+   "source": "results/m2_gate_KDR.json per_structure (p2rank_geometry.n_pred, n_known_contacts)"
+  }
+ },
+ "metric_swap_on_existing_gates": {
+  "metric_definitions": {
+   "precision": "|pred & truth| / |pred|  (coverage of the prediction)",
+   "recall": "|pred & truth| / |truth|  (coverage of the truth)",
+   "jaccard": "|pred & truth| / |pred | truth|",
+   "f1": "harmonic mean of precision and recall = 2J/(1+J)"
+  },
+  "source": "per-structure scores stored by scripts/epitope_gate.py and scripts/m2_gate.py; the means and tests below are computed here",
+  "classes": {
+   "antibody": {
+    "n": 58,
+    "jaccard": {
+     "p2rank_top1_mean": 0.02547961201749577,
+     "ci": [
+      0.007468968902525537,
+      0.04920770739550289
+     ],
+     "random_mean": 0.027034798426952344,
+     "delta_vs_random": -0.0015551864094565729,
+     "delta_ci": [
+      -0.018821243836190642,
+      0.020745536832805375
+     ],
+     "p_paired_bootstrap": 0.8151184881511849,
+     "p_wilcoxon": 0.004415838198009585,
+     "n_effective_wilcoxon": 39,
+     "p_wilcoxon_holm": 0.030910867386067097
+    },
+    "precision": {
+     "p2rank_top1_mean": 0.05858534384099188,
+     "ci": [
+      0.01677924136901545,
+      0.11148599443560796
+     ],
+     "random_mean": 0.06768064419300417,
+     "delta_vs_random": -0.009095300352012288,
+     "delta_ci": [
+      -0.04870924545579894,
+      0.039055932630058236
+     ],
+     "p_paired_bootstrap": 0.6419358064193581,
+     "p_wilcoxon": 0.00650405554556934,
+     "n_effective_wilcoxon": 39,
+     "p_wilcoxon_holm": 0.0325202777278467
+    },
+    "recall": {
+     "p2rank_top1_mean": 0.03261090072625801,
+     "ci": [
+      0.011902257530316231,
+      0.05834894937834917
+     ],
+     "random_mean": 0.045394604979122836,
+     "delta_vs_random": -0.012783704252864826,
+     "delta_ci": [
+      -0.03359564952773198,
+      0.011969387820122138
+     ],
+     "p_paired_bootstrap": 0.2713728627137286,
+     "p_wilcoxon": 0.0034600056396838753,
+     "n_effective_wilcoxon": 39,
+     "p_wilcoxon_holm": 0.027680045117471002
+    },
+    "f1": {
+     "p2rank_top1_mean": 0.04016271233962342,
+     "ci": [
+      0.013529663516176828,
+      0.07411982034113182
+     ],
+     "random_mean": 0.050102780070875805,
+     "delta_vs_random": -0.009940067731252382,
+     "delta_ci": [
+      -0.03557634339421751,
+      0.021438167997621393
+     ],
+     "p_paired_bootstrap": 0.47355264473552644,
+     "p_wilcoxon": 0.004612297435029478,
+     "n_effective_wilcoxon": 39,
+     "p_wilcoxon_holm": 0.030910867386067097
+    }
+   },
+   "peptide": {
+    "n": 70,
+    "jaccard": {
+     "p2rank_top1_mean": 0.1836196981663377,
+     "ci": [
+      0.13516035829831446,
+      0.23464397774030998
+     ],
+     "random_mean": 0.038622438027739646,
+     "delta_vs_random": 0.14499726013859804,
+     "delta_ci": [
+      0.09777645913509019,
+      0.19496068725560808
+     ],
+     "p_paired_bootstrap": 0.00019998000199980003,
+     "p_wilcoxon": 1.712971591215447e-05,
+     "n_effective_wilcoxon": 63,
+     "p_wilcoxon_holm": 0.00018842687503369917
+    },
+    "precision": {
+     "p2rank_top1_mean": 0.34777011920329687,
+     "ci": [
+      0.25982220978368353,
+      0.4370626613252552
+     ],
+     "random_mean": 0.09267239681322216,
+     "delta_vs_random": 0.2550977223900747,
+     "delta_ci": [
+      0.17286707641727708,
+      0.3375617666971612
+     ],
+     "p_paired_bootstrap": 0.00019998000199980003,
+     "p_wilcoxon": 1.2948812032164905e-05,
+     "n_effective_wilcoxon": 63,
+     "p_wilcoxon_holm": 0.00015538574438597887
+    },
+    "recall": {
+     "p2rank_top1_mean": 0.24428670465181718,
+     "ci": [
+      0.18267879403998968,
+      0.31258810165682543
+     ],
+     "random_mean": 0.06953717206162811,
+     "delta_vs_random": 0.17474953259018905,
+     "delta_ci": [
+      0.11417163438635225,
+      0.24229515969131313
+     ],
+     "p_paired_bootstrap": 0.00019998000199980003,
+     "p_wilcoxon": 4.367083723621432e-05,
+     "n_effective_wilcoxon": 63,
+     "p_wilcoxon_holm": 0.00039303753512592886
+    },
+    "f1": {
+     "p2rank_top1_mean": 0.26034766979163243,
+     "ci": [
+      0.1976086570267395,
+      0.32617499151362556
+     ],
+     "random_mean": 0.07166661319410353,
+     "delta_vs_random": 0.1886810565975289,
+     "delta_ci": [
+      0.12759362162494997,
+      0.2520703807294618
+     ],
+     "p_paired_bootstrap": 0.00019998000199980003,
+     "p_wilcoxon": 1.712971591215447e-05,
+     "n_effective_wilcoxon": 63,
+     "p_wilcoxon_holm": 0.00018842687503369917
+    }
+   },
+   "ppi": {
+    "n": 72,
+    "jaccard": {
+     "p2rank_top1_mean": 0.09028753985896674,
+     "ci": [
+      0.05649727744921878,
+      0.12757460992637368
+     ],
+     "random_mean": 0.033978530742184536,
+     "delta_vs_random": 0.05630900911678221,
+     "delta_ci": [
+      0.023814139277514107,
+      0.09202503279148393
+     ],
+     "p_paired_bootstrap": 0.00019998000199980003,
+     "p_wilcoxon": 0.11124480620286478,
+     "n_effective_wilcoxon": 59,
+     "p_wilcoxon_holm": 0.387211641876568
+    },
+    "precision": {
+     "p2rank_top1_mean": 0.2497191211762294,
+     "ci": [
+      0.16752514643908586,
+      0.33760561484844726
+     ],
+     "random_mean": 0.11426164466806513,
+     "delta_vs_random": 0.13545747650816428,
+     "delta_ci": [
+      0.062272075861126173,
+      0.21324487085551005
+     ],
+     "p_paired_bootstrap": 0.00019998000199980003,
+     "p_wilcoxon": 0.096802910469142,
+     "n_effective_wilcoxon": 59,
+     "p_wilcoxon_holm": 0.387211641876568
+    },
+    "recall": {
+     "p2rank_top1_mean": 0.10881517163903717,
+     "ci": [
+      0.07039086773155684,
+      0.15085677767553726
+     ],
+     "random_mean": 0.05317066299170307,
+     "delta_vs_random": 0.055644508647334105,
+     "delta_ci": [
+      0.019570020226783873,
+      0.09410194427339563
+     ],
+     "p_paired_bootstrap": 0.0013998600139986002,
+     "p_wilcoxon": 0.18906577184483497,
+     "n_effective_wilcoxon": 59,
+     "p_wilcoxon_holm": 0.387211641876568
+    },
+    "f1": {
+     "p2rank_top1_mean": 0.13593790127640565,
+     "ci": [
+      0.08966301560025677,
+      0.18628341071415214
+     ],
+     "random_mean": 0.06356073600862422,
+     "delta_vs_random": 0.07237716526778143,
+     "delta_ci": [
+      0.02876939235768769,
+      0.11943088067179314
+     ],
+     "p_paired_bootstrap": 0.00039996000399960006,
+     "p_wilcoxon": 0.11641999625327583,
+     "n_effective_wilcoxon": 59,
+     "p_wilcoxon_holm": 0.387211641876568
+    }
+   }
+  },
+  "cross_benchmark_vs_KDR": {
+   "antibody": {
+    "jaccard": {
+     "mean_a": 0.635503169781655,
+     "mean_b": 0.02547961201749577,
+     "delta": 0.6100235577641592,
+     "ci_lo": 0.5695067949883896,
+     "ci_hi": 0.6478888391246663,
+     "p_bootstrap": 9.99950002499875e-05,
+     "mannwhitney_u": 2200.0,
+     "p_mannwhitney": 2.0935057864537585e-18,
+     "n_a": 38,
+     "n_b": 58,
+     "p_mannwhitney_holm": 2.3028563650991345e-17
+    },
+    "precision": {
+     "mean_a": 0.826741691239144,
+     "mean_b": 0.05858534384099188,
+     "delta": 0.7681563473981521,
+     "ci_lo": 0.7041500172858522,
+     "ci_hi": 0.8244544659300593,
+     "p_bootstrap": 9.99950002499875e-05,
+     "mannwhitney_u": 2151.0,
+     "p_mannwhitney": 6.166845938428691e-17,
+     "n_a": 38,
+     "n_b": 58,
+     "p_mannwhitney_holm": 3.700107563057214e-16
+    },
+    "recall": {
+     "mean_a": 0.7441101437433469,
+     "mean_b": 0.03261090072625801,
+     "delta": 0.7114992430170889,
+     "ci_lo": 0.6637415734028316,
+     "ci_hi": 0.7583032041542663,
+     "p_bootstrap": 9.99950002499875e-05,
+     "mannwhitney_u": 2201.5,
+     "p_mannwhitney": 1.874907535337802e-18,
+     "n_a": 38,
+     "n_b": 58,
+     "p_mannwhitney_holm": 2.2498890424053626e-17
+    },
+    "f1": {
+     "mean_a": 0.771792493038644,
+     "mean_b": 0.04016271233962342,
+     "delta": 0.7316297806990205,
+     "ci_lo": 0.6886116767181215,
+     "ci_hi": 0.7697402999173837,
+     "p_bootstrap": 9.99950002499875e-05,
+     "mannwhitney_u": 2200.0,
+     "p_mannwhitney": 2.0941298591388643e-18,
+     "n_a": 38,
+     "n_b": 58,
+     "p_mannwhitney_holm": 2.3028563650991345e-17
+    }
+   },
+   "peptide": {
+    "jaccard": {
+     "mean_a": 0.635503169781655,
+     "mean_b": 0.1836196981663377,
+     "delta": 0.4518834716153173,
+     "ci_lo": 0.390555389828769,
+     "ci_hi": 0.5095941461182663,
+     "p_bootstrap": 9.99950002499875e-05,
+     "mannwhitney_u": 2513.5,
+     "p_mannwhitney": 1.8818629551216526e-14,
+     "n_a": 38,
+     "n_b": 70,
+     "p_mannwhitney_holm": 9.409314775608262e-14
+    },
+    "precision": {
+     "mean_a": 0.826741691239144,
+     "mean_b": 0.34777011920329687,
+     "delta": 0.4789715720358471,
+     "ci_lo": 0.3810636534034923,
+     "ci_hi": 0.5735809105635838,
+     "p_bootstrap": 9.99950002499875e-05,
+     "mannwhitney_u": 2129.5,
+     "p_mannwhitney": 2.2769456139940867e-07,
+     "n_a": 38,
+     "n_b": 70,
+     "p_mannwhitney_holm": 2.2769456139940867e-07
+    },
+    "recall": {
+     "mean_a": 0.7441101437433469,
+     "mean_b": 0.24428670465181718,
+     "delta": 0.49982343909152976,
+     "ci_lo": 0.42118218850256767,
+     "ci_hi": 0.5747262155914786,
+     "p_bootstrap": 9.99950002499875e-05,
+     "mannwhitney_u": 2445.0,
+     "p_mannwhitney": 5.382349806630299e-13,
+     "n_a": 38,
+     "n_b": 70,
+     "p_mannwhitney_holm": 1.6147049419890898e-12
+    },
+    "f1": {
+     "mean_a": 0.771792493038644,
+     "mean_b": 0.26034766979163243,
+     "delta": 0.5114448232470115,
+     "ci_lo": 0.4403733629100574,
+     "ci_hi": 0.5796975176712161,
+     "p_bootstrap": 9.99950002499875e-05,
+     "mannwhitney_u": 2513.5,
+     "p_mannwhitney": 1.882404204994986e-14,
+     "n_a": 38,
+     "n_b": 70,
+     "p_mannwhitney_holm": 9.409314775608262e-14
+    }
+   },
+   "ppi": {
+    "jaccard": {
+     "mean_a": 0.635503169781655,
+     "mean_b": 0.09028753985896674,
+     "delta": 0.5452156299226882,
+     "ci_lo": 0.4951113071639726,
+     "ci_hi": 0.592573692540547,
+     "p_bootstrap": 9.99950002499875e-05,
+     "mannwhitney_u": 2685.5,
+     "p_mannwhitney": 2.1531682549840387e-17,
+     "n_a": 38,
+     "n_b": 72,
+     "p_mannwhitney_holm": 1.722534603987231e-16
+    },
+    "precision": {
+     "mean_a": 0.826741691239144,
+     "mean_b": 0.2497191211762294,
+     "delta": 0.5770225700629146,
+     "ci_lo": 0.4820953322046694,
+     "ci_hi": 0.6672440437650298,
+     "p_bootstrap": 9.99950002499875e-05,
+     "mannwhitney_u": 2295.5,
+     "p_mannwhitney": 2.310097554881289e-09,
+     "n_a": 38,
+     "n_b": 72,
+     "p_mannwhitney_holm": 4.620195109762578e-09
+    },
+    "recall": {
+     "mean_a": 0.7441101437433469,
+     "mean_b": 0.10881517163903717,
+     "delta": 0.6352949721043097,
+     "ci_lo": 0.5760764491557534,
+     "ci_hi": 0.691265369929574,
+     "p_bootstrap": 9.99950002499875e-05,
+     "mannwhitney_u": 2699.0,
+     "p_mannwhitney": 1.0128051478210023e-17,
+     "n_a": 38,
+     "n_b": 72,
+     "p_mannwhitney_holm": 9.115246330389021e-17
+    },
+    "f1": {
+     "mean_a": 0.771792493038644,
+     "mean_b": 0.13593790127640565,
+     "delta": 0.6358545917622382,
+     "ci_lo": 0.5782697487918925,
+     "ci_hi": 0.689181643620772,
+     "p_bootstrap": 9.99950002499875e-05,
+     "mannwhitney_u": 2685.5,
+     "p_mannwhitney": 2.1535403605759532e-17,
+     "n_a": 38,
+     "n_b": 72,
+     "p_mannwhitney_holm": 1.722534603987231e-16
+    }
+   }
+  },
+  "class_ordering": {
+   "jaccard": [
+    "peptide",
+    "ppi",
+    "antibody"
+   ],
+   "precision": [
+    "peptide",
+    "ppi",
+    "antibody"
+   ],
+   "recall": [
+    "peptide",
+    "ppi",
+    "antibody"
+   ],
+   "f1": [
+    "peptide",
+    "ppi",
+    "antibody"
+   ]
+  },
+  "ordering_is_metric_invariant": true
+ },
+ "verdict": {
+  "headline": "Jaccard's ORDER is fine, its SCALE is not. It did NOT track the size ratio on these pairs (rho=-0.036, p=0.849, n=30), and no contained/partial Jaccard collision occurred, so it is not mis-ranking sites. What it does do is cap a near-complete containment at a mean Jaccard of 0.466 (n=4 pairs at coverage >= 80%) and give the repo's benchmark sets ceilings that differ by 0.318 Jaccard - so a Jaccard measured against small-molecule footprints and one measured against epitopes are not comparable numbers, even though each is a valid ranking within its own set.",
+  "findings": [
+   "ANALYTIC: with A entirely inside B, coverage and the overlap coefficient are 1.000 at every size ratio while Jaccard equals the size ratio itself (0.050 at |A|=2/|B|=40, 0.300 at 12/40, 0.600 at 24/40). Containment does not change down that column; only size does.",
+   "ANALYTIC: Jaccard 0.10 is scored both by |A|=4 entirely inside |B|=40 (coverage 1.00) and by |A|=|B|=40 sharing 7 residues (coverage 0.17) - identical Jaccard, coverage differing by 0.82.",
+   "REAL PAIRS (all): jaccard rho=-0.036 [-0.379, +0.307] (p=0.849, Holm p=1, n=30); coverage_a rho=-0.078 [-0.414, +0.268] (p=0.681, Holm p=1, n=30); overlap_coefficient rho=-0.086 [-0.417, +0.260] (p=0.65, Holm p=1, n=30).",
+   "REAL PAIRS (pairs whose footprints overlap at all): jaccard rho=+0.089 [-0.550, +0.679] (p=0.752, n=15); coverage_a rho=-0.089 [-0.665, +0.555] (p=0.751, n=15); overlap_coefficient rho=-0.107 [-0.696, +0.563] (p=0.703, n=15).",
+   "REAL PAIRS: Jaccard vs size ratio with coverage partialled out, rho=+0.403 [-0.030, +0.604], n=30 - the size dependence that remains after the containment actually observed is held fixed.",
+   "REAL PAIRS: 0 collisions where a contained pair (coverage >= 0.7, n=4) and a partial pair (coverage <= 0.45, n=9) score within 0.05 Jaccard of each other; the closest such pair differs by 0.238 Jaccard.",
+   "GATES: size-imposed Jaccard ceiling antibody 0.580 (observed 0.0379, 0.077 of ceiling, n=39); peptide 0.586 (observed 0.2040, 0.387 of ceiling, n=63); ppi 0.483 (observed 0.1102, 0.287 of ceiling, n=59); small_molecule_KDR 0.801 (observed 0.6355, 0.801 of ceiling, n=38).",
+   "GATES: class ordering by metric {'jaccard': ['peptide', 'ppi', 'antibody'], 'precision': ['peptide', 'ppi', 'antibody'], 'recall': ['peptide', 'ppi', 'antibody'], 'f1': ['peptide', 'ppi', 'antibody']}; metric-invariant: True.",
+   "REAL PAIRS: the n=4 pairs whose small-molecule footprint is >= 80% inside the biologic footprint score Jaccard [0.4286, 0.44, 0.4667, 0.5294] (mean 0.466, coverage 0.909) - coverage calls these containments, Jaccard marks them 53% wrong. ['9T9F/A1JUR vs 5AFW', '3FEA/6CW vs 4RXZ', '5GPG/RAP vs 9DL0', '6E1Z/HLP vs 8WXX']",
+   "REAL PAIRS: mean size ratio 0.595 [0.533, 0.660], n=30 - that IS the mean Jaccard ceiling for these cross-modality comparisons, reached only if containment is perfect.",
+   "REAL PAIRS: Jaccard and coverage rank the pairs almost identically (rho=+0.995, p=3.62e-29, n=30), so the problem is the SCALE Jaccard puts them on, not the order it puts them in."
+  ],
+  "recommendation": [
+   "PRIMARY: report the two one-sided coverages as a pair - recall |pred & truth|/|truth| and precision |pred & truth|/|pred|. Neither works alone (recall is gamed by predicting the whole surface, precision by predicting one residue), and both are already stored per structure by epitope_gate.py and m2_gate.py, so this costs no re-run.",
+   "ALONGSIDE: keep Jaccard for continuity with the published numbers, but never bare - print |pred|, |truth| and the size-imposed ceiling min(|pred|,|truth|)/max(|pred|,|truth|) beside it, so a reader sees how much of the score was reachable.",
+   "DROP: F1 adds nothing. It is exactly 2J/(1+J) (verified on this set to within 1.1e-16), so it has the same rank order and the same ceiling as Jaccard and is a second column saying one thing.",
+   "USE WITH SIZES: the overlap coefficient |A & B|/min(|A|,|B|) is the right metric for 'is the smaller site inside the larger', but it saturates at 1.0 for any contained set however small, so it is only readable next to |A| and |B|.",
+   "NEVER COMPARE ACROSS MODALITIES: a Jaccard (or F1) measured against small-molecule footprints against one measured against epitopes. Their size-imposed ceilings differ by 0.318, so the numbers must not be pooled, averaged or ranked together - quote each with its own ceiling or not at all.",
+   "NEGATIVE RESULT KEPT: the predicted size-ratio correlation did NOT appear on real structures (Jaccard rho=-0.036, p=0.849, Holm p=1, n=30; overlapping pairs only rho=+0.089, p=0.752, n=15). The real footprints are close in size - small-molecule and biologic footprints in this set differ far less than the 12-vs-40 case the concern was posed with - so the ratio has little room to act. The arithmetic is still real; it is the SPREAD of sizes that is small here.",
+   "WITH CONTAINMENT HELD FIXED the size dependence does show: partial rho=+0.403 [-0.030, +0.604], permutation p=0.0243, n=30. THE TWO TESTS DISAGREE: the permutation p is below 0.05 while the bootstrap CI includes zero. Both are recorded; at this n the partial correlation is suggestive, not established.",
+   "NOTHING ALREADY CONCLUDED NEEDS RE-RUNNING: the gate's class ordering is identical under Jaccard, precision, recall and F1 ['peptide', 'ppi', 'antibody'], so the concavity result is metric-invariant and changing the metric does not rescue P2Rank on epitopes."
+  ],
+  "decision_inputs": {
+   "jaccard_correlates_with_size_ratio": false,
+   "coverage_correlates_with_size_ratio": false,
+   "overlap_coefficient_correlates_with_size_ratio": false,
+   "partial_correlation_significant": true,
+   "n_jaccard_collisions_on_real_structures": 0,
+   "containment_penalty_1_minus_mean_jaccard_of_contained_pairs": 0.5338375350140057,
+   "jaccard_and_coverage_rank_agreement_rho": 0.9946619538430742,
+   "gate_ceiling_spread": 0.31800438697639744,
+   "scale_problem": true
+  }
+ },
+ "not_evaluated": [
+  {
+   "item": "SIFTS residue-level mapping",
+   "why": "pairs are compared in author numbering, verified per entry against the UniProt sequence; entries whose author numbering does not index UniProt are rejected rather than remapped, so the gold set is smaller than it could be but every id in it means one thing"
+  },
+  {
+   "item": "conformational change between the two entries",
+   "why": "the small-molecule and biologic footprints come from different crystals of the same protein; an induced-fit difference is part of the measured overlap and is not separated out here"
+  },
+  {
+   "item": "weighted variants (interfaces.weighted_jaccard, coverage())",
+   "why": "this experiment is about the set-level arithmetic that the gates report; the frequency-weighted signature metrics inherit the same size behaviour but were not measured on this set"
+  },
+  {
+   "item": "Dice/Tversky and distance-based site similarity",
+   "why": "Dice is F1, already shown to be a monotone function of Jaccard; Tversky needs two free parameters that would have to be fitted, which this set is too small to do honestly"
+  }
+ ],
+ "caveats": [
+  "The gold set is 30 targets, one pair each. A null correlation at n=30 rules out only effects above the minimum detectable rho reported in real_structures.statistics.power; it is not evidence of exactly zero.",
+  "Half the pairs have footprints that do not overlap at all: the small-molecule site and the biologic site are simply different sites on the same protein (a nuclear-receptor ligand pocket versus its coactivator groove, for instance). They are kept, counted and reported, and the correlations are also given on the overlapping subset alone.",
+  "The two footprints of a pair come from two crystals, so an induced-fit difference between them is inside the measured overlap. Same-entry pairs (flagged same_entry) are the exception and are not separated out.",
+  "Targets are taken in accession order until the pair cap is reached, so the set is not a random sample of the PDB; the selection rule is independent of any overlap it could produce, but it is not a sample from which prevalence can be quoted.",
+  "The Holm family for the gate re-scoring is the 12 class x metric comparisons made here. It is a different family from the one scripts/epitope_gate.py corrected over, so an adjusted p there and here are not the same number."
+ ],
+ "runtime_seconds": 14.7
+}

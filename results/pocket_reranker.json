@@ -1,0 +1,1558 @@
+{
+ "experiment": "e2 - re-rank P2Rank's own pockets to pick the peptide site",
+ "question": "P2Rank offers a pocket touching the true interface in 78.6% of peptide complexes but ranks the wrong one first. Can the right one be picked without the answer?",
+ "ground_truth": "receptor residues within 4.5 A (heavy atom) of any binder heavy atom, read from data/raw/epitope_gate/prepared.json as written by scripts/epitope_gate.py - not recomputed here",
+ "scoring": "Jaccard over residue-number sets, identical to m2_gate.score",
+ "verdict": "DO NOT RE-RANK - the headroom is real but these descriptors cannot reach it. The rule chosen on 40 development complexes moves held-out peptide Jaccard +0.0235 (0.1825 -> 0.2060, n=30, Wilcoxon p=0.465), which is 14% of the 0.1668 oracle headroom on those same complexes, against a +0.0834 bar. Running the folds the other way round moves it -0.0072, i.e. the wrong way. The mechanism is measurable: inside one protein the best descriptor of the 31 tried separates the right pocket from the wrong ones at AUC 0.651 [0.549, 0.738] (polar_fraction, 152 pairs over 47 complexes), and even a rule FIT AND SCORED on all 70 peptides - an upper bound, not a result - closes only 30%. The +0.128 gap is a fact about P2Rank's ranking; it is not recoverable from pocket geometry, P2Rank's own scores, or lining-residue composition.",
+ "pass_criterion": {
+  "stated": "held-out peptide Jaccard >= P2Rank top-1 + half the oracle headroom on the SAME held-out complexes, and paired Wilcoxon p < 0.05",
+  "threshold_jaccard": 0.26592713250819106,
+  "achieved_jaccard": 0.20601451359169642,
+  "p_wilcoxon": 0.4652088184521418,
+  "passed": false
+ },
+ "split": {
+  "rule": "md5(pdb_id) parity, fixed before any scoring",
+  "n_peptide": 70,
+  "n_development": 40,
+  "n_held_out": 30,
+  "development_pdb_ids": [
+   "1D9I",
+   "1ELW",
+   "1F47",
+   "1N12",
+   "2JDS",
+   "3ASL",
+   "3G2V",
+   "3X2U",
+   "4BXE",
+   "4GHU",
+   "4GPL",
+   "4L67",
+   "4RXZ",
+   "4W8P",
+   "4Y3O",
+   "4ZHM",
+   "5H5Q",
+   "5L7H",
+   "5MGX",
+   "5WRJ",
+   "5XAD",
+   "6CF6",
+   "6ECE",
+   "6I2G",
+   "6X5Q",
+   "6XRP",
+   "7AZX",
+   "7CDB",
+   "7OBC",
+   "7RKE",
+   "7VZE",
+   "7WMN",
+   "7WQQ",
+   "7XPK",
+   "8CQY",
+   "8FE2",
+   "8R0H",
+   "9FW0",
+   "9NIB",
+   "9TPI"
+  ],
+  "held_out_pdb_ids": [
+   "10KV",
+   "1R17",
+   "1SZA",
+   "2OIN",
+   "2ZPY",
+   "3EWV",
+   "3FMA",
+   "3GJ6",
+   "3MQP",
+   "4GFV",
+   "4GGD",
+   "4GNE",
+   "4H3Q",
+   "4O56",
+   "4Z88",
+   "5AFW",
+   "5MK1",
+   "5NJJ",
+   "6EAU",
+   "6HM3",
+   "6IJS",
+   "7GUD",
+   "7PIG",
+   "7VFL",
+   "7YXO",
+   "8CIX",
+   "8Q1R",
+   "8RZU",
+   "8WXX",
+   "8ZE8"
+  ]
+ },
+ "rule_search": {
+  "n_candidate_rules": 66,
+  "chosen": "learned_logistic",
+  "chosen_on": "development half only",
+  "note": "development numbers are optimistic by construction: the rule is the winner of a search over this data. The held-out block is the result.",
+  "leaderboard_development": [
+   {
+    "rule": "learned_logistic",
+    "dev_jaccard": 0.21658136909218192,
+    "dev_delta_vs_top1": 0.03212705115723538
+   },
+   {
+    "rule": "high_p2rank_residue_prob_mean",
+    "dev_jaccard": 0.20271170354595056,
+    "dev_delta_vs_top1": 0.018257385611004012
+   },
+   {
+    "rule": "composite_score_x_elongation",
+    "dev_jaccard": 0.2014721527142255,
+    "dev_delta_vs_top1": 0.017017834779278956
+   },
+   {
+    "rule": "high_elongation_l1_over_l2",
+    "dev_jaccard": 0.19438763519162125,
+    "dev_delta_vs_top1": 0.009933317256674706
+   },
+   {
+    "rule": "high_max_ca_extent",
+    "dev_jaccard": 0.19275592023264748,
+    "dev_delta_vs_top1": 0.008301602297700938
+   },
+   {
+    "rule": "composite_score_x_extent",
+    "dev_jaccard": 0.19275592023264748,
+    "dev_delta_vs_top1": 0.008301602297700938
+   },
+   {
+    "rule": "high_p2rank_residue_prob_sum",
+    "dev_jaccard": 0.1919725163597525,
+    "dev_delta_vs_top1": 0.007518198424805944
+   },
+   {
+    "rule": "baseline_p2rank_top1",
+    "dev_jaccard": 0.18445431793494654,
+    "dev_delta_vs_top1": 0.0
+   },
+   {
+    "rule": "high_n_pockets_offered",
+    "dev_jaccard": 0.18445431793494654,
+    "dev_delta_vs_top1": 0.0
+   },
+   {
+    "rule": "low_n_pockets_offered",
+    "dev_jaccard": 0.18445431793494654,
+    "dev_delta_vs_top1": 0.0
+   },
+   {
+    "rule": "high_p2rank_probability",
+    "dev_jaccard": 0.18445431793494654,
+    "dev_delta_vs_top1": 0.0
+   },
+   {
+    "rule": "high_p2rank_score",
+    "dev_jaccard": 0.18445431793494654,
+    "dev_delta_vs_top1": 0.0
+   },
+   {
+    "rule": "high_p2rank_score_share",
+    "dev_jaccard": 0.18445431793494654,
+    "dev_delta_vs_top1": 0.0
+   },
+   {
+    "rule": "high_lining_fraction_of_receptor",
+    "dev_jaccard": 0.18103113448487826,
+    "dev_delta_vs_top1": -0.0034231834500682845
+   },
+   {
+    "rule": "high_n_lining_residues",
+    "dev_jaccard": 0.18103113448487826,
+    "dev_delta_vs_top1": -0.0034231834500682845
+   },
+   {
+    "rule": "high_sum_sasa",
+    "dev_jaccard": 0.18070793301236537,
+    "dev_delta_vs_top1": -0.0037463849225811696
+   },
+   {
+    "rule": "high_anisotropy_l1_share",
+    "dev_jaccard": 0.18059989692734985,
+    "dev_delta_vs_top1": -0.003854421007596698
+   },
+   {
+    "rule": "composite_prob_minus_enclosure",
+    "dev_jaccard": 0.17727096411596993,
+    "dev_delta_vs_top1": -0.007183353818976612
+   },
+   {
+    "rule": "low_heavy_atoms_within_8a",
+    "dev_jaccard": 0.17474316741694215,
+    "dev_delta_vs_top1": -0.009711150518004391
+   },
+   {
+    "rule": "low_aromatic_fraction",
+    "dev_jaccard": 0.174213145959827,
+    "dev_delta_vs_top1": -0.010241171975119534
+   },
+   {
+    "rule": "high_p2rank_sas_points",
+    "dev_jaccard": 0.17369212618652347,
+    "dev_delta_vs_top1": -0.010762191748423078
+   },
+   {
+    "rule": "high_hydrophobic_fraction",
+    "dev_jaccard": 0.17162734024750279,
+    "dev_delta_vs_top1": -0.012826977687443758
+   },
+   {
+    "rule": "high_coil_fraction",
+    "dev_jaccard": 0.16999083664533815,
+    "dev_delta_vs_top1": -0.014463481289608393
+   },
+   {
+    "rule": "high_p2rank_surf_atoms",
+    "dev_jaccard": 0.16844921807919583,
+    "dev_delta_vs_top1": -0.016005099855750715
+   },
+   {
+    "rule": "composite_size_x_exposure",
+    "dev_jaccard": 0.16744048136509626,
+    "dev_delta_vs_top1": -0.017013836569850282
+   },
+   {
+    "rule": "low_p2rank_surf_atoms",
+    "dev_jaccard": 0.167417696648473,
+    "dev_delta_vs_top1": -0.01703662128647354
+   },
+   {
+    "rule": "low_helix_fraction",
+    "dev_jaccard": 0.1666647343705782,
+    "dev_delta_vs_top1": -0.017789583564368355
+   },
+   {
+    "rule": "high_n_sequence_runs",
+    "dev_jaccard": 0.16607827005202525,
+    "dev_delta_vs_top1": -0.018376047882921298
+   },
+   {
+    "rule": "low_center_dist_over_rg",
+    "dev_jaccard": 0.16196810224208869,
+    "dev_delta_vs_top1": -0.022486215692857858
+   },
+   {
+    "rule": "low_center_dist_to_centroid",
+    "dev_jaccard": 0.16196810224208869,
+    "dev_delta_vs_top1": -0.022486215692857858
+   },
+   {
+    "rule": "low_polar_fraction",
+    "dev_jaccard": 0.16192656335554942,
+    "dev_delta_vs_top1": -0.022527754579397125
+   },
+   {
+    "rule": "high_mean_run_length",
+    "dev_jaccard": 0.1616354022388348,
+    "dev_delta_vs_top1": -0.022818915696111747
+   },
+   {
+    "rule": "low_burial_ratio_8_over_12",
+    "dev_jaccard": 0.15666095044491782,
+    "dev_delta_vs_top1": -0.027793367490028725
+   },
+   {
+    "rule": "low_mean_run_length",
+    "dev_jaccard": 0.15569157213853715,
+    "dev_delta_vs_top1": -0.02876274579640939
+   },
+   {
+    "rule": "low_enclosure_fraction",
+    "dev_jaccard": 0.15402901411434838,
+    "dev_delta_vs_top1": -0.03042530382059816
+   },
+   {
+    "rule": "low_coil_fraction",
+    "dev_jaccard": 0.1524714272790578,
+    "dev_delta_vs_top1": -0.031982890655888746
+   },
+   {
+    "rule": "high_enclosure_fraction",
+    "dev_jaccard": 0.1519299865143569,
+    "dev_delta_vs_top1": -0.032524331420589636
+   },
+   {
+    "rule": "low_strand_fraction",
+    "dev_jaccard": 0.15182302366267553,
+    "dev_delta_vs_top1": -0.032631294272271016
+   },
+   {
+    "rule": "high_strand_fraction",
+    "dev_jaccard": 0.1501085893661573,
+    "dev_delta_vs_top1": -0.03434572856878923
+   },
+   {
+    "rule": "low_heavy_atoms_within_12a",
+    "dev_jaccard": 0.14964382092145026,
+    "dev_delta_vs_top1": -0.03481049701349628
+   },
+   {
+    "rule": "low_charged_fraction",
+    "dev_jaccard": 0.14931711872180084,
+    "dev_delta_vs_top1": -0.0351371992131457
+   },
+   {
+    "rule": "high_heavy_atoms_within_12a",
+    "dev_jaccard": 0.14753205635423164,
+    "dev_delta_vs_top1": -0.036922261580714905
+   },
+   {
+    "rule": "high_helix_fraction",
+    "dev_jaccard": 0.14095345844528423,
+    "dev_delta_vs_top1": -0.043500859489662314
+   },
+   {
+    "rule": "high_charged_fraction",
+    "dev_jaccard": 0.13678755945029797,
+    "dev_delta_vs_top1": -0.047666758484648575
+   },
+   {
+    "rule": "high_polar_fraction",
+    "dev_jaccard": 0.13553719083056534,
+    "dev_delta_vs_top1": -0.0489171271043812
+   },
+   {
+    "rule": "high_mean_rsa",
+    "dev_jaccard": 0.134789984450919,
+    "dev_delta_vs_top1": -0.049664333484027545
+   },
+   {
+    "rule": "low_mean_rsa",
+    "dev_jaccard": 0.13390900654793153,
+    "dev_delta_vs_top1": -0.05054531138701501
+   },
+   {
+    "rule": "high_burial_ratio_8_over_12",
+    "dev_jaccard": 0.13346819886344047,
+    "dev_delta_vs_top1": -0.050986119071506075
+   },
+   {
+    "rule": "high_center_dist_over_rg",
+    "dev_jaccard": 0.1283530230691136,
+    "dev_delta_vs_top1": -0.05610129486583296
+   },
+   {
+    "rule": "high_center_dist_to_centroid",
+    "dev_jaccard": 0.1283530230691136,
+    "dev_delta_vs_top1": -0.05610129486583296
+   },
+   {
+    "rule": "low_elongation_l1_over_l2",
+    "dev_jaccard": 0.12826217276196358,
+    "dev_delta_vs_top1": -0.05619214517298296
+   },
+   {
+    "rule": "low_anisotropy_l1_share",
+    "dev_jaccard": 0.12797616353831387,
+    "dev_delta_vs_top1": -0.056478154396632674
+   },
+   {
+    "rule": "low_n_sequence_runs",
+    "dev_jaccard": 0.12768965145840974,
+    "dev_delta_vs_top1": -0.0567646664765368
+   },
+   {
+    "rule": "high_heavy_atoms_within_8a",
+    "dev_jaccard": 0.12143339592985072,
+    "dev_delta_vs_top1": -0.06302092200509582
+   },
+   {
+    "rule": "low_p2rank_probability",
+    "dev_jaccard": 0.1203283014380124,
+    "dev_delta_vs_top1": -0.06412601649693414
+   },
+   {
+    "rule": "low_p2rank_score",
+    "dev_jaccard": 0.1203283014380124,
+    "dev_delta_vs_top1": -0.06412601649693414
+   },
+   {
+    "rule": "low_p2rank_score_share",
+    "dev_jaccard": 0.1203283014380124,
+    "dev_delta_vs_top1": -0.06412601649693414
+   },
+   {
+    "rule": "low_hydrophobic_fraction",
+    "dev_jaccard": 0.1191017871453873,
+    "dev_delta_vs_top1": -0.06535253078955924
+   },
+   {
+    "rule": "low_max_ca_extent",
+    "dev_jaccard": 0.11831458831567665,
+    "dev_delta_vs_top1": -0.0661397296192699
+   },
+   {
+    "rule": "high_aromatic_fraction",
+    "dev_jaccard": 0.11776276799308305,
+    "dev_delta_vs_top1": -0.06669154994186349
+   },
+   {
+    "rule": "low_sum_sasa",
+    "dev_jaccard": 0.11628997810861741,
+    "dev_delta_vs_top1": -0.06816433982632913
+   },
+   {
+    "rule": "low_lining_fraction_of_receptor",
+    "dev_jaccard": 0.11609053110619608,
+    "dev_delta_vs_top1": -0.06836378682875047
+   },
+   {
+    "rule": "low_n_lining_residues",
+    "dev_jaccard": 0.11609053110619608,
+    "dev_delta_vs_top1": -0.06836378682875047
+   },
+   {
+    "rule": "low_p2rank_sas_points",
+    "dev_jaccard": 0.11502072785876125,
+    "dev_delta_vs_top1": -0.0694335900761853
+   },
+   {
+    "rule": "low_p2rank_residue_prob_sum",
+    "dev_jaccard": 0.11112030924767632,
+    "dev_delta_vs_top1": -0.07333400868727022
+   },
+   {
+    "rule": "low_p2rank_residue_prob_mean",
+    "dev_jaccard": 0.10569437436695421,
+    "dev_delta_vs_top1": -0.07875994356799233
+   }
+  ]
+ },
+ "peptide_held_out": {
+  "n": 30,
+  "rule": "learned_logistic",
+  "p2rank_top1_jaccard": 0.1825068718081926,
+  "reranked_jaccard": 0.20601451359169642,
+  "ORACLE_bestany_jaccard": 0.34934739320818947,
+  "oracle_note": "ORACLE - the pocket is chosen by the truth. It is the ceiling for what re-ranking could ever reach on these complexes. It is not a method and not achievable.",
+  "headroom_oracle_minus_top1": 0.16684052139999686,
+  "headroom_closed": 0.023507641783503813,
+  "fraction_of_headroom_closed": 0.1408988750828985,
+  "reranked_vs_top1": {
+   "arm_a": "reranked",
+   "arm_b": "p2rank_top1",
+   "n": 30,
+   "mean_a": 0.20601451359169642,
+   "mean_b": 0.1825068718081926,
+   "delta": 0.023507641783503813,
+   "ci_lo": -0.0076923076923077205,
+   "ci_hi": 0.0769874952633573,
+   "p_wilcoxon": 0.4652088184521418,
+   "wilcoxon_statistic": 3.0,
+   "p_paired_bootstrap": 0.43195680431956807,
+   "n_pairs_entering_wilcoxon": 4,
+   "n_a_better": 3,
+   "n_b_better": 1,
+   "n_tied": 26
+  },
+  "reranked_ci": [
+   0.12000155927262784,
+   0.3002883500901187
+  ],
+  "p2rank_top1_ci": [
+   0.106890245873313,
+   0.2670724878163498
+  ],
+  "n_complexes_with_no_pocket": 4,
+  "n_complexes_with_one_pocket": 7,
+  "n_complexes_rerankable": 19,
+  "n_picks_changed": 4,
+  "n_picks_changed_with_no_effect_on_jaccard": 0,
+  "n_complexes_where_no_offered_pocket_touches_the_site": 6,
+  "mean_picked_rank": 1.1923076923076923
+ },
+ "peptide_development": {
+  "n": 40,
+  "rule": "learned_logistic",
+  "p2rank_top1_jaccard": 0.18445431793494654,
+  "reranked_jaccard": 0.21658136909218192,
+  "ORACLE_bestany_jaccard": 0.2826249989828684,
+  "oracle_note": "ORACLE - the pocket is chosen by the truth. It is the ceiling for what re-ranking could ever reach on these complexes. It is not a method and not achievable.",
+  "headroom_oracle_minus_top1": 0.09817068104792187,
+  "headroom_closed": 0.03212705115723538,
+  "fraction_of_headroom_closed": 0.32725708749593585,
+  "reranked_vs_top1": {
+   "arm_a": "reranked",
+   "arm_b": "p2rank_top1",
+   "n": 40,
+   "mean_a": 0.21658136909218192,
+   "mean_b": 0.18445431793494654,
+   "delta": 0.03212705115723538,
+   "ci_lo": -0.008608535543929638,
+   "ci_hi": 0.07711898347821741,
+   "p_wilcoxon": 0.13941397332153205,
+   "wilcoxon_statistic": 13.0,
+   "p_paired_bootstrap": 0.12958704129587043,
+   "n_pairs_entering_wilcoxon": 10,
+   "n_a_better": 8,
+   "n_b_better": 2,
+   "n_tied": 30
+  },
+  "reranked_ci": [
+   0.15421466178311571,
+   0.28127523823741
+  ],
+  "p2rank_top1_ci": [
+   0.12346735377406828,
+   0.2506618232838139
+  ],
+  "n_complexes_with_no_pocket": 3,
+  "n_complexes_with_one_pocket": 5,
+  "n_complexes_rerankable": 32,
+  "n_picks_changed": 12,
+  "n_picks_changed_with_no_effect_on_jaccard": 2,
+  "n_complexes_where_no_offered_pocket_touches_the_site": 9,
+  "mean_picked_rank": 1.4324324324324325
+ },
+ "peptide_all_70_not_a_held_out_number": {
+  "n": 70,
+  "rule": "learned_logistic",
+  "p2rank_top1_jaccard": 0.18361969816633766,
+  "reranked_jaccard": 0.21205271673483098,
+  "ORACLE_bestany_jaccard": 0.3112203107937203,
+  "oracle_note": "ORACLE - the pocket is chosen by the truth. It is the ceiling for what re-ranking could ever reach on these complexes. It is not a method and not achievable.",
+  "headroom_oracle_minus_top1": 0.12760061262738265,
+  "headroom_closed": 0.028433018568493312,
+  "fraction_of_headroom_closed": 0.2228282292932478,
+  "reranked_vs_top1": {
+   "arm_a": "reranked",
+   "arm_b": "p2rank_top1",
+   "n": 70,
+   "mean_a": 0.21205271673483098,
+   "mean_b": 0.18361969816633766,
+   "delta": 0.028433018568493312,
+   "ci_lo": -0.0010042887122667177,
+   "ci_hi": 0.06254974259027311,
+   "p_wilcoxon": 0.07359392381144039,
+   "wilcoxon_statistic": 24.0,
+   "p_paired_bootstrap": 0.05779422057794221,
+   "n_pairs_entering_wilcoxon": 14,
+   "n_a_better": 11,
+   "n_b_better": 3,
+   "n_tied": 56
+  },
+  "reranked_ci": [
+   0.16072439139636088,
+   0.2657254123940047
+  ],
+  "p2rank_top1_ci": [
+   0.134938758929904,
+   0.23555373221597514
+  ],
+  "n_complexes_with_no_pocket": 7,
+  "n_complexes_with_one_pocket": 12,
+  "n_complexes_rerankable": 51,
+  "n_picks_changed": 16,
+  "n_picks_changed_with_no_effect_on_jaccard": 2,
+  "n_complexes_where_no_offered_pocket_touches_the_site": 15,
+  "mean_picked_rank": 1.3333333333333333
+ },
+ "swapped_folds": {
+  "note": "the same procedure run the other way round - chosen on the held-out half, reported on the development half. A robustness check, not a second independent result.",
+  "chosen": "composite_prob_minus_enclosure",
+  "n": 40,
+  "rule": "composite_prob_minus_enclosure",
+  "p2rank_top1_jaccard": 0.18445431793494654,
+  "reranked_jaccard": 0.17727096411596993,
+  "ORACLE_bestany_jaccard": 0.2826249989828684,
+  "oracle_note": "ORACLE - the pocket is chosen by the truth. It is the ceiling for what re-ranking could ever reach on these complexes. It is not a method and not achievable.",
+  "headroom_oracle_minus_top1": 0.09817068104792187,
+  "headroom_closed": -0.007183353818976612,
+  "fraction_of_headroom_closed": -0.0731720890829928,
+  "reranked_vs_top1": {
+   "arm_a": "reranked",
+   "arm_b": "p2rank_top1",
+   "n": 40,
+   "mean_a": 0.17727096411596993,
+   "mean_b": 0.18445431793494654,
+   "delta": -0.007183353818976612,
+   "ci_lo": -0.0649398535284775,
+   "ci_hi": 0.04999694224888066,
+   "p_wilcoxon": 0.9749599188317098,
+   "wilcoxon_statistic": 52.0,
+   "p_paired_bootstrap": 0.8135186481351865,
+   "n_pairs_entering_wilcoxon": 14,
+   "n_a_better": 8,
+   "n_b_better": 6,
+   "n_tied": 26
+  },
+  "reranked_ci": [
+   0.12028847567995239,
+   0.23894421285994655
+  ],
+  "p2rank_top1_ci": [
+   0.12346735377406828,
+   0.2506618232838139
+  ],
+  "n_complexes_with_no_pocket": 3,
+  "n_complexes_with_one_pocket": 5,
+  "n_complexes_rerankable": 32,
+  "n_picks_changed": 15,
+  "n_picks_changed_with_no_effect_on_jaccard": 1,
+  "n_complexes_where_no_offered_pocket_touches_the_site": 9,
+  "mean_picked_rank": 1.6216216216216217
+ },
+ "other_classes_same_locked_rule": {
+  "ppi": {
+   "n": 72,
+   "rule": "learned_logistic",
+   "p2rank_top1_jaccard": 0.09028753985896677,
+   "reranked_jaccard": 0.09007366624418826,
+   "ORACLE_bestany_jaccard": 0.1323847220769177,
+   "oracle_note": "ORACLE - the pocket is chosen by the truth. It is the ceiling for what re-ranking could ever reach on these complexes. It is not a method and not achievable.",
+   "headroom_oracle_minus_top1": 0.04209718221795093,
+   "headroom_closed": -0.0002138736147785092,
+   "fraction_of_headroom_closed": -0.005080473407251233,
+   "reranked_vs_top1": {
+    "arm_a": "reranked",
+    "arm_b": "p2rank_top1",
+    "n": 72,
+    "mean_a": 0.09007366624418826,
+    "mean_b": 0.09028753985896677,
+    "delta": -0.0002138736147785092,
+    "ci_lo": -0.011158148952042906,
+    "ci_hi": 0.009942994132690786,
+    "p_wilcoxon": 0.5302845968336095,
+    "wilcoxon_statistic": 31.0,
+    "p_paired_bootstrap": 0.9945005499450055,
+    "n_pairs_entering_wilcoxon": 12,
+    "n_a_better": 7,
+    "n_b_better": 5,
+    "n_tied": 60
+   },
+   "reranked_ci": [
+    0.05707513905706686,
+    0.1285946062309029
+   ],
+   "p2rank_top1_ci": [
+    0.05688644193466096,
+    0.1287579595873154
+   ],
+   "n_complexes_with_no_pocket": 13,
+   "n_complexes_with_one_pocket": 14,
+   "n_complexes_rerankable": 45,
+   "n_picks_changed": 17,
+   "n_picks_changed_with_no_effect_on_jaccard": 5,
+   "n_complexes_where_no_offered_pocket_touches_the_site": 27,
+   "mean_picked_rank": 1.4745762711864407
+  },
+  "antibody": {
+   "n": 58,
+   "rule": "learned_logistic",
+   "p2rank_top1_jaccard": 0.02547961201749577,
+   "reranked_jaccard": 0.02547961201749577,
+   "ORACLE_bestany_jaccard": 0.06196940877656869,
+   "oracle_note": "ORACLE - the pocket is chosen by the truth. It is the ceiling for what re-ranking could ever reach on these complexes. It is not a method and not achievable.",
+   "headroom_oracle_minus_top1": 0.03648979675907292,
+   "headroom_closed": 0.0,
+   "fraction_of_headroom_closed": 0.0,
+   "reranked_vs_top1": {
+    "arm_a": "reranked",
+    "arm_b": "p2rank_top1",
+    "n": 58,
+    "mean_a": 0.02547961201749577,
+    "mean_b": 0.02547961201749577,
+    "delta": 0.0,
+    "ci_lo": 0.0,
+    "ci_hi": 0.0,
+    "p_wilcoxon": 1.0,
+    "wilcoxon_statistic": 0.0,
+    "p_paired_bootstrap": 1.0,
+    "n_pairs_entering_wilcoxon": 0,
+    "n_a_better": 0,
+    "n_b_better": 0,
+    "n_tied": 58
+   },
+   "reranked_ci": [
+    0.007438864408987484,
+    0.0490485895658929
+   ],
+   "p2rank_top1_ci": [
+    0.007438864408987484,
+    0.0490485895658929
+   ],
+   "n_complexes_with_no_pocket": 19,
+   "n_complexes_with_one_pocket": 14,
+   "n_complexes_rerankable": 25,
+   "n_picks_changed": 8,
+   "n_picks_changed_with_no_effect_on_jaccard": 8,
+   "n_complexes_where_no_offered_pocket_touches_the_site": 40,
+   "mean_picked_rank": 1.4102564102564104
+  }
+ },
+ "holm_bonferroni": {
+  "peptide_heldout": {
+   "p_raw": 0.4652088184521418,
+   "p_holm": 1.0,
+   "reject_at_0.05": false
+  },
+  "peptide_development": {
+   "p_raw": 0.13941397332153205,
+   "p_holm": 0.5576558932861282,
+   "reject_at_0.05": false
+  },
+  "ppi": {
+   "p_raw": 0.5302845968336095,
+   "p_holm": 1.0,
+   "reject_at_0.05": false
+  },
+  "antibody": {
+   "p_raw": 1.0,
+   "p_holm": 1.0,
+   "reject_at_0.05": false
+  }
+ },
+ "mechanism_within_complex_discrimination": {
+  "what": "pooled within-complex pairwise AUC of each descriptor at ranking the best offered pocket above a worse one. 0.5 is chance.",
+  "not_held_out": "computed on every complex of the class; a diagnostic of why the re-ranker behaves as it does, not a result",
+  "peptide": {
+   "anisotropy_l1_share": {
+    "auc": 0.5921052631578947,
+    "n_pairs": 152,
+    "n_complexes": 47,
+    "ci_lo": 0.48609706165703276,
+    "ci_hi": 0.6894463482544442
+   },
+   "aromatic_fraction": {
+    "auc": 0.5197368421052632,
+    "n_pairs": 152,
+    "n_complexes": 47,
+    "ci_lo": 0.42536019325338625,
+    "ci_hi": 0.6000162337662337
+   },
+   "burial_ratio_8_over_12": {
+    "auc": 0.4868421052631579,
+    "n_pairs": 152,
+    "n_complexes": 47,
+    "ci_lo": 0.3815632832080201,
+    "ci_hi": 0.5942028985507246
+   },
+   "center_dist_over_rg": {
+    "auc": 0.40789473684210525,
+    "n_pairs": 152,
+    "n_complexes": 47,
+    "ci_lo": 0.31851733899504603,
+    "ci_hi": 0.5
+   },
+   "center_dist_to_centroid": {
+    "auc": 0.40789473684210525,
+    "n_pairs": 152,
+    "n_complexes": 47,
+    "ci_lo": 0.31851733899504603,
+    "ci_hi": 0.5
+   },
+   "charged_fraction": {
+    "auc": 0.506578947368421,
+    "n_pairs": 152,
+    "n_complexes": 47,
+    "ci_lo": 0.3915938228438228,
+    "ci_hi": 0.6182074051776038
+   },
+   "coil_fraction": {
+    "auc": 0.5986842105263158,
+    "n_pairs": 152,
+    "n_complexes": 47,
+    "ci_lo": 0.5231602351842418,
+    "ci_hi": 0.6736186594202899
+   },
+   "elongation_l1_over_l2": {
+    "auc": 0.5328947368421053,
+    "n_pairs": 152,
+    "n_complexes": 47,
+    "ci_lo": 0.41721854304635764,
+    "ci_hi": 0.6470588235294118
+   },
+   "enclosure_fraction": {
+    "auc": 0.4407894736842105,
+    "n_pairs": 152,
+    "n_complexes": 47,
+    "ci_lo": 0.33240142732586303,
+    "ci_hi": 0.5530326704545454
+   },
+   "heavy_atoms_within_12a": {
+    "auc": 0.506578947368421,
+    "n_pairs": 152,
+    "n_complexes": 47,
+    "ci_lo": 0.4064418377321603,
+    "ci_hi": 0.6052713305001634
+   },
+   "heavy_atoms_within_8a": {
+    "auc": 0.41118421052631576,
+    "n_pairs": 152,
+    "n_complexes": 47,
+    "ci_lo": 0.3133237410071943,
+    "ci_hi": 0.511453139478445
+   },
+   "helix_fraction": {
+    "auc": 0.47039473684210525,
+    "n_pairs": 152,
+    "n_complexes": 47,
+    "ci_lo": 0.36169571904639836,
+    "ci_hi": 0.5807476661583665
+   },
+   "hydrophobic_fraction": {
+    "auc": 0.4506578947368421,
+    "n_pairs": 152,
+    "n_complexes": 47,
+    "ci_lo": 0.34505646684987973,
+    "ci_hi": 0.5635660836639019
+   },
+   "lining_fraction_of_receptor": {
+    "auc": 0.5164473684210527,
+    "n_pairs": 152,
+    "n_complexes": 47,
+    "ci_lo": 0.40604026845637586,
+    "ci_hi": 0.6304477225672878
+   },
+   "max_ca_extent": {
+    "auc": 0.4934210526315789,
+    "n_pairs": 152,
+    "n_complexes": 47,
+    "ci_lo": 0.38285714285714284,
+    "ci_hi": 0.60431654676259
+   },
+   "mean_rsa": {
+    "auc": 0.4934210526315789,
+    "n_pairs": 152,
+    "n_complexes": 47,
+    "ci_lo": 0.4064301827205053,
+    "ci_hi": 0.5833333333333334
+   },
+   "mean_run_length": {
+    "auc": 0.4440789473684211,
+    "n_pairs": 152,
+    "n_complexes": 47,
+    "ci_lo": 0.32618902439024394,
+    "ci_hi": 0.5704937679769893
+   },
+   "n_lining_residues": {
+    "auc": 0.5164473684210527,
+    "n_pairs": 152,
+    "n_complexes": 47,
+    "ci_lo": 0.40604026845637586,
+    "ci_hi": 0.6304477225672878
+   },
+   "n_pockets_offered": {
+    "auc": 0.5,
+    "n_pairs": 152,
+    "n_complexes": 47,
+    "ci_lo": 0.5,
+    "ci_hi": 0.5
+   },
+   "n_sequence_runs": {
+    "auc": 0.5427631578947368,
+    "n_pairs": 152,
+    "n_complexes": 47,
+    "ci_lo": 0.45370039682539687,
+    "ci_hi": 0.6378421532846714
+   },
+   "p2rank_probability": {
+    "auc": 0.5888157894736842,
+    "n_pairs": 152,
+    "n_complexes": 47,
+    "ci_lo": 0.473051869234504,
+    "ci_hi": 0.7007299270072993
+   },
+   "p2rank_rank": {
+    "auc": 0.40789473684210525,
+    "n_pairs": 152,
+    "n_complexes": 47,
+    "ci_lo": 0.2934627329192547,
+    "ci_hi": 0.5256493506493506
+   },
+   "p2rank_residue_prob_mean": {
+    "auc": 0.6447368421052632,
+    "n_pairs": 152,
+    "n_complexes": 47,
+    "ci_lo": 0.5270092460881934,
+    "ci_hi": 0.7578545292721517
+   },
+   "p2rank_residue_prob_sum": {
+    "auc": 0.618421052631579,
+    "n_pairs": 152,
+    "n_complexes": 47,
+    "ci_lo": 0.49992690058479533,
+    "ci_hi": 0.7351042072458122
+   },
+   "p2rank_sas_points": {
+    "auc": 0.5197368421052632,
+    "n_pairs": 152,
+    "n_complexes": 47,
+    "ci_lo": 0.40235671191553546,
+    "ci_hi": 0.6341731860714832
+   },
+   "p2rank_score": {
+    "auc": 0.5888157894736842,
+    "n_pairs": 152,
+    "n_complexes": 47,
+    "ci_lo": 0.473051869234504,
+    "ci_hi": 0.7007299270072993
+   },
+   "p2rank_score_share": {
+    "auc": 0.5888157894736842,
+    "n_pairs": 152,
+    "n_complexes": 47,
+    "ci_lo": 0.473051869234504,
+    "ci_hi": 0.7007299270072993
+   },
+   "p2rank_surf_atoms": {
+    "auc": 0.5164473684210527,
+    "n_pairs": 152,
+    "n_complexes": 47,
+    "ci_lo": 0.4,
+    "ci_hi": 0.630609528576629
+   },
+   "polar_fraction": {
+    "auc": 0.6513157894736842,
+    "n_pairs": 152,
+    "n_complexes": 47,
+    "ci_lo": 0.5488600533592045,
+    "ci_hi": 0.7382420554428668
+   },
+   "strand_fraction": {
+    "auc": 0.5098684210526315,
+    "n_pairs": 152,
+    "n_complexes": 47,
+    "ci_lo": 0.4067768361581921,
+    "ci_hi": 0.6066785714285714
+   },
+   "sum_sasa": {
+    "auc": 0.5723684210526315,
+    "n_pairs": 152,
+    "n_complexes": 47,
+    "ci_lo": 0.46103780970802244,
+    "ci_hi": 0.6856147694614515
+   }
+  },
+  "ppi": {
+   "anisotropy_l1_share": {
+    "auc": 0.4745762711864407,
+    "n_pairs": 118,
+    "n_complexes": 37,
+    "ci_lo": 0.3581003595338458,
+    "ci_hi": 0.603778255184009
+   },
+   "aromatic_fraction": {
+    "auc": 0.5084745762711864,
+    "n_pairs": 118,
+    "n_complexes": 37,
+    "ci_lo": 0.4177180414522187,
+    "ci_hi": 0.6057765151515151
+   },
+   "burial_ratio_8_over_12": {
+    "auc": 0.5084745762711864,
+    "n_pairs": 118,
+    "n_complexes": 37,
+    "ci_lo": 0.34613970588235293,
+    "ci_hi": 0.6701388366318005
+   },
+   "center_dist_over_rg": {
+    "auc": 0.4152542372881356,
+    "n_pairs": 118,
+    "n_complexes": 37,
+    "ci_lo": 0.2747198879551821,
+    "ci_hi": 0.5625248015873014
+   },
+   "center_dist_to_centroid": {
+    "auc": 0.4152542372881356,
+    "n_pairs": 118,
+    "n_complexes": 37,
+    "ci_lo": 0.2747198879551821,
+    "ci_hi": 0.5625248015873014
+   },
+   "charged_fraction": {
+    "auc": 0.3855932203389831,
+    "n_pairs": 118,
+    "n_complexes": 37,
+    "ci_lo": 0.29582386363636365,
+    "ci_hi": 0.4857209612817089
+   },
+   "coil_fraction": {
+    "auc": 0.6101694915254238,
+    "n_pairs": 118,
+    "n_complexes": 37,
+    "ci_lo": 0.46065365373575,
+    "ci_hi": 0.7483640939597312
+   },
+   "elongation_l1_over_l2": {
+    "auc": 0.5254237288135594,
+    "n_pairs": 118,
+    "n_complexes": 37,
+    "ci_lo": 0.41960633116883117,
+    "ci_hi": 0.6285714285714286
+   },
+   "enclosure_fraction": {
+    "auc": 0.5127118644067796,
+    "n_pairs": 118,
+    "n_complexes": 37,
+    "ci_lo": 0.3712822942450495,
+    "ci_hi": 0.6391904999445737
+   },
+   "heavy_atoms_within_12a": {
+    "auc": 0.5338983050847458,
+    "n_pairs": 118,
+    "n_complexes": 37,
+    "ci_lo": 0.38345551378446113,
+    "ci_hi": 0.6814259855189058
+   },
+   "heavy_atoms_within_8a": {
+    "auc": 0.5338983050847458,
+    "n_pairs": 118,
+    "n_complexes": 37,
+    "ci_lo": 0.3767017370427906,
+    "ci_hi": 0.6960871848739495
+   },
+   "helix_fraction": {
+    "auc": 0.423728813559322,
+    "n_pairs": 118,
+    "n_complexes": 37,
+    "ci_lo": 0.29042231491136605,
+    "ci_hi": 0.5813063361611877
+   },
+   "hydrophobic_fraction": {
+    "auc": 0.673728813559322,
+    "n_pairs": 118,
+    "n_complexes": 37,
+    "ci_lo": 0.5555338541666667,
+    "ci_hi": 0.7826602665820372
+   },
+   "lining_fraction_of_receptor": {
+    "auc": 0.6652542372881356,
+    "n_pairs": 118,
+    "n_complexes": 37,
+    "ci_lo": 0.5273959225171233,
+    "ci_hi": 0.7857142857142857
+   },
+   "max_ca_extent": {
+    "auc": 0.576271186440678,
+    "n_pairs": 118,
+    "n_complexes": 37,
+    "ci_lo": 0.40907869012707726,
+    "ci_hi": 0.7323943661971831
+   },
+   "mean_rsa": {
+    "auc": 0.6101694915254238,
+    "n_pairs": 118,
+    "n_complexes": 37,
+    "ci_lo": 0.45544554455445546,
+    "ci_hi": 0.7421132376395534
+   },
+   "mean_run_length": {
+    "auc": 0.6483050847457628,
+    "n_pairs": 118,
+    "n_complexes": 37,
+    "ci_lo": 0.5,
+    "ci_hi": 0.7743362831858407
+   },
+   "n_lining_residues": {
+    "auc": 0.6652542372881356,
+    "n_pairs": 118,
+    "n_complexes": 37,
+    "ci_lo": 0.5273959225171233,
+    "ci_hi": 0.7857142857142857
+   },
+   "n_pockets_offered": {
+    "auc": 0.5,
+    "n_pairs": 118,
+    "n_complexes": 37,
+    "ci_lo": 0.5,
+    "ci_hi": 0.5
+   },
+   "n_sequence_runs": {
+    "auc": 0.576271186440678,
+    "n_pairs": 118,
+    "n_complexes": 37,
+    "ci_lo": 0.4456503253475303,
+    "ci_hi": 0.6925942915392456
+   },
+   "p2rank_probability": {
+    "auc": 0.635593220338983,
+    "n_pairs": 118,
+    "n_complexes": 37,
+    "ci_lo": 0.4893559204440333,
+    "ci_hi": 0.7642886178861786
+   },
+   "p2rank_rank": {
+    "auc": 0.3644067796610169,
+    "n_pairs": 118,
+    "n_complexes": 37,
+    "ci_lo": 0.23571138211382114,
+    "ci_hi": 0.5106440795559666
+   },
+   "p2rank_residue_prob_mean": {
+    "auc": 0.5338983050847458,
+    "n_pairs": 118,
+    "n_complexes": 37,
+    "ci_lo": 0.4031995091164095,
+    "ci_hi": 0.6741638359027958
+   },
+   "p2rank_residue_prob_sum": {
+    "auc": 0.5932203389830508,
+    "n_pairs": 118,
+    "n_complexes": 37,
+    "ci_lo": 0.4554230423042304,
+    "ci_hi": 0.7304665959703074
+   },
+   "p2rank_sas_points": {
+    "auc": 0.6694915254237288,
+    "n_pairs": 118,
+    "n_complexes": 37,
+    "ci_lo": 0.5356935215946844,
+    "ci_hi": 0.7922102897102897
+   },
+   "p2rank_score": {
+    "auc": 0.6398305084745762,
+    "n_pairs": 118,
+    "n_complexes": 37,
+    "ci_lo": 0.4950457163063245,
+    "ci_hi": 0.7708333333333334
+   },
+   "p2rank_score_share": {
+    "auc": 0.6398305084745762,
+    "n_pairs": 118,
+    "n_complexes": 37,
+    "ci_lo": 0.4950457163063245,
+    "ci_hi": 0.7708333333333334
+   },
+   "p2rank_surf_atoms": {
+    "auc": 0.652542372881356,
+    "n_pairs": 118,
+    "n_complexes": 37,
+    "ci_lo": 0.5217208622579467,
+    "ci_hi": 0.7629797979797979
+   },
+   "polar_fraction": {
+    "auc": 0.423728813559322,
+    "n_pairs": 118,
+    "n_complexes": 37,
+    "ci_lo": 0.28802743067442654,
+    "ci_hi": 0.5503633456870867
+   },
+   "strand_fraction": {
+    "auc": 0.5296610169491526,
+    "n_pairs": 118,
+    "n_complexes": 37,
+    "ci_lo": 0.36663461538461534,
+    "ci_hi": 0.6718792002688172
+   },
+   "sum_sasa": {
+    "auc": 0.6949152542372882,
+    "n_pairs": 118,
+    "n_complexes": 37,
+    "ci_lo": 0.5425531914893617,
+    "ci_hi": 0.8235933503836314
+   }
+  },
+  "antibody": {
+   "anisotropy_l1_share": {
+    "auc": 0.42592592592592593,
+    "n_pairs": 54,
+    "n_complexes": 13,
+    "ci_lo": 0.22217514124293786,
+    "ci_hi": 0.6808510638297872
+   },
+   "aromatic_fraction": {
+    "auc": 0.5833333333333334,
+    "n_pairs": 54,
+    "n_complexes": 13,
+    "ci_lo": 0.3635971786833856,
+    "ci_hi": 0.7978723404255319
+   },
+   "burial_ratio_8_over_12": {
+    "auc": 0.37037037037037035,
+    "n_pairs": 54,
+    "n_complexes": 13,
+    "ci_lo": 0.17642390289449114,
+    "ci_hi": 0.5961622807017544
+   },
+   "center_dist_over_rg": {
+    "auc": 0.5740740740740741,
+    "n_pairs": 54,
+    "n_complexes": 13,
+    "ci_lo": 0.36839419978517723,
+    "ci_hi": 0.8
+   },
+   "center_dist_to_centroid": {
+    "auc": 0.5740740740740741,
+    "n_pairs": 54,
+    "n_complexes": 13,
+    "ci_lo": 0.36839419978517723,
+    "ci_hi": 0.8
+   },
+   "charged_fraction": {
+    "auc": 0.6388888888888888,
+    "n_pairs": 54,
+    "n_complexes": 13,
+    "ci_lo": 0.43,
+    "ci_hi": 0.8095634920634919
+   },
+   "coil_fraction": {
+    "auc": 0.4444444444444444,
+    "n_pairs": 54,
+    "n_complexes": 13,
+    "ci_lo": 0.35714285714285715,
+    "ci_hi": 0.5492008196721311
+   },
+   "elongation_l1_over_l2": {
+    "auc": 0.3888888888888889,
+    "n_pairs": 54,
+    "n_complexes": 13,
+    "ci_lo": 0.19148153942428034,
+    "ci_hi": 0.6274623803009575
+   },
+   "enclosure_fraction": {
+    "auc": 0.35185185185185186,
+    "n_pairs": 54,
+    "n_complexes": 13,
+    "ci_lo": 0.08163265306122448,
+    "ci_hi": 0.5882835101253614
+   },
+   "heavy_atoms_within_12a": {
+    "auc": 0.37037037037037035,
+    "n_pairs": 54,
+    "n_complexes": 13,
+    "ci_lo": 0.10865683229813665,
+    "ci_hi": 0.6136525974025974
+   },
+   "heavy_atoms_within_8a": {
+    "auc": 0.3425925925925926,
+    "n_pairs": 54,
+    "n_complexes": 13,
+    "ci_lo": 0.16279069767441862,
+    "ci_hi": 0.5077049180327868
+   },
+   "helix_fraction": {
+    "auc": 0.32407407407407407,
+    "n_pairs": 54,
+    "n_complexes": 13,
+    "ci_lo": 0.1517609126984127,
+    "ci_hi": 0.4915254237288136
+   },
+   "hydrophobic_fraction": {
+    "auc": 0.4074074074074074,
+    "n_pairs": 54,
+    "n_complexes": 13,
+    "ci_lo": 0.20833333333333334,
+    "ci_hi": 0.6222916666666662
+   },
+   "lining_fraction_of_receptor": {
+    "auc": 0.5555555555555556,
+    "n_pairs": 54,
+    "n_complexes": 13,
+    "ci_lo": 0.3148148148148148,
+    "ci_hi": 0.7596354166666666
+   },
+   "max_ca_extent": {
+    "auc": 0.48148148148148145,
+    "n_pairs": 54,
+    "n_complexes": 13,
+    "ci_lo": 0.28566098081023455,
+    "ci_hi": 0.6792641509433961
+   },
+   "mean_rsa": {
+    "auc": 0.5370370370370371,
+    "n_pairs": 54,
+    "n_complexes": 13,
+    "ci_lo": 0.305066322770818,
+    "ci_hi": 0.7758685023160061
+   },
+   "mean_run_length": {
+    "auc": 0.49074074074074076,
+    "n_pairs": 54,
+    "n_complexes": 13,
+    "ci_lo": 0.26529111644657866,
+    "ci_hi": 0.7258160522273425
+   },
+   "n_lining_residues": {
+    "auc": 0.5555555555555556,
+    "n_pairs": 54,
+    "n_complexes": 13,
+    "ci_lo": 0.3148148148148148,
+    "ci_hi": 0.7596354166666666
+   },
+   "n_pockets_offered": {
+    "auc": 0.5,
+    "n_pairs": 54,
+    "n_complexes": 13,
+    "ci_lo": 0.5,
+    "ci_hi": 0.5
+   },
+   "n_sequence_runs": {
+    "auc": 0.5277777777777778,
+    "n_pairs": 54,
+    "n_complexes": 13,
+    "ci_lo": 0.34613636363636363,
+    "ci_hi": 0.7200084745762712
+   },
+   "p2rank_probability": {
+    "auc": 0.39814814814814814,
+    "n_pairs": 54,
+    "n_complexes": 13,
+    "ci_lo": 0.2023695054945055,
+    "ci_hi": 0.627906976744186
+   },
+   "p2rank_rank": {
+    "auc": 0.5925925925925926,
+    "n_pairs": 54,
+    "n_complexes": 13,
+    "ci_lo": 0.3720298281092012,
+    "ci_hi": 0.782608695652174
+   },
+   "p2rank_residue_prob_mean": {
+    "auc": 0.35185185185185186,
+    "n_pairs": 54,
+    "n_complexes": 13,
+    "ci_lo": 0.1724137931034483,
+    "ci_hi": 0.5833726415094338
+   },
+   "p2rank_residue_prob_sum": {
+    "auc": 0.37037037037037035,
+    "n_pairs": 54,
+    "n_complexes": 13,
+    "ci_lo": 0.19443407960199005,
+    "ci_hi": 0.5790085679314563
+   },
+   "p2rank_sas_points": {
+    "auc": 0.5185185185185185,
+    "n_pairs": 54,
+    "n_complexes": 13,
+    "ci_lo": 0.3125,
+    "ci_hi": 0.7142857142857143
+   },
+   "p2rank_score": {
+    "auc": 0.4074074074074074,
+    "n_pairs": 54,
+    "n_complexes": 13,
+    "ci_lo": 0.21739130434782608,
+    "ci_hi": 0.6279701718907984
+   },
+   "p2rank_score_share": {
+    "auc": 0.4074074074074074,
+    "n_pairs": 54,
+    "n_complexes": 13,
+    "ci_lo": 0.21739130434782608,
+    "ci_hi": 0.6279701718907984
+   },
+   "p2rank_surf_atoms": {
+    "auc": 0.5833333333333334,
+    "n_pairs": 54,
+    "n_complexes": 13,
+    "ci_lo": 0.37204995693367787,
+    "ci_hi": 0.780017543859649
+   },
+   "polar_fraction": {
+    "auc": 0.39814814814814814,
+    "n_pairs": 54,
+    "n_complexes": 13,
+    "ci_lo": 0.24236363636363636,
+    "ci_hi": 0.576973684210526
+   },
+   "strand_fraction": {
+    "auc": 0.6574074074074074,
+    "n_pairs": 54,
+    "n_complexes": 13,
+    "ci_lo": 0.4799791666666666,
+    "ci_hi": 0.8333333333333334
+   },
+   "sum_sasa": {
+    "auc": 0.5555555555555556,
+    "n_pairs": 54,
+    "n_complexes": 13,
+    "ci_lo": 0.3147875816993464,
+    "ci_hi": 0.7659751773049644
+   }
+  }
+ },
+ "in_sample_ceiling_of_this_feature_set": {
+  "what": "the learned rule FIT AND SCORED on the same complexes. Maximally optimistic; it is an upper bound on what these 31 descriptors can express, not a result.",
+  "peptide": {
+   "n": 70,
+   "p2rank_top1_jaccard": 0.18361969816633766,
+   "reranked_jaccard": 0.22168625616663487,
+   "ORACLE_bestany_jaccard": 0.3112203107937203,
+   "headroom_oracle_minus_top1": 0.12760061262738265,
+   "headroom_closed": 0.03806655800029721,
+   "fraction_of_headroom_closed": 0.29832582474708474,
+   "n_picks_changed": 15
+  },
+  "ppi": {
+   "n": 72,
+   "p2rank_top1_jaccard": 0.09028753985896674,
+   "reranked_jaccard": 0.09783162484467695,
+   "ORACLE_bestany_jaccard": 0.1323847220769177,
+   "headroom_oracle_minus_top1": 0.04209718221795096,
+   "headroom_closed": 0.0075440849857102005,
+   "fraction_of_headroom_closed": 0.17920641212164726,
+   "n_picks_changed": 12
+  },
+  "antibody": {
+   "n": 58,
+   "p2rank_top1_jaccard": 0.02547961201749577,
+   "reranked_jaccard": 0.04957898634072779,
+   "ORACLE_bestany_jaccard": 0.06196940877656869,
+   "headroom_oracle_minus_top1": 0.03648979675907292,
+   "headroom_closed": 0.02409937432323202,
+   "fraction_of_headroom_closed": 0.6604414511363341,
+   "n_picks_changed": 17
+  }
+ },
+ "headroom_by_pockets_offered": {
+  "peptide": {
+   "0_pockets": {
+    "n": 7,
+    "p2rank_top1_jaccard": 0.0,
+    "ORACLE_bestany_jaccard": 0.0,
+    "headroom": 0.0,
+    "note": "no pocket to re-rank - top-1 and the oracle are the same object here"
+   },
+   "1_pocket": {
+    "n": 12,
+    "p2rank_top1_jaccard": 0.24208703255313427,
+    "ORACLE_bestany_jaccard": 0.24208703255313427,
+    "headroom": 0.0,
+    "note": "no pocket to re-rank - top-1 and the oracle are the same object here"
+   },
+   "2_or_more": {
+    "n": 51,
+    "p2rank_top1_jaccard": 0.1950653819805103,
+    "ORACLE_bestany_jaccard": 0.37020347774358453,
+    "headroom": 0.17513809576307424,
+    "note": "the only complexes a re-ranker can act on"
+   }
+  },
+  "ppi": {
+   "0_pockets": {
+    "n": 13,
+    "p2rank_top1_jaccard": 0.0,
+    "ORACLE_bestany_jaccard": 0.0,
+    "headroom": 0.0,
+    "note": "no pocket to re-rank - top-1 and the oracle are the same object here"
+   },
+   "1_pocket": {
+    "n": 14,
+    "p2rank_top1_jaccard": 0.1879004971502363,
+    "ORACLE_bestany_jaccard": 0.1879004971502363,
+    "headroom": 0.0,
+    "note": "no pocket to re-rank - top-1 and the oracle are the same object here"
+   },
+   "2_or_more": {
+    "n": 45,
+    "p2rank_top1_jaccard": 0.08600213132760663,
+    "ORACLE_bestany_jaccard": 0.15335762287632815,
+    "headroom": 0.06735549154872152,
+    "note": "the only complexes a re-ranker can act on"
+   }
+  },
+  "antibody": {
+   "0_pockets": {
+    "n": 19,
+    "p2rank_top1_jaccard": 0.0,
+    "ORACLE_bestany_jaccard": 0.0,
+    "headroom": 0.0,
+    "note": "no pocket to re-rank - top-1 and the oracle are the same object here"
+   },
+   "1_pocket": {
+    "n": 14,
+    "p2rank_top1_jaccard": 0.03240395041589204,
+    "ORACLE_bestany_jaccard": 0.03240395041589204,
+    "headroom": 0.0,
+    "note": "no pocket to re-rank - top-1 and the oracle are the same object here"
+   },
+   "2_or_more": {
+    "n": 25,
+    "p2rank_top1_jaccard": 0.04096648764769066,
+    "ORACLE_bestany_jaccard": 0.12562281612873982,
+    "headroom": 0.08465632848104916,
+    "note": "the only complexes a re-ranker can act on"
+   }
+  }
+ },
+ "features": {
+  "n": 31,
+  "names": [
+   "anisotropy_l1_share",
+   "aromatic_fraction",
+   "burial_ratio_8_over_12",
+   "center_dist_over_rg",
+   "center_dist_to_centroid",
+   "charged_fraction",
+   "coil_fraction",
+   "elongation_l1_over_l2",
+   "enclosure_fraction",
+   "heavy_atoms_within_12a",
+   "heavy_atoms_within_8a",
+   "helix_fraction",
+   "hydrophobic_fraction",
+   "lining_fraction_of_receptor",
+   "max_ca_extent",
+   "mean_rsa",
+   "mean_run_length",
+   "n_lining_residues",
+   "n_pockets_offered",
+   "n_sequence_runs",
+   "p2rank_probability",
+   "p2rank_rank",
+   "p2rank_residue_prob_mean",
+   "p2rank_residue_prob_sum",
+   "p2rank_sas_points",
+   "p2rank_score",
+   "p2rank_score_share",
+   "p2rank_surf_atoms",
+   "polar_fraction",
+   "strand_fraction",
+   "sum_sasa"
+  ],
+  "none_can_see_the_binder": true,
+  "secondary_structure": "CA-only P-SEA style approximation; no DSSP binary on this machine"
+ },
+ "reproduces_epitope_gate_top1": {
+  "checked": true,
+  "n_compared": 200,
+  "n_disagreeing": 0,
+  "disagreements": [],
+  "note": "p2rank_top1 is re-derived here from the same cached CSVs; a non-zero disagreement would mean the two scripts are not measuring the same thing"
+ },
+ "p2rank": {
+  "version": "2.5",
+  "predictions_reused_from": "/Users/evanxiang/Desktop/Projects/drug-similarity-discovery/data/raw/epitope_gate/p2rank/out",
+  "n_complexes": 200,
+  "missing_predictions": [],
+  "n_noninteger_residue_tokens": 0
+ },
+ "credits_spent": {
+  "rowan": 0,
+  "note": "local CPU only"
+ },
+ "not_evaluated": [
+  {
+   "feature": "PeSTo PPI-head score mass inside the pocket",
+   "why": "this feature set was frozen before E1 existed and does not use PeSTo. Verified: 1 file(s) match results/*pesto* at run time, so a PeSTo output is present now but is NOT read here.",
+   "checked": [
+    "results/pesto_vs_p2rank.json"
+   ]
+  },
+  {
+   "feature": "sequence conservation of the lining residues",
+   "why": "needs an MSA per receptor (192 distinct UniProts). No local database and no network budget inside this experiment, so it is not cheap here and was not attempted."
+  },
+  {
+   "feature": "DSSP secondary structure",
+   "why": "no mkdssp/dssp binary on this machine (verified with shutil.which). Helix/strand/coil are a CA-only P-SEA style approximation instead, and are labelled as such."
+  },
+  {
+   "feature": "re-running P2Rank",
+   "why": "not needed - the cached predictions under data/raw/epitope_gate/p2rank/out are reused unchanged, so top-1 here reproduces epitope_gate.json exactly."
+  }
+ ]
+}

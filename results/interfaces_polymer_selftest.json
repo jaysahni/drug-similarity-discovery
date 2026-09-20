@@ -1,5 +1,5 @@
 {
-  "generated_utc": "2026-09-20T02:42:13+00:00",
+  "generated_utc": "2026-09-20T03:50:10+00:00",
   "contact_cutoff_a": 4.5,
   "numbering": "author (auth_seq_id); no SIFTS mapping applied",
   "cases": {
@@ -8,7 +8,7 @@
       "title": "MDM2 BOUND TO THE TRANSACTIVATION DOMAIN OF P53",
       "resolution_a": 2.6,
       "method": "X-ray",
-      "parse_seconds": 0.015,
+      "parse_seconds": 0.013,
       "chains": {
         "A": {
           "chain_id": "A",
@@ -953,7 +953,7 @@
       "title": "PROTEIN-PROTEIN RECOGNITION: CRYSTAL STRUCTURAL ANALYSIS OF A BARNASE-BARSTAR COMPLEX AT 2.0-A RESOLUTION",
       "resolution_a": 2.0,
       "method": "X-ray",
-      "parse_seconds": 0.068,
+      "parse_seconds": 0.066,
       "chains": {
         "A": {
           "chain_id": "A",
@@ -1567,7 +1567,7 @@
       "title": "Crystal structure of SARS-CoV-2 spike receptor-binding domain bound with ACE2",
       "resolution_a": 2.45,
       "method": "X-ray",
-      "parse_seconds": 0.121,
+      "parse_seconds": 0.126,
       "chains": {
         "A": {
           "chain_id": "A",
@@ -2129,29 +2129,29 @@
     }
   },
   "timings_seconds": {
-    "1YCR_chain_contacts": 0.233,
+    "1YCR_chain_contacts": 0.232,
     "1YCR_chain_contacts_no_sasa": 0.001,
-    "1YCR_parse": 0.015,
-    "1YCR_chain_contacts_reversed": 0.234,
+    "1YCR_parse": 0.013,
+    "1YCR_chain_contacts_reversed": 0.232,
     "1CKA_chain_contacts": 0.213,
     "1CKA_chain_contacts_no_sasa": 0.001,
     "1CKA_parse": 0.016,
-    "1CKA_chain_contacts_reversed": 0.218,
-    "1BRS_chain_contacts": 0.617,
+    "1CKA_chain_contacts_reversed": 0.212,
+    "1BRS_chain_contacts": 0.619,
     "1BRS_chain_contacts_no_sasa": 0.003,
-    "1BRS_parse": 0.068,
-    "1BRS_chain_contacts_reversed": 0.611,
-    "6M0J_chain_contacts": 1.98,
+    "1BRS_parse": 0.066,
+    "1BRS_chain_contacts_reversed": 0.607,
+    "6M0J_chain_contacts": 1.967,
     "6M0J_chain_contacts_no_sasa": 0.008,
-    "6M0J_parse": 0.121,
-    "6M0J_chain_contacts_reversed": 1.967,
-    "4ASD_ligand_contacts": 0.723,
-    "3WZE_ligand_contacts": 0.718,
-    "4AG8_ligand_contacts": 0.577,
-    "1N6A_ligand_contacts": 0.425,
-    "2H79_ligand_contacts": 0.515,
-    "1HXW_ligand_contacts": 0.494,
-    "1T4E_ligand_contacts": 0.305
+    "6M0J_parse": 0.126,
+    "6M0J_chain_contacts_reversed": 1.954,
+    "4ASD_ligand_contacts": 0.701,
+    "3WZE_ligand_contacts": 0.526,
+    "4AG8_ligand_contacts": 0.526,
+    "1N6A_ligand_contacts": 0.397,
+    "2H79_ligand_contacts": 0.495,
+    "1HXW_ligand_contacts": 0.476,
+    "1T4E_ligand_contacts": 0.302
   },
   "guard_rails": {
     "unknown binder chain": "KeyError: \"no chain 'Z' in model 0; have ['A', 'B']\"",
@@ -2161,7 +2161,7 @@
   },
   "small_molecule_regression": {
     "source": "results/interfaces_selftest.json",
-    "generated_utc": "2026-09-20T02:40:59+00:00",
+    "generated_utc": "2026-09-20T03:41:43+00:00",
     "entries_compared": [
       "1HXW",
       "1N6A",
@@ -2420,7 +2420,7 @@
     {
       "name": "1YCR: with_buried_area=False reports None, not 0.0",
       "passed": true,
-      "detail": "same 22 residues, dSASA costs 0.232s of the 0.233s"
+      "detail": "same 22 residues, dSASA costs 0.231s of the 0.232s"
     },
     {
       "name": "1CKA: entry exists, 2 chains parsed",
@@ -2500,7 +2500,7 @@
     {
       "name": "1BRS: a 87-residue protein binder is NOT auto-picked and must be named",
       "passed": true,
-      "detail": "auto=[], named=['D'], 0.013s"
+      "detail": "auto=[], named=['D'], 0.015s"
     },
     {
       "name": "1BRS: target interface contains the published site residues",
@@ -2535,7 +2535,7 @@
     {
       "name": "1BRS: with_buried_area=False reports None, not 0.0",
       "passed": true,
-      "detail": "same 19 residues, dSASA costs 0.614s of the 0.617s"
+      "detail": "same 19 residues, dSASA costs 0.616s of the 0.619s"
     },
     {
       "name": "6M0J: entry exists, 2 chains parsed",
@@ -2555,7 +2555,7 @@
     {
       "name": "6M0J: a 194-residue protein binder is NOT auto-picked and must be named",
       "passed": true,
-      "detail": "auto=[], named=['E'], 0.021s"
+      "detail": "auto=[], named=['E'], 0.023s"
     },
     {
       "name": "6M0J: target interface contains the published site residues",
@@ -2590,7 +2590,7 @@
     {
       "name": "6M0J: with_buried_area=False reports None, not 0.0",
       "passed": true,
-      "detail": "same 21 residues, dSASA costs 1.972s of the 1.98s"
+      "detail": "same 21 residues, dSASA costs 1.959s of the 1.967s"
     },
     {
       "name": "wrong input raises instead of returning an empty interface",
