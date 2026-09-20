@@ -18,3 +18,5 @@ results/pipeline/*/cofold_poses/
 # lightweight demo: novakit toolkit venv (Python 3.12, separate from env/)
 env-kit/
 results/demo/**/structures/
+results/demo/_cache/esmc/
+results/demo/_cache/*.pdb
