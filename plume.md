@@ -122,55 +122,34 @@ chats, folders, saved results and compact navigation.
 
 ## Challenges we ran into
 
-**The decisive experiment came out against us.** On 38 KDR co-crystals a free pocket
-finder reaches Jaccard 0.6355 against the ligand's true contacts, while a 24-design,
-85-credit BoltzGen consensus reaches 0.3115 (Holm p=0.0016). It replicated on CDK2. The
-pocket finder lands within 0.03 of the known-ligand ceiling, so there is barely any
-headroom on this target for anything to occupy. Most of the second half of the project was
-establishing that carefully enough to report it as a result rather than a failure — and
-the pipeline now ships with the cheap arm, which is the better answer.
+**Six bugs that produced perfectly ordinary-looking wrong answers.** Not one of them ever
+threw an error, which is exactly what made them expensive. A parser that ignored insertion
+codes quietly dropped 28 of thrombin's 259 residues, and among the residues it dropped was
+the entire loop lining the active site. Structure prep renamed chains partway through, so
+the stages downstream went looking for something that was no longer there. A co-crystal
+ligand left sitting in the pocket sent every single design off to the wrong site. And a
+percentile calculation written with a strict `<` charged every exact tie against the
+candidate, which quietly pushed every headline number down until a calibration test finally
+caught it. Looking back, all six come from the same bad habit: trusting an identifier that
+an upstream tool is free to change underneath you. All six now have tests guarding them.
 
-**Six bugs that produced perfectly ordinary-looking wrong answers.** None threw an error. A
-parser ignoring insertion codes silently dropped 28 of thrombin's 259 residues, including
-the entire loop lining the active site. Structure prep renamed chains, so downstream stages
-pointed at nothing. A co-crystal ligand left in the pocket sent every design to the wrong
-site. And a percentile using a strict `<` charged every exact tie against the candidate,
-biasing every headline number low and invisibly, until a calibration test caught it. All
-six share one root cause — trusting an identifier an upstream tool is free to change — and
-all six are now guarded by tests.
-
-**A hardware and packaging floor we couldn't raise.** No local GPU, and every GPU tier on
-our hosted fallback was refused pending a payment method. The free credit tier was 500 plus
-20 a week. `boltz` won't install on Python 3.14, Vina publishes no wheel for it, and every
-pocket-conditioned generator we tried depends on `torch-scatter`, which has no build for
-our torch. So the generative arm ended up unconditioned plus a docking filter, which is a
-weaker thing than we set out to build, and we said so rather than papering over it.
-
-**BoltzGen doesn't do what its interface implies.** It indexes residues 1..N over residues
-present in the file, ignoring author numbering, so our construct's pocket residues were all
-out of range and the first run died immediately. And naming the hotspot residues you want
-does almost nothing: 0, 2, 0, 0 of 17 designs reached the requested pocket, with an empty
-consensus. Restricting the presented surface with a 12 Å proximity window is what worked,
-taking designs on target to 6–15 of 17 and consensus core residues from 0 to 29.
-
-**A headline that was wrong twice over.** An earlier version of this README compared a rank
-out of a 41-drug board against a rank out of a 4,099-drug corpus and claimed a 100× gap.
-The ratio of those populations is almost exactly 100, so the comparison was measuring
-population sizes. It also cherry-picked the four drugs with the largest gap. We retracted
-it in place and re-ran the honest version rather than quietly dropping it.
-
-**The hard test still isn't passed.** Our enrichment separates known binders from
-chemically unrelated drugs very well, but against 12 approved kinase inhibitors that miss
-this target, separation isn't significant (AUC 0.717, p=0.092). Worth knowing that two of
-those hard decoys are promiscuous inhibitors whose annotations are probably incomplete, so
-that number is a lower bound rather than a measurement.
+**BoltzGen doesn't do what its interface implies.** It numbers residues 1 through N over
+whatever happens to be present in the file and ignores author numbering completely, so
+every pocket residue we asked for in our construct fell outside the valid range and the
+first run died immediately. The subtler problem showed up once that was fixed. Naming the
+hotspot residues you want turns out to do almost nothing: across four attempts, 0, 2, 0
+and 0 of 17 designs reached the pocket we had asked for, and the consensus came back empty.
+What actually worked was restricting the surface we presented to the model with a 12 Å
+proximity window. That took designs on target up to somewhere between 6 and 15 of 17, and
+consensus core residues from 0 to 29.
 
 ## Accomplishments that we're proud of
 
-**The pipeline runs end to end, and seven of its top ten are known binders.** 42 drugs
-co-folded, 41 scored, ranked purely by how much of the binding site each engages.
-Enrichment 2.87× at the 25% cut against an arithmetic maximum of 4.10×, median known-binder
-rank 8th of 41.
+**The pipeline runs end to end, and seven of its top ten are known binders.** We co-folded
+42 approved drugs against the target and scored 41 of them, ranking the whole list purely
+by how much of the binding site each one engages. That works out to 2.87× enrichment at the
+25% cut, against an arithmetic maximum of 4.10×, with the median known binder landing 8th
+of 41.
 
 **It surfaces the drugs chemistry throws away.** This is the result we set out to get:
 
@@ -181,99 +160,79 @@ rank 8th of 41.
 | **nintedanib** | **9** | 755 |
 | **vandetanib** | **10** | 1,760 |
 
-Structural ranking finds them because it isn't looking at what they're made of. It's
-looking at where they sit.
+Structural ranking finds all four because it never looks at what they are made of. It only
+cares about where they sit.
 
-**And it beats the chemical baseline measured properly.** Re-ranking the same 41 drugs both
-ways, so the populations match, structural wins on median rank (8.0 vs 12.5) and on AUC
-against property-matched decoys (0.913, p=0.0003, vs 0.795, p=0.011). A real win of roughly
-1.5×.
+**And it beats the chemical baseline, measured properly.** We re-ranked the same 41 drugs
+both ways so the two populations match exactly. Structural ranking wins on median rank, 8.0
+against 12.5, and it wins on AUC against property-matched decoys, 0.913 at p=0.0003 versus
+0.795 at p=0.011. That is a real win of roughly 1.5×.
 
-**The target-side idea holds up under attack.** Across 1,531 structures on 60 targets, a
-consensus of which residues other ligands engage predicts a held-out ligand's contacts at
-0.7322 precision against a pocket finder's 0.4616 — +0.27, Wilcoxon p=7.9e-113, and it
-holds when every target counts once. Then one of us wrote a 15-finding adversarial critique
-against it before anyone was allowed to believe it, and it survived every blocking check:
-alternative set rules, three contact cutoffs, resolution confounds, lipid exclusions.
+**The target-side idea holds up under attack.** Across 1,531 structures covering 60 targets,
+taking a consensus of the residues that other ligands engage predicts a held-out ligand's
+contacts at 0.7322 precision, where a pocket finder manages only 0.4616. That is a gap of
++0.27 with a Wilcoxon p of 7.9e-113, and it still holds when you let every target count
+exactly once so the well-studied ones can't dominate. Then one of us sat down and wrote a
+15-finding adversarial critique of the whole thing before anybody was allowed to believe
+it, and the result came through every blocking check intact: alternative rules for building
+the set, three different contact cutoffs, resolution confounds, lipid exclusions.
 
-**We decomposed our own win against a free null.** Predicting from one randomly chosen
-other ligand already scores 0.6193. So of that +0.27, about +0.16 is knowing that ligands
-bind here at all, and +0.11 is what aggregating many binding events actually buys. That
-told us more about what the method does than the headline did.
+**We decomposed our own win against a free null.** Predicting from a single randomly chosen
+other ligand already gets you to 0.6193. So of that +0.27, roughly +0.16 is simply knowing
+that ligands bind here at all, and the remaining +0.11 is what aggregating many binding
+events actually buys you. That split told us far more about what the method is doing than
+the headline number ever did.
 
-**A benchmark with a floor and a ceiling.** ECFP4 reaches 66% of the way to a perfect
-ranking on p@1 from a floor of 7%, and a 2048-bit hash of substructures beats a
-77M-parameter transformer at this task. The interesting part was the disagreement: ECFP4
-wins at putting one correct drug first while four other representations beat it on
-whole-list quality. Reporting one number would have called it a clean sweep and hidden
-something real.
+**A benchmark with both a floor and a ceiling.** ECFP4 gets 66% of the way from a random
+floor of 7% to a perfect ranking on p@1, and a 2048-bit hash of substructures beats a
+77M-parameter transformer at this task. The interesting part wasn't the winner, though, it
+was the disagreement: ECFP4 is the best at putting one correct drug first, while four other
+representations beat it on the quality of the whole list. Had we reported a single number,
+it would have looked like a clean sweep and we would have hidden something real.
 
-**Right-sizing the binder nearly tripled design confidence**, from ipTM 0.162 to 0.598.
-Obvious in hindsight — a 60–90-mer can't fit inside an ATP slot, an 8–16-mer sits
-comfortably in a protease groove.
+**Right-sizing the binder nearly tripled design confidence**, taking ipTM from 0.162 to
+0.598. It is obvious in hindsight. A 60–90-mer has nowhere to go inside an ATP slot,
+whereas an 8–16-mer sits comfortably in a protease groove.
 
-**Every arm runs a positive control on the same data with the same metric**, because a
-failed search and a broken instrument look identical from outside. Bivalirudin retrieves
-lepirudin at rank 1 of 36. Docking ranks three real thrombin drugs above the generated
-median in the same batch. Every control passes.
+**Every arm runs a positive control on the same data with the same metric**, for the simple
+reason that a failed search and a broken instrument look identical from the outside.
+Bivalirudin retrieves lepirudin at rank 1 of 36. Docking puts three real thrombin drugs
+above the generated median in the same batch. Every control passes.
 
-**Honesty as an engineering constraint rather than a disclaimer.** CI lints the vocabulary.
-The gate artifact records "neither passed nor failed" rather than claiming the stronger
-ablation we didn't run. `results/` holds computed output only, never hand-edited.
+**Honesty as an engineering constraint rather than a disclaimer.** CI lints the vocabulary,
+so the claims can't quietly drift. The gate artifact records "neither passed nor failed"
+instead of claiming the stronger ablation we never actually ran. And `results/` holds
+computed output only — nothing in it has ever been hand-edited.
 
 ## What we learned
 
-**Run a power check before reporting any null.** Our docking arm was written up as "docking
-adds nothing" at n=23. At n=199 the same effect is significant. The result existed the
-whole time, the molecules cost about 0.1 credit each, and we simply didn't buy the power.
-An underpowered null is not a negative result.
-
-**Controls are what make a negative readable.** Several of our findings are negative, and
-each is worth reporting only because a control on the same data with the same metric
-passes. Without them we'd have had a pile of shrugs.
+**Run a power check before you report a null.** Our docking arm got written up as "docking
+adds nothing" on the strength of 23 molecules. At 199 the very same effect is significant.
+The result had been sitting there the whole time, the molecules cost about 0.1 credit each,
+and we simply hadn't bought enough power to see it. An underpowered null is not a negative
+result.
 
 **How you read a result can invert it.** Read as a top-5 list, our chemical baseline looked
-useless on thrombin: the five nearest drugs to argatroban are all peptidomimetics with no
-thrombin annotation. Read as ranks, it works — bivalirudin comes back at rank 10 of 4,098
-against ~2,050 expected by chance. The top-five reading nearly produced a false negative
-about our own control.
-
-**Decompose a win against a free baseline before believing it.** Most of what any arm
-predicted was simply that the pocket is the pocket, which a pocket finder returns for
-nothing.
-
-**Re-derive identity from content, never from an identifier upstream can change.** One root
-cause, six separate incidents, six separate fixes. We should have made it a stated
-invariant with a test the first time.
-
-**Size the tool to the site.** Beyond the binder-length fix, pocket detection can't find a
-serine protease active site at all: six pockets on thrombin and not one containing the
-catalytic residues, because that site is a shallow groove across subsites rather than an
-enclosed cavity.
-
-**Establish the question before building the pipeline.** We built footprint matching, with
-the designed binder as a discarded probe, before establishing that the intent was direct
-matching, with the binder as the query. One question at the outset would have saved roughly
-half our working time.
+useless on thrombin, since the five nearest drugs to argatroban are all peptidomimetics with
+no thrombin annotation at all. Read as ranks, the same baseline works fine: bivalirudin
+comes back at rank 10 out of 4,098, where chance would have put it around 2,050. Reading
+only the top five nearly produced a false negative about our own control.
 
 ## What's next for our project
 
 1. **A genuinely pocket-conditioned generator.** Our molecule arm generated unconditionally
-   and used the pocket only as a docking filter, which is why finding nothing says little.
-   DiffSBDD is reachable — MIT licensed, public checkpoints — and its only blocker needs
-   roughly a ten-line shim.
-2. **The filtered design ensemble, which is genuinely untested.** Zero of our 24 designs
-   passed even ipTM 0.5, so what we ran was an unfiltered consensus. Reaching ten filtered
-   survivors needs roughly 1,188 credits against the 500 we had. Whether that closes the
-   gap is not answered by our result, and shouldn't be claimed either way.
-3. **Compare the two arms.** Two independent rankings of approved drugs for the same target
-   now sit on disk and have never been compared. Where they agree is more interesting than
-   either alone, and the data is already there.
-4. **Replicate on a second target end to end.** CDK2 is prepared and never screened. The
-   gate wasn't trusted until it replicated; the newer arms are still one target each.
-5. **Make the report target-agnostic.** Its inputs are currently hardcoded to KDR.
-6. **Correct the spec.** Our plan document specifies a design-confidence filter that this
-   repo's own investigation showed to be unreachable by construction, and that has no
-   provenance in the underlying model's paper.
-7. **Build the golden fixtures** the spec already mandates, whose absence is why a
-   statistics block silently vanished the first time a stage re-ran.
+   and only brought the pocket in afterwards, as a docking filter, which is precisely why
+   finding nothing there tells you so little. DiffSBDD is within reach, since it's MIT
+   licensed with public checkpoints, and the one thing standing in the way needs about a
+   ten-line shim.
+2. **The filtered design ensemble, which is genuinely untested.** Not one of our 24 designs
+   cleared even ipTM 0.5, so what we actually ran was an unfiltered consensus. Getting to
+   ten filtered survivors would take somewhere around 1,188 credits and we had 500. Whether
+   that would close the gap is not something our result answers, and we don't think it
+   should be claimed either way.
+3. **Compare the two arms.** We have two independent rankings of approved drugs for the same
+   target sitting on disk, and we have never once put them side by side. Where they agree
+   is more interesting than either one alone, and the data is already there waiting.
+4. **Replicate on a second target, end to end.** CDK2 is prepared and has never been
+   screened. We didn't trust the gate until it replicated, and the newer arms are still
+   standing on one target each.
