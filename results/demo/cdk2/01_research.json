@@ -1,0 +1,355 @@
+{
+ "target": {
+  "symbol": "CDK2",
+  "uniprot": "P24941",
+  "pdb_id": "6Q4G",
+  "chain": "A"
+ },
+ "uniprot": {
+  "accession": "P24941",
+  "id": "CDK2_HUMAN",
+  "name": "Cyclin-dependent kinase 2",
+  "organism": "Homo sapiens",
+  "sequence_length": 298,
+  "sequence": "MENFQKVEKIGEGTYGVVYKARNKLTGEVVALKKIRLDTETEGVPSTAIREISLLKELNHPNIVKLLDVIHTENKLYLVFEFLHQDLKKFMDASALTGIPLPLIKSYLFQLLQGLAFCHSHRVLHRDLKPQNLLINTEGAIKLADFGLARAFGVPVRTYTHEVVTLWYRAPEILLGCKYYSTAVDIWSLGCIFAEMVTRRALFPGDSEIDQLFRIFRTLGTPDEVVWPGVTSMPDYKPSFPKWARQDFSKVVPPLDEDGRSLLSQMLHYDPNKRISAKAALAHPFFQDVTKPVPHLRL"
+ },
+ "annotated_site": {
+  "source": "UniProt features (ft_binding, ft_act_site)",
+  "ligands": [
+   "ADP",
+   "ATP",
+   "Mg(2+)"
+  ],
+  "residue_ids_author": [
+   10,
+   11,
+   12,
+   13,
+   14,
+   15,
+   16,
+   17,
+   18,
+   33,
+   81,
+   82,
+   83,
+   86,
+   127,
+   129,
+   130,
+   131,
+   132,
+   145
+  ],
+  "n": 20,
+  "features": [
+   {
+    "type": "Active site",
+    "start": 127,
+    "end": 127,
+    "ligand": null
+   },
+   {
+    "type": "Binding site",
+    "start": 10,
+    "end": 10,
+    "ligand": "ATP"
+   },
+   {
+    "type": "Binding site",
+    "start": 11,
+    "end": 11,
+    "ligand": "ATP"
+   },
+   {
+    "type": "Binding site",
+    "start": 12,
+    "end": 12,
+    "ligand": "ATP"
+   },
+   {
+    "type": "Binding site",
+    "start": 13,
+    "end": 13,
+    "ligand": "ATP"
+   },
+   {
+    "type": "Binding site",
+    "start": 14,
+    "end": 14,
+    "ligand": "ADP"
+   },
+   {
+    "type": "Binding site",
+    "start": 14,
+    "end": 14,
+    "ligand": "ATP"
+   },
+   {
+    "type": "Binding site",
+    "start": 15,
+    "end": 15,
+    "ligand": "ATP"
+   },
+   {
+    "type": "Binding site",
+    "start": 16,
+    "end": 16,
+    "ligand": "ATP"
+   },
+   {
+    "type": "Binding site",
+    "start": 17,
+    "end": 17,
+    "ligand": "ATP"
+   },
+   {
+    "type": "Binding site",
+    "start": 18,
+    "end": 18,
+    "ligand": "ATP"
+   },
+   {
+    "type": "Binding site",
+    "start": 33,
+    "end": 33,
+    "ligand": "ADP"
+   },
+   {
+    "type": "Binding site",
+    "start": 33,
+    "end": 33,
+    "ligand": "ATP"
+   },
+   {
+    "type": "Binding site",
+    "start": 81,
+    "end": 83,
+    "ligand": "ATP"
+   },
+   {
+    "type": "Binding site",
+    "start": 81,
+    "end": 81,
+    "ligand": "ADP"
+   },
+   {
+    "type": "Binding site",
+    "start": 83,
+    "end": 83,
+    "ligand": "ADP"
+   },
+   {
+    "type": "Binding site",
+    "start": 86,
+    "end": 86,
+    "ligand": "ATP"
+   },
+   {
+    "type": "Binding site",
+    "start": 127,
+    "end": 127,
+    "ligand": "Mg(2+)"
+   },
+   {
+    "type": "Binding site",
+    "start": 129,
+    "end": 132,
+    "ligand": "ATP"
+   },
+   {
+    "type": "Binding site",
+    "start": 132,
+    "end": 132,
+    "ligand": "Mg(2+)"
+   },
+   {
+    "type": "Binding site",
+    "start": 145,
+    "end": 145,
+    "ligand": "ATP"
+   },
+   {
+    "type": "Binding site",
+    "start": 145,
+    "end": 145,
+    "ligand": "Mg(2+)"
+   }
+  ]
+ },
+ "literature": {
+  "query": "CDK2[Title/Abstract] AND (inhibitor[Title/Abstract] OR \"drug repurposing\"[Title/Abstract])",
+  "n_hits": 10,
+  "articles": [
+   {
+    "pmid": "42760243",
+    "title": "Retraction notice to \"Persistent Cdk2 inactivation drives growth arrest of BCR-ABL-expressing cells in response to dual inhibitor of SRC and ABL kinases SKI606\" [Leuk. Res. 31 (2007) 979-987].",
+    "journal": "Leukemia research",
+    "pub_date": "2026 Sep 18",
+    "authors": [
+     "Mancini M",
+     "Brusa G",
+     "Zuffa E",
+     "Corrado P",
+     "Martinelli G",
+     "Grafone T",
+     "Barbieri E",
+     "Santucci MA"
+    ]
+   },
+   {
+    "pmid": "42756618",
+    "title": "Porosity-engineered long-acting protopanaxadiol microspheres prevent CDK4/6 inhibitor-induced myelosuppression.",
+    "journal": "Materials today. Bio",
+    "pub_date": "2026 Oct",
+    "authors": [
+     "Zhang A",
+     "Zhu Y",
+     "Kong X",
+     "Liu Z",
+     "Tan M",
+     "Yu H",
+     "Jing G",
+     "Gou J",
+     "Yin T",
+     "He H",
+     "Zhang Y",
+     "Zhang X",
+     "Liu K",
+     "Xiao P",
+     "Tang X"
+    ]
+   },
+   {
+    "pmid": "42708791",
+    "title": "miRNA-34b overexpression alleviates neuromyelitis optica spectrum disorders by regulating the TIA-1-stress granule pathway.",
+    "journal": "Pakistan journal of pharmaceutical sciences",
+    "pub_date": "2026 Dec 1",
+    "authors": [
+     "Dai Y",
+     "Dai A",
+     "Liu Y"
+    ]
+   },
+   {
+    "pmid": "42683756",
+    "title": "Castration-resistant prostate cancer cells are addicted to the high activity of cyclin-dependent kinase 2.",
+    "journal": "Molecular oncology",
+    "pub_date": "2026 Sep 2",
+    "authors": [
+     "Chatterjee J",
+     "Marin A",
+     "Yalala S",
+     "Itkonen HM"
+    ]
+   },
+   {
+    "pmid": "42658044",
+    "title": "The non-canonical CDK2 activator SPY1 uses separable mechanisms to activate phosphorylated and unphosphorylated CDK2.",
+    "journal": "The Biochemical journal",
+    "pub_date": "2026 Oct 7",
+    "authors": [
+     "Fawcett LP",
+     "Levinson NM"
+    ]
+   },
+   {
+    "pmid": "42654250",
+    "title": "10-HDA Suppresses the Growth of Gastric Cancer Cells Through Inducing Apoptosis and G0/G1 Cell Cycle Arrest.",
+    "journal": "Nutrients",
+    "pub_date": "2026 Aug 15",
+    "authors": [
+     "Huang L",
+     "Lin T",
+     "Jiang S",
+     "Lin A",
+     "Zhu Y",
+     "Lin Z",
+     "Lin Y",
+     "Su S"
+    ]
+   },
+   {
+    "pmid": "42652259",
+    "title": "Correction: Pauzaite et al. Dbf4-Cdc7 (DDK) Inhibitor PHA-767491 Displays Potent Anti-Proliferative Effects via Crosstalk with the CDK2-RB-E2F Pathway. Biomedicines 2022, 10, 2012.",
+    "journal": "Biomedicines",
+    "pub_date": "2026 Aug 14",
+    "authors": [
+     "Pauzaite T",
+     "Tollitt J",
+     "Sopaci B",
+     "Caprani L",
+     "Iwanowytsch O",
+     "Thacker U",
+     "Hardy JG",
+     "Allinson SL",
+     "Copeland NA"
+    ]
+   },
+   {
+    "pmid": "42651965",
+    "title": "GPR35 Mediates the Proliferation and Adipogenesis of Goat Intramuscular Preadipocytes Through the cAMP/PKA Signaling Pathway.",
+    "journal": "Animals : an open access journal from MDPI",
+    "pub_date": "2026 Aug 17",
+    "authors": [
+     "Wang F",
+     "Meng Q",
+     "Gao J",
+     "Cui T",
+     "Qi Z",
+     "Zhao N",
+     "Lin Y",
+     "Xing J",
+     "Wang Y",
+     "Li Y"
+    ]
+   },
+   {
+    "pmid": "42597974",
+    "title": "Miconazole as a Repurposed Anticancer Candidate for Prostate Cancer.",
+    "journal": "ACS omega",
+    "pub_date": "2026 Aug 11",
+    "authors": [
+     "Ghali ENHK",
+     "Shim L",
+     "Baru R",
+     "Dhasmana A",
+     "Chang RJ",
+     "Jung SY",
+     "Tiwari R",
+     "Chauhan N",
+     "Kashyap V",
+     "Khan S",
+     "Nguyen D",
+     "Chauhan SC",
+     "Yallapu MM"
+    ]
+   },
+   {
+    "pmid": "42574092",
+    "title": "Targeting CDK-2 With Novel Indole-Pyrazole Hybrids: Discovery of Potent Anticancer Agents Supported by Mechanistic and In Silico Studies.",
+    "journal": "Drug development research",
+    "pub_date": "2026 Aug",
+    "authors": [
+     "Eldehna WM",
+     "Elsayed ZM",
+     "Elnagar MR",
+     "Omar YM",
+     "Abdulla MH",
+     "Saleh AM",
+     "Shalabi AR",
+     "Elimam DM",
+     "Alshamari S",
+     "Fares M",
+     "Tawfik HO"
+    ]
+   }
+  ],
+  "error": null
+ },
+ "toolkit": [
+  "database.fetch_uniprot_entry",
+  "literature.search_pubmed"
+ ]
+}

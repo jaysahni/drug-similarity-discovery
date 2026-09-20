@@ -1,0 +1,80 @@
+{
+ "workflow_uuid": "bb015bf6-1828-4a6b-9d94-b18a1a3e7cb1",
+ "n_designs": 4,
+ "protocol": "protein-anything",
+ "binder_length": "60..90",
+ "budget": 4,
+ "binding_spec_1based": "13,14,15,16,17,18,33,34,35,123,125,126,128,138,139",
+ "binding_residues_author": [
+  13,
+  14,
+  15,
+  16,
+  17,
+  18,
+  33,
+  34,
+  35,
+  129,
+  131,
+  132,
+  134,
+  144,
+  145
+ ],
+ "designs": [
+  {
+   "design_id": 0,
+   "bound_structure_uuid": "b8322879-6089-424d-b2a6-fd1c7bc1c14b",
+   "sequence": "SPLLERALELLDKMVAAAEAGDLEAAVEHAKELKEIVDKLSPEEADEVAGYIVDVGRKLVAEGKLEAANNLGKALEESGLRVL",
+   "iptm": 0.197,
+   "design_to_target_iptm": 0.197,
+   "quality_score": 1.0,
+   "delta_sasa_refolded": 938.74,
+   "num_filters_passed": 1
+  },
+  {
+   "design_id": 1,
+   "bound_structure_uuid": "fead2478-babf-46bf-9187-5e9f68f4be9f",
+   "sequence": "KAFEAALAAARAALAAGGDLAAAAGAAAGAGAREGAPGAGLRALVALGYSEEEAQEAGDAMVG",
+   "iptm": 0.288,
+   "design_to_target_iptm": 0.288,
+   "quality_score": 0.947,
+   "delta_sasa_refolded": 937.881,
+   "num_filters_passed": 1
+  },
+  {
+   "design_id": 2,
+   "bound_structure_uuid": "1e02910c-1774-492f-9ab1-f574bb6d8da8",
+   "sequence": "KQIFVKTLTGKTITLEVEPSDTVEDLKAKIQDKEGIPPDQQSLVYEGVLLEDGTKIGELPEDATLTIRAPVP",
+   "iptm": 0.183,
+   "design_to_target_iptm": 0.183,
+   "quality_score": 0.895,
+   "delta_sasa_refolded": 735.872,
+   "num_filters_passed": 1
+  },
+  {
+   "design_id": 3,
+   "bound_structure_uuid": "1ffb9bf9-b17e-4340-81a8-8284360ef628",
+   "sequence": "LTEEELKKIAEETGLSVEDVKKILELVLENNGRISEEELEALAKELGKSVETVEKAYELILKKLGLRAP",
+   "iptm": 0.185,
+   "design_to_target_iptm": 0.185,
+   "quality_score": 0.842,
+   "delta_sasa_refolded": 542.289,
+   "num_filters_passed": 1
+  }
+ ],
+ "iptm": {
+  "min": 0.183,
+  "max": 0.288,
+  "mean": 0.2132,
+  "n_above_0.85": 0,
+  "note": "PROJECT_GOAL.md 4.3 suggests filtering designs at ipTM 0.85. Report the count above it; if it is zero the consensus below is UNFILTERED and must be labelled as such."
+ },
+ "credits_charged": 71.6,
+ "compute_hardware": "A100_80GB",
+ "elapsed_s": 1432.07,
+ "toolkit": [
+  "rowan.design_protein_binder"
+ ]
+}

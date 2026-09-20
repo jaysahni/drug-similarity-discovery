@@ -1,0 +1,863 @@
+{
+ "arm": "P (peptide, direct matching)",
+ "target": {
+  "symbol": "F2",
+  "uniprot": "P00734"
+ },
+ "question": "which approved peptide does the designed binder most resemble?",
+ "corpus": {
+  "file": "data/approved_biologics.csv",
+  "n": 37,
+  "max_length_aa": 100,
+  "n_annotated_to_target": 2,
+  "annotated_names": [
+   "bivalirudin",
+   "lepirudin"
+  ],
+  "base_rate": 0.0541
+ },
+ "null": {
+  "construction": "composition-preserving shuffles of the designs themselves",
+  "n": 300,
+  "mean": 0.9713,
+  "sd": 0.0147,
+  "min": 0.8969,
+  "p50": 0.9743,
+  "p95": 0.985,
+  "max": 0.9873
+ },
+ "embedding": {
+  "model": "biohub/ESMC-300M",
+  "dim": 960
+ },
+ "positive_control": {
+  "status": "evaluated",
+  "pairs": [
+   {
+    "query": "bivalirudin",
+    "retrieves": "lepirudin",
+    "rank": 1,
+    "of": 36,
+    "cosine": 0.9179
+   },
+   {
+    "query": "lepirudin",
+    "retrieves": "bivalirudin",
+    "rank": 5,
+    "of": 36,
+    "cosine": 0.9179
+   }
+  ]
+ },
+ "hub_check": {
+  "n_random_queries": 60,
+  "most_frequent_nearest_neighbour": "abarelix",
+  "times_selected": 46,
+  "fraction": 0.767,
+  "distribution": {
+   "abarelix": 46,
+   "afamelanotide": 13,
+   "eptifibatide": 1
+  }
+ },
+ "designs": [
+  {
+   "design_id": 3,
+   "sequence": "GSTIVFPA",
+   "length": 8,
+   "design_to_target_iptm": 0.525,
+   "nearest_by_esmc": {
+    "name": "abarelix",
+    "esmc_cosine": 0.9849,
+    "identity": 0.125,
+    "novelty": "novel_pairing",
+    "targets": "GNRHR"
+   },
+   "nearest_by_identity": {
+    "name": "calcitonin salmon",
+    "esmc_cosine": 0.3797,
+    "identity": 0.375,
+    "novelty": "novel_pairing",
+    "targets": "CALCR"
+   },
+   "metrics_agree": false,
+   "nn_cosine": 0.9849,
+   "null_percentile": 0.9467,
+   "enrichment": {
+    "symbol": "F2",
+    "top_k": 5,
+    "n_known_in_top_k": 0,
+    "n_known_total": 2,
+    "n_corpus": 37,
+    "base_rate": 0.0541,
+    "enrichment_factor": 0.0,
+    "known_ranks": [
+     14,
+     17
+    ]
+   },
+   "leaderboards": {
+    "all": [
+     {
+      "name": "abarelix",
+      "esmc_cosine": 0.9849,
+      "identity": 0.125,
+      "novelty": "novel_pairing",
+      "rank_in_board": 1
+     },
+     {
+      "name": "afamelanotide",
+      "esmc_cosine": 0.9733,
+      "identity": 0.125,
+      "novelty": "novel_pairing",
+      "rank_in_board": 2
+     },
+     {
+      "name": "bremelanotide",
+      "esmc_cosine": 0.9651,
+      "identity": 0.1667,
+      "novelty": "novel_pairing",
+      "rank_in_board": 3
+     },
+     {
+      "name": "semaglutide",
+      "esmc_cosine": 0.9556,
+      "identity": 0.125,
+      "novelty": "novel_pairing",
+      "rank_in_board": 4
+     },
+     {
+      "name": "exenatide",
+      "esmc_cosine": 0.9555,
+      "identity": 0.25,
+      "novelty": "novel_pairing",
+      "rank_in_board": 5
+     },
+     {
+      "name": "pramlintide",
+      "esmc_cosine": 0.9549,
+      "identity": 0.375,
+      "novelty": "novel_pairing",
+      "rank_in_board": 6
+     },
+     {
+      "name": "palopegteriparatide",
+      "esmc_cosine": 0.9409,
+      "identity": 0.25,
+      "novelty": "novel_pairing",
+      "rank_in_board": 7
+     },
+     {
+      "name": "teriparatide acetate",
+      "esmc_cosine": 0.9366,
+      "identity": 0.25,
+      "novelty": "novel_pairing",
+      "rank_in_board": 8
+     },
+     {
+      "name": "tesamorelin",
+      "esmc_cosine": 0.9354,
+      "identity": 0.25,
+      "novelty": "novel_pairing",
+      "rank_in_board": 9
+     },
+     {
+      "name": "parathyroid hormone",
+      "esmc_cosine": 0.931,
+      "identity": 0.25,
+      "novelty": "novel_pairing",
+      "rank_in_board": 10
+     }
+    ],
+    "known_only": [
+     {
+      "name": "lepirudin",
+      "esmc_cosine": 0.9118,
+      "identity": 0.25,
+      "novelty": "known_moa",
+      "rank_in_board": 1
+     },
+     {
+      "name": "bivalirudin",
+      "esmc_cosine": 0.8768,
+      "identity": 0.25,
+      "novelty": "known_moa",
+      "rank_in_board": 2
+     }
+    ],
+    "novel_only": [
+     {
+      "name": "abarelix",
+      "esmc_cosine": 0.9849,
+      "identity": 0.125,
+      "novelty": "novel_pairing",
+      "rank_in_board": 1
+     },
+     {
+      "name": "afamelanotide",
+      "esmc_cosine": 0.9733,
+      "identity": 0.125,
+      "novelty": "novel_pairing",
+      "rank_in_board": 2
+     },
+     {
+      "name": "bremelanotide",
+      "esmc_cosine": 0.9651,
+      "identity": 0.1667,
+      "novelty": "novel_pairing",
+      "rank_in_board": 3
+     },
+     {
+      "name": "semaglutide",
+      "esmc_cosine": 0.9556,
+      "identity": 0.125,
+      "novelty": "novel_pairing",
+      "rank_in_board": 4
+     },
+     {
+      "name": "exenatide",
+      "esmc_cosine": 0.9555,
+      "identity": 0.25,
+      "novelty": "novel_pairing",
+      "rank_in_board": 5
+     },
+     {
+      "name": "pramlintide",
+      "esmc_cosine": 0.9549,
+      "identity": 0.375,
+      "novelty": "novel_pairing",
+      "rank_in_board": 6
+     },
+     {
+      "name": "palopegteriparatide",
+      "esmc_cosine": 0.9409,
+      "identity": 0.25,
+      "novelty": "novel_pairing",
+      "rank_in_board": 7
+     },
+     {
+      "name": "teriparatide acetate",
+      "esmc_cosine": 0.9366,
+      "identity": 0.25,
+      "novelty": "novel_pairing",
+      "rank_in_board": 8
+     },
+     {
+      "name": "tesamorelin",
+      "esmc_cosine": 0.9354,
+      "identity": 0.25,
+      "novelty": "novel_pairing",
+      "rank_in_board": 9
+     },
+     {
+      "name": "parathyroid hormone",
+      "esmc_cosine": 0.931,
+      "identity": 0.25,
+      "novelty": "novel_pairing",
+      "rank_in_board": 10
+     }
+    ]
+   }
+  },
+  {
+   "design_id": 0,
+   "sequence": "PPARPMAVY",
+   "length": 9,
+   "design_to_target_iptm": 0.64,
+   "nearest_by_esmc": {
+    "name": "abarelix",
+    "esmc_cosine": 0.9734,
+    "identity": 0.2222,
+    "novelty": "novel_pairing",
+    "targets": "GNRHR"
+   },
+   "nearest_by_identity": {
+    "name": "corticotropin",
+    "esmc_cosine": 0.528,
+    "identity": 0.4444,
+    "novelty": "novel_pairing",
+    "targets": "MC2R"
+   },
+   "metrics_agree": false,
+   "nn_cosine": 0.9734,
+   "null_percentile": 0.4633,
+   "enrichment": {
+    "symbol": "F2",
+    "top_k": 5,
+    "n_known_in_top_k": 0,
+    "n_known_total": 2,
+    "n_corpus": 37,
+    "base_rate": 0.0541,
+    "enrichment_factor": 0.0,
+    "known_ranks": [
+     16,
+     17
+    ]
+   },
+   "leaderboards": {
+    "all": [
+     {
+      "name": "abarelix",
+      "esmc_cosine": 0.9734,
+      "identity": 0.2222,
+      "novelty": "novel_pairing",
+      "rank_in_board": 1
+     },
+     {
+      "name": "afamelanotide",
+      "esmc_cosine": 0.9614,
+      "identity": 0.1111,
+      "novelty": "novel_pairing",
+      "rank_in_board": 2
+     },
+     {
+      "name": "bremelanotide",
+      "esmc_cosine": 0.9609,
+      "identity": 0.1667,
+      "novelty": "novel_pairing",
+      "rank_in_board": 3
+     },
+     {
+      "name": "exenatide",
+      "esmc_cosine": 0.9558,
+      "identity": 0.3333,
+      "novelty": "novel_pairing",
+      "rank_in_board": 4
+     },
+     {
+      "name": "semaglutide",
+      "esmc_cosine": 0.9401,
+      "identity": 0.1111,
+      "novelty": "novel_pairing",
+      "rank_in_board": 5
+     },
+     {
+      "name": "pramlintide",
+      "esmc_cosine": 0.9387,
+      "identity": 0.3333,
+      "novelty": "novel_pairing",
+      "rank_in_board": 6
+     },
+     {
+      "name": "tesamorelin",
+      "esmc_cosine": 0.9362,
+      "identity": 0.2222,
+      "novelty": "novel_pairing",
+      "rank_in_board": 7
+     },
+     {
+      "name": "parathyroid hormone",
+      "esmc_cosine": 0.9236,
+      "identity": 0.2222,
+      "novelty": "novel_pairing",
+      "rank_in_board": 8
+     },
+     {
+      "name": "palopegteriparatide",
+      "esmc_cosine": 0.9202,
+      "identity": 0.1111,
+      "novelty": "novel_pairing",
+      "rank_in_board": 9
+     },
+     {
+      "name": "teriparatide acetate",
+      "esmc_cosine": 0.9187,
+      "identity": 0.1111,
+      "novelty": "novel_pairing",
+      "rank_in_board": 10
+     }
+    ],
+    "known_only": [
+     {
+      "name": "lepirudin",
+      "esmc_cosine": 0.8788,
+      "identity": 0.1111,
+      "novelty": "known_moa",
+      "rank_in_board": 1
+     },
+     {
+      "name": "bivalirudin",
+      "esmc_cosine": 0.865,
+      "identity": 0.2222,
+      "novelty": "known_moa",
+      "rank_in_board": 2
+     }
+    ],
+    "novel_only": [
+     {
+      "name": "abarelix",
+      "esmc_cosine": 0.9734,
+      "identity": 0.2222,
+      "novelty": "novel_pairing",
+      "rank_in_board": 1
+     },
+     {
+      "name": "afamelanotide",
+      "esmc_cosine": 0.9614,
+      "identity": 0.1111,
+      "novelty": "novel_pairing",
+      "rank_in_board": 2
+     },
+     {
+      "name": "bremelanotide",
+      "esmc_cosine": 0.9609,
+      "identity": 0.1667,
+      "novelty": "novel_pairing",
+      "rank_in_board": 3
+     },
+     {
+      "name": "exenatide",
+      "esmc_cosine": 0.9558,
+      "identity": 0.3333,
+      "novelty": "novel_pairing",
+      "rank_in_board": 4
+     },
+     {
+      "name": "semaglutide",
+      "esmc_cosine": 0.9401,
+      "identity": 0.1111,
+      "novelty": "novel_pairing",
+      "rank_in_board": 5
+     },
+     {
+      "name": "pramlintide",
+      "esmc_cosine": 0.9387,
+      "identity": 0.3333,
+      "novelty": "novel_pairing",
+      "rank_in_board": 6
+     },
+     {
+      "name": "tesamorelin",
+      "esmc_cosine": 0.9362,
+      "identity": 0.2222,
+      "novelty": "novel_pairing",
+      "rank_in_board": 7
+     },
+     {
+      "name": "parathyroid hormone",
+      "esmc_cosine": 0.9236,
+      "identity": 0.2222,
+      "novelty": "novel_pairing",
+      "rank_in_board": 8
+     },
+     {
+      "name": "palopegteriparatide",
+      "esmc_cosine": 0.9202,
+      "identity": 0.1111,
+      "novelty": "novel_pairing",
+      "rank_in_board": 9
+     },
+     {
+      "name": "teriparatide acetate",
+      "esmc_cosine": 0.9187,
+      "identity": 0.1111,
+      "novelty": "novel_pairing",
+      "rank_in_board": 10
+     }
+    ]
+   }
+  },
+  {
+   "design_id": 2,
+   "sequence": "GGIPTSGGLVPMTSI",
+   "length": 15,
+   "design_to_target_iptm": 0.605,
+   "nearest_by_esmc": {
+    "name": "abarelix",
+    "esmc_cosine": 0.9726,
+    "identity": 0.1,
+    "novelty": "novel_pairing",
+    "targets": "GNRHR"
+   },
+   "nearest_by_identity": {
+    "name": "gonadorelin",
+    "esmc_cosine": 0.3465,
+    "identity": 0.4,
+    "novelty": "novel_pairing",
+    "targets": ""
+   },
+   "metrics_agree": false,
+   "nn_cosine": 0.9726,
+   "null_percentile": 0.4233,
+   "enrichment": {
+    "symbol": "F2",
+    "top_k": 5,
+    "n_known_in_top_k": 0,
+    "n_known_total": 2,
+    "n_corpus": 37,
+    "base_rate": 0.0541,
+    "enrichment_factor": 0.0,
+    "known_ranks": [
+     14,
+     17
+    ]
+   },
+   "leaderboards": {
+    "all": [
+     {
+      "name": "abarelix",
+      "esmc_cosine": 0.9726,
+      "identity": 0.1,
+      "novelty": "novel_pairing",
+      "rank_in_board": 1
+     },
+     {
+      "name": "afamelanotide",
+      "esmc_cosine": 0.9615,
+      "identity": 0.1667,
+      "novelty": "novel_pairing",
+      "rank_in_board": 2
+     },
+     {
+      "name": "bremelanotide",
+      "esmc_cosine": 0.9582,
+      "identity": 0.0,
+      "novelty": "novel_pairing",
+      "rank_in_board": 3
+     },
+     {
+      "name": "exenatide",
+      "esmc_cosine": 0.9544,
+      "identity": 0.2,
+      "novelty": "novel_pairing",
+      "rank_in_board": 4
+     },
+     {
+      "name": "pramlintide",
+      "esmc_cosine": 0.9485,
+      "identity": 0.1333,
+      "novelty": "novel_pairing",
+      "rank_in_board": 5
+     },
+     {
+      "name": "semaglutide",
+      "esmc_cosine": 0.94,
+      "identity": 0.2,
+      "novelty": "novel_pairing",
+      "rank_in_board": 6
+     },
+     {
+      "name": "tesamorelin",
+      "esmc_cosine": 0.929,
+      "identity": 0.2,
+      "novelty": "novel_pairing",
+      "rank_in_board": 7
+     },
+     {
+      "name": "palopegteriparatide",
+      "esmc_cosine": 0.9245,
+      "identity": 0.0667,
+      "novelty": "novel_pairing",
+      "rank_in_board": 8
+     },
+     {
+      "name": "teriparatide acetate",
+      "esmc_cosine": 0.9224,
+      "identity": 0.0667,
+      "novelty": "novel_pairing",
+      "rank_in_board": 9
+     },
+     {
+      "name": "parathyroid hormone",
+      "esmc_cosine": 0.9206,
+      "identity": 0.1333,
+      "novelty": "novel_pairing",
+      "rank_in_board": 10
+     }
+    ],
+    "known_only": [
+     {
+      "name": "lepirudin",
+      "esmc_cosine": 0.9031,
+      "identity": 0.1333,
+      "novelty": "known_moa",
+      "rank_in_board": 1
+     },
+     {
+      "name": "bivalirudin",
+      "esmc_cosine": 0.8881,
+      "identity": 0.2,
+      "novelty": "known_moa",
+      "rank_in_board": 2
+     }
+    ],
+    "novel_only": [
+     {
+      "name": "abarelix",
+      "esmc_cosine": 0.9726,
+      "identity": 0.1,
+      "novelty": "novel_pairing",
+      "rank_in_board": 1
+     },
+     {
+      "name": "afamelanotide",
+      "esmc_cosine": 0.9615,
+      "identity": 0.1667,
+      "novelty": "novel_pairing",
+      "rank_in_board": 2
+     },
+     {
+      "name": "bremelanotide",
+      "esmc_cosine": 0.9582,
+      "identity": 0.0,
+      "novelty": "novel_pairing",
+      "rank_in_board": 3
+     },
+     {
+      "name": "exenatide",
+      "esmc_cosine": 0.9544,
+      "identity": 0.2,
+      "novelty": "novel_pairing",
+      "rank_in_board": 4
+     },
+     {
+      "name": "pramlintide",
+      "esmc_cosine": 0.9485,
+      "identity": 0.1333,
+      "novelty": "novel_pairing",
+      "rank_in_board": 5
+     },
+     {
+      "name": "semaglutide",
+      "esmc_cosine": 0.94,
+      "identity": 0.2,
+      "novelty": "novel_pairing",
+      "rank_in_board": 6
+     },
+     {
+      "name": "tesamorelin",
+      "esmc_cosine": 0.929,
+      "identity": 0.2,
+      "novelty": "novel_pairing",
+      "rank_in_board": 7
+     },
+     {
+      "name": "palopegteriparatide",
+      "esmc_cosine": 0.9245,
+      "identity": 0.0667,
+      "novelty": "novel_pairing",
+      "rank_in_board": 8
+     },
+     {
+      "name": "teriparatide acetate",
+      "esmc_cosine": 0.9224,
+      "identity": 0.0667,
+      "novelty": "novel_pairing",
+      "rank_in_board": 9
+     },
+     {
+      "name": "parathyroid hormone",
+      "esmc_cosine": 0.9206,
+      "identity": 0.1333,
+      "novelty": "novel_pairing",
+      "rank_in_board": 10
+     }
+    ]
+   }
+  },
+  {
+   "design_id": 1,
+   "sequence": "GGQTFIEGKPVTIMG",
+   "length": 15,
+   "design_to_target_iptm": 0.621,
+   "nearest_by_esmc": {
+    "name": "abarelix",
+    "esmc_cosine": 0.9696,
+    "identity": 0.1,
+    "novelty": "novel_pairing",
+    "targets": "GNRHR"
+   },
+   "nearest_by_identity": {
+    "name": "eptifibatide",
+    "esmc_cosine": 0.8471,
+    "identity": 0.3333,
+    "novelty": "novel_pairing",
+    "targets": "ITGB3;ITGA2B"
+   },
+   "metrics_agree": false,
+   "nn_cosine": 0.9696,
+   "null_percentile": 0.2867,
+   "enrichment": {
+    "symbol": "F2",
+    "top_k": 5,
+    "n_known_in_top_k": 0,
+    "n_known_total": 2,
+    "n_corpus": 37,
+    "base_rate": 0.0541,
+    "enrichment_factor": 0.0,
+    "known_ranks": [
+     10,
+     15
+    ]
+   },
+   "leaderboards": {
+    "all": [
+     {
+      "name": "abarelix",
+      "esmc_cosine": 0.9696,
+      "identity": 0.1,
+      "novelty": "novel_pairing",
+      "rank_in_board": 1
+     },
+     {
+      "name": "afamelanotide",
+      "esmc_cosine": 0.9575,
+      "identity": 0.25,
+      "novelty": "novel_pairing",
+      "rank_in_board": 2
+     },
+     {
+      "name": "bremelanotide",
+      "esmc_cosine": 0.9502,
+      "identity": 0.1667,
+      "novelty": "novel_pairing",
+      "rank_in_board": 3
+     },
+     {
+      "name": "semaglutide",
+      "esmc_cosine": 0.948,
+      "identity": 0.1333,
+      "novelty": "novel_pairing",
+      "rank_in_board": 4
+     },
+     {
+      "name": "exenatide",
+      "esmc_cosine": 0.9418,
+      "identity": 0.2,
+      "novelty": "novel_pairing",
+      "rank_in_board": 5
+     },
+     {
+      "name": "pramlintide",
+      "esmc_cosine": 0.94,
+      "identity": 0.2,
+      "novelty": "novel_pairing",
+      "rank_in_board": 6
+     },
+     {
+      "name": "palopegteriparatide",
+      "esmc_cosine": 0.9343,
+      "identity": 0.2,
+      "novelty": "novel_pairing",
+      "rank_in_board": 7
+     },
+     {
+      "name": "lixisenatide",
+      "esmc_cosine": 0.9324,
+      "identity": 0.2,
+      "novelty": "novel_pairing",
+      "rank_in_board": 8
+     },
+     {
+      "name": "parathyroid hormone",
+      "esmc_cosine": 0.9315,
+      "identity": 0.1333,
+      "novelty": "novel_pairing",
+      "rank_in_board": 9
+     },
+     {
+      "name": "lepirudin",
+      "esmc_cosine": 0.9298,
+      "identity": 0.2,
+      "novelty": "known_moa",
+      "rank_in_board": 10
+     }
+    ],
+    "known_only": [
+     {
+      "name": "lepirudin",
+      "esmc_cosine": 0.9298,
+      "identity": 0.2,
+      "novelty": "known_moa",
+      "rank_in_board": 1
+     },
+     {
+      "name": "bivalirudin",
+      "esmc_cosine": 0.9018,
+      "identity": 0.2667,
+      "novelty": "known_moa",
+      "rank_in_board": 2
+     }
+    ],
+    "novel_only": [
+     {
+      "name": "abarelix",
+      "esmc_cosine": 0.9696,
+      "identity": 0.1,
+      "novelty": "novel_pairing",
+      "rank_in_board": 1
+     },
+     {
+      "name": "afamelanotide",
+      "esmc_cosine": 0.9575,
+      "identity": 0.25,
+      "novelty": "novel_pairing",
+      "rank_in_board": 2
+     },
+     {
+      "name": "bremelanotide",
+      "esmc_cosine": 0.9502,
+      "identity": 0.1667,
+      "novelty": "novel_pairing",
+      "rank_in_board": 3
+     },
+     {
+      "name": "semaglutide",
+      "esmc_cosine": 0.948,
+      "identity": 0.1333,
+      "novelty": "novel_pairing",
+      "rank_in_board": 4
+     },
+     {
+      "name": "exenatide",
+      "esmc_cosine": 0.9418,
+      "identity": 0.2,
+      "novelty": "novel_pairing",
+      "rank_in_board": 5
+     },
+     {
+      "name": "pramlintide",
+      "esmc_cosine": 0.94,
+      "identity": 0.2,
+      "novelty": "novel_pairing",
+      "rank_in_board": 6
+     },
+     {
+      "name": "palopegteriparatide",
+      "esmc_cosine": 0.9343,
+      "identity": 0.2,
+      "novelty": "novel_pairing",
+      "rank_in_board": 7
+     },
+     {
+      "name": "lixisenatide",
+      "esmc_cosine": 0.9324,
+      "identity": 0.2,
+      "novelty": "novel_pairing",
+      "rank_in_board": 8
+     },
+     {
+      "name": "parathyroid hormone",
+      "esmc_cosine": 0.9315,
+      "identity": 0.1333,
+      "novelty": "novel_pairing",
+      "rank_in_board": 9
+     },
+     {
+      "name": "teriparatide acetate",
+      "esmc_cosine": 0.9256,
+      "identity": 0.2,
+      "novelty": "novel_pairing",
+      "rank_in_board": 10
+     }
+    ]
+   }
+  }
+ ],
+ "caveats": [
+  "ESM-C is trained on domains, not on 8-16mers; its behaviour at this length is not characterised here. The identity column is reported beside it for that reason, and disagreement between them is a result.",
+  "The corpus is 49-ish approved biologics under the length cap, so a nearest neighbour exists by construction. Only the null percentile says whether it is a meaningful one.",
+  "Similarity is not affinity. Nothing here predicts binding.",
+  "The null is a distribution of MAXIMA over the corpus, so it sits high by construction. Per-pair cosines span a wide range; it is the best-of-37 that concentrates near the top. Read the percentile, not the raw cosine."
+ ]
+}

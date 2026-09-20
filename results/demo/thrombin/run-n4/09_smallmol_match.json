@@ -1,0 +1,510 @@
+{
+ "arm": "S (small molecule, direct matching)",
+ "target": "F2",
+ "framing": "virtual screening with a generative front end: the generator is NOT conditioned on the binding site; the pocket enters only as a docking filter",
+ "generator": "entropy/gpt2_zinc_87m",
+ "n_generated_kept": 591,
+ "corpus": {
+  "file": "data/approved_drugs.csv",
+  "n": 4099,
+  "n_annotated_to_target": 18,
+  "base_rate": 0.0044
+ },
+ "representation": "ECFP4-2048 (scripts/representations.py REPRESENTATIONS['morgan'])",
+ "null": {
+  "construction": "567 generated molecules not in the docked subset, scored against the same corpus. The docked subset was taken by list position rather than by fit, so this null asks whether a query beats a TYPICAL generated molecule -- not whether the pocket chose it. See docking_signal.",
+  "n": 567,
+  "mean": 0.2831,
+  "sd": 0.0527,
+  "min": 0.1648,
+  "p50": 0.2759,
+  "p95": 0.3787,
+  "max": 0.5789
+ },
+ "n_queries": 24,
+ "positive_control": {
+  "argatroban": {
+   "top_5_any": [
+    {
+     "name": "angiotensinamide",
+     "tanimoto": 0.304
+    },
+    {
+     "name": "icatibant",
+     "tanimoto": 0.3022
+    },
+    {
+     "name": "lisinopril",
+     "tanimoto": 0.3011
+    },
+    {
+     "name": "saralasin",
+     "tanimoto": 0.2984
+    },
+    {
+     "name": "angiotensin II",
+     "tanimoto": 0.2901
+    }
+   ],
+   "ranks_of_other_moa_drugs": [
+    {
+     "name": "bivalirudin",
+     "rank": 10,
+     "of": 4099,
+     "tanimoto": 0.2643
+    },
+    {
+     "name": "ximelagatran",
+     "rank": 48,
+     "of": 4099,
+     "tanimoto": 0.211
+    },
+    {
+     "name": "dabigatran etexilate",
+     "rank": 1138,
+     "of": 4099,
+     "tanimoto": 0.1278
+    }
+   ]
+  },
+  "bivalirudin": {
+   "top_5_any": [
+    {
+     "name": "angiotensin II",
+     "tanimoto": 0.5969
+    },
+    {
+     "name": "angiotensinamide",
+     "tanimoto": 0.5625
+    },
+    {
+     "name": "corticotropin",
+     "tanimoto": 0.561
+    },
+    {
+     "name": "seractide",
+     "tanimoto": 0.5422
+    },
+    {
+     "name": "sermorelin",
+     "tanimoto": 0.5278
+    }
+   ],
+   "ranks_of_other_moa_drugs": [
+    {
+     "name": "argatroban",
+     "rank": 66,
+     "of": 4099,
+     "tanimoto": 0.2643
+    },
+    {
+     "name": "ximelagatran",
+     "rank": 82,
+     "of": 4099,
+     "tanimoto": 0.2246
+    },
+    {
+     "name": "dabigatran etexilate",
+     "rank": 632,
+     "of": 4099,
+     "tanimoto": 0.1265
+    }
+   ]
+  },
+  "dabigatran etexilate": {
+   "top_5_any": [
+    {
+     "name": "bendamustine",
+     "tanimoto": 0.2626
+    },
+    {
+     "name": "otilonium bromide",
+     "tanimoto": 0.2596
+    },
+    {
+     "name": "tetracaine",
+     "tanimoto": 0.2581
+    },
+    {
+     "name": "proglumetacin",
+     "tanimoto": 0.2576
+    },
+    {
+     "name": "propiram",
+     "tanimoto": 0.2449
+    }
+   ],
+   "ranks_of_other_moa_drugs": [
+    {
+     "name": "ximelagatran",
+     "rank": 17,
+     "of": 4099,
+     "tanimoto": 0.2241
+    },
+    {
+     "name": "argatroban",
+     "rank": 988,
+     "of": 4099,
+     "tanimoto": 0.1278
+    },
+    {
+     "name": "bivalirudin",
+     "rank": 1033,
+     "of": 4099,
+     "tanimoto": 0.1265
+    }
+   ]
+  },
+  "ximelagatran": {
+   "top_5_any": [
+    {
+     "name": "enalapril",
+     "tanimoto": 0.3023
+    },
+    {
+     "name": "trandolapril",
+     "tanimoto": 0.2889
+    },
+    {
+     "name": "ramipril",
+     "tanimoto": 0.2747
+    },
+    {
+     "name": "sulcaine",
+     "tanimoto": 0.2658
+    },
+    {
+     "name": "perindopril",
+     "tanimoto": 0.2644
+    }
+   ],
+   "ranks_of_other_moa_drugs": [
+    {
+     "name": "bivalirudin",
+     "rank": 29,
+     "of": 4099,
+     "tanimoto": 0.2246
+    },
+    {
+     "name": "dabigatran etexilate",
+     "rank": 30,
+     "of": 4099,
+     "tanimoto": 0.2241
+    },
+    {
+     "name": "argatroban",
+     "rank": 51,
+     "of": 4099,
+     "tanimoto": 0.211
+    }
+   ]
+  },
+  "_n_moa_drugs": 4,
+  "_expected_rank_by_chance": 2050
+ },
+ "docking_signal": {
+  "status": "evaluated",
+  "question": "does a better Vina score go with similarity to known binders?",
+  "n": 23,
+  "spearman_rho": -0.084,
+  "p_value": 0.7031,
+  "note": "Vina scores are negative-is-better, so a NEGATIVE rho means better docking goes with greater similarity to known binders",
+  "generated_score_range": [
+   -6.148,
+   -3.682
+  ],
+  "control_scores": {
+   "argatroban": -6.217,
+   "ximelagatran": -5.899,
+   "dabigatran etexilate": -6.414
+  },
+  "controls_beat_generated_median": true
+ },
+ "docking": {
+  "ran": true,
+  "workflow_uuid": "d4572d90-43e5-4ad3-a639-8ac3fc33cb40",
+  "box": [
+   [
+    1.336,
+    20.938,
+    21.806
+   ],
+   [
+    30.052,
+    26.297,
+    21.988
+   ]
+  ]
+ },
+ "results": [
+  {
+   "smiles": "Cc1cc(NC(=O)/C=C\\c2ccccc2)ccc1N1CCOCC1",
+   "mw": 322.4,
+   "qed": 0.876,
+   "nearest": "idrocilamide",
+   "tanimoto": 0.3519,
+   "novelty": "novel_pairing",
+   "nearest_targets": "",
+   "null_percentile": 0.9083,
+   "best_similarity_to_a_known_binder": 0.1714
+  },
+  {
+   "smiles": "NC(=O)CN(Cc1ccccc1)c1cccc(NC(=O)N2CCC3(CCC3)CC2)c1",
+   "mw": 406.5,
+   "qed": 0.762,
+   "nearest": "cetoxime",
+   "tanimoto": 0.35,
+   "novelty": "novel_pairing",
+   "nearest_targets": "",
+   "null_percentile": 0.8995,
+   "best_similarity_to_a_known_binder": 0.1628
+  },
+  {
+   "smiles": "CCN(CC)CCCn1c(C)nnc1N(C)[C@@H](C)c1ccc(OC)cc1",
+   "mw": 359.5,
+   "qed": 0.649,
+   "nearest": "pamaquine",
+   "tanimoto": 0.3478,
+   "novelty": "novel_pairing",
+   "nearest_targets": "",
+   "null_percentile": 0.8907,
+   "best_similarity_to_a_known_binder": 0.1786
+  },
+  {
+   "smiles": "C[C@H](OC(=O)COc1ccc(Oc2ccccc2)cc1)C(=O)NCC(F)(F)F",
+   "mw": 397.3,
+   "qed": 0.691,
+   "nearest": "fenoprofen",
+   "tanimoto": 0.3333,
+   "novelty": "novel_pairing",
+   "nearest_targets": "PTGS1;PTGS2;SLC5A8",
+   "null_percentile": 0.8607,
+   "best_similarity_to_a_known_binder": 0.2078
+  },
+  {
+   "smiles": "COC(=O)c1cc(Cl)ccc1S(=O)(=O)N1CC[C@H](Cc2cnn(C)c2)C1",
+   "mw": 397.9,
+   "qed": 0.722,
+   "nearest": "glibenclamide",
+   "tanimoto": 0.314,
+   "novelty": "novel_pairing",
+   "nearest_targets": "ABCB11;ABCC8;ABCC9;CFTR;CISD1;CYP2C9;KCNH2;KCNJ11;NLRP3;PPAR",
+   "null_percentile": 0.7637,
+   "best_similarity_to_a_known_binder": 0.2
+  },
+  {
+   "smiles": "CC(C)(O)[C@@H]1CCCN1S(=O)(=O)c1ccccc1C(=O)O",
+   "mw": 313.4,
+   "qed": 0.874,
+   "nearest": "salicylsulfuric acid",
+   "tanimoto": 0.3125,
+   "novelty": "novel_pairing",
+   "nearest_targets": "",
+   "null_percentile": 0.7593,
+   "best_similarity_to_a_known_binder": 0.2321
+  },
+  {
+   "smiles": "COc1ccc(CN2CC[C@H](NC(=O)c3cccc(O)c3)C2=O)c(OC)c1",
+   "mw": 370.4,
+   "qed": 0.811,
+   "nearest": "oxybenzone",
+   "tanimoto": 0.3125,
+   "novelty": "novel_pairing",
+   "nearest_targets": "",
+   "null_percentile": 0.7593,
+   "best_similarity_to_a_known_binder": 0.2159
+  },
+  {
+   "smiles": "CCOC(=O)Nc1ccc(Br)cc1NC(=O)CCc1nc2ccccc2oc1=O",
+   "mw": 460.3,
+   "qed": 0.574,
+   "nearest": "ethyl biscoumacetate",
+   "tanimoto": 0.3099,
+   "novelty": "novel_pairing",
+   "nearest_targets": "VKORC1",
+   "null_percentile": 0.7434,
+   "best_similarity_to_a_known_binder": 0.193
+  },
+  {
+   "smiles": "CC(C)(C)OC(=O)N1CCN(c2nnc(-c3ccccn3)n2Cc2nccs2)CC1",
+   "mw": 427.5,
+   "qed": 0.632,
+   "nearest": "piberaline",
+   "tanimoto": 0.3,
+   "novelty": "novel_pairing",
+   "nearest_targets": "",
+   "null_percentile": 0.6896,
+   "best_similarity_to_a_known_binder": 0.1724
+  },
+  {
+   "smiles": "COCCN(CCc1ccccc1)C(=O)c1ccc(NC2=NS(=O)(=O)c3ccccc32)cc1",
+   "mw": 463.6,
+   "qed": 0.552,
+   "nearest": "phenprobamate",
+   "tanimoto": 0.2903,
+   "novelty": "novel_pairing",
+   "nearest_targets": "",
+   "null_percentile": 0.619,
+   "best_similarity_to_a_known_binder": 0.1964
+  },
+  {
+   "smiles": "C[C@@H]1CCN(Cc2ccccn2)C[C@@H]1NC(=O)c1cccc(F)c1",
+   "mw": 327.4,
+   "qed": 0.939,
+   "nearest": "melperone",
+   "tanimoto": 0.2899,
+   "novelty": "novel_pairing",
+   "nearest_targets": "ADRA1A;ADRA2A;CHRM2;CHRM4;CYP2D6;DRD2;DRD3;DRD4;HRH1;HTR1A;H",
+   "null_percentile": 0.6173,
+   "best_similarity_to_a_known_binder": 0.1827
+  },
+  {
+   "smiles": "CC(C)(C)[C@@H]1CCN(C(=O)/C=C/c2cccc(C#N)c2)C1",
+   "mw": 282.4,
+   "qed": 0.78,
+   "nearest": "cinromide",
+   "tanimoto": 0.2742,
+   "novelty": "novel_pairing",
+   "nearest_targets": "SLC6A19",
+   "null_percentile": 0.4841,
+   "best_similarity_to_a_known_binder": 0.1959
+  },
+  {
+   "smiles": "C[C@@H](CNC(=O)NC[C@H]1CCC2(CCC2)CO1)c1nc(-c2ccccc2)no1",
+   "mw": 384.5,
+   "qed": 0.796,
+   "nearest": "hexylcaine",
+   "tanimoto": 0.2703,
+   "novelty": "novel_pairing",
+   "nearest_targets": "SCN1A;SCN2A;SCN3A",
+   "null_percentile": 0.4524,
+   "best_similarity_to_a_known_binder": 0.1868
+  },
+  {
+   "smiles": "CO[C@H](C)C(=O)NCCCC[C@H](C)NC(=O)c1cc2cccn2cn1",
+   "mw": 346.4,
+   "qed": 0.678,
+   "nearest": "lisdexamfetamine",
+   "tanimoto": 0.2676,
+   "novelty": "novel_pairing",
+   "nearest_targets": "SLC18A2;SLC6A2;SLC6A3",
+   "null_percentile": 0.4303,
+   "best_similarity_to_a_known_binder": 0.241
+  },
+  {
+   "smiles": "CC(=O)N(C)c1ccc(OS(=O)(=O)C[C@@]23CCCN(CC2)C3)cc1",
+   "mw": 352.5,
+   "qed": 0.757,
+   "nearest": "estradiol mustard",
+   "tanimoto": 0.2614,
+   "novelty": "novel_pairing",
+   "nearest_targets": "",
+   "null_percentile": 0.366,
+   "best_similarity_to_a_known_binder": 0.1829
+  },
+  {
+   "smiles": "Cc1ncc(CN2CCc3ccc(=O)n(Cc4csc(C)n4)c3CC2)cn1",
+   "mw": 381.5,
+   "qed": 0.694,
+   "nearest": "rupatadine",
+   "tanimoto": 0.253,
+   "novelty": "novel_pairing",
+   "nearest_targets": "HRH1;PTAFR",
+   "null_percentile": 0.291,
+   "best_similarity_to_a_known_binder": 0.1236
+  },
+  {
+   "smiles": "CN(Cc1cccc(O)n1)C(=O)[C@@H]1C[C@H]2CC[C@@H]1O2",
+   "mw": 262.3,
+   "qed": 0.892,
+   "nearest": "pyricarbate",
+   "tanimoto": 0.25,
+   "novelty": "novel_pairing",
+   "nearest_targets": "",
+   "null_percentile": 0.2769,
+   "best_similarity_to_a_known_binder": 0.1471
+  },
+  {
+   "smiles": "CCN(CC)c1ccnc([C@H]2COCCN2C(=O)c2ccc(C(C)=O)cc2)n1",
+   "mw": 382.5,
+   "qed": 0.715,
+   "nearest": "morinamide",
+   "tanimoto": 0.2464,
+   "novelty": "novel_pairing",
+   "nearest_targets": "",
+   "null_percentile": 0.2381,
+   "best_similarity_to_a_known_binder": 0.1712
+  },
+  {
+   "smiles": "Cn1nnc(CN[C@@H]2CCCC[C@H]2NC(=O)c2ccc3cccnc3n2)n1",
+   "mw": 366.4,
+   "qed": 0.692,
+   "nearest": "glipizide",
+   "tanimoto": 0.2442,
+   "novelty": "novel_pairing",
+   "nearest_targets": "ABCC8;KCNJ11",
+   "null_percentile": 0.2266,
+   "best_similarity_to_a_known_binder": 0.1717
+  },
+  {
+   "smiles": "CO[C@@H]1C[C@H](c2n[nH]c(C)n2)N(C(=O)N[C@@H]2CCC[C@@H]2C)C1",
+   "mw": 307.4,
+   "qed": 0.891,
+   "nearest": "indisetron",
+   "tanimoto": 0.2368,
+   "novelty": "novel_pairing",
+   "nearest_targets": "HTR3A",
+   "null_percentile": 0.1869,
+   "best_similarity_to_a_known_binder": 0.1571
+  },
+  {
+   "smiles": "CCc1nnc(O)c(C(=O)N[C@@H](C)CC(F)(F)F)c1CC",
+   "mw": 305.3,
+   "qed": 0.876,
+   "nearest": "iopamidol",
+   "tanimoto": 0.2167,
+   "novelty": "novel_pairing",
+   "nearest_targets": "",
+   "null_percentile": 0.06,
+   "best_similarity_to_a_known_binder": 0.1558
+  },
+  {
+   "smiles": "Cc1cc(C)cc(C(=O)N[C@](C)(CNC(=O)[C@H]2CCOC2)C2CC2)c1",
+   "mw": 344.5,
+   "qed": 0.832,
+   "nearest": "anagliptin",
+   "tanimoto": 0.2159,
+   "novelty": "novel_pairing",
+   "nearest_targets": "DPP4;DPP8;DPP9;FAP",
+   "null_percentile": 0.0547,
+   "best_similarity_to_a_known_binder": 0.1613
+  },
+  {
+   "smiles": "C[C@H](Nc1ccc(N2C[C@H]3CC[C@H]2C3)cc1)[C@H]1CCS(=O)(=O)C1",
+   "mw": 334.5,
+   "qed": 0.92,
+   "nearest": "homatropine",
+   "tanimoto": 0.194,
+   "novelty": "novel_pairing",
+   "nearest_targets": "CHRM1;CHRM2;CHRM3;CHRM4;CHRM5",
+   "null_percentile": 0.0123,
+   "best_similarity_to_a_known_binder": 0.15
+  },
+  {
+   "smiles": "CNC(=O)NCC(=O)NC1(CNC(=O)[C@@]2(F)CCOC2)CCC1",
+   "mw": 330.4,
+   "qed": 0.511,
+   "nearest": "gabapentin enacarbil",
+   "tanimoto": 0.1912,
+   "novelty": "novel_pairing",
+   "nearest_targets": "CACNA2D1;CACNA2D2",
+   "null_percentile": 0.0071,
+   "best_similarity_to_a_known_binder": 0.1277
+  }
+ ],
+ "caveats": [
+  "The generator is unconditioned; any pocket relevance comes from the docking filter, not from generation.",
+  "A nearest neighbour exists for every molecule by construction. Only the null percentile distinguishes a real resemblance from the background rate of the 4,099-molecule library.",
+  "Tanimoto similarity is not affinity and implies nothing about binding."
+ ]
+}

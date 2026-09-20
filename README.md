@@ -211,6 +211,79 @@ buys **+0.11**, not +0.27. The rest is just knowing where the pocket is.
 
 ---
 
+## The lightweight demo — the whole pipeline on a toolkit, and what it found
+
+`demo/` runs the PROJECT_GOAL.md pipeline end to end in ~1,500 lines, with the
+scientific work done by [`cheminformatics-kit`](https://github.com/jaysahni/cheminformatics-kit)
+(`novakit`) rather than by this repo's 12,305-line `scripts/`. Three Rowan-hosted
+stages, everything else local on a Mac. See `docs/06-LIGHTWEIGHT-DEMO.md` and
+`docs/10-DIRECT-MATCHING.md`.
+
+It was built to answer a specific question — *given a designed binder, which
+approved drug resembles it?* — and it answers it in the negative, three times,
+each with a control that says the negative is real.
+
+**5. Hotspot coverage does not separate known binders from decoys.** 14 approved
+drugs co-folded against CDK2 with Boltz-2. Positives 0.507 vs decoys 0.427,
+Mann-Whitney **p = 0.229**, n = 5 per tier. The **top-ranked drug is atorvastatin**
+— a statin with no CDK2 relationship. Palbociclib, an approved CDK4/6 inhibitor,
+ranks 9th of 14. Boltz-2 *pose confidence* does separate the tiers (ipTM 0.962 vs
+0.878, p = 0.0159), but that is not hotspot coverage, PROJECT_GOAL.md §4.4 keeps
+confidence out of the ranking path, and it is the quantity most exposed to
+training-set leakage. Recorded, not promoted.
+
+**6. Right-sizing the binder fixes the designs; the match still fails.** Switching
+BoltzGen from `protein-anything` at 60–90 residues to `peptide-anything` at 8–16
+raised interface confidence from ipTM 0.162 to **0.598** — a 60–90-mer cannot
+enter an ATP slot, an 8–16-mer fits a protease groove. But none of the resulting
+thrombin peptides resembles an approved thrombin peptide: every one's nearest
+neighbour is **abarelix**, a GnRH antagonist, at null percentiles 0.29–0.95, with
+enrichment factor 0.0.
+
+That negative is believable because **the positive control passes**: the two
+approved thrombin peptides retrieve each other, bivalirudin → lepirudin at
+**rank 1 of 36**. The metric works; the designs do not pass it. And a hub check
+explains abarelix — **77% of randomly shuffled sequences land on it too**.
+
+**7. The null was wrong, and a calibration test caught it.** Every headline number
+here is a percentile against a null. Held-out queries must score uniform
+percentiles; a KS test said otherwise for Tanimoto — **D = 0.187, p < 0.001**, mean
+0.457 instead of 0.5 — because Tanimoto over sparse fingerprints is heavily
+discrete and the percentile used a strict `<`, scoring every exact tie against the
+candidate. Fixed to mid-rank; both metrics now calibrate (p = 0.416, p = 0.074).
+Without it every candidate would have looked less remarkable than it is,
+consistently and invisibly.
+
+**8. The small-molecule arm finds nothing either — and replicates result #3.**
+591 molecules generated with a ZINC-trained GPT-2, 24 docked into the thrombin
+site, all matched against the 4,099-drug approved library by ECFP4. Best
+nearest-neighbour Tanimoto **0.352**, nothing with an F2 annotation. Docking score
+and similarity-to-known-binders are uncorrelated (**Spearman ρ = −0.084, p = 0.703,
+n = 23**).
+
+Both controls pass, so the negative is about the molecules rather than the method.
+Vina ranks the three real thrombin drugs above the generated median, docked in the
+same batch. And ECFP4 does group thrombin drugs — argatroban retrieves bivalirudin
+at **rank 10 of 4,098** and ximelagatran at 48, against ~2,050 expected by chance —
+but its *top five* are all peptidomimetics with no thrombin annotation. Reading that
+top-five as the control nearly produced a false negative. Chemical similarity finds
+what looks like the query; the co-target drugs it finds, it finds at rank 10–82.
+
+Three bugs of the same shape were found and fixed along the way, each of which
+produced ordinary-looking output: a PDB parser that ignored insertion codes and so
+**lost 28 of thrombin's 259 residues**, including the entire 60-loop lining the
+active site; structure preparation that silently **renames chains** (H→B, L→A);
+and a ligand left in the pocket during design, which sent every design to the
+wrong site (Jaccard 0.0 against the known ligand contacts). All three are now
+guarded by tests.
+
+One finding is about the tools rather than the drugs: **pocket detection cannot
+find a serine protease active site.** Six pockets on thrombin and not one contains
+Ser195 or Asp102 — a protease active site is a shallow groove across subsites, not
+an enclosed cavity, so a cavity finder fragments it.
+
+---
+
 ## E1 — which representation actually retrieves target-mates?
 
 Given a query drug, rank all others. A hit shares a human protein target.
