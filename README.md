@@ -63,18 +63,33 @@ this target's best literature ligand they sit at **464, 755, 764 and 1760**. Ran
 which residues they actually engage, they are at **4, 5, 9 and 10**. Two drugs that
 share a binding site need not share any chemistry.
 
-### What the hard decoys cost, and what they mean
+### The hard decoys break it, and that is the real result
 
-Against easy decoys the score was 2.49× of a 2.90× ceiling — **86% of achievable**.
-Against decoys that genuinely bind ATP pockets it is 2.87× of 4.10× — **70%**.
-Performance degrades against a real null, which is the honest number and the reason
-the easy one should never be quoted alone.
+The enrichment above is carried by the *easy* decoys. Mann-Whitney U on the ranking
+metric, two-sided, separates the two nulls cleanly:
 
-**lapatinib (2), pemigatinib (8) and bosutinib (11) are hard decoys scoring like
-binders.** DrugCentral's annotation is incomplete and all three are promiscuous
-kinase inhibitors, so a high score may be a **labelling gap rather than a false
-positive**. This experiment cannot currently tell those two cases apart, and that is
-a limitation, not a footnote.
+| signature | known vs easy decoy | known vs **hard** decoy |
+|---|---|---|
+| p2rank_geometry | U=173.5, **p=0.0003**, AUC 0.913 | U=86.0, **p=0.092**, AUC 0.717 |
+| boltzgen_consensus | U=178.0, **p=0.0002**, AUC 0.937 | U=63.5, **p=0.843**, AUC **0.529** |
+
+*n = 10 known binders vs 19 easy / 12 hard.*
+
+**Against the only null that is actually hard, neither arm is significant.** The
+pocket signature is marginal (AUC 0.717, p=0.092); the BoltzGen design signature is at
+**AUC 0.529 — a coin flip.** Dropping the easy decoys entirely, enrichment falls to
+**1.83×** and **1.10×** against a 2.20× maximum.
+
+So the honest verdict: this pipeline separates known binders from *chemically
+unrelated* drugs very well, and has **not been shown** to separate them from other
+kinase inhibitors. The 2.87× headline is real but it is measuring the easier task.
+
+**The caveat cuts the other way and belongs right here.** lapatinib ranks 2,
+pemigatinib 8, bosutinib 11 — all "hard decoys", all promiscuous kinase inhibitors,
+and DrugCentral's annotation is incomplete. A well-scoring hard decoy may be
+**mislabelled rather than a false positive**, which makes AUC 0.529 a *lower bound*
+on true discrimination rather than a measurement of it. Both statements have to sit
+together; either alone misleads.
 
 ### What had to be measured rather than assumed
 
@@ -96,10 +111,11 @@ artefact of the choice — only the oversized decoy moves.
 ### What does not work
 
 **The design step loses, in the product itself.** Against easy decoys the BoltzGen
-signature and the free pocket finder looked identical (Spearman **0.954**, same
-enrichment). The harder null separates them — and separates them *against* BoltzGen:
-**2.87× vs 2.05×**, median rank 8 vs 12.5. An 85-credit design run is beaten by a
-0.47-second pocket prediction. That is ablation I6.1 appearing a third time.
+signature and the free pocket finder track each other closely (Spearman **0.776** on
+the ranking metric, 0.855 on core coverage). The harder null separates them — and
+separates them *against* BoltzGen: **2.87× vs 2.05×**, median rank 8 vs 12.5, and
+AUC 0.529 vs 0.717 on the known-vs-hard-decoy test. An 85-credit design run is beaten
+by a 0.47-second pocket prediction. That is ablation I6.1 appearing a third time.
 
 **A single known ligand is worse than chance** (0.82×). One holo ligand's contacts
 describe that ligand, not the site — so aggregating across many binding events does do
