@@ -478,6 +478,62 @@ is what worked. Measured cost: **~5–7 credits per design**, 396–564 s per 4-
 
 ---
 
+## The scoring definition
+
+`precision_in_core` — **of the residues this drug engages, the fraction that lie in the
+site core.**
+
+    score = |engaged ∩ core| / |engaged|
+
+- **engaged**: target residues with any heavy atom within **4.5 Å** of any ligand heavy
+  atom. Hydrogens excluded; waters, ions and crystallisation additives excluded by a
+  named list in `scripts/interfaces.py`; contacts restricted to the ligand's own chain.
+- **core**: the residues of the chosen signature (P2Rank rank-1 pocket by default).
+- **numbering**: author numbering (`auth_seq_id`) throughout. Co-folded poses are
+  numbered 1..N over the construct and converted back with the kinase-domain offset
+  (834 for KDR), checked against known identities — Cys919, Asp1046, Phe1047.
+- **missing data**: a drug whose pose has no drug-like ligand keeps its row with a
+  `status` and **no score and no rank**. It is counted out of `n_scored`, never given a
+  plausible-looking number.
+
+**Why this normalisation.** Raw core coverage ranks bigger ligands higher for reasons
+unrelated to binding: it correlates with the number of residues engaged at r=+0.64 and
+put a 39-residue lipopeptide decoy first. Five variants were compared;
+`precision_in_core` drops that to r=+0.14. All five are stored per drug so the choice
+can be re-checked, and enrichment is identical under all of them.
+
+## Output schema
+
+`results/repurpose_<pipeline>.json`
+
+| field | meaning |
+|---|---|
+| `ranked_by`, `ranking_metric` | which signature and score ordered the board |
+| `cofolding.pocket_constrained` | **false** for the shipped run — see the co-folding note above |
+| `versions` | python, rowan-python, stjames, rdkit, biopython, numpy, scipy, P2Rank |
+| `signatures{}` | each signature's core residues and provenance |
+| `validation_by_signature{}` | enrichment and known-binder ranks per signature |
+| `results[]` | per drug: `name`, `role`, `status`, `rank`, `n_engaged`, `engaged_residues`, and `by_signature{}` with all five scores plus `engaged_core` / `missed_core` |
+| `n_scored` | excludes failed candidates, which remain in `results[]` |
+
+Companion artifacts: `role_separation.json` (significance tests),
+`ranking_comparison_<pipeline>.json` (structural vs chemical, same drugs),
+`report_<pipeline>.html` (self-contained report).
+
+## Implemented vs planned
+
+| stage | status |
+|---|---|
+| disease → ranked targets, ambiguity exposed | **implemented** (`autorepurpose.py targets`) |
+| target → structure → pocket (P2Rank) | **implemented** |
+| co-folding of approved drugs (Boltz-2 via Rowan) | **implemented**, needs credits |
+| engagement scoring + ranking | **implemented** |
+| query interface + HTML report | **implemented** (report renders KDR only) |
+| BoltzGen design signature | **optional**, and measured to lose to the pocket finder |
+| second target end-to-end | **planned** — CDK2 is prepared but never screened |
+| report for an arbitrary target | **planned** — `report.py` inputs are hardcoded to KDR |
+| filtered design ensemble (ipTM > 0.85) | **planned** — 0 of 24 designs reached 0.5 |
+
 ## Layout
 
 | Path | Contents |
