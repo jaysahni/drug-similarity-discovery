@@ -179,6 +179,43 @@ Tanimoto against 4,099 approved drugs (18 annotated to F2, base rate 0.44%).
 already approved). Fingerprints come from `scripts/representations.py`'s registry,
 so the arm uses the exact representation the benchmark found best of 16.
 
+### Result: nothing found, and both controls say why
+
+**Nothing resembles a thrombin drug.** Best nearest-neighbour Tanimoto is 0.352
+(idrocilamide, no F2 annotation) at null percentile 0.908. The whole top 10 is
+`novel_pairing`. Null over the 567 undocked generated molecules: mean 0.283,
+p95 0.379.
+
+**Docking adds nothing measurable.** Among the 23 generated molecules that
+docked, Vina score and similarity-to-known-F2-binders are uncorrelated:
+**Spearman ρ = −0.084, p = 0.703, n = 23**.
+
+**But Vina works.** The three known thrombin drugs, docked in the *same batch*,
+beat the generated median: argatroban −6.217, ximelagatran −5.899, dabigatran
+etexilate −6.414.
+
+**And ECFP4 works — which took a correction to see.** Reading the positive
+control as a top-5 list nearly produced a false negative: argatroban's five
+nearest approved drugs are all peptidomimetics (angiotensin II, icatibant,
+lisinopril…) and not one is a thrombin drug. The *rank* of the co-mechanism
+drugs says the opposite. Out of 4,098, against ~2,050 expected by chance:
+
+| query | ranks of the other F2-mechanism drugs |
+|---|---|
+| argatroban | bivalirudin **10**, ximelagatran **48**, dabigatran etexilate 1138 |
+| ximelagatran | bivalirudin **29**, dabigatran etexilate **30**, argatroban **51** |
+| bivalirudin | argatroban **66**, ximelagatran **82**, dabigatran etexilate 632 |
+| dabigatran etexilate | ximelagatran **17**, argatroban 988, bivalirudin 1033 |
+
+Dabigatran etexilate is the outlier in both directions, which is what a prodrug
+ester should be. The control now reports ranks alongside the top-5, because the
+top-5 alone is misleading.
+
+This **replicates README result #3 on a second target**: chemical similarity
+finds the drugs that *look* like the query — argatroban retrieves peptidomimetics
+generally — and the co-target drugs it does find, it finds at rank 10–82 rather
+than rank 1.
+
 **What this is: virtual screening with a generative front end.** The generator is
 not conditioned on the binding site; the pocket enters only as a docking filter.
 It must not be described as structure-based de novo design.

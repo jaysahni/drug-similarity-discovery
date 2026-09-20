@@ -85,6 +85,21 @@ candidate. Fixed to mid-rank; both metrics now calibrate (p = 0.416, p = 0.074).
 Without it every candidate would have looked less remarkable than it is,
 consistently and invisibly.
 
+**8. The small-molecule arm finds nothing either — and replicates result #3.**
+591 molecules generated with a ZINC-trained GPT-2, 24 docked into the thrombin
+site, all matched against the 4,099-drug approved library by ECFP4. Best
+nearest-neighbour Tanimoto **0.352**, nothing with an F2 annotation. Docking score
+and similarity-to-known-binders are uncorrelated (**Spearman ρ = −0.084, p = 0.703,
+n = 23**).
+
+Both controls pass, so the negative is about the molecules rather than the method.
+Vina ranks the three real thrombin drugs above the generated median, docked in the
+same batch. And ECFP4 does group thrombin drugs — argatroban retrieves bivalirudin
+at **rank 10 of 4,098** and ximelagatran at 48, against ~2,050 expected by chance —
+but its *top five* are all peptidomimetics with no thrombin annotation. Reading that
+top-five as the control nearly produced a false negative. Chemical similarity finds
+what looks like the query; the co-target drugs it finds, it finds at rank 10–82.
+
 Three bugs of the same shape were found and fixed along the way, each of which
 produced ordinary-looking output: a PDB parser that ignored insertion codes and so
 **lost 28 of thrombin's 259 residues**, including the entire 60-loop lining the
