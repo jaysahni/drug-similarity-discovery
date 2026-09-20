@@ -1,0 +1,61 @@
+name: ci
+
+# Everything here runs OFFLINE. The pipeline's real stages need network (RCSB,
+# ChEMBL, Open Targets) and paid GPU (Rowan), so CI deliberately does not run
+# them - a green tick here means the code and the committed results are
+# self-consistent, not that the science was re-run.
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"   # 3.14 is the dev machine; 3.12 is what the
+                                   # runners reliably have wheels for
+      - name: install
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: metrics tests
+        run: python scripts/test_metrics.py
+
+      - name: language lint (PROJECT_GOAL.md G8)
+        run: python scripts/lint_language.py
+
+      - name: committed results parse and carry their n
+        run: |
+          python - <<'EOF'
+          import json, pathlib, sys
+          bad = []
+          for p in sorted(pathlib.Path("results").rglob("*.json")):
+              try:
+                  d = json.loads(p.read_text())
+              except Exception as exc:
+                  bad.append(f"{p}: will not parse: {exc}")
+                  continue
+              # every headline claim carries n (CLAUDE.md). Spot-check the ones
+              # that make comparisons.
+              if p.name == "role_separation.json":
+                  for c in d.get("comparisons", []):
+                      if not c.get("n_a") and not c.get("n_positive"):
+                          bad.append(f"{p}: a comparison has no n")
+                          break
+          if bad:
+              print("\n".join(bad)); sys.exit(1)
+          print("all results/*.json parse")
+          EOF
+
+      - name: no secrets committed
+        run: |
+          if git ls-files | grep -qxE '\.env'; then echo ".env is tracked"; exit 1; fi
+          if git grep -qI 'rowan-sk[0-9a-f]' -- ':!*.example'; then
+            echo "a real-looking Rowan key is committed"; exit 1
+          fi
+          echo "no secrets tracked"

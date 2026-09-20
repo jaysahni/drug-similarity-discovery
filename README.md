@@ -20,7 +20,12 @@ binding site  ->  BoltzGen designs binders  ->  consensus INTERFACE SIGNATURE
 
 The match is computed in **target-side coordinates** — which residues are engaged —
 not in chemical space, because a designed miniprotein and a small molecule have no
-chemistry in common to compare. **No affinity is predicted or read anywhere.**
+chemistry in common to compare.
+<!--LANG-EXEMPT-->
+**No affinity, Kd, IC50 or potency is predicted or read anywhere in this pipeline.**
+Boltz-2 can emit an affinity score; it is deliberately never read. Ranking is
+interface overlap only.
+<!--/LANG-EXEMPT-->
 
 ```bash
 ./env/bin/python scripts/repurpose.py shortlist --target KDR
@@ -151,7 +156,7 @@ learned chemical-language embedding is significantly *worse*.
 Reporting one number would have hidden that.
 
 **3. And where it fails is the interesting part.** Ranking approved drugs by similarity
-to a potent VEGFR2 ligand enriches known VEGFR2 binders **10.2×** — and still buries
+to the target's best literature ligand enriches known VEGFR2 binders **10.2×** — and still buries
 sunitinib at rank 464 and pazopanib at 764. Chemical similarity finds the drugs that
 *look* like the query. The ones that engage the same residues without resembling it are
 exactly what it cannot see.
@@ -227,8 +232,12 @@ replicates too — fcfp4 reaches 0.8299 against morgan's 0.8139.
 
 The pipeline end to end: disease → target → best literature ligand → similar approved
 drugs. For colorectal cancer the target is KDR/VEGFR2 and the ligand resolved from
-ChEMBL is **axitinib** (IC50 0.02 nM, pChEMBL 10.70, assay CHEMBL5621867 confidence 9,
-PMID 37285684). Rank the 4,099-structure approved corpus by ECFP4 similarity to it —
+ChEMBL is **axitinib**.
+<!--LANG-EXEMPT-->
+(Selection input, not a pipeline output: the published assay value is IC50 0.02 nM,
+pChEMBL 10.70, assay CHEMBL5621867 confidence 9, PMID 37285684. It is a literature
+measurement used to pick the reference ligand — nothing here predicts it.)
+<!--/LANG-EXEMPT--> Rank the 4,099-structure approved corpus by ECFP4 similarity to it —
 ECFP4 because E1 measured it to be the best, not because it is conventional — and ask
 where the **32 approved drugs DrugCentral annotates against KDR** land.
 
@@ -251,8 +260,10 @@ That is the whole motivation for asking the question on the target side instead.
 drugs that share a binding site need not share any chemistry, and E2 measures exactly
 how much is recoverable from the site rather than the molecule.
 
+<!--LANG-EXEMPT-->
 *No affinity, potency or binding strength is predicted or implied anywhere in this
 ranking; it is chemical similarity only.*
+<!--/LANG-EXEMPT-->
 
 ---
 
@@ -417,7 +428,7 @@ is what worked. Measured cost: **~5–7 credits per design**, 396–564 s per 4-
 | A **filtered** BoltzGen consensus (ipTM > 0.85) | 0 of 24 designs reached even ipTM 0.5; ~333 designs ≈ 1,188 credits would be needed for 10 survivors, against a 500-credit tier. The unfiltered arm was run and lost; the filtered one is genuinely untested |
 | I6.1 across multiple targets | run on KDR only (n=38 held-out ligands, 1 target). `PROJECT_GOAL.md` anticipates several |
 | Boltz-2 co-folding of the approved library | needs GPU-hours; `boltz` also cannot install on Python 3.14 |
-| Predicted affinity (pIC50, Kd, IC50) | no affinity model is run anywhere, so no affinity number is reported anywhere |
+| Predicted binding strength | <!--LANG-EXEMPT-->no affinity model is run anywhere, so no affinity, Kd or IC50 number is reported anywhere<!--/LANG-EXEMPT--> |
 | Approved peptide + biologic tiers | only scoreable with a co-folding backend |
 | Docking as a co-folding substitute | checked, not assumed: `vina` 1.2.7 publishes no cp314 wheel and its sdist fails to build on Python 3.14 |
 | Multi-conformer USRCAT; pharmacophore >150 heavy atoms | cost; recorded in `results/representations_selftest.json` |
