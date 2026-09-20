@@ -1,0 +1,5387 @@
+{
+ "meta": {
+  "script": "demo/autoresearch.py",
+  "generated_utc": "2026-09-20T08:13:10+00:00",
+  "disease_query": "rheumatoid arthritis",
+  "efo_id": "MONDO_0008383",
+  "disease_name": "rheumatoid arthritis",
+  "disease_resolution_rule": "exact_name_match",
+  "disease_search_hits_considered": [
+   {
+    "id": "MONDO_0008383",
+    "name": "rheumatoid arthritis",
+    "entity": "disease",
+    "score": 5659.8027
+   },
+   {
+    "id": "EFO_0009460",
+    "name": "ACPA-negative rheumatoid arthritis",
+    "entity": "disease",
+    "score": 932.60803
+   },
+   {
+    "id": "EFO_0009459",
+    "name": "ACPA-positive rheumatoid arthritis",
+    "entity": "disease",
+    "score": 903.5174
+   },
+   {
+    "id": "MONDO_0019435",
+    "name": "rheumatoid factor-positive polyarticular juvenile idiopathic arthritis",
+    "entity": "disease",
+    "score": 862.51764
+   },
+   {
+    "id": "MONDO_0019432",
+    "name": "rheumatoid factor-negative juvenile idiopathic arthritis",
+    "entity": "disease",
+    "score": 797.5562
+   },
+   {
+    "id": "MONDO_0011429",
+    "name": "juvenile idiopathic arthritis",
+    "entity": "disease",
+    "score": 765.40643
+   },
+   {
+    "id": "MONDO_0004586",
+    "name": "rheumatoid arthritis-associated interstitial lung disease",
+    "entity": "disease",
+    "score": 716.0462
+   },
+   {
+    "id": "EFO_0007791",
+    "name": "rheumatoid factor seropositivity measurement",
+    "entity": "disease",
+    "score": 637.4809
+   },
+   {
+    "id": "EFO_0005767",
+    "name": "rheumatoid factor measurement",
+    "entity": "disease",
+    "score": 488.7285
+   },
+   {
+    "id": "MONDO_0019434",
+    "name": "systemic-onset juvenile idiopathic arthritis",
+    "entity": "disease",
+    "score": 486.78934
+   }
+  ],
+  "n_disease_hits": 322,
+  "n_associated_targets_total": 8184,
+  "n_targets_examined": 20,
+  "n_usable": 8,
+  "n_failing_positive_control_gate": 11,
+  "n_failing_structure_gate": 2,
+  "n_usable_with_peptide_control": 0,
+  "targets_without_positive_control": [
+   "IL6R",
+   "IL12B",
+   "TNF",
+   "TRAF3IP2",
+   "MIF",
+   "PADI4",
+   "PTPN22",
+   "IL17A",
+   "IL23A",
+   "CD80",
+   "CD86"
+  ],
+  "targets_without_usable_structure": [
+   "TRAF3IP2",
+   "TLR7"
+  ],
+  "known_drug_dominated_among_usable": [
+   "TYK2",
+   "JAK1",
+   "JAK2",
+   "PTGS2",
+   "NR3C1",
+   "JAK3",
+   "TLR9",
+   "DHFR"
+  ],
+  "corpora": {
+   "approved_drugs_csv_rows": 4099,
+   "approved_drugs_csv_approved_rows": 2153,
+   "target_annotations_rows": 28337,
+   "target_annotations_rows_used": 20744,
+   "approved_biologics_rows": 262
+  },
+  "gates": {
+   "positive_control": "n_approved_binders_moa >= 1",
+   "structure": "an X-ray entry maps to the accession, has an auth chain for it, reports a resolution, and carries no foreign polypeptide of <= 50 aa",
+   "ranking": "gates first, then Open Targets association score descending"
+  },
+  "circularity_caveat": "Open Targets association evidence includes ChEMBL known-drug data (PROJECT_GOAL.md 1.3). The positive-control gate selects FOR targets with approved drugs, so it selects for exactly the evidence that is circular. known_drug_dominated_among_usable is the size of that overlap; it is reported, not filtered.",
+  "opentargets": {
+   "endpoint": "https://api.platform.opentargets.org/api/v4/graphql",
+   "api_name": "Open Targets GraphQL & REST API Beta",
+   "api_version": "26.6.3",
+   "data_version": "26.06"
+  },
+  "reused_from": [
+   "scripts/disease_targets.py: resolve_disease, associated_targets, build_target, gql, api_meta",
+   "scripts/target_evidence.py: search_target, verify, aliases, epmc",
+   "scripts/prep_target.py: http, cached, NOT_LIGANDS, MIN_LIGAND_MW, RCSB endpoints"
+  ]
+ },
+ "targets": [
+  {
+   "rank": 1,
+   "ensembl_id": "ENSG00000105397",
+   "approved_symbol": "TYK2",
+   "approved_name": "tyrosine kinase 2",
+   "biotype": "protein_coding",
+   "symbol_synonyms": [
+    "IMD35",
+    "JTK1",
+    "TYK2"
+   ],
+   "uniprot": "P29597",
+   "uniprot_source": "opentargets_proteinIds:uniprot_swissprot",
+   "overall_association_score": 0.7582569727214991,
+   "datatype_scores": {
+    "genetic_association": 0.9367700838126234,
+    "known_drug": 0.9914019175206491,
+    "literature": 0.824724296409047,
+    "rna_expression": null,
+    "somatic_mutation": null,
+    "animal_model": 0.26827986098600837,
+    "affected_pathway": null
+   },
+   "all_datatype_scores": {
+    "literature": 0.824724296409047,
+    "animal_model": 0.26827986098600837,
+    "genetic_association": 0.9367700838126234,
+    "clinical": 0.9914019175206491
+   },
+   "known_drug_datatype_id": "clinical",
+   "known_drug_score": 0.9914019175206491,
+   "has_known_drug_evidence": true,
+   "n_drug_and_clinical_candidates": 17,
+   "n_drug_rows_returned": 17,
+   "drug_rows_complete": true,
+   "n_approved_drugs": 10,
+   "approved_drug_examples": [
+    "DELGOCITINIB",
+    "DEUCRAVACITINIB",
+    "DEURUXOLITINIB PHOSPHATE",
+    "FILGOTINIB",
+    "FILGOTINIB MALEATE",
+    "RUXOLITINIB",
+    "TOFACITINIB",
+    "TOFACITINIB CITRATE"
+   ],
+   "association_score": 0.7582569727214991,
+   "score_by_datatype": {
+    "literature": 0.824724296409047,
+    "animal_model": 0.26827986098600837,
+    "genetic_association": 0.9367700838126234,
+    "clinical": 0.9914019175206491
+   },
+   "n_approved_binders_moa": 2,
+   "n_approved_binders_annotated": 18,
+   "n_approved_binders_bioactivity": 18,
+   "n_approved_biologic_binders": 0,
+   "n_approved_peptide_binders": 0,
+   "known_approved_drugs": [
+    "delgocitinib",
+    "tofacitinib"
+   ],
+   "approved_binders_offtarget_only": [
+    "axitinib",
+    "baricitinib",
+    "bosutinib",
+    "crizotinib",
+    "dasatinib",
+    "erlotinib",
+    "fedratinib",
+    "filgotinib",
+    "imatinib",
+    "infigratinib",
+    "midostaurin",
+    "nintedanib"
+   ],
+   "approved_biologic_binders": [],
+   "corpus_symbols_matched": [
+    "TYK2"
+   ],
+   "target_class": [
+    "Enzyme",
+    "Kinase"
+   ],
+   "target_class_detail": [
+    {
+     "label": "TK protein kinase group",
+     "level": "l4"
+    },
+    {
+     "label": "Enzyme",
+     "level": "l1"
+    },
+    {
+     "label": "Kinase",
+     "level": "l2"
+    },
+    {
+     "label": "Protein Kinase",
+     "level": "l3"
+    },
+    {
+     "label": "Tyrosine protein kinase JakA family",
+     "level": "l5"
+    }
+   ],
+   "tractability": {
+    "antibody": [
+     "GO CC high conf"
+    ],
+    "protac": [
+     "Database Ubiquitination",
+     "Half-life Data",
+     "Literature",
+     "Small Molecule Binder"
+    ],
+    "small_molecule": [
+     "Approved Drug",
+     "Druggable Family",
+     "High-Quality Ligand",
+     "Med-Quality Pocket",
+     "Structure with Ligand"
+    ]
+   },
+   "n_safety_liabilities": 0,
+   "safety_flags": [],
+   "safety_sources": [],
+   "circularity": {
+    "known_drug_datatype_id": "clinical",
+    "known_drug_score": 0.9914019175206491,
+    "known_drug_share_of_datatype_sum": 0.3282,
+    "known_drug_is_largest_datatype": true,
+    "largest_datatype": "clinical",
+    "known_drug_dominated": true,
+    "circularity_note": "known-drug evidence is this target's single largest datatype (0.991, 33% of the datatype-score sum); a 'discovery' of its approved drugs is partly a lookup of the evidence that ranked it"
+   },
+   "uniprot_sites": {
+    "sequence_length": 1187,
+    "active_sites": [
+     {
+      "position": 1023,
+      "residue": "D",
+      "description": "Proton acceptor"
+     }
+    ],
+    "site_anchors": [],
+    "site_anchor_rule": "UniProt ACT_SITE positions whose residue is S/C/T (the catalytic nucleophile). His/Asp members of a charge-relay triad are excluded: they sit behind the nucleophile and a sphere over all three reaches into the core rather than the ligand site.",
+    "mature_chains": [
+     {
+      "description": "Non-receptor tyrosine-protein kinase TYK2",
+      "start": 1,
+      "end": 1187
+     }
+    ]
+   },
+   "structure": {
+    "structure_status": "ok",
+    "n_entities_total": 52,
+    "n_entities_ligand_bound_total": 51,
+    "n_entities_examined": 52,
+    "n_entries_examined": 52,
+    "n_entries_usable": 51,
+    "n_entries_rejected": 1,
+    "reject_reason_counts": {
+     "co_crystallised_peptide_polymer_chain": 1
+    },
+    "structure": {
+     "pdb_id": "3LXP",
+     "method": "X-ray",
+     "resolution_a": 1.65,
+     "chain": "A",
+     "chain_entity_length_aa": 318,
+     "target_entities": [
+      {
+       "entity_id": "3LXP_1",
+       "length_aa": 318,
+       "polymer_type": "polypeptide(L)",
+       "auth_chain_ids": [
+        "A"
+       ],
+       "description": "Non-receptor tyrosine-protein kinase TYK2",
+       "accessions": [
+        "P29597"
+       ]
+      }
+     ],
+     "foreign_peptide_chains": [],
+     "foreign_polymer_chains": [],
+     "drug_like_ligands": [
+      "IZA"
+     ],
+     "all_het_comp_ids": [
+      "IZA"
+     ],
+     "apo_or_holo": "holo"
+    },
+    "rejected_better_resolution": [],
+    "runner_up_entries": [
+     {
+      "pdb_id": "8S99",
+      "chain": "A",
+      "resolution_a": 1.71,
+      "apo_or_holo": "holo"
+     },
+     {
+      "pdb_id": "4WOV",
+      "chain": "A",
+      "resolution_a": 1.8,
+      "apo_or_holo": "holo"
+     },
+     {
+      "pdb_id": "8S9A",
+      "chain": "A",
+      "resolution_a": 1.83,
+      "apo_or_holo": "holo"
+     },
+     {
+      "pdb_id": "8S98",
+      "chain": "A",
+      "resolution_a": 1.87,
+      "apo_or_holo": "holo"
+     },
+     {
+      "pdb_id": "5C03",
+      "chain": "A",
+      "resolution_a": 1.9,
+      "apo_or_holo": "holo"
+     }
+    ]
+   },
+   "literature_query": "(TITLE_ABS:\"TYK2\" OR TITLE_ABS:\"IMD35\" OR TITLE_ABS:\"JTK1\") AND TITLE_ABS:\"rheumatoid arthritis\" AND (TITLE_ABS:\"inhibitor\" OR TITLE_ABS:\"inhibition\" OR TITLE_ABS:\"binder\" OR TITLE_ABS:\"antagonist\" OR TITLE_ABS:\"blockade\") AND (HAS_ABSTRACT:Y) AND (SRC:MED)",
+   "literature_hit_count": 49,
+   "literature": [
+    {
+     "pmid": "41757135",
+     "title": "Dual TYK2/JAK1 Inhibition by Brepocitinib Reprograms Synoviocyte Pathobiology: Mechanistic Insights Into Targeted Therapy for Rheumatoid Arthritis.",
+     "year": "2026",
+     "journal": "Iranian journal of pharmaceutical research : IJPR",
+     "claim": "Brepocitinib, a dual TYK2/JAK1 inhibitor, has shown clinical efficacy in the management of autoimmune diseases, yet its mechanistic impact on synoviocytes remains underexplored.",
+     "claim_tier": "target+term",
+     "claim_alias": "TYK2",
+     "doi": "10.5812/ijpr-166019",
+     "title_verified": true,
+     "verification": "match"
+    },
+    {
+     "pmid": "42418674",
+     "title": "Dermatomyositis is characterized by TYK2-dependent STAT3 activation.",
+     "year": "2026",
+     "journal": "Clinical and experimental immunology",
+     "claim": "Phosphorylated STAT3 (pSTAT3) levels were assessed by flow cytometry in CD4+ and CD14+ cells under basal conditions and following selective inhibition of JAK1 (abrocitinib), JAK2 (gandotinib), JAK3 (decernotinib), or TYK2 (deucravacitinib).",
+     "claim_tier": "target+term",
+     "claim_alias": "TYK2",
+     "doi": "10.1093/cei/uxag025",
+     "title_verified": true,
+     "verification": "match"
+    }
+   ],
+   "literature_dropped_failed_verification": [],
+   "literature_status": "ok",
+   "site_type_hint": "pocket",
+   "site_type_evidence": "chosen structure 3LXP binds IZA as HETATM",
+   "preferred_modalities": [
+    "small_molecule"
+   ],
+   "preferred_modalities_rule": "a modality is listed only where an approved drug of that kind binds this target in the local corpora, or (small_molecule) the chosen structure carries a drug-like HETATM ligand",
+   "opentargets_tractability_modalities": [
+    "antibody",
+    "protac",
+    "small_molecule"
+   ],
+   "gate_has_approved_positive_control": true,
+   "gate_has_usable_structure": true,
+   "usable_for_pipeline": true,
+   "unusable_reasons": [],
+   "pipeline_config": {
+    "symbol": "TYK2",
+    "uniprot": "P29597",
+    "pdb_id": "3LXP",
+    "chain": "A",
+    "out": "tyk2",
+    "protocol": "protein-anything",
+    "binder_length": "60..90"
+   },
+   "pipeline_rank": 1
+  },
+  {
+   "rank": 2,
+   "ensembl_id": "ENSG00000160712",
+   "approved_symbol": "IL6R",
+   "approved_name": "interleukin 6 receptor",
+   "biotype": "protein_coding",
+   "symbol_synonyms": [
+    "CD126",
+    "HIES5",
+    "IL-1Ra",
+    "IL-6 receptor subunit alpha",
+    "IL-6R",
+    "IL-6R subunit alpha",
+    "IL-6R-1",
+    "IL-6R-alpha",
+    "IL-6RA",
+    "IL6Q",
+    "IL6QTL",
+    "IL6R",
+    "IL6RA",
+    "IL6RQ",
+    "gp80",
+    "sIL6R"
+   ],
+   "uniprot": "P08887",
+   "uniprot_source": "opentargets_proteinIds:uniprot_swissprot",
+   "overall_association_score": 0.7465471244187307,
+   "datatype_scores": {
+    "genetic_association": 0.8639994022095328,
+    "known_drug": 0.9934933197802531,
+    "literature": 0.8334072763834594,
+    "rna_expression": null,
+    "somatic_mutation": null,
+    "animal_model": null,
+    "affected_pathway": null
+   },
+   "all_datatype_scores": {
+    "literature": 0.8334072763834594,
+    "genetic_association": 0.8639994022095328,
+    "clinical": 0.9934933197802531
+   },
+   "known_drug_datatype_id": "clinical",
+   "known_drug_score": 0.9934933197802531,
+   "has_known_drug_evidence": true,
+   "n_drug_and_clinical_candidates": 5,
+   "n_drug_rows_returned": 5,
+   "drug_rows_complete": true,
+   "n_approved_drugs": 4,
+   "approved_drug_examples": [
+    "LEVILIMAB",
+    "SARILUMAB",
+    "SATRALIZUMAB",
+    "TOCILIZUMAB"
+   ],
+   "association_score": 0.7465471244187307,
+   "score_by_datatype": {
+    "literature": 0.8334072763834594,
+    "genetic_association": 0.8639994022095328,
+    "clinical": 0.9934933197802531
+   },
+   "n_approved_binders_moa": 0,
+   "n_approved_binders_annotated": 0,
+   "n_approved_binders_bioactivity": 0,
+   "n_approved_biologic_binders": 1,
+   "n_approved_peptide_binders": 0,
+   "known_approved_drugs": [],
+   "approved_binders_offtarget_only": [],
+   "approved_biologic_binders": [
+    {
+     "name": "sarilumab",
+     "modality": "mab",
+     "action": "ANTAGONIST"
+    }
+   ],
+   "corpus_symbols_matched": [],
+   "target_class": [
+    "Secreted protein"
+   ],
+   "target_class_detail": [
+    {
+     "label": "Secreted protein",
+     "level": "l1"
+    }
+   ],
+   "tractability": {
+    "antibody": [
+     "Approved Drug",
+     "GO CC high conf",
+     "UniProt SigP or TMHMM",
+     "UniProt loc high conf",
+     "UniProt loc med conf"
+    ],
+    "small_molecule": [
+     "Structure with Ligand"
+    ]
+   },
+   "n_safety_liabilities": 1,
+   "safety_flags": [
+    "regulation of transcription factor activity"
+   ],
+   "safety_sources": [
+    "ToxCast"
+   ],
+   "circularity": {
+    "known_drug_datatype_id": "clinical",
+    "known_drug_score": 0.9934933197802531,
+    "known_drug_share_of_datatype_sum": 0.3692,
+    "known_drug_is_largest_datatype": true,
+    "largest_datatype": "clinical",
+    "known_drug_dominated": true,
+    "circularity_note": "known-drug evidence is this target's single largest datatype (0.993, 37% of the datatype-score sum); a 'discovery' of its approved drugs is partly a lookup of the evidence that ranked it"
+   },
+   "uniprot_sites": {
+    "sequence_length": 468,
+    "active_sites": [],
+    "site_anchors": [],
+    "site_anchor_rule": "UniProt ACT_SITE positions whose residue is S/C/T (the catalytic nucleophile). His/Asp members of a charge-relay triad are excluded: they sit behind the nucleophile and a sphere over all three reaches into the core rather than the ligand site.",
+    "mature_chains": [
+     {
+      "description": "Interleukin-6 receptor subunit alpha",
+      "start": 20,
+      "end": 468
+     },
+     {
+      "description": "Soluble interleukin-6 receptor subunit alpha",
+      "start": 20,
+      "end": 355
+     }
+    ]
+   },
+   "structure": {
+    "structure_status": "ok",
+    "n_entities_total": 4,
+    "n_entities_ligand_bound_total": 1,
+    "n_entities_examined": 4,
+    "n_entries_examined": 4,
+    "n_entries_usable": 4,
+    "n_entries_rejected": 0,
+    "reject_reason_counts": {},
+    "structure": {
+     "pdb_id": "7DC8",
+     "method": "X-ray",
+     "resolution_a": 2.757,
+     "chain": "C",
+     "chain_entity_length_aa": 218,
+     "target_entities": [
+      {
+       "entity_id": "7DC8_3",
+       "length_aa": 218,
+       "polymer_type": "polypeptide(L)",
+       "auth_chain_ids": [
+        "C",
+        "F"
+       ],
+       "description": "Interleukin-6 receptor subunit alpha",
+       "accessions": [
+        "P08887"
+       ]
+      }
+     ],
+     "foreign_peptide_chains": [],
+     "foreign_polymer_chains": [
+      {
+       "entity_id": "7DC8_2",
+       "length_aa": 230,
+       "polymer_type": "polypeptide(L)",
+       "auth_chain_ids": [
+        "B",
+        "E"
+       ],
+       "description": "Switch Ab Fab heavy chain",
+       "accessions": []
+      },
+      {
+       "entity_id": "7DC8_1",
+       "length_aa": 216,
+       "polymer_type": "polypeptide(L)",
+       "auth_chain_ids": [
+        "A",
+        "D"
+       ],
+       "description": "Switch Ab Fab light chain",
+       "accessions": []
+      }
+     ],
+     "drug_like_ligands": [
+      "ATP"
+     ],
+     "all_het_comp_ids": [
+      "ATP",
+      "SO4"
+     ],
+     "apo_or_holo": "holo"
+    },
+    "rejected_better_resolution": [],
+    "runner_up_entries": [
+     {
+      "pdb_id": "1N26",
+      "chain": "A",
+      "resolution_a": 2.4,
+      "apo_or_holo": "apo"
+     },
+     {
+      "pdb_id": "5FUC",
+      "chain": "C",
+      "resolution_a": 2.7,
+      "apo_or_holo": "apo"
+     },
+     {
+      "pdb_id": "1P9M",
+      "chain": "C",
+      "resolution_a": 3.65,
+      "apo_or_holo": "apo"
+     }
+    ]
+   },
+   "literature_query": "(TITLE_ABS:\"IL6R\" OR TITLE_ABS:\"CD126\" OR TITLE_ABS:\"HIES5\" OR TITLE_ABS:\"IL-1Ra\" OR TITLE_ABS:\"IL-6R\" OR TITLE_ABS:\"IL-6R-1\" OR TITLE_ABS:\"IL-6R-alpha\") AND TITLE_ABS:\"rheumatoid arthritis\" AND (TITLE_ABS:\"inhibitor\" OR TITLE_ABS:\"inhibition\" OR TITLE_ABS:\"binder\" OR TITLE_ABS:\"antagonist\" OR TITLE_ABS:\"blockade\") AND (HAS_ABSTRACT:Y) AND (SRC:MED)",
+   "literature_hit_count": 396,
+   "literature": [
+    {
+     "pmid": "42136682",
+     "title": "From in silico to in vitro: discovery and validation of peptide modulators of IL-6/IL-6R signaling in rheumatoid arthritis.",
+     "year": "2026",
+     "journal": "Frontiers in immunology",
+     "claim": "Peptide P01 represents a tractable early-stage IL-6R antagonist that provides a foundation for future structure-guided optimization and development as a complementary therapeutic modality for IL-6-driven inflammatory diseases.",
+     "claim_tier": "target+term",
+     "claim_alias": "IL-6R",
+     "doi": "10.3389/fimmu.2026.1794095",
+     "title_verified": true,
+     "verification": "match"
+    },
+    {
+     "pmid": "42697828",
+     "title": "SDH inhibition quenches rheumatoid arthritis flare-associated IL-1\u03b2+IFN-\u03b3+ macrophages via NF-\u03baB/STAT4.",
+     "year": "2026",
+     "journal": "Annals of the rheumatic diseases",
+     "claim": "TLR5, upregulated during disease flares, drives an IL-1\u03b2+NFKB1+IFN-\u03b3+STAT4lo M\u03a6 phenotype in blood and synovium that is refractory to tumour necrosis factor (TNF) and IL-6R blockade.",
+     "claim_tier": "target+term",
+     "claim_alias": "IL-6R",
+     "doi": "10.1016/j.ard.2026.07.025",
+     "title_verified": true,
+     "verification": "match"
+    }
+   ],
+   "literature_dropped_failed_verification": [],
+   "literature_status": "ok",
+   "site_type_hint": "pocket",
+   "site_type_evidence": "chosen structure 7DC8 binds ATP as HETATM",
+   "preferred_modalities": [
+    "biologic",
+    "small_molecule"
+   ],
+   "preferred_modalities_rule": "a modality is listed only where an approved drug of that kind binds this target in the local corpora, or (small_molecule) the chosen structure carries a drug-like HETATM ligand",
+   "opentargets_tractability_modalities": [
+    "antibody",
+    "small_molecule"
+   ],
+   "gate_has_approved_positive_control": false,
+   "gate_has_usable_structure": true,
+   "usable_for_pipeline": false,
+   "unusable_reasons": [
+    "no approved drug has IL6R as its mechanism-of-action target (0 off-target annotations, 0 pchembl-backed) - the matching arms would have no positive control"
+   ],
+   "pipeline_config": null
+  },
+  {
+   "rank": 3,
+   "ensembl_id": "ENSG00000113302",
+   "approved_symbol": "IL12B",
+   "approved_name": "interleukin 12B",
+   "biotype": "protein_coding",
+   "symbol_synonyms": [
+    "CLMF",
+    "CLMF p40",
+    "CLMF2",
+    "IL-12B",
+    "IL12B",
+    "IMD28",
+    "IMD29",
+    "NKSF",
+    "NKSF2"
+   ],
+   "uniprot": "P29460",
+   "uniprot_source": "opentargets_proteinIds:uniprot_swissprot",
+   "overall_association_score": 0.7427241526380933,
+   "datatype_scores": {
+    "genetic_association": 0.9044589684326397,
+    "known_drug": 0.9847642681127319,
+    "literature": 0.48806205840502814,
+    "rna_expression": null,
+    "somatic_mutation": null,
+    "animal_model": null,
+    "affected_pathway": null
+   },
+   "all_datatype_scores": {
+    "literature": 0.48806205840502814,
+    "genetic_association": 0.9044589684326397,
+    "clinical": 0.9847642681127319
+   },
+   "known_drug_datatype_id": "clinical",
+   "known_drug_score": 0.9847642681127319,
+   "has_known_drug_evidence": true,
+   "n_drug_and_clinical_candidates": 8,
+   "n_drug_rows_returned": 8,
+   "drug_rows_complete": true,
+   "n_approved_drugs": 6,
+   "approved_drug_examples": [
+    "BRIAKINUMAB",
+    "GUSELKUMAB",
+    "MIRIKIZUMAB",
+    "RISANKIZUMAB",
+    "TILDRAKIZUMAB",
+    "USTEKINUMAB"
+   ],
+   "association_score": 0.7427241526380933,
+   "score_by_datatype": {
+    "literature": 0.48806205840502814,
+    "genetic_association": 0.9044589684326397,
+    "clinical": 0.9847642681127319
+   },
+   "n_approved_binders_moa": 0,
+   "n_approved_binders_annotated": 0,
+   "n_approved_binders_bioactivity": 0,
+   "n_approved_biologic_binders": 0,
+   "n_approved_peptide_binders": 0,
+   "known_approved_drugs": [],
+   "approved_binders_offtarget_only": [],
+   "approved_biologic_binders": [],
+   "corpus_symbols_matched": [],
+   "target_class": [
+    "Secreted protein"
+   ],
+   "target_class_detail": [
+    {
+     "label": "Secreted protein",
+     "level": "l1"
+    }
+   ],
+   "tractability": {
+    "antibody": [
+     "Approved Drug",
+     "GO CC high conf",
+     "UniProt SigP or TMHMM",
+     "UniProt loc med conf"
+    ],
+    "small_molecule": [
+     "Med-Quality Pocket",
+     "Structure with Ligand"
+    ]
+   },
+   "n_safety_liabilities": 0,
+   "safety_flags": [],
+   "safety_sources": [],
+   "circularity": {
+    "known_drug_datatype_id": "clinical",
+    "known_drug_score": 0.9847642681127319,
+    "known_drug_share_of_datatype_sum": 0.4142,
+    "known_drug_is_largest_datatype": true,
+    "largest_datatype": "clinical",
+    "known_drug_dominated": true,
+    "circularity_note": "known-drug evidence is this target's single largest datatype (0.985, 41% of the datatype-score sum); a 'discovery' of its approved drugs is partly a lookup of the evidence that ranked it"
+   },
+   "uniprot_sites": {
+    "sequence_length": 328,
+    "active_sites": [],
+    "site_anchors": [],
+    "site_anchor_rule": "UniProt ACT_SITE positions whose residue is S/C/T (the catalytic nucleophile). His/Asp members of a charge-relay triad are excluded: they sit behind the nucleophile and a sphere over all three reaches into the core rather than the ligand site.",
+    "mature_chains": [
+     {
+      "description": "Interleukin-12 subunit beta",
+      "start": 23,
+      "end": 328
+     }
+    ]
+   },
+   "structure": {
+    "structure_status": "ok",
+    "n_entities_total": 17,
+    "n_entities_ligand_bound_total": 4,
+    "n_entities_examined": 17,
+    "n_entries_examined": 17,
+    "n_entries_usable": 15,
+    "n_entries_rejected": 2,
+    "reject_reason_counts": {
+     "co_crystallised_peptide_polymer_chain": 2
+    },
+    "structure": {
+     "pdb_id": "1F42",
+     "method": "X-ray",
+     "resolution_a": 2.5,
+     "chain": "A",
+     "chain_entity_length_aa": 306,
+     "target_entities": [
+      {
+       "entity_id": "1F42_1",
+       "length_aa": 306,
+       "polymer_type": "polypeptide(L)",
+       "auth_chain_ids": [
+        "A"
+       ],
+       "description": "INTERLEUKIN-12 BETA CHAIN",
+       "accessions": [
+        "P29460"
+       ]
+      }
+     ],
+     "foreign_peptide_chains": [],
+     "foreign_polymer_chains": [],
+     "drug_like_ligands": [],
+     "all_het_comp_ids": [
+      "MNB"
+     ],
+     "apo_or_holo": "apo"
+    },
+    "rejected_better_resolution": [
+     {
+      "pdb_id": "8UUI",
+      "resolution_a": 2.43,
+      "reject_reason": "co_crystallised_peptide_polymer_chain",
+      "reject_detail": [
+       "8UUI_3 peptide 23-446 (20 aa)"
+      ]
+     }
+    ],
+    "runner_up_entries": [
+     {
+      "pdb_id": "5MJ3",
+      "chain": "A",
+      "resolution_a": 1.74,
+      "apo_or_holo": "apo"
+     },
+     {
+      "pdb_id": "3D85",
+      "chain": "D",
+      "resolution_a": 1.9,
+      "apo_or_holo": "apo"
+     },
+     {
+      "pdb_id": "8CR8",
+      "chain": "A",
+      "resolution_a": 2.0,
+      "apo_or_holo": "apo"
+     },
+     {
+      "pdb_id": "3DUH",
+      "chain": "A",
+      "resolution_a": 2.3,
+      "apo_or_holo": "apo"
+     },
+     {
+      "pdb_id": "5MXA",
+      "chain": "A",
+      "resolution_a": 2.501,
+      "apo_or_holo": "apo"
+     }
+    ]
+   },
+   "literature_query": "(TITLE_ABS:\"IL12B\" OR TITLE_ABS:\"CLMF2\" OR TITLE_ABS:\"IL-12B\" OR TITLE_ABS:\"IMD28\" OR TITLE_ABS:\"IMD29\" OR TITLE_ABS:\"NKSF2\" OR TITLE_ABS:\"CLMF\") AND TITLE_ABS:\"rheumatoid arthritis\" AND (TITLE_ABS:\"inhibitor\" OR TITLE_ABS:\"inhibition\" OR TITLE_ABS:\"binder\" OR TITLE_ABS:\"antagonist\" OR TITLE_ABS:\"blockade\") AND (HAS_ABSTRACT:Y) AND (SRC:MED)",
+   "literature_hit_count": 3,
+   "literature": [
+    {
+     "pmid": "40662950",
+     "title": "Opposing regulation of TNF responses by IFN-\u03b3 and a PGE2-cAMP axis that is apparent in rheumatoid and immune checkpoint inhibitor-induced arthritis human IL-1\u03b2+ macrophages.",
+     "year": "2025",
+     "journal": "eLife",
+     "claim": "TP signature genes are distinct from canonical inflammatory NF-\u03baB target genes such as TNF, IL6 and IL12B and are activated by cooperation of PGE2-induced AP-1, CEBP and NR4A family transcription factors with TNF-induced NF-\u03baB activity.",
+     "claim_tier": "target-only",
+     "claim_alias": "IL12B",
+     "doi": "10.7554/elife.104367",
+     "title_verified": true,
+     "verification": "match"
+    },
+    {
+     "pmid": "36179420",
+     "title": "MAPK activated kinase 2 inhibition shifts the chemokine signature in arthritis synovial fluid mononuclear cells from CXCR3 to CXCR2.",
+     "year": "2022",
+     "journal": "International immunopharmacology",
+     "claim": "Results: In SFMCs cultured for 48 h, the MK2 inhibitor decreased the production of chemokine (C-X-C motif) ligand 9 (CXCL9) (P < 0.001), CXCL10 (P < 0.01), hepatocyte growth factor (HGF) (P < 0.01), CXCL11 (P < 0.01), tumor necrosisfactor-like weak inducer of apoptosis (TWEAK) (P < 0.05), and interleukin 12B (IL-12B) (P < 0.05) and increased the production of CXCL5 (P < 0.0001), CXCL1 (P < 0.00...",
+     "claim_tier": "target+term",
+     "claim_alias": "IL-12B",
+     "doi": "10.1016/j.intimp.2022.109267",
+     "title_verified": true,
+     "verification": "match"
+    }
+   ],
+   "literature_dropped_failed_verification": [],
+   "literature_status": "ok",
+   "site_type_hint": "unknown",
+   "site_type_evidence": "1F42 is apo and has no partner chain",
+   "preferred_modalities": [
+    "unknown"
+   ],
+   "preferred_modalities_rule": "a modality is listed only where an approved drug of that kind binds this target in the local corpora, or (small_molecule) the chosen structure carries a drug-like HETATM ligand",
+   "opentargets_tractability_modalities": [
+    "antibody",
+    "small_molecule"
+   ],
+   "gate_has_approved_positive_control": false,
+   "gate_has_usable_structure": true,
+   "usable_for_pipeline": false,
+   "unusable_reasons": [
+    "no approved drug has IL12B as its mechanism-of-action target (0 off-target annotations, 0 pchembl-backed) - the matching arms would have no positive control"
+   ],
+   "pipeline_config": null
+  },
+  {
+   "rank": 4,
+   "ensembl_id": "ENSG00000232810",
+   "approved_symbol": "TNF",
+   "approved_name": "tumor necrosis factor",
+   "biotype": "protein_coding",
+   "symbol_synonyms": [
+    "DIF",
+    "ICD1",
+    "ICD2",
+    "IMD127",
+    "NTF",
+    "TNF",
+    "TNF-a",
+    "TNF-alpha",
+    "TNFA",
+    "TNFSF2",
+    "TNLG1F"
+   ],
+   "uniprot": "P01375",
+   "uniprot_source": "opentargets_proteinIds:uniprot_swissprot",
+   "overall_association_score": 0.7164039239148383,
+   "datatype_scores": {
+    "genetic_association": null,
+    "known_drug": 0.9985901607605447,
+    "literature": 0.9976368496874746,
+    "rna_expression": null,
+    "somatic_mutation": null,
+    "animal_model": 0.45499905068577773,
+    "affected_pathway": null
+   },
+   "all_datatype_scores": {
+    "literature": 0.9976368496874746,
+    "animal_model": 0.45499905068577773,
+    "genetic_literature": 0.607930797611621,
+    "clinical": 0.9985901607605447
+   },
+   "known_drug_datatype_id": "clinical",
+   "known_drug_score": 0.9985901607605447,
+   "has_known_drug_evidence": true,
+   "n_drug_and_clinical_candidates": 14,
+   "n_drug_rows_returned": 14,
+   "drug_rows_complete": true,
+   "n_approved_drugs": 7,
+   "approved_drug_examples": [
+    "ADALIMUMAB",
+    "AFELIMOMAB",
+    "CERTOLIZUMAB PEGOL",
+    "ETANERCEPT",
+    "GOLIMUMAB",
+    "INFLIXIMAB",
+    "OZORALIZUMAB"
+   ],
+   "association_score": 0.7164039239148383,
+   "score_by_datatype": {
+    "literature": 0.9976368496874746,
+    "animal_model": 0.45499905068577773,
+    "genetic_literature": 0.607930797611621,
+    "clinical": 0.9985901607605447
+   },
+   "n_approved_binders_moa": 0,
+   "n_approved_binders_annotated": 4,
+   "n_approved_binders_bioactivity": 6,
+   "n_approved_biologic_binders": 1,
+   "n_approved_peptide_binders": 0,
+   "known_approved_drugs": [],
+   "approved_binders_offtarget_only": [
+    "lenalidomide",
+    "mesalazine",
+    "plecanatide",
+    "thalidomide"
+   ],
+   "approved_biologic_binders": [
+    {
+     "name": "etanercept",
+     "modality": "fusion_protein",
+     "action": "INHIBITOR"
+    }
+   ],
+   "corpus_symbols_matched": [
+    "TNF"
+   ],
+   "target_class": [
+    "Secreted protein"
+   ],
+   "target_class_detail": [
+    {
+     "label": "Secreted protein",
+     "level": "l1"
+    }
+   ],
+   "tractability": {
+    "antibody": [
+     "Approved Drug",
+     "GO CC high conf",
+     "UniProt SigP or TMHMM",
+     "UniProt loc high conf",
+     "UniProt loc med conf"
+    ],
+    "other": [
+     "Approved Drug"
+    ],
+    "protac": [
+     "Small Molecule Binder"
+    ],
+    "small_molecule": [
+     "Druggable Family",
+     "High-Quality Ligand",
+     "High-Quality Pocket",
+     "Structure with Ligand"
+    ]
+   },
+   "n_safety_liabilities": 9,
+   "safety_flags": [
+    "Toxic liver disease",
+    "chance of severe hypersensitivity",
+    "chance of severe hypersensitivity to carbamazepine treatment",
+    "hand-foot syndrome",
+    "hypersensitivity",
+    "insufficient data",
+    "neuropathy",
+    "regulation of gene expression",
+    "thrombocytopenia"
+   ],
+   "safety_sources": [
+    "ClinPGx",
+    "ToxCast"
+   ],
+   "circularity": {
+    "known_drug_datatype_id": "clinical",
+    "known_drug_score": 0.9985901607605447,
+    "known_drug_share_of_datatype_sum": 0.3264,
+    "known_drug_is_largest_datatype": true,
+    "largest_datatype": "clinical",
+    "known_drug_dominated": true,
+    "circularity_note": "known-drug evidence is this target's single largest datatype (0.999, 33% of the datatype-score sum); a 'discovery' of its approved drugs is partly a lookup of the evidence that ranked it"
+   },
+   "uniprot_sites": {
+    "sequence_length": 233,
+    "active_sites": [],
+    "site_anchors": [],
+    "site_anchor_rule": "UniProt ACT_SITE positions whose residue is S/C/T (the catalytic nucleophile). His/Asp members of a charge-relay triad are excluded: they sit behind the nucleophile and a sphere over all three reaches into the core rather than the ligand site.",
+    "mature_chains": [
+     {
+      "description": "Tumor necrosis factor, membrane form",
+      "start": 1,
+      "end": 233
+     },
+     {
+      "description": "Intracellular domain 1",
+      "start": 1,
+      "end": 39
+     },
+     {
+      "description": "Intracellular domain 2",
+      "start": 1,
+      "end": 35
+     },
+     {
+      "description": "C-domain 1",
+      "start": 50,
+      "end": null
+     },
+     {
+      "description": "C-domain 2",
+      "start": 52,
+      "end": null
+     },
+     {
+      "description": "Tumor necrosis factor, soluble form",
+      "start": 77,
+      "end": 233
+     }
+    ]
+   },
+   "structure": {
+    "structure_status": "ok",
+    "n_entities_total": 45,
+    "n_entities_ligand_bound_total": 27,
+    "n_entities_examined": 45,
+    "n_entries_examined": 45,
+    "n_entries_usable": 42,
+    "n_entries_rejected": 3,
+    "reject_reason_counts": {
+     "co_crystallised_peptide_polymer_chain": 3
+    },
+    "structure": {
+     "pdb_id": "9OJO",
+     "method": "X-ray",
+     "resolution_a": 1.358,
+     "chain": "A",
+     "chain_entity_length_aa": 158,
+     "target_entities": [
+      {
+       "entity_id": "9OJO_1",
+       "length_aa": 158,
+       "polymer_type": "polypeptide(L)",
+       "auth_chain_ids": [
+        "A",
+        "B",
+        "C"
+       ],
+       "description": "Tumor necrosis factor",
+       "accessions": [
+        "P01375"
+       ]
+      }
+     ],
+     "foreign_peptide_chains": [],
+     "foreign_polymer_chains": [],
+     "drug_like_ligands": [
+      "A1CB1"
+     ],
+     "all_het_comp_ids": [
+      "A1CB1"
+     ],
+     "apo_or_holo": "holo"
+    },
+    "rejected_better_resolution": [],
+    "runner_up_entries": [
+     {
+      "pdb_id": "5UUI",
+      "chain": "A",
+      "resolution_a": 1.4,
+      "apo_or_holo": "holo"
+     },
+     {
+      "pdb_id": "9OJS",
+      "chain": "A",
+      "resolution_a": 1.849,
+      "apo_or_holo": "holo"
+     },
+     {
+      "pdb_id": "2AZ5",
+      "chain": "A",
+      "resolution_a": 2.1,
+      "apo_or_holo": "holo"
+     },
+     {
+      "pdb_id": "7JRA",
+      "chain": "A",
+      "resolution_a": 2.1,
+      "apo_or_holo": "holo"
+     },
+     {
+      "pdb_id": "7KP9",
+      "chain": "A",
+      "resolution_a": 2.15,
+      "apo_or_holo": "holo"
+     }
+    ]
+   },
+   "literature_query": "(TITLE_ABS:\"TNF\" OR TITLE_ABS:\"ICD1\" OR TITLE_ABS:\"ICD2\" OR TITLE_ABS:\"IMD127\" OR TITLE_ABS:\"TNFSF2\" OR TITLE_ABS:\"TNLG1F\" OR TITLE_ABS:\"TNF-a\") AND TITLE_ABS:\"rheumatoid arthritis\" AND (TITLE_ABS:\"inhibitor\" OR TITLE_ABS:\"inhibition\" OR TITLE_ABS:\"binder\" OR TITLE_ABS:\"antagonist\" OR TITLE_ABS:\"blockade\") AND (HAS_ABSTRACT:Y) AND (SRC:MED)",
+   "literature_hit_count": 3586,
+   "literature": [
+    {
+     "pmid": "42632933",
+     "title": "Exploring the role of TNF/TNFR superfamily and NF-\u03baB pathway in regulating B7/CD28 expression in rheumatoid arthritis: An in-vitro study.",
+     "year": "2026",
+     "journal": "Pakistan journal of pharmaceutical sciences",
+     "claim": "NF-\u03baB inhibition with PDTC significantly reduced FLS viability and increased apoptosis, downregulated IL-1\u03b2 and COX-2 and restored CD28/CD80 expression on CD4+ T cells (P < 0.05), but did not alter TNF-\u03b1 or TNFR mRNA levels.",
+     "claim_tier": "target+term",
+     "claim_alias": "TNF",
+     "doi": "10.36721/pjps.2026.39.11.312.1",
+     "title_verified": true,
+     "verification": "match"
+    },
+    {
+     "pmid": "42089250",
+     "title": "Progressive alopecia areata during TNF-\u03b1 inhibition with intralesional corticosteroid failure and subsequent improvement following JAK1 inhibition.",
+     "year": "2026",
+     "journal": "The Journal of dermatological treatment",
+     "claim": "Alopecia developed and progressed despite ongoing TNF-\u03b1 inhibitor therapy and serial intralesional corticosteroids.",
+     "claim_tier": "target+term",
+     "claim_alias": "TNF",
+     "doi": "10.1080/09546634.2026.2663647",
+     "title_verified": true,
+     "verification": "match"
+    }
+   ],
+   "literature_dropped_failed_verification": [],
+   "literature_status": "ok",
+   "site_type_hint": "pocket",
+   "site_type_evidence": "chosen structure 9OJO binds A1CB1 as HETATM",
+   "preferred_modalities": [
+    "biologic",
+    "small_molecule"
+   ],
+   "preferred_modalities_rule": "a modality is listed only where an approved drug of that kind binds this target in the local corpora, or (small_molecule) the chosen structure carries a drug-like HETATM ligand",
+   "opentargets_tractability_modalities": [
+    "antibody",
+    "other",
+    "protac",
+    "small_molecule"
+   ],
+   "gate_has_approved_positive_control": false,
+   "gate_has_usable_structure": true,
+   "usable_for_pipeline": false,
+   "unusable_reasons": [
+    "no approved drug has TNF as its mechanism-of-action target (4 off-target annotations, 6 pchembl-backed) - the matching arms would have no positive control"
+   ],
+   "pipeline_config": null
+  },
+  {
+   "rank": 5,
+   "ensembl_id": "ENSG00000162434",
+   "approved_symbol": "JAK1",
+   "approved_name": "Janus kinase 1",
+   "biotype": "protein_coding",
+   "symbol_synonyms": [
+    "AIIDE",
+    "JAK-1",
+    "JAK1",
+    "JAK1A",
+    "JAK1B",
+    "JTK3"
+   ],
+   "uniprot": "P23458",
+   "uniprot_source": "opentargets_proteinIds:uniprot_swissprot",
+   "overall_association_score": 0.7148098803591497,
+   "datatype_scores": {
+    "genetic_association": 0.66842934959833,
+    "known_drug": 0.9933302824928972,
+    "literature": 0.5117260835541801,
+    "rna_expression": null,
+    "somatic_mutation": null,
+    "animal_model": 0.319893185703235,
+    "affected_pathway": null
+   },
+   "all_datatype_scores": {
+    "literature": 0.5117260835541801,
+    "animal_model": 0.319893185703235,
+    "genetic_association": 0.66842934959833,
+    "clinical": 0.9933302824928972
+   },
+   "known_drug_datatype_id": "clinical",
+   "known_drug_score": 0.9933302824928972,
+   "has_known_drug_evidence": true,
+   "n_drug_and_clinical_candidates": 25,
+   "n_drug_rows_returned": 25,
+   "drug_rows_complete": true,
+   "n_approved_drugs": 14,
+   "approved_drug_examples": [
+    "ABROCITINIB",
+    "BARICITINIB",
+    "DELGOCITINIB",
+    "DEURUXOLITINIB PHOSPHATE",
+    "FILGOTINIB",
+    "FILGOTINIB MALEATE",
+    "MOMELOTINIB",
+    "MOMELOTINIB DIHYDROCHLORIDE MONOHYDRATE"
+   ],
+   "association_score": 0.7148098803591497,
+   "score_by_datatype": {
+    "literature": 0.5117260835541801,
+    "animal_model": 0.319893185703235,
+    "genetic_association": 0.66842934959833,
+    "clinical": 0.9933302824928972
+   },
+   "n_approved_binders_moa": 6,
+   "n_approved_binders_annotated": 14,
+   "n_approved_binders_bioactivity": 15,
+   "n_approved_biologic_binders": 0,
+   "n_approved_peptide_binders": 0,
+   "known_approved_drugs": [
+    "baricitinib",
+    "delgocitinib",
+    "filgotinib",
+    "ruxolitinib",
+    "tofacitinib",
+    "upadacitinib"
+   ],
+   "approved_binders_offtarget_only": [
+    "ceritinib",
+    "crizotinib",
+    "entrectinib",
+    "fedratinib",
+    "midostaurin",
+    "nintedanib",
+    "pralsetinib",
+    "sunitinib"
+   ],
+   "approved_biologic_binders": [],
+   "corpus_symbols_matched": [
+    "JAK1"
+   ],
+   "target_class": [
+    "Enzyme",
+    "Kinase"
+   ],
+   "target_class_detail": [
+    {
+     "label": "TK protein kinase group",
+     "level": "l4"
+    },
+    {
+     "label": "Enzyme",
+     "level": "l1"
+    },
+    {
+     "label": "Kinase",
+     "level": "l2"
+    },
+    {
+     "label": "Protein Kinase",
+     "level": "l3"
+    },
+    {
+     "label": "Tyrosine protein kinase JakA family",
+     "level": "l5"
+    }
+   ],
+   "tractability": {
+    "antibody": [
+     "GO CC high conf",
+     "UniProt loc med conf"
+    ],
+    "protac": [
+     "Database Ubiquitination",
+     "Half-life Data",
+     "Literature",
+     "Small Molecule Binder",
+     "UniProt Ubiquitination"
+    ],
+    "small_molecule": [
+     "Approved Drug",
+     "Druggable Family",
+     "High-Quality Ligand",
+     "Structure with Ligand"
+    ]
+   },
+   "n_safety_liabilities": 0,
+   "safety_flags": [],
+   "safety_sources": [],
+   "circularity": {
+    "known_drug_datatype_id": "clinical",
+    "known_drug_score": 0.9933302824928972,
+    "known_drug_share_of_datatype_sum": 0.3984,
+    "known_drug_is_largest_datatype": true,
+    "largest_datatype": "clinical",
+    "known_drug_dominated": true,
+    "circularity_note": "known-drug evidence is this target's single largest datatype (0.993, 40% of the datatype-score sum); a 'discovery' of its approved drugs is partly a lookup of the evidence that ranked it"
+   },
+   "uniprot_sites": {
+    "sequence_length": 1154,
+    "active_sites": [
+     {
+      "position": 1003,
+      "residue": "D",
+      "description": "Proton acceptor"
+     }
+    ],
+    "site_anchors": [],
+    "site_anchor_rule": "UniProt ACT_SITE positions whose residue is S/C/T (the catalytic nucleophile). His/Asp members of a charge-relay triad are excluded: they sit behind the nucleophile and a sphere over all three reaches into the core rather than the ligand site.",
+    "mature_chains": [
+     {
+      "description": "Tyrosine-protein kinase JAK1",
+      "start": 1,
+      "end": 1154
+     }
+    ]
+   },
+   "structure": {
+    "structure_status": "ok",
+    "n_entities_total": 53,
+    "n_entities_ligand_bound_total": 48,
+    "n_entities_examined": 53,
+    "n_entries_examined": 52,
+    "n_entries_usable": 51,
+    "n_entries_rejected": 1,
+    "reject_reason_counts": {
+     "co_crystallised_peptide_polymer_chain": 1
+    },
+    "structure": {
+     "pdb_id": "6N7A",
+     "method": "X-ray",
+     "resolution_a": 1.33,
+     "chain": "A",
+     "chain_entity_length_aa": 304,
+     "target_entities": [
+      {
+       "entity_id": "6N7A_1",
+       "length_aa": 304,
+       "polymer_type": "polypeptide(L)",
+       "auth_chain_ids": [
+        "A",
+        "B"
+       ],
+       "description": "Tyrosine-protein kinase JAK1",
+       "accessions": [
+        "P23458"
+       ]
+      }
+     ],
+     "foreign_peptide_chains": [],
+     "foreign_polymer_chains": [],
+     "drug_like_ligands": [
+      "KEV"
+     ],
+     "all_het_comp_ids": [
+      "KEV",
+      "GOL"
+     ],
+     "apo_or_holo": "holo"
+    },
+    "rejected_better_resolution": [],
+    "runner_up_entries": [
+     {
+      "pdb_id": "10PI",
+      "chain": "A",
+      "resolution_a": 1.54,
+      "apo_or_holo": "holo"
+     },
+     {
+      "pdb_id": "6N77",
+      "chain": "A",
+      "resolution_a": 1.64,
+      "apo_or_holo": "holo"
+     },
+     {
+      "pdb_id": "6N7C",
+      "chain": "A",
+      "resolution_a": 1.69,
+      "apo_or_holo": "holo"
+     },
+     {
+      "pdb_id": "6GGH",
+      "chain": "A",
+      "resolution_a": 1.7,
+      "apo_or_holo": "holo"
+     },
+     {
+      "pdb_id": "6RSH",
+      "chain": "A",
+      "resolution_a": 1.71,
+      "apo_or_holo": "holo"
+     }
+    ]
+   },
+   "literature_query": "(TITLE_ABS:\"JAK1\" OR TITLE_ABS:\"JAK-1\" OR TITLE_ABS:\"JAK1A\" OR TITLE_ABS:\"JAK1B\" OR TITLE_ABS:\"JTK3\" OR TITLE_ABS:\"AIIDE\") AND TITLE_ABS:\"rheumatoid arthritis\" AND (TITLE_ABS:\"inhibitor\" OR TITLE_ABS:\"inhibition\" OR TITLE_ABS:\"binder\" OR TITLE_ABS:\"antagonist\" OR TITLE_ABS:\"blockade\") AND (HAS_ABSTRACT:Y) AND (SRC:MED)",
+   "literature_hit_count": 329,
+   "literature": [
+    {
+     "pmid": "42089250",
+     "title": "Progressive alopecia areata during TNF-\u03b1 inhibition with intralesional corticosteroid failure and subsequent improvement following JAK1 inhibition.",
+     "year": "2026",
+     "journal": "The Journal of dermatological treatment",
+     "claim": "Objectives: To report a case of AA developing during golimumab and leflunomide treatment for seropositive rheumatoid arthritis, with subsequent improvement following initiation of selective Janus kinase 1 (JAK1) inhibition.",
+     "claim_tier": "target+term",
+     "claim_alias": "JAK1",
+     "doi": "10.1080/09546634.2026.2663647",
+     "title_verified": true,
+     "verification": "match"
+    },
+    {
+     "pmid": "42292833",
+     "title": "Skeletal effects of JAK1/2 inhibition versus IL-6 receptor blockade in rheumatoid arthritis: a post hoc comparative cohort analysis based on two prospective observational studies.",
+     "year": "2026",
+     "journal": "Frontiers in pharmacology",
+     "claim": "Conclusion: JAK1/2 inhibition with baricitinib and IL-6 receptor blockade with tocilizumab showed comparable 12-month effects on lumbar spine and femoral neck BMD.",
+     "claim_tier": "target+term",
+     "claim_alias": "JAK1",
+     "doi": "10.3389/fphar.2026.1835307",
+     "title_verified": true,
+     "verification": "match"
+    }
+   ],
+   "literature_dropped_failed_verification": [],
+   "literature_status": "ok",
+   "site_type_hint": "pocket",
+   "site_type_evidence": "chosen structure 6N7A binds KEV as HETATM",
+   "preferred_modalities": [
+    "small_molecule"
+   ],
+   "preferred_modalities_rule": "a modality is listed only where an approved drug of that kind binds this target in the local corpora, or (small_molecule) the chosen structure carries a drug-like HETATM ligand",
+   "opentargets_tractability_modalities": [
+    "antibody",
+    "protac",
+    "small_molecule"
+   ],
+   "gate_has_approved_positive_control": true,
+   "gate_has_usable_structure": true,
+   "usable_for_pipeline": true,
+   "unusable_reasons": [],
+   "pipeline_config": {
+    "symbol": "JAK1",
+    "uniprot": "P23458",
+    "pdb_id": "6N7A",
+    "chain": "A",
+    "out": "jak1",
+    "protocol": "protein-anything",
+    "binder_length": "60..90"
+   },
+   "pipeline_rank": 2
+  },
+  {
+   "rank": 6,
+   "ensembl_id": "ENSG00000056972",
+   "approved_symbol": "TRAF3IP2",
+   "approved_name": "TRAF3 interacting protein 2",
+   "biotype": "protein_coding",
+   "symbol_synonyms": [
+    "ACT1",
+    "C6orf2",
+    "C6orf4",
+    "C6orf5",
+    "C6orf6",
+    "CANDF8",
+    "CIKS",
+    "DKFZP586G0522",
+    "PSORS13",
+    "TRAF3IP2"
+   ],
+   "uniprot": "O43734",
+   "uniprot_source": "opentargets_proteinIds:uniprot_swissprot",
+   "overall_association_score": 0.7109746986882758,
+   "datatype_scores": {
+    "genetic_association": 0.8428076518073447,
+    "known_drug": 0.9457466776013786,
+    "literature": 0.36678098905169526,
+    "rna_expression": 0.024730415607504327,
+    "somatic_mutation": null,
+    "animal_model": 0.3720688464082524,
+    "affected_pathway": null
+   },
+   "all_datatype_scores": {
+    "rna_expression": 0.024730415607504327,
+    "clinical": 0.9457466776013786,
+    "literature": 0.36678098905169526,
+    "genetic_association": 0.8428076518073447,
+    "animal_model": 0.3720688464082524
+   },
+   "known_drug_datatype_id": "clinical",
+   "known_drug_score": 0.9457466776013786,
+   "has_known_drug_evidence": true,
+   "n_drug_and_clinical_candidates": 1,
+   "n_drug_rows_returned": 1,
+   "drug_rows_complete": true,
+   "n_approved_drugs": 1,
+   "approved_drug_examples": [
+    "IGURATIMOD"
+   ],
+   "association_score": 0.7109746986882758,
+   "score_by_datatype": {
+    "rna_expression": 0.024730415607504327,
+    "clinical": 0.9457466776013786,
+    "literature": 0.36678098905169526,
+    "genetic_association": 0.8428076518073447,
+    "animal_model": 0.3720688464082524
+   },
+   "n_approved_binders_moa": 0,
+   "n_approved_binders_annotated": 0,
+   "n_approved_binders_bioactivity": 0,
+   "n_approved_biologic_binders": 0,
+   "n_approved_peptide_binders": 0,
+   "known_approved_drugs": [],
+   "approved_binders_offtarget_only": [],
+   "approved_biologic_binders": [],
+   "corpus_symbols_matched": [],
+   "target_class": [
+    "Enzyme",
+    "Transferase"
+   ],
+   "target_class_detail": [
+    {
+     "label": "Enzyme",
+     "level": "l1"
+    },
+    {
+     "label": "Transferase",
+     "level": "l2"
+    }
+   ],
+   "tractability": {
+    "small_molecule": [
+     "Advanced Clinical"
+    ]
+   },
+   "n_safety_liabilities": 1,
+   "safety_flags": [
+    "Steven-Johnson Syndrome (SJS) and Toxic Epidermal Necrolysis (TEN)"
+   ],
+   "safety_sources": [
+    "ClinPGx"
+   ],
+   "circularity": {
+    "known_drug_datatype_id": "clinical",
+    "known_drug_score": 0.9457466776013786,
+    "known_drug_share_of_datatype_sum": 0.3706,
+    "known_drug_is_largest_datatype": true,
+    "largest_datatype": "clinical",
+    "known_drug_dominated": true,
+    "circularity_note": "known-drug evidence is this target's single largest datatype (0.946, 37% of the datatype-score sum); a 'discovery' of its approved drugs is partly a lookup of the evidence that ranked it"
+   },
+   "uniprot_sites": {
+    "sequence_length": 574,
+    "active_sites": [],
+    "site_anchors": [],
+    "site_anchor_rule": "UniProt ACT_SITE positions whose residue is S/C/T (the catalytic nucleophile). His/Asp members of a charge-relay triad are excluded: they sit behind the nucleophile and a sphere over all three reaches into the core rather than the ligand site.",
+    "mature_chains": [
+     {
+      "description": "E3 ubiquitin ligase TRAF3IP2",
+      "start": 1,
+      "end": 574
+     }
+    ]
+   },
+   "structure": {
+    "structure_status": "no_xray_entity_maps_to_this_accession",
+    "n_entities_total": 0,
+    "n_entities_ligand_bound_total": 0,
+    "n_entities_examined": 0,
+    "structure": null
+   },
+   "literature_query": "(TITLE_ABS:\"TRAF3IP2\" OR TITLE_ABS:\"ACT1\" OR TITLE_ABS:\"C6orf2\" OR TITLE_ABS:\"C6orf4\" OR TITLE_ABS:\"C6orf5\" OR TITLE_ABS:\"C6orf6\" OR TITLE_ABS:\"CANDF8\") AND TITLE_ABS:\"rheumatoid arthritis\" AND (TITLE_ABS:\"inhibitor\" OR TITLE_ABS:\"inhibition\" OR TITLE_ABS:\"binder\" OR TITLE_ABS:\"antagonist\" OR TITLE_ABS:\"blockade\") AND (HAS_ABSTRACT:Y) AND (SRC:MED)",
+   "literature_hit_count": 2,
+   "literature": [
+    {
+     "pmid": "26362732",
+     "title": "Th17 cytokines regulate osteoclastogenesis in rheumatoid arthritis.",
+     "year": "2015",
+     "journal": "The American journal of pathology",
+     "claim": "IL-17, IL-21, and IL-22 increased the expression of Rankl mRNA in RA FLS, and the IL-17-induced RANKL expression decreased by the inhibition of Act1, tumor necrosis factor receptor-associated factor 6, NF-\u03baB, and activator protein-1.",
+     "claim_tier": "target+term",
+     "claim_alias": "ACT1",
+     "doi": "10.1016/j.ajpath.2015.07.017",
+     "title_verified": true,
+     "verification": "match"
+    },
+    {
+     "pmid": "24123677",
+     "title": "A novel disease-modifying antirheumatic drug, iguratimod, ameliorates murine arthritis by blocking IL-17 signaling, distinct from methotrexate and leflunomide.",
+     "year": "2013",
+     "journal": "Journal of immunology (Baltimore, Md. : 1950)",
+     "claim": "Iguratimod mainly targets Act1 to disrupt the interaction between Act1 and TRAF5 and IKKi in the IL-17 pathway of synoviocytes.",
+     "claim_tier": "target-only",
+     "claim_alias": "ACT1",
+     "doi": "10.4049/jimmunol.1300832",
+     "title_verified": true,
+     "verification": "match"
+    }
+   ],
+   "literature_dropped_failed_verification": [],
+   "literature_status": "ok",
+   "site_type_hint": "unknown",
+   "site_type_evidence": "no structure selected",
+   "preferred_modalities": [
+    "unknown"
+   ],
+   "preferred_modalities_rule": "a modality is listed only where an approved drug of that kind binds this target in the local corpora, or (small_molecule) the chosen structure carries a drug-like HETATM ligand",
+   "opentargets_tractability_modalities": [
+    "small_molecule"
+   ],
+   "gate_has_approved_positive_control": false,
+   "gate_has_usable_structure": false,
+   "usable_for_pipeline": false,
+   "unusable_reasons": [
+    "no approved drug has TRAF3IP2 as its mechanism-of-action target (0 off-target annotations, 0 pchembl-backed) - the matching arms would have no positive control",
+    "no usable structure (no_xray_entity_maps_to_this_accession)"
+   ],
+   "pipeline_config": null
+  },
+  {
+   "rank": 7,
+   "ensembl_id": "ENSG00000096968",
+   "approved_symbol": "JAK2",
+   "approved_name": "Janus kinase 2",
+   "biotype": "protein_coding",
+   "symbol_synonyms": [
+    "JAK-2",
+    "JAK2",
+    "JTK10"
+   ],
+   "uniprot": "O60674",
+   "uniprot_source": "opentargets_proteinIds:uniprot_swissprot",
+   "overall_association_score": 0.6880394056659199,
+   "datatype_scores": {
+    "genetic_association": 0.491931271549421,
+    "known_drug": 0.9933131604978239,
+    "literature": 0.5137713480601799,
+    "rna_expression": null,
+    "somatic_mutation": null,
+    "animal_model": 0.32475663208412797,
+    "affected_pathway": null
+   },
+   "all_datatype_scores": {
+    "literature": 0.5137713480601799,
+    "animal_model": 0.32475663208412797,
+    "genetic_association": 0.491931271549421,
+    "clinical": 0.9933131604978239
+   },
+   "known_drug_datatype_id": "clinical",
+   "known_drug_score": 0.9933131604978239,
+   "has_known_drug_evidence": true,
+   "n_drug_and_clinical_candidates": 31,
+   "n_drug_rows_returned": 31,
+   "drug_rows_complete": true,
+   "n_approved_drugs": 18,
+   "approved_drug_examples": [
+    "BARICITINIB",
+    "DELGOCITINIB",
+    "DEURUXOLITINIB PHOSPHATE",
+    "FEDRATINIB",
+    "FEDRATINIB HYDROCHLORIDE",
+    "FILGOTINIB",
+    "FILGOTINIB MALEATE",
+    "LESTAURTINIB"
+   ],
+   "association_score": 0.6880394056659199,
+   "score_by_datatype": {
+    "literature": 0.5137713480601799,
+    "animal_model": 0.32475663208412797,
+    "genetic_association": 0.491931271549421,
+    "clinical": 0.9933131604978239
+   },
+   "n_approved_binders_moa": 6,
+   "n_approved_binders_annotated": 23,
+   "n_approved_binders_bioactivity": 26,
+   "n_approved_biologic_binders": 0,
+   "n_approved_peptide_binders": 0,
+   "known_approved_drugs": [
+    "baricitinib",
+    "delgocitinib",
+    "fedratinib",
+    "ruxolitinib",
+    "tofacitinib",
+    "upadacitinib"
+   ],
+   "approved_binders_offtarget_only": [
+    "axitinib",
+    "bosutinib",
+    "ceritinib",
+    "crizotinib",
+    "dasatinib",
+    "entrectinib",
+    "erlotinib",
+    "filgotinib",
+    "imatinib",
+    "infigratinib",
+    "midostaurin",
+    "niclosamide"
+   ],
+   "approved_biologic_binders": [],
+   "corpus_symbols_matched": [
+    "JAK2"
+   ],
+   "target_class": [
+    "Enzyme",
+    "Kinase"
+   ],
+   "target_class_detail": [
+    {
+     "label": "TK protein kinase group",
+     "level": "l4"
+    },
+    {
+     "label": "Enzyme",
+     "level": "l1"
+    },
+    {
+     "label": "Kinase",
+     "level": "l2"
+    },
+    {
+     "label": "Protein Kinase",
+     "level": "l3"
+    },
+    {
+     "label": "Tyrosine protein kinase JakA family",
+     "level": "l5"
+    }
+   ],
+   "tractability": {
+    "antibody": [
+     "GO CC high conf",
+     "UniProt loc med conf"
+    ],
+    "protac": [
+     "Database Ubiquitination",
+     "Half-life Data",
+     "Literature",
+     "Small Molecule Binder",
+     "UniProt Ubiquitination"
+    ],
+    "small_molecule": [
+     "Approved Drug",
+     "Druggable Family",
+     "High-Quality Ligand",
+     "High-Quality Pocket",
+     "Structure with Ligand"
+    ]
+   },
+   "n_safety_liabilities": 2,
+   "safety_flags": [
+    "heart disease",
+    "regulation of catalytic activity"
+   ],
+   "safety_sources": [
+    "Force et al. (2011)",
+    "ToxCast"
+   ],
+   "circularity": {
+    "known_drug_datatype_id": "clinical",
+    "known_drug_score": 0.9933131604978239,
+    "known_drug_share_of_datatype_sum": 0.4275,
+    "known_drug_is_largest_datatype": true,
+    "largest_datatype": "clinical",
+    "known_drug_dominated": true,
+    "circularity_note": "known-drug evidence is this target's single largest datatype (0.993, 43% of the datatype-score sum); a 'discovery' of its approved drugs is partly a lookup of the evidence that ranked it"
+   },
+   "uniprot_sites": {
+    "sequence_length": 1132,
+    "active_sites": [
+     {
+      "position": 976,
+      "residue": "D",
+      "description": "Proton acceptor"
+     }
+    ],
+    "site_anchors": [],
+    "site_anchor_rule": "UniProt ACT_SITE positions whose residue is S/C/T (the catalytic nucleophile). His/Asp members of a charge-relay triad are excluded: they sit behind the nucleophile and a sphere over all three reaches into the core rather than the ligand site.",
+    "mature_chains": [
+     {
+      "description": "Tyrosine-protein kinase JAK2",
+      "start": 1,
+      "end": 1132
+     }
+    ]
+   },
+   "structure": {
+    "structure_status": "ok",
+    "n_entities_total": 171,
+    "n_entities_ligand_bound_total": 167,
+    "n_entities_examined": 61,
+    "n_entries_examined": 61,
+    "n_entries_usable": 61,
+    "n_entries_rejected": 0,
+    "reject_reason_counts": {},
+    "structure": {
+     "pdb_id": "8BXH",
+     "method": "X-ray",
+     "resolution_a": 1.3,
+     "chain": "A",
+     "chain_entity_length_aa": 316,
+     "target_entities": [
+      {
+       "entity_id": "8BXH_1",
+       "length_aa": 316,
+       "polymer_type": "polypeptide(L)",
+       "auth_chain_ids": [
+        "A"
+       ],
+       "description": "Tyrosine-protein kinase JAK2",
+       "accessions": [
+        "O60674"
+       ]
+      }
+     ],
+     "foreign_peptide_chains": [],
+     "foreign_polymer_chains": [],
+     "drug_like_ligands": [
+      "C87"
+     ],
+     "all_het_comp_ids": [
+      "C87",
+      "MLI"
+     ],
+     "apo_or_holo": "holo"
+    },
+    "rejected_better_resolution": [],
+    "runner_up_entries": [
+     {
+      "pdb_id": "7LL4",
+      "chain": "A",
+      "resolution_a": 1.31,
+      "apo_or_holo": "holo"
+     },
+     {
+      "pdb_id": "3UGC",
+      "chain": "A",
+      "resolution_a": 1.34,
+      "apo_or_holo": "holo"
+     },
+     {
+      "pdb_id": "7REE",
+      "chain": "A",
+      "resolution_a": 1.38,
+      "apo_or_holo": "holo"
+     },
+     {
+      "pdb_id": "8BA3",
+      "chain": "A",
+      "resolution_a": 1.4,
+      "apo_or_holo": "holo"
+     },
+     {
+      "pdb_id": "8BX9",
+      "chain": "A",
+      "resolution_a": 1.4,
+      "apo_or_holo": "holo"
+     }
+    ]
+   },
+   "literature_query": "(TITLE_ABS:\"JAK2\" OR TITLE_ABS:\"JAK-2\" OR TITLE_ABS:\"JTK10\") AND TITLE_ABS:\"rheumatoid arthritis\" AND (TITLE_ABS:\"inhibitor\" OR TITLE_ABS:\"inhibition\" OR TITLE_ABS:\"binder\" OR TITLE_ABS:\"antagonist\" OR TITLE_ABS:\"blockade\") AND (HAS_ABSTRACT:Y) AND (SRC:MED)",
+   "literature_hit_count": 218,
+   "literature": [
+    {
+     "pmid": "42631486",
+     "title": "Bone marrow mesenchymal stem cells relieve rheumatoid arthritis by blocking JAK/STAT and TLR-4/NF-\u03baB pathways.",
+     "year": "2026",
+     "journal": "Pakistan journal of pharmaceutical sciences",
+     "claim": "BMSC treatment also downregulated the expression of JAK2, p-JAK2, STAT3, p-STAT3, TLR4, P65 and p-P65 in MH7A cells.",
+     "claim_tier": "target-only",
+     "claim_alias": "JAK2",
+     "doi": "10.36721/pjps.2026.39.11.308.1",
+     "title_verified": true,
+     "verification": "match"
+    },
+    {
+     "pmid": "42439331",
+     "title": "Mechanistic Study of Yibi Decoction in Treating Rheumatoid Arthritis via Modulating the JAK2/STAT3 Signaling Pathway.",
+     "year": "2026",
+     "journal": "Endocrine, metabolic & immune disorders drug targets",
+     "claim": "In CIA rats, YBD treatment significantly downregulated the expression of IL-6, IL-17, IL-23, JAK2, and STAT3 in ankle joint tissues (P < 0.05), and markedly reduced serum levels of anti-cyclic citrullinated peptide (anti-CCP) antibodies and rheumatoid factor (P < 0.05).",
+     "claim_tier": "target-only",
+     "claim_alias": "JAK2",
+     "doi": "10.2174/0118715303459997260621164500",
+     "title_verified": true,
+     "verification": "match"
+    }
+   ],
+   "literature_dropped_failed_verification": [],
+   "literature_status": "ok",
+   "site_type_hint": "pocket",
+   "site_type_evidence": "chosen structure 8BXH binds C87 as HETATM",
+   "preferred_modalities": [
+    "small_molecule"
+   ],
+   "preferred_modalities_rule": "a modality is listed only where an approved drug of that kind binds this target in the local corpora, or (small_molecule) the chosen structure carries a drug-like HETATM ligand",
+   "opentargets_tractability_modalities": [
+    "antibody",
+    "protac",
+    "small_molecule"
+   ],
+   "gate_has_approved_positive_control": true,
+   "gate_has_usable_structure": true,
+   "usable_for_pipeline": true,
+   "unusable_reasons": [],
+   "pipeline_config": {
+    "symbol": "JAK2",
+    "uniprot": "O60674",
+    "pdb_id": "8BXH",
+    "chain": "A",
+    "out": "jak2",
+    "protocol": "protein-anything",
+    "binder_length": "60..90"
+   },
+   "pipeline_rank": 3
+  },
+  {
+   "rank": 8,
+   "ensembl_id": "ENSG00000240972",
+   "approved_symbol": "MIF",
+   "approved_name": "macrophage migration inhibitory factor",
+   "biotype": "protein_coding",
+   "symbol_synonyms": [
+    "GIF",
+    "GLIF",
+    "MIF",
+    "MMIF"
+   ],
+   "uniprot": "P14174",
+   "uniprot_source": "opentargets_proteinIds:uniprot_swissprot",
+   "overall_association_score": 0.6802177462527496,
+   "datatype_scores": {
+    "genetic_association": null,
+    "known_drug": 0.9457466776013786,
+    "literature": 0.9529724042165544,
+    "rna_expression": null,
+    "somatic_mutation": null,
+    "animal_model": null,
+    "affected_pathway": null
+   },
+   "all_datatype_scores": {
+    "literature": 0.9529724042165544,
+    "clinical": 0.9457466776013786,
+    "genetic_literature": 0.607930797611621
+   },
+   "known_drug_datatype_id": "clinical",
+   "known_drug_score": 0.9457466776013786,
+   "has_known_drug_evidence": true,
+   "n_drug_and_clinical_candidates": 2,
+   "n_drug_rows_returned": 2,
+   "drug_rows_complete": true,
+   "n_approved_drugs": 1,
+   "approved_drug_examples": [
+    "IGURATIMOD"
+   ],
+   "association_score": 0.6802177462527496,
+   "score_by_datatype": {
+    "literature": 0.9529724042165544,
+    "clinical": 0.9457466776013786,
+    "genetic_literature": 0.607930797611621
+   },
+   "n_approved_binders_moa": 0,
+   "n_approved_binders_annotated": 3,
+   "n_approved_binders_bioactivity": 3,
+   "n_approved_biologic_binders": 0,
+   "n_approved_peptide_binders": 0,
+   "known_approved_drugs": [],
+   "approved_binders_offtarget_only": [
+    "hexachlorophene",
+    "iguratimod",
+    "levothyroxine"
+   ],
+   "approved_biologic_binders": [],
+   "corpus_symbols_matched": [
+    "MIF"
+   ],
+   "target_class": [
+    "Enzyme"
+   ],
+   "target_class_detail": [
+    {
+     "label": "Enzyme",
+     "level": "l1"
+    }
+   ],
+   "tractability": {
+    "antibody": [
+     "Advanced Clinical",
+     "GO CC high conf",
+     "UniProt loc high conf"
+    ],
+    "protac": [
+     "Database Ubiquitination",
+     "Half-life Data",
+     "Small Molecule Binder"
+    ],
+    "small_molecule": [
+     "Advanced Clinical",
+     "Druggable Family",
+     "High-Quality Ligand",
+     "High-Quality Pocket",
+     "Structure with Ligand"
+    ]
+   },
+   "n_safety_liabilities": 0,
+   "safety_flags": [],
+   "safety_sources": [],
+   "circularity": {
+    "known_drug_datatype_id": "clinical",
+    "known_drug_score": 0.9457466776013786,
+    "known_drug_share_of_datatype_sum": 0.3773,
+    "known_drug_is_largest_datatype": false,
+    "largest_datatype": "literature",
+    "known_drug_dominated": false,
+    "circularity_note": "largest datatype is literature (0.953); known-drug contributes 0.946"
+   },
+   "uniprot_sites": {
+    "sequence_length": 115,
+    "active_sites": [
+     {
+      "position": 2,
+      "residue": "P",
+      "description": "Proton acceptor; via imino nitrogen"
+     }
+    ],
+    "site_anchors": [],
+    "site_anchor_rule": "UniProt ACT_SITE positions whose residue is S/C/T (the catalytic nucleophile). His/Asp members of a charge-relay triad are excluded: they sit behind the nucleophile and a sphere over all three reaches into the core rather than the ligand site.",
+    "mature_chains": [
+     {
+      "description": "Macrophage migration inhibitory factor",
+      "start": 2,
+      "end": 115
+     }
+    ]
+   },
+   "structure": {
+    "structure_status": "ok",
+    "n_entities_total": 115,
+    "n_entities_ligand_bound_total": 111,
+    "n_entities_examined": 60,
+    "n_entries_examined": 60,
+    "n_entries_usable": 60,
+    "n_entries_rejected": 0,
+    "reject_reason_counts": {},
+    "structure": {
+     "pdb_id": "6B1K",
+     "method": "X-ray",
+     "resolution_a": 1.17,
+     "chain": "A",
+     "chain_entity_length_aa": 114,
+     "target_entities": [
+      {
+       "entity_id": "6B1K_1",
+       "length_aa": 114,
+       "polymer_type": "polypeptide(L)",
+       "auth_chain_ids": [
+        "A",
+        "B",
+        "C"
+       ],
+       "description": "Macrophage migration inhibitory factor",
+       "accessions": [
+        "P14174"
+       ]
+      }
+     ],
+     "foreign_peptide_chains": [],
+     "foreign_polymer_chains": [],
+     "drug_like_ligands": [
+      "C9G"
+     ],
+     "all_het_comp_ids": [
+      "GOL",
+      "SO4",
+      "C9G"
+     ],
+     "apo_or_holo": "holo"
+    },
+    "rejected_better_resolution": [],
+    "runner_up_entries": [
+     {
+      "pdb_id": "7XTX",
+      "chain": "A",
+      "resolution_a": 1.28,
+      "apo_or_holo": "holo"
+     },
+     {
+      "pdb_id": "7E47",
+      "chain": "A",
+      "resolution_a": 1.38,
+      "apo_or_holo": "holo"
+     },
+     {
+      "pdb_id": "6FVE",
+      "chain": "A",
+      "resolution_a": 1.41,
+      "apo_or_holo": "holo"
+     },
+     {
+      "pdb_id": "7E45",
+      "chain": "A",
+      "resolution_a": 1.433,
+      "apo_or_holo": "holo"
+     },
+     {
+      "pdb_id": "7E4A",
+      "chain": "A",
+      "resolution_a": 1.475,
+      "apo_or_holo": "holo"
+     }
+    ]
+   },
+   "literature_query": "(TITLE_ABS:\"MIF\" OR TITLE_ABS:\"GLIF\" OR TITLE_ABS:\"MMIF\") AND TITLE_ABS:\"rheumatoid arthritis\" AND (TITLE_ABS:\"inhibitor\" OR TITLE_ABS:\"inhibition\" OR TITLE_ABS:\"binder\" OR TITLE_ABS:\"antagonist\" OR TITLE_ABS:\"blockade\") AND (HAS_ABSTRACT:Y) AND (SRC:MED)",
+   "literature_hit_count": 52,
+   "literature": [
+    {
+     "pmid": "42696910",
+     "title": "Synovial short-lived plasma cells mediate adalimumab resistance in rheumatoid arthritis via MIF-CD74 axis-driven, partially TNF-\u03b1-independent inflammation.",
+     "year": "2026",
+     "journal": "Journal of autoimmunity",
+     "claim": "Core findings were validated at four levels: an independent single-cell validation cohort (n = 4), external bulk RNA-seq cohorts (GSE15602, GSE47726), multiplex immunofluorescence on synovial tissues (n = 9 per group), and in vitro functional experiments using patient-derived peripheral blood monocyte-derived macrophages stimulated with recombinant human MIF under pharmacological intervention w...",
+     "claim_tier": "target+term",
+     "claim_alias": "MIF",
+     "doi": "10.1016/j.jaut.2026.103622",
+     "title_verified": true,
+     "verification": "match"
+    },
+    {
+     "pmid": "41505516",
+     "title": "Pathogenic role of MIF receptor (CD74) expressing T cells in inflammatory arthritis.",
+     "year": "2026",
+     "journal": "Proceedings of the National Academy of Sciences of the United States of America",
+     "claim": "High expression alleles of the innate cytokine, macrophage migration inhibitory factor (MIF), are associated with the development or the severity of autoimmune inflammatory diseases, including rheumatoid arthritis.",
+     "claim_tier": "target+term",
+     "claim_alias": "MIF",
+     "doi": "10.1073/pnas.2509156123",
+     "title_verified": true,
+     "verification": "match"
+    }
+   ],
+   "literature_dropped_failed_verification": [],
+   "literature_status": "ok",
+   "site_type_hint": "pocket",
+   "site_type_evidence": "chosen structure 6B1K binds C9G as HETATM",
+   "preferred_modalities": [
+    "small_molecule"
+   ],
+   "preferred_modalities_rule": "a modality is listed only where an approved drug of that kind binds this target in the local corpora, or (small_molecule) the chosen structure carries a drug-like HETATM ligand",
+   "opentargets_tractability_modalities": [
+    "antibody",
+    "protac",
+    "small_molecule"
+   ],
+   "gate_has_approved_positive_control": false,
+   "gate_has_usable_structure": true,
+   "usable_for_pipeline": false,
+   "unusable_reasons": [
+    "no approved drug has MIF as its mechanism-of-action target (3 off-target annotations, 3 pchembl-backed) - the matching arms would have no positive control"
+   ],
+   "pipeline_config": null
+  },
+  {
+   "rank": 9,
+   "ensembl_id": "ENSG00000159339",
+   "approved_symbol": "PADI4",
+   "approved_name": "peptidyl arginine deiminase 4",
+   "biotype": "protein_coding",
+   "symbol_synonyms": [
+    "PAD",
+    "PAD4",
+    "PADI4",
+    "PADI5",
+    "PDI4",
+    "PDI5"
+   ],
+   "uniprot": "Q9UM07",
+   "uniprot_source": "opentargets_proteinIds:uniprot_swissprot",
+   "overall_association_score": 0.6758894923281834,
+   "datatype_scores": {
+    "genetic_association": 0.8509574941298126,
+    "known_drug": null,
+    "literature": 0.9848325075097556,
+    "rna_expression": null,
+    "somatic_mutation": null,
+    "animal_model": 0.2507106609350326,
+    "affected_pathway": null
+   },
+   "all_datatype_scores": {
+    "literature": 0.9848325075097556,
+    "animal_model": 0.2507106609350326,
+    "genetic_association": 0.8509574941298126,
+    "genetic_literature": 0.3039653988058105
+   },
+   "known_drug_datatype_id": null,
+   "known_drug_score": null,
+   "has_known_drug_evidence": false,
+   "n_drug_and_clinical_candidates": 0,
+   "n_drug_rows_returned": 0,
+   "drug_rows_complete": true,
+   "n_approved_drugs": 0,
+   "approved_drug_examples": [],
+   "association_score": 0.6758894923281834,
+   "score_by_datatype": {
+    "literature": 0.9848325075097556,
+    "animal_model": 0.2507106609350326,
+    "genetic_association": 0.8509574941298126,
+    "genetic_literature": 0.3039653988058105
+   },
+   "n_approved_binders_moa": 0,
+   "n_approved_binders_annotated": 2,
+   "n_approved_binders_bioactivity": 0,
+   "n_approved_biologic_binders": 0,
+   "n_approved_peptide_binders": 0,
+   "known_approved_drugs": [],
+   "approved_binders_offtarget_only": [
+    "chlortetracycline",
+    "papaverine"
+   ],
+   "approved_biologic_binders": [],
+   "corpus_symbols_matched": [
+    "PADI4"
+   ],
+   "target_class": [
+    "Enzyme"
+   ],
+   "target_class_detail": [
+    {
+     "label": "Enzyme",
+     "level": "l1"
+    }
+   ],
+   "tractability": {
+    "protac": [
+     "Small Molecule Binder"
+    ],
+    "small_molecule": [
+     "High-Quality Ligand",
+     "High-Quality Pocket",
+     "Structure with Ligand"
+    ]
+   },
+   "n_safety_liabilities": 0,
+   "safety_flags": [],
+   "safety_sources": [],
+   "circularity": {
+    "known_drug_datatype_id": null,
+    "known_drug_score": null,
+    "known_drug_share_of_datatype_sum": null,
+    "known_drug_is_largest_datatype": false,
+    "known_drug_dominated": false,
+    "circularity_note": "no known-drug datatype on this target"
+   },
+   "uniprot_sites": {
+    "sequence_length": 663,
+    "active_sites": [
+     {
+      "position": 350,
+      "residue": "D",
+      "description": ""
+     },
+     {
+      "position": 471,
+      "residue": "H",
+      "description": ""
+     },
+     {
+      "position": 473,
+      "residue": "D",
+      "description": ""
+     },
+     {
+      "position": 645,
+      "residue": "C",
+      "description": ""
+     }
+    ],
+    "site_anchors": [
+     645
+    ],
+    "site_anchor_rule": "UniProt ACT_SITE positions whose residue is S/C/T (the catalytic nucleophile). His/Asp members of a charge-relay triad are excluded: they sit behind the nucleophile and a sphere over all three reaches into the core rather than the ligand site.",
+    "mature_chains": [
+     {
+      "description": "Protein-arginine deiminase type-4",
+      "start": 1,
+      "end": 663
+     }
+    ]
+   },
+   "structure": {
+    "structure_status": "ok",
+    "n_entities_total": 21,
+    "n_entities_ligand_bound_total": 18,
+    "n_entities_examined": 21,
+    "n_entries_examined": 21,
+    "n_entries_usable": 17,
+    "n_entries_rejected": 4,
+    "reject_reason_counts": {
+     "co_crystallised_peptide_polymer_chain": 4
+    },
+    "structure": {
+     "pdb_id": "3B1U",
+     "method": "X-ray",
+     "resolution_a": 2.1,
+     "chain": "A",
+     "chain_entity_length_aa": 671,
+     "target_entities": [
+      {
+       "entity_id": "3B1U_1",
+       "length_aa": 671,
+       "polymer_type": "polypeptide(L)",
+       "auth_chain_ids": [
+        "A"
+       ],
+       "description": "Protein-arginine deiminase type-4",
+       "accessions": [
+        "Q9UM07"
+       ]
+      }
+     ],
+     "foreign_peptide_chains": [],
+     "foreign_polymer_chains": [],
+     "drug_like_ligands": [
+      "YFF"
+     ],
+     "all_het_comp_ids": [
+      "CA",
+      "SO4",
+      "YFF"
+     ],
+     "apo_or_holo": "holo"
+    },
+    "rejected_better_resolution": [],
+    "runner_up_entries": [
+     {
+      "pdb_id": "5N0M",
+      "chain": "A",
+      "resolution_a": 2.18,
+      "apo_or_holo": "holo"
+     },
+     {
+      "pdb_id": "5N0Y",
+      "chain": "A",
+      "resolution_a": 2.23,
+      "apo_or_holo": "holo"
+     },
+     {
+      "pdb_id": "1WDA",
+      "chain": "A",
+      "resolution_a": 2.3,
+      "apo_or_holo": "holo"
+     },
+     {
+      "pdb_id": "2DW5",
+      "chain": "A",
+      "resolution_a": 2.3,
+      "apo_or_holo": "holo"
+     },
+     {
+      "pdb_id": "9DPZ",
+      "chain": "A",
+      "resolution_a": 2.41,
+      "apo_or_holo": "holo"
+     }
+    ]
+   },
+   "literature_query": "(TITLE_ABS:\"PADI4\" OR TITLE_ABS:\"PAD4\" OR TITLE_ABS:\"PADI5\" OR TITLE_ABS:\"PDI4\" OR TITLE_ABS:\"PDI5\") AND TITLE_ABS:\"rheumatoid arthritis\" AND (TITLE_ABS:\"inhibitor\" OR TITLE_ABS:\"inhibition\" OR TITLE_ABS:\"binder\" OR TITLE_ABS:\"antagonist\" OR TITLE_ABS:\"blockade\") AND (HAS_ABSTRACT:Y) AND (SRC:MED)",
+   "literature_hit_count": 70,
+   "literature": [
+    {
+     "pmid": "42641416",
+     "title": "Spatiotemporal synergistic drug co-delivery via a dual-crosslinked liposomal platform for potent NETs blockade in rheumatoid arthritis.",
+     "year": "2026",
+     "journal": "Colloids and surfaces. B, Biointerfaces",
+     "claim": "NETs formation is jointly fueled by reactive oxygen species (ROS) burst and PAD4-mediated chromatin decondensation, suggesting that simultaneous blockade of both events represents a multi-pronged therapeutic strategy that single pathway inhibitors cannot achieve.",
+     "claim_tier": "target+term",
+     "claim_alias": "PAD4",
+     "doi": "10.1016/j.colsurfb.2026.116110",
+     "title_verified": true,
+     "verification": "match"
+    },
+    {
+     "pmid": "42648375",
+     "title": "Targeting peptidylarginine deiminases 2 and 4 in diabetic kidney disease: mechanistic rationale and preclinical evidence.",
+     "year": "2026",
+     "journal": "Biochemical pharmacology",
+     "claim": "In the diabetic kidney, hyperglycemia-associated signaling activates PAD4, driving histone hypercitrullination, neutrophil extracellular trap (NET) formation, and innate-immune cell recruitment, while PAD2 contributes through macrophage-associated citrullination.",
+     "claim_tier": "target-only",
+     "claim_alias": "PAD4",
+     "doi": "10.1016/j.bcp.2026.118396",
+     "title_verified": true,
+     "verification": "match"
+    }
+   ],
+   "literature_dropped_failed_verification": [],
+   "literature_status": "ok",
+   "site_type_hint": "pocket",
+   "site_type_evidence": "chosen structure 3B1U binds YFF as HETATM",
+   "preferred_modalities": [
+    "small_molecule"
+   ],
+   "preferred_modalities_rule": "a modality is listed only where an approved drug of that kind binds this target in the local corpora, or (small_molecule) the chosen structure carries a drug-like HETATM ligand",
+   "opentargets_tractability_modalities": [
+    "protac",
+    "small_molecule"
+   ],
+   "gate_has_approved_positive_control": false,
+   "gate_has_usable_structure": true,
+   "usable_for_pipeline": false,
+   "unusable_reasons": [
+    "no approved drug has PADI4 as its mechanism-of-action target (2 off-target annotations, 0 pchembl-backed) - the matching arms would have no positive control"
+   ],
+   "pipeline_config": null
+  },
+  {
+   "rank": 10,
+   "ensembl_id": "ENSG00000134242",
+   "approved_symbol": "PTPN22",
+   "approved_name": "protein tyrosine phosphatase non-receptor type 22",
+   "biotype": "protein_coding",
+   "symbol_synonyms": [
+    "LYP",
+    "LYP1",
+    "LYP2",
+    "LyP",
+    "Lyp",
+    "Lyp1",
+    "Lyp2",
+    "PEP",
+    "PTPN22",
+    "PTPN22.5",
+    "PTPN22.6",
+    "PTPN8"
+   ],
+   "uniprot": "Q9Y2R2",
+   "uniprot_source": "opentargets_proteinIds:uniprot_swissprot",
+   "overall_association_score": 0.6712376109705736,
+   "datatype_scores": {
+    "genetic_association": 0.7770606355887273,
+    "known_drug": null,
+    "literature": 0.9632557095255014,
+    "rna_expression": 0.0334432182644848,
+    "somatic_mutation": null,
+    "animal_model": 0.29673102231423226,
+    "affected_pathway": null
+   },
+   "all_datatype_scores": {
+    "rna_expression": 0.0334432182644848,
+    "genetic_literature": 0.607930797611621,
+    "literature": 0.9632557095255014,
+    "genetic_association": 0.7770606355887273,
+    "animal_model": 0.29673102231423226
+   },
+   "known_drug_datatype_id": null,
+   "known_drug_score": null,
+   "has_known_drug_evidence": false,
+   "n_drug_and_clinical_candidates": 0,
+   "n_drug_rows_returned": 0,
+   "drug_rows_complete": true,
+   "n_approved_drugs": 0,
+   "approved_drug_examples": [],
+   "association_score": 0.6712376109705736,
+   "score_by_datatype": {
+    "rna_expression": 0.0334432182644848,
+    "genetic_literature": 0.607930797611621,
+    "literature": 0.9632557095255014,
+    "genetic_association": 0.7770606355887273,
+    "animal_model": 0.29673102231423226
+   },
+   "n_approved_binders_moa": 0,
+   "n_approved_binders_annotated": 0,
+   "n_approved_binders_bioactivity": 0,
+   "n_approved_biologic_binders": 0,
+   "n_approved_peptide_binders": 0,
+   "known_approved_drugs": [],
+   "approved_binders_offtarget_only": [],
+   "approved_biologic_binders": [],
+   "corpus_symbols_matched": [],
+   "target_class": [
+    "Enzyme",
+    "Phosphatase"
+   ],
+   "target_class_detail": [
+    {
+     "label": "Tyrosine protein phosphatase",
+     "level": "l4"
+    },
+    {
+     "label": "Enzyme",
+     "level": "l1"
+    },
+    {
+     "label": "Phosphatase",
+     "level": "l2"
+    },
+    {
+     "label": "Protein Phosphatase",
+     "level": "l3"
+    }
+   ],
+   "tractability": {
+    "protac": [
+     "Database Ubiquitination",
+     "Half-life Data",
+     "Small Molecule Binder"
+    ],
+    "small_molecule": [
+     "Druggable Family",
+     "High-Quality Ligand",
+     "Med-Quality Pocket",
+     "Structure with Ligand"
+    ]
+   },
+   "n_safety_liabilities": 0,
+   "safety_flags": [],
+   "safety_sources": [],
+   "circularity": {
+    "known_drug_datatype_id": null,
+    "known_drug_score": null,
+    "known_drug_share_of_datatype_sum": null,
+    "known_drug_is_largest_datatype": false,
+    "known_drug_dominated": false,
+    "circularity_note": "no known-drug datatype on this target"
+   },
+   "uniprot_sites": {
+    "sequence_length": 807,
+    "active_sites": [
+     {
+      "position": 227,
+      "residue": "C",
+      "description": "Phosphocysteine intermediate"
+     }
+    ],
+    "site_anchors": [
+     227
+    ],
+    "site_anchor_rule": "UniProt ACT_SITE positions whose residue is S/C/T (the catalytic nucleophile). His/Asp members of a charge-relay triad are excluded: they sit behind the nucleophile and a sphere over all three reaches into the core rather than the ligand site.",
+    "mature_chains": [
+     {
+      "description": "Tyrosine-protein phosphatase non-receptor type 22",
+      "start": 1,
+      "end": 807
+     }
+    ]
+   },
+   "structure": {
+    "structure_status": "ok",
+    "n_entities_total": 14,
+    "n_entities_ligand_bound_total": 11,
+    "n_entities_examined": 14,
+    "n_entries_examined": 14,
+    "n_entries_usable": 11,
+    "n_entries_rejected": 3,
+    "reject_reason_counts": {
+     "co_crystallised_peptide_polymer_chain": 3
+    },
+    "structure": {
+     "pdb_id": "9YG0",
+     "method": "X-ray",
+     "resolution_a": 1.76,
+     "chain": "A",
+     "chain_entity_length_aa": 322,
+     "target_entities": [
+      {
+       "entity_id": "9YG0_1",
+       "length_aa": 322,
+       "polymer_type": "polypeptide(L)",
+       "auth_chain_ids": [
+        "A",
+        "B",
+        "C",
+        "D"
+       ],
+       "description": "Tyrosine-protein phosphatase non-receptor type 22",
+       "accessions": [
+        "Q9Y2R2"
+       ]
+      }
+     ],
+     "foreign_peptide_chains": [],
+     "foreign_polymer_chains": [],
+     "drug_like_ligands": [
+      "A1CWM"
+     ],
+     "all_het_comp_ids": [
+      "SO4",
+      "A1CWM",
+      "MG",
+      "EOH",
+      "GOL"
+     ],
+     "apo_or_holo": "holo"
+    },
+    "rejected_better_resolution": [],
+    "runner_up_entries": [
+     {
+      "pdb_id": "4J51",
+      "chain": "A",
+      "resolution_a": 2.3,
+      "apo_or_holo": "holo"
+     },
+     {
+      "pdb_id": "2QCT",
+      "chain": "A",
+      "resolution_a": 2.8,
+      "apo_or_holo": "holo"
+     },
+     {
+      "pdb_id": "2P6X",
+      "chain": "A",
+      "resolution_a": 1.9,
+      "apo_or_holo": "apo"
+     },
+     {
+      "pdb_id": "9YG3",
+      "chain": "A",
+      "resolution_a": 1.96,
+      "apo_or_holo": "apo"
+     },
+     {
+      "pdb_id": "9YG1",
+      "chain": "A",
+      "resolution_a": 1.97,
+      "apo_or_holo": "apo"
+     }
+    ]
+   },
+   "literature_query": "(TITLE_ABS:\"PTPN22\" OR TITLE_ABS:\"PTPN8\" OR TITLE_ABS:\"LYP1\" OR TITLE_ABS:\"LYP2\" OR TITLE_ABS:\"Lyp1\" OR TITLE_ABS:\"Lyp2\") AND TITLE_ABS:\"rheumatoid arthritis\" AND (TITLE_ABS:\"inhibitor\" OR TITLE_ABS:\"inhibition\" OR TITLE_ABS:\"binder\" OR TITLE_ABS:\"antagonist\" OR TITLE_ABS:\"blockade\") AND (HAS_ABSTRACT:Y) AND (SRC:MED)",
+   "literature_hit_count": 17,
+   "literature": [
+    {
+     "pmid": "39724988",
+     "title": "The protein tyrosine phosphatase Lyp/PTPN22 drives TNF\u03b1-induced priming of superoxide anions production by neutrophils and arthritis.",
+     "year": "2025",
+     "journal": "Free radical biology & medicine",
+     "claim": "The protein tyrosine phosphatase non-receptor type 22 (PTPN22) gene encodes the lymphoid-specific tyrosine phosphatase (Lyp) and a genetic single-nucleotide polymorphism of PTPN22 rs2476601 (R620W) has been associated with several human autoimmune diseases, including rheumatoid arthritis (RA).",
+     "claim_tier": "target-only",
+     "claim_alias": "PTPN22",
+     "doi": "10.1016/j.freeradbiomed.2024.12.046",
+     "title_verified": true,
+     "verification": "match"
+    },
+    {
+     "pmid": "37443055",
+     "title": "Targeted inhibition of PTPN22 is a novel approach to alleviate osteogenic responses in aortic valve interstitial cells and aortic valve lesions in mice.",
+     "year": "2023",
+     "journal": "BMC medicine",
+     "claim": "Additionally, we discovered a novel compound, 13-hydroxypiericidin A 10-O-\u03b1-D-glucose (1 \u2192 6)-\u03b2-D-glucoside (S18), in a marine-derived Streptomyces strain that bound to PTPN22 with high affinity and acted as a novel inhibitor.",
+     "claim_tier": "target+term",
+     "claim_alias": "PTPN22",
+     "doi": "10.1186/s12916-023-02888-6",
+     "title_verified": true,
+     "verification": "match"
+    }
+   ],
+   "literature_dropped_failed_verification": [],
+   "literature_status": "ok",
+   "site_type_hint": "pocket",
+   "site_type_evidence": "chosen structure 9YG0 binds A1CWM as HETATM",
+   "preferred_modalities": [
+    "small_molecule"
+   ],
+   "preferred_modalities_rule": "a modality is listed only where an approved drug of that kind binds this target in the local corpora, or (small_molecule) the chosen structure carries a drug-like HETATM ligand",
+   "opentargets_tractability_modalities": [
+    "protac",
+    "small_molecule"
+   ],
+   "gate_has_approved_positive_control": false,
+   "gate_has_usable_structure": true,
+   "usable_for_pipeline": false,
+   "unusable_reasons": [
+    "no approved drug has PTPN22 as its mechanism-of-action target (0 off-target annotations, 0 pchembl-backed) - the matching arms would have no positive control"
+   ],
+   "pipeline_config": null
+  },
+  {
+   "rank": 11,
+   "ensembl_id": "ENSG00000073756",
+   "approved_symbol": "PTGS2",
+   "approved_name": "prostaglandin-endoperoxide synthase 2",
+   "biotype": "protein_coding",
+   "symbol_synonyms": [
+    "COX-2",
+    "COX2",
+    "GRIPGHS",
+    "PGG/HS",
+    "PGH synthase 2",
+    "PGHS-2",
+    "PHS-2",
+    "PTGS2",
+    "hCox-2"
+   ],
+   "uniprot": "P35354",
+   "uniprot_source": "opentargets_proteinIds:uniprot_swissprot",
+   "overall_association_score": 0.6347341753483912,
+   "datatype_scores": {
+    "genetic_association": null,
+    "known_drug": 0.9991183760287011,
+    "literature": 0.8754134978932988,
+    "rna_expression": 0.054021158550519095,
+    "somatic_mutation": null,
+    "animal_model": null,
+    "affected_pathway": null
+   },
+   "all_datatype_scores": {
+    "literature": 0.8754134978932988,
+    "rna_expression": 0.054021158550519095,
+    "clinical": 0.9991183760287011
+   },
+   "known_drug_datatype_id": "clinical",
+   "known_drug_score": 0.9991183760287011,
+   "has_known_drug_evidence": true,
+   "n_drug_and_clinical_candidates": 79,
+   "n_drug_rows_returned": 79,
+   "drug_rows_complete": true,
+   "n_approved_drugs": 68,
+   "approved_drug_examples": [
+    "ACECLOFENAC",
+    "ACEMETACIN",
+    "ACETAMINOPHEN",
+    "ALOXIPRIN",
+    "APAZONE",
+    "ASPIRIN",
+    "BALSALAZIDE",
+    "BALSALAZIDE DISODIUM"
+   ],
+   "association_score": 0.6347341753483912,
+   "score_by_datatype": {
+    "literature": 0.8754134978932988,
+    "rna_expression": 0.054021158550519095,
+    "clinical": 0.9991183760287011
+   },
+   "n_approved_binders_moa": 43,
+   "n_approved_binders_annotated": 69,
+   "n_approved_binders_bioactivity": 70,
+   "n_approved_biologic_binders": 0,
+   "n_approved_peptide_binders": 0,
+   "known_approved_drugs": [
+    "aceclofenac",
+    "acetylsalicylic acid",
+    "alclofenac",
+    "aminosalicylic acid",
+    "balsalazide",
+    "bismuth subsalicylate",
+    "bromfenac",
+    "carprofen",
+    "celecoxib",
+    "diclofenac",
+    "diflunisal",
+    "etodolac",
+    "etoricoxib",
+    "fenoprofen",
+    "flufenamic acid",
+    "flurbiprofen",
+    "ibuprofen",
+    "imrecoxib",
+    "indomethacin",
+    "ketoprofen",
+    "ketorolac",
+    "loxoprofen",
+    "lumiracoxib",
+    "meclofenamic acid",
+    "mefenamic acid",
+    "meloxicam",
+    "mesalazine",
+    "nabumetone",
+    "naproxen",
+    "nepafenac",
+    "olsalazine",
+    "oxaprozin",
+    "oxyphenbutazone",
+    "paracetamol",
+    "parecoxib",
+    "piroxicam",
+    "polmacoxib",
+    "rofecoxib",
+    "sulfasalazine",
+    "sulindac",
+    "suprofen",
+    "tolmetin",
+    "valdecoxib"
+   ],
+   "approved_binders_offtarget_only": [
+    "aminophenazone",
+    "benzquinamide",
+    "captopril",
+    "cefalotin",
+    "cefonicid",
+    "cefotetan",
+    "cianidanol",
+    "clotrimazole",
+    "dexamethasone",
+    "esflurbiprofen",
+    "fluostigmine",
+    "hexachlorophene"
+   ],
+   "approved_biologic_binders": [],
+   "corpus_symbols_matched": [
+    "PTGS2"
+   ],
+   "target_class": [
+    "Enzyme",
+    "Oxidoreductase"
+   ],
+   "target_class_detail": [
+    {
+     "label": "Enzyme",
+     "level": "l1"
+    },
+    {
+     "label": "Oxidoreductase",
+     "level": "l2"
+    }
+   ],
+   "tractability": {
+    "antibody": [
+     "UniProt SigP or TMHMM",
+     "UniProt loc med conf"
+    ],
+    "other": [
+     "Approved Drug"
+    ],
+    "protac": [
+     "Database Ubiquitination",
+     "Small Molecule Binder"
+    ],
+    "small_molecule": [
+     "Approved Drug",
+     "Druggable Family",
+     "High-Quality Ligand",
+     "Structure with Ligand"
+    ]
+   },
+   "n_safety_liabilities": 38,
+   "safety_flags": [
+    "Decrease, Population growth rate",
+    "N/A, Reproductive failure",
+    "Reduced, Reproductive Success",
+    "anti-inflammatory activity",
+    "anti-mitogenic effects",
+    "antiinflammatory",
+    "atherosclerosis",
+    "atherothrombosis",
+    "cerebrovascular events",
+    "clotting",
+    "decreased inflammation",
+    "decreased mitosis",
+    "decreased pain",
+    "decreased urinary potassium excretion",
+    "decreased urinary sodium excretion",
+    "heart attack",
+    "heart failure",
+    "hypercholesteremia",
+    "hypotension",
+    "increased blood pressure",
+    "increased risk of wound infections",
+    "inhibits some mitogenic actions",
+    "ischaemic stroke",
+    "ischemic stroke",
+    "myocardial infarction",
+    "supraventricular tachycardia",
+    "thrombosis"
+   ],
+   "safety_sources": [
+    "AOP-Wiki",
+    "Bowes et al. (2012)",
+    "ClinPGx",
+    "Lynch et al. (2017)",
+    "Urban et al. (2012)"
+   ],
+   "circularity": {
+    "known_drug_datatype_id": "clinical",
+    "known_drug_score": 0.9991183760287011,
+    "known_drug_share_of_datatype_sum": 0.5181,
+    "known_drug_is_largest_datatype": true,
+    "largest_datatype": "clinical",
+    "known_drug_dominated": true,
+    "circularity_note": "known-drug evidence is this target's single largest datatype (0.999, 52% of the datatype-score sum); a 'discovery' of its approved drugs is partly a lookup of the evidence that ranked it"
+   },
+   "uniprot_sites": {
+    "sequence_length": 604,
+    "active_sites": [
+     {
+      "position": 193,
+      "residue": "H",
+      "description": "Proton acceptor"
+     },
+     {
+      "position": 371,
+      "residue": "Y",
+      "description": "For cyclooxygenase activity"
+     }
+    ],
+    "site_anchors": [],
+    "site_anchor_rule": "UniProt ACT_SITE positions whose residue is S/C/T (the catalytic nucleophile). His/Asp members of a charge-relay triad are excluded: they sit behind the nucleophile and a sphere over all three reaches into the core rather than the ligand site.",
+    "mature_chains": [
+     {
+      "description": "Prostaglandin G/H synthase 2",
+      "start": 18,
+      "end": 604
+     }
+    ]
+   },
+   "structure": {
+    "structure_status": "ok",
+    "n_entities_total": 7,
+    "n_entities_ligand_bound_total": 7,
+    "n_entities_examined": 7,
+    "n_entries_examined": 7,
+    "n_entries_usable": 7,
+    "n_entries_rejected": 0,
+    "reject_reason_counts": {},
+    "structure": {
+     "pdb_id": "5F19",
+     "method": "X-ray",
+     "resolution_a": 2.04,
+     "chain": "A",
+     "chain_entity_length_aa": 552,
+     "target_entities": [
+      {
+       "entity_id": "5F19_1",
+       "length_aa": 552,
+       "polymer_type": "polypeptide(L)",
+       "auth_chain_ids": [
+        "A",
+        "B"
+       ],
+       "description": "Prostaglandin G/H synthase 2",
+       "accessions": [
+        "P35354"
+       ]
+      }
+     ],
+     "foreign_peptide_chains": [],
+     "foreign_polymer_chains": [],
+     "drug_like_ligands": [
+      "BOG",
+      "COH"
+     ],
+     "all_het_comp_ids": [
+      "BOG",
+      "EDO",
+      "AKR",
+      "NAG",
+      "COH"
+     ],
+     "apo_or_holo": "holo"
+    },
+    "rejected_better_resolution": [],
+    "runner_up_entries": [
+     {
+      "pdb_id": "5IKR",
+      "chain": "A",
+      "resolution_a": 2.342,
+      "apo_or_holo": "holo"
+     },
+     {
+      "pdb_id": "5F1A",
+      "chain": "A",
+      "resolution_a": 2.38,
+      "apo_or_holo": "holo"
+     },
+     {
+      "pdb_id": "5IKQ",
+      "chain": "A",
+      "resolution_a": 2.41,
+      "apo_or_holo": "holo"
+     },
+     {
+      "pdb_id": "5IKT",
+      "chain": "A",
+      "resolution_a": 2.451,
+      "apo_or_holo": "holo"
+     },
+     {
+      "pdb_id": "5IKV",
+      "chain": "A",
+      "resolution_a": 2.508,
+      "apo_or_holo": "holo"
+     }
+    ]
+   },
+   "literature_query": "(TITLE_ABS:\"PTGS2\" OR TITLE_ABS:\"COX-2\" OR TITLE_ABS:\"COX2\" OR TITLE_ABS:\"PGHS-2\" OR TITLE_ABS:\"PHS-2\" OR TITLE_ABS:\"hCox-2\" OR TITLE_ABS:\"GRIPGHS\") AND TITLE_ABS:\"rheumatoid arthritis\" AND (TITLE_ABS:\"inhibitor\" OR TITLE_ABS:\"inhibition\" OR TITLE_ABS:\"binder\" OR TITLE_ABS:\"antagonist\" OR TITLE_ABS:\"blockade\") AND (HAS_ABSTRACT:Y) AND (SRC:MED)",
+   "literature_hit_count": 570,
+   "literature": [
+    {
+     "pmid": "42632933",
+     "title": "Exploring the role of TNF/TNFR superfamily and NF-\u03baB pathway in regulating B7/CD28 expression in rheumatoid arthritis: An in-vitro study.",
+     "year": "2026",
+     "journal": "Pakistan journal of pharmaceutical sciences",
+     "claim": "NF-\u03baB inhibition with PDTC significantly reduced FLS viability and increased apoptosis, downregulated IL-1\u03b2 and COX-2 and restored CD28/CD80 expression on CD4+ T cells (P < 0.05), but did not alter TNF-\u03b1 or TNFR mRNA levels.",
+     "claim_tier": "target+term",
+     "claim_alias": "COX-2",
+     "doi": "10.36721/pjps.2026.39.11.312.1",
+     "title_verified": true,
+     "verification": "match"
+    },
+    {
+     "pmid": "41924844",
+     "title": "Targeted screening of phenylpropanoids from Dendropanax proteus for rheumatoid arthritis therapy and mechanistic insights.",
+     "year": "2026",
+     "journal": "Bioorganic chemistry",
+     "claim": "Despite their crucial role, few studies have examined inhibitors targeting the TLR4-COX-2 axis.",
+     "claim_tier": "target+term",
+     "claim_alias": "COX-2",
+     "doi": "10.1016/j.bioorg.2026.109810",
+     "title_verified": true,
+     "verification": "match"
+    }
+   ],
+   "literature_dropped_failed_verification": [],
+   "literature_status": "ok",
+   "site_type_hint": "pocket",
+   "site_type_evidence": "chosen structure 5F19 binds BOG/COH as HETATM",
+   "preferred_modalities": [
+    "small_molecule"
+   ],
+   "preferred_modalities_rule": "a modality is listed only where an approved drug of that kind binds this target in the local corpora, or (small_molecule) the chosen structure carries a drug-like HETATM ligand",
+   "opentargets_tractability_modalities": [
+    "antibody",
+    "other",
+    "protac",
+    "small_molecule"
+   ],
+   "gate_has_approved_positive_control": true,
+   "gate_has_usable_structure": true,
+   "usable_for_pipeline": true,
+   "unusable_reasons": [],
+   "pipeline_config": {
+    "symbol": "PTGS2",
+    "uniprot": "P35354",
+    "pdb_id": "5F19",
+    "chain": "A",
+    "out": "ptgs2",
+    "protocol": "protein-anything",
+    "binder_length": "60..90"
+   },
+   "pipeline_rank": 4
+  },
+  {
+   "rank": 12,
+   "ensembl_id": "ENSG00000113580",
+   "approved_symbol": "NR3C1",
+   "approved_name": "nuclear receptor subfamily 3 group C member 1",
+   "biotype": "protein_coding",
+   "symbol_synonyms": [
+    "GCCR",
+    "GCR",
+    "GCRST",
+    "GR",
+    "GRL",
+    "NR3C1"
+   ],
+   "uniprot": "P04150",
+   "uniprot_source": "opentargets_proteinIds:uniprot_swissprot",
+   "overall_association_score": 0.6346969506080612,
+   "datatype_scores": {
+    "genetic_association": 0.143490079004327,
+    "known_drug": 0.9967480555841572,
+    "literature": 0.5133471258098561,
+    "rna_expression": null,
+    "somatic_mutation": null,
+    "animal_model": null,
+    "affected_pathway": null
+   },
+   "all_datatype_scores": {
+    "literature": 0.5133471258098561,
+    "genetic_association": 0.143490079004327,
+    "clinical": 0.9967480555841572
+   },
+   "known_drug_datatype_id": "clinical",
+   "known_drug_score": 0.9967480555841572,
+   "has_known_drug_evidence": true,
+   "n_drug_and_clinical_candidates": 71,
+   "n_drug_rows_returned": 71,
+   "drug_rows_complete": true,
+   "n_approved_drugs": 55,
+   "approved_drug_examples": [
+    "ALCLOMETASONE DIPROPIONATE",
+    "AMCINONIDE",
+    "BECLOMETHASONE DIPROPIONATE",
+    "BETAMETHASONE",
+    "BETAMETHASONE ACETATE",
+    "BETAMETHASONE BENZOATE",
+    "BETAMETHASONE DIPROPIONATE",
+    "BETAMETHASONE SODIUM PHOSPHATE"
+   ],
+   "association_score": 0.6346969506080612,
+   "score_by_datatype": {
+    "literature": 0.5133471258098561,
+    "genetic_association": 0.143490079004327,
+    "clinical": 0.9967480555841572
+   },
+   "n_approved_binders_moa": 61,
+   "n_approved_binders_annotated": 80,
+   "n_approved_binders_bioactivity": 81,
+   "n_approved_biologic_binders": 0,
+   "n_approved_peptide_binders": 0,
+   "known_approved_drugs": [
+    "alclometasone dipropionate",
+    "amcinonide",
+    "beclometasone dipropionate",
+    "betamethasone",
+    "betamethasone acetate",
+    "betamethasone benzoate",
+    "betamethasone dipropionate",
+    "betamethasone phosphate",
+    "betamethasone valerate",
+    "budesonide",
+    "ciclesonide",
+    "clobetasol propionate",
+    "clobetasone butyrate",
+    "clocortolone pivalate",
+    "cortisone acetate",
+    "desonide",
+    "desoximetasone",
+    "dexamethasone",
+    "dexamethasone acetate",
+    "dexamethasone phosphate",
+    "diflorasone diacetate",
+    "difluprednate",
+    "fludroxycortide",
+    "flumetasone pivalate",
+    "flunisolide",
+    "fluocinolone acetonide",
+    "fluocinonide",
+    "fluorometholone",
+    "fluorometholone acetate",
+    "fluprednisolone",
+    "fluticasone furoate",
+    "fluticasone propionate",
+    "halcinonide",
+    "hydrocortamate",
+    "hydrocortisone",
+    "hydrocortisone acetate",
+    "hydrocortisone butyrate",
+    "hydrocortisone cypionate",
+    "hydrocortisone probutate",
+    "hydrocortisone succinate",
+    "hydrocortisone valerate",
+    "loteprednol etabonate",
+    "medrysone",
+    "meprednisone",
+    "methylprednisolone",
+    "methylprednisolone acetate",
+    "methylprednisolone succinate",
+    "mifepristone",
+    "mometasone furoate",
+    "prednicarbate",
+    "prednisolone",
+    "prednisolone acetate",
+    "prednisolone sodium phosphate",
+    "prednisolone tebutate",
+    "prednisone",
+    "rimexolone",
+    "triamcinolone",
+    "triamcinolone acetonide",
+    "triamcinolone diacetate",
+    "triamcinolone hexacetonide",
+    "ulobetasol propionate"
+   ],
+   "approved_binders_offtarget_only": [
+    "clotrimazole",
+    "cyproterone acetate",
+    "danazol",
+    "diethylstilbestrol",
+    "eplerenone",
+    "estradiol",
+    "ethinylestradiol",
+    "fludrocortisone acetate",
+    "hydroxyprogesterone caproate",
+    "levonorgestrel",
+    "medroxyprogesterone",
+    "megestrol acetate"
+   ],
+   "approved_biologic_binders": [],
+   "corpus_symbols_matched": [
+    "NR3C1"
+   ],
+   "target_class": [
+    "Nuclear receptor",
+    "Transcription factor"
+   ],
+   "target_class_detail": [
+    {
+     "label": "Nuclear hormone receptor subfamily 3 group C member 1",
+     "level": "l5"
+    },
+    {
+     "label": "Nuclear hormone receptor subfamily 3 group C",
+     "level": "l4"
+    },
+    {
+     "label": "Nuclear receptor",
+     "level": "l2"
+    },
+    {
+     "label": "Transcription factor",
+     "level": "l1"
+    },
+    {
+     "label": "Nuclear hormone receptor subfamily 3",
+     "level": "l3"
+    }
+   ],
+   "tractability": {
+    "other": [
+     "Advanced Clinical"
+    ],
+    "protac": [
+     "Database Ubiquitination",
+     "Half-life Data",
+     "Small Molecule Binder",
+     "UniProt Ubiquitination"
+    ],
+    "small_molecule": [
+     "Approved Drug",
+     "Druggable Family",
+     "High-Quality Ligand",
+     "High-Quality Pocket",
+     "Structure with Ligand"
+    ]
+   },
+   "n_safety_liabilities": 42,
+   "safety_flags": [
+    "Decrease, Population growth rate",
+    "Decreased sperm quantity / quality in the adult, Decreased fertility",
+    "Decreased sperm quantity or quality in the adult, Decreased fertility",
+    "Increase, hypertension",
+    "Increased, Liver Steatosis",
+    "Increased, agitation",
+    "Increased, depression",
+    "Increased, seizure",
+    "cardiac arrhythmia",
+    "decreased blood potassium",
+    "decreased inflammation",
+    "decreased memory",
+    "decreased muscle mass",
+    "decreased pain",
+    "decreased plasma potassium",
+    "decreased wound repair",
+    "edema",
+    "endometrial thickening",
+    "fatigue",
+    "glaucoma",
+    "hyperglycaemia",
+    "hypoglycaemia",
+    "immunosuppression",
+    "impaired, Fertility",
+    "increased blood glucose",
+    "increased blood pressure",
+    "increased body weight",
+    "increased inflammation",
+    "increased memory",
+    "increased urinary sodium excretion",
+    "increased/decreased pain",
+    "insulin resistance",
+    "lipid redistribution",
+    "muscle wasting",
+    "osteoporosis",
+    "receptor binding",
+    "regulation of steroid biosynthetic process",
+    "regulation of steroid hormone biosynthetic process",
+    "regulation of transcription factor activity"
+   ],
+   "safety_sources": [
+    "AOP-Wiki",
+    "Bowes et al. (2012)",
+    "Lynch et al. (2017)",
+    "ToxCast"
+   ],
+   "circularity": {
+    "known_drug_datatype_id": "clinical",
+    "known_drug_score": 0.9967480555841572,
+    "known_drug_share_of_datatype_sum": 0.6028,
+    "known_drug_is_largest_datatype": true,
+    "largest_datatype": "clinical",
+    "known_drug_dominated": true,
+    "circularity_note": "known-drug evidence is this target's single largest datatype (0.997, 60% of the datatype-score sum); a 'discovery' of its approved drugs is partly a lookup of the evidence that ranked it"
+   },
+   "uniprot_sites": {
+    "sequence_length": 777,
+    "active_sites": [],
+    "site_anchors": [],
+    "site_anchor_rule": "UniProt ACT_SITE positions whose residue is S/C/T (the catalytic nucleophile). His/Asp members of a charge-relay triad are excluded: they sit behind the nucleophile and a sphere over all three reaches into the core rather than the ligand site.",
+    "mature_chains": [
+     {
+      "description": "Glucocorticoid receptor",
+      "start": 1,
+      "end": 777
+     }
+    ]
+   },
+   "structure": {
+    "structure_status": "ok",
+    "n_entities_total": 54,
+    "n_entities_ligand_bound_total": 52,
+    "n_entities_examined": 54,
+    "n_entries_examined": 54,
+    "n_entries_usable": 28,
+    "n_entries_rejected": 26,
+    "reject_reason_counts": {
+     "co_crystallised_peptide_polymer_chain": 26
+    },
+    "structure": {
+     "pdb_id": "5UC3",
+     "method": "X-ray",
+     "resolution_a": 2.009,
+     "chain": "A",
+     "chain_entity_length_aa": 257,
+     "target_entities": [
+      {
+       "entity_id": "5UC3_1",
+       "length_aa": 257,
+       "polymer_type": "polypeptide(L)",
+       "auth_chain_ids": [
+        "A",
+        "B"
+       ],
+       "description": "Glucocorticoid receptor",
+       "accessions": [
+        "P04150"
+       ]
+      }
+     ],
+     "foreign_peptide_chains": [],
+     "foreign_polymer_chains": [],
+     "drug_like_ligands": [
+      "486"
+     ],
+     "all_het_comp_ids": [
+      "486",
+      "MPD",
+      "EDO",
+      "EPE"
+     ],
+     "apo_or_holo": "holo"
+    },
+    "rejected_better_resolution": [
+     {
+      "pdb_id": "4UDD",
+      "resolution_a": 1.8,
+      "reject_reason": "co_crystallised_peptide_polymer_chain",
+      "reject_detail": [
+       "4UDD_2 NUCLEAR RECEPTOR COACTIVATOR 2 (14 aa)"
+      ]
+     },
+     {
+      "pdb_id": "4P6W",
+      "resolution_a": 1.951,
+      "reject_reason": "co_crystallised_peptide_polymer_chain",
+      "reject_detail": [
+       "4P6W_2 Nuclear receptor coactivator 2 (12 aa)"
+      ]
+     }
+    ],
+    "runner_up_entries": [
+     {
+      "pdb_id": "1NHZ",
+      "chain": "A",
+      "resolution_a": 2.3,
+      "apo_or_holo": "holo"
+     },
+     {
+      "pdb_id": "5UC1",
+      "chain": "A",
+      "resolution_a": 2.351,
+      "apo_or_holo": "holo"
+     },
+     {
+      "pdb_id": "6DXK",
+      "chain": "A",
+      "resolution_a": 3.05,
+      "apo_or_holo": "holo"
+     },
+     {
+      "pdb_id": "8A9G",
+      "chain": "C",
+      "resolution_a": 1.961,
+      "apo_or_holo": "holo"
+     },
+     {
+      "pdb_id": "6CFN",
+      "chain": "A",
+      "resolution_a": 2.5,
+      "apo_or_holo": "apo"
+     }
+    ]
+   },
+   "literature_query": "(TITLE_ABS:\"NR3C1\" OR TITLE_ABS:\"GCCR\" OR TITLE_ABS:\"GCRST\") AND TITLE_ABS:\"rheumatoid arthritis\" AND (TITLE_ABS:\"inhibitor\" OR TITLE_ABS:\"inhibition\" OR TITLE_ABS:\"binder\" OR TITLE_ABS:\"antagonist\" OR TITLE_ABS:\"blockade\") AND (HAS_ABSTRACT:Y) AND (SRC:MED)",
+   "literature_hit_count": 1,
+   "literature": [
+    {
+     "pmid": "30967782",
+     "title": "Network Pharmacology Based Research on the Combination Mechanism Between Escin and Low Dose Glucocorticoids in Anti-rheumatoid Arthritis.",
+     "year": "2019",
+     "journal": "Frontiers in pharmacology",
+     "claim": "Gene chip results revealed that Nr3c1 (GR) expression was significantly altered, and that GR was activated by Escin and low dose Dex in vivo and in vitro.",
+     "claim_tier": "target-only",
+     "claim_alias": "NR3C1",
+     "doi": "10.3389/fphar.2019.00280",
+     "title_verified": true,
+     "verification": "match"
+    }
+   ],
+   "literature_dropped_failed_verification": [],
+   "literature_status": "ok",
+   "site_type_hint": "pocket",
+   "site_type_evidence": "chosen structure 5UC3 binds 486 as HETATM",
+   "preferred_modalities": [
+    "small_molecule"
+   ],
+   "preferred_modalities_rule": "a modality is listed only where an approved drug of that kind binds this target in the local corpora, or (small_molecule) the chosen structure carries a drug-like HETATM ligand",
+   "opentargets_tractability_modalities": [
+    "other",
+    "protac",
+    "small_molecule"
+   ],
+   "gate_has_approved_positive_control": true,
+   "gate_has_usable_structure": true,
+   "usable_for_pipeline": true,
+   "unusable_reasons": [],
+   "pipeline_config": {
+    "symbol": "NR3C1",
+    "uniprot": "P04150",
+    "pdb_id": "5UC3",
+    "chain": "A",
+    "out": "nr3c1",
+    "protocol": "protein-anything",
+    "binder_length": "60..90"
+   },
+   "pipeline_rank": 5
+  },
+  {
+   "rank": 13,
+   "ensembl_id": "ENSG00000112115",
+   "approved_symbol": "IL17A",
+   "approved_name": "interleukin 17A",
+   "biotype": "protein_coding",
+   "symbol_synonyms": [
+    "CTLA-8",
+    "CTLA8",
+    "IL-17",
+    "IL-17A",
+    "IL17",
+    "IL17A",
+    "ILA17"
+   ],
+   "uniprot": "Q16552",
+   "uniprot_source": "opentargets_proteinIds:uniprot_swissprot",
+   "overall_association_score": 0.6327005807387772,
+   "datatype_scores": {
+    "genetic_association": null,
+    "known_drug": 0.9849674934981697,
+    "literature": 0.992925490899167,
+    "rna_expression": null,
+    "somatic_mutation": null,
+    "animal_model": 0.27587899595615367,
+    "affected_pathway": null
+   },
+   "all_datatype_scores": {
+    "literature": 0.992925490899167,
+    "animal_model": 0.27587899595615367,
+    "clinical": 0.9849674934981697
+   },
+   "known_drug_datatype_id": "clinical",
+   "known_drug_score": 0.9849674934981697,
+   "has_known_drug_evidence": true,
+   "n_drug_and_clinical_candidates": 11,
+   "n_drug_rows_returned": 11,
+   "drug_rows_complete": true,
+   "n_approved_drugs": 3,
+   "approved_drug_examples": [
+    "BIMEKIZUMAB",
+    "IXEKIZUMAB",
+    "SECUKINUMAB"
+   ],
+   "association_score": 0.6327005807387772,
+   "score_by_datatype": {
+    "literature": 0.992925490899167,
+    "animal_model": 0.27587899595615367,
+    "clinical": 0.9849674934981697
+   },
+   "n_approved_binders_moa": 0,
+   "n_approved_binders_annotated": 0,
+   "n_approved_binders_bioactivity": 0,
+   "n_approved_biologic_binders": 2,
+   "n_approved_peptide_binders": 0,
+   "known_approved_drugs": [],
+   "approved_binders_offtarget_only": [],
+   "approved_biologic_binders": [
+    {
+     "name": "ixekizumab",
+     "modality": "mab",
+     "action": "INHIBITOR"
+    },
+    {
+     "name": "secukinumab",
+     "modality": "mab",
+     "action": "INHIBITOR"
+    }
+   ],
+   "corpus_symbols_matched": [],
+   "target_class": [
+    "Secreted protein"
+   ],
+   "target_class_detail": [
+    {
+     "label": "Secreted protein",
+     "level": "l1"
+    }
+   ],
+   "tractability": {
+    "antibody": [
+     "Approved Drug",
+     "GO CC high conf",
+     "UniProt SigP or TMHMM",
+     "UniProt loc high conf"
+    ],
+    "other": [
+     "Advanced Clinical"
+    ],
+    "protac": [
+     "Small Molecule Binder"
+    ],
+    "small_molecule": [
+     "High-Quality Ligand",
+     "Structure with Ligand"
+    ]
+   },
+   "n_safety_liabilities": 0,
+   "safety_flags": [],
+   "safety_sources": [],
+   "circularity": {
+    "known_drug_datatype_id": "clinical",
+    "known_drug_score": 0.9849674934981697,
+    "known_drug_share_of_datatype_sum": 0.437,
+    "known_drug_is_largest_datatype": false,
+    "largest_datatype": "literature",
+    "known_drug_dominated": false,
+    "circularity_note": "largest datatype is literature (0.993); known-drug contributes 0.985"
+   },
+   "uniprot_sites": {
+    "sequence_length": 155,
+    "active_sites": [],
+    "site_anchors": [],
+    "site_anchor_rule": "UniProt ACT_SITE positions whose residue is S/C/T (the catalytic nucleophile). His/Asp members of a charge-relay triad are excluded: they sit behind the nucleophile and a sphere over all three reaches into the core rather than the ligand site.",
+    "mature_chains": [
+     {
+      "description": "Interleukin-17A",
+      "start": 24,
+      "end": 155
+     }
+    ]
+   },
+   "structure": {
+    "structure_status": "ok",
+    "n_entities_total": 42,
+    "n_entities_ligand_bound_total": 22,
+    "n_entities_examined": 42,
+    "n_entries_examined": 42,
+    "n_entries_usable": 36,
+    "n_entries_rejected": 6,
+    "reject_reason_counts": {
+     "co_crystallised_peptide_polymer_chain": 6
+    },
+    "structure": {
+     "pdb_id": "9SQX",
+     "method": "X-ray",
+     "resolution_a": 1.413,
+     "chain": "A",
+     "chain_entity_length_aa": 123,
+     "target_entities": [
+      {
+       "entity_id": "9SQX_1",
+       "length_aa": 123,
+       "polymer_type": "polypeptide(L)",
+       "auth_chain_ids": [
+        "A",
+        "B",
+        "C",
+        "D"
+       ],
+       "description": "Interleukin-17A",
+       "accessions": [
+        "Q16552"
+       ]
+      }
+     ],
+     "foreign_peptide_chains": [],
+     "foreign_polymer_chains": [],
+     "drug_like_ligands": [
+      "A1JPS"
+     ],
+     "all_het_comp_ids": [
+      "SO4",
+      "A1JPS"
+     ],
+     "apo_or_holo": "holo"
+    },
+    "rejected_better_resolution": [],
+    "runner_up_entries": [
+     {
+      "pdb_id": "8USS",
+      "chain": "A",
+      "resolution_a": 1.47,
+      "apo_or_holo": "holo"
+     },
+     {
+      "pdb_id": "9SQI",
+      "chain": "A",
+      "resolution_a": 1.48,
+      "apo_or_holo": "holo"
+     },
+     {
+      "pdb_id": "8DYG",
+      "chain": "A",
+      "resolution_a": 1.49,
+      "apo_or_holo": "holo"
+     },
+     {
+      "pdb_id": "8USR",
+      "chain": "A",
+      "resolution_a": 1.83,
+      "apo_or_holo": "holo"
+     },
+     {
+      "pdb_id": "8DYH",
+      "chain": "A",
+      "resolution_a": 1.94,
+      "apo_or_holo": "holo"
+     }
+    ]
+   },
+   "literature_query": "(TITLE_ABS:\"IL17A\" OR TITLE_ABS:\"IL-17\" OR TITLE_ABS:\"IL17\" OR TITLE_ABS:\"CTLA-8\" OR TITLE_ABS:\"CTLA8\" OR TITLE_ABS:\"IL-17A\" OR TITLE_ABS:\"ILA17\") AND TITLE_ABS:\"rheumatoid arthritis\" AND (TITLE_ABS:\"inhibitor\" OR TITLE_ABS:\"inhibition\" OR TITLE_ABS:\"binder\" OR TITLE_ABS:\"antagonist\" OR TITLE_ABS:\"blockade\") AND (HAS_ABSTRACT:Y) AND (SRC:MED)",
+   "literature_hit_count": 622,
+   "literature": [
+    {
+     "pmid": "41754778",
+     "title": "Aptamers Targeting IL17A and Its Receptor Suppress IL17 Signaling in Different Cell Types.",
+     "year": "2026",
+     "journal": "Pharmaceuticals (Basel, Switzerland)",
+     "claim": "Current monoclonal antibody inhibitors targeting the IL-17/IL-17RA axis demonstrate clinical efficacy but face significant limitations, including immunogenicity, the loss of therapeutic response, and cold-chain storage.",
+     "claim_tier": "target+term",
+     "claim_alias": "IL-17",
+     "doi": "10.3390/ph19020238",
+     "title_verified": true,
+     "verification": "match"
+    },
+    {
+     "pmid": "42714837",
+     "title": "Environmental Exposure to Triclosan Promotes Rheumatoid Arthritis via KEAP1/NRF2 Inhibition and Subsequent IL-17 Signaling Activation.",
+     "year": "2026",
+     "journal": "Environmental science & technology",
+     "claim": "Consequently, NRF2 blockade led to sustained oxidative stress and IL-17/MAPK/NF-\u03baB cascade activation, which NAC rescue experiments validated as oxidative stress-driven.",
+     "claim_tier": "target+term",
+     "claim_alias": "IL-17",
+     "doi": "10.1021/acs.est.6c07298",
+     "title_verified": true,
+     "verification": "match"
+    }
+   ],
+   "literature_dropped_failed_verification": [],
+   "literature_status": "ok",
+   "site_type_hint": "pocket",
+   "site_type_evidence": "chosen structure 9SQX binds A1JPS as HETATM",
+   "preferred_modalities": [
+    "biologic",
+    "small_molecule"
+   ],
+   "preferred_modalities_rule": "a modality is listed only where an approved drug of that kind binds this target in the local corpora, or (small_molecule) the chosen structure carries a drug-like HETATM ligand",
+   "opentargets_tractability_modalities": [
+    "antibody",
+    "other",
+    "protac",
+    "small_molecule"
+   ],
+   "gate_has_approved_positive_control": false,
+   "gate_has_usable_structure": true,
+   "usable_for_pipeline": false,
+   "unusable_reasons": [
+    "no approved drug has IL17A as its mechanism-of-action target (0 off-target annotations, 0 pchembl-backed) - the matching arms would have no positive control"
+   ],
+   "pipeline_config": null
+  },
+  {
+   "rank": 14,
+   "ensembl_id": "ENSG00000110944",
+   "approved_symbol": "IL23A",
+   "approved_name": "interleukin 23 subunit alpha",
+   "biotype": "protein_coding",
+   "symbol_synonyms": [
+    "IL-23",
+    "IL-23 subunit alpha",
+    "IL-23-A",
+    "IL-23A",
+    "IL-23p19",
+    "IL23A",
+    "IL23P19",
+    "P19",
+    "SGRF",
+    "UNQ2498/PRO5798"
+   ],
+   "uniprot": "Q9NPF7",
+   "uniprot_source": "opentargets_proteinIds:uniprot_swissprot",
+   "overall_association_score": 0.6307394571629612,
+   "datatype_scores": {
+    "genetic_association": null,
+    "known_drug": 0.9847642681127319,
+    "literature": 0.9203944527349458,
+    "rna_expression": null,
+    "somatic_mutation": null,
+    "animal_model": 0.3030535026093931,
+    "affected_pathway": null
+   },
+   "all_datatype_scores": {
+    "literature": 0.9203944527349458,
+    "animal_model": 0.3030535026093931,
+    "clinical": 0.9847642681127319
+   },
+   "known_drug_datatype_id": "clinical",
+   "known_drug_score": 0.9847642681127319,
+   "has_known_drug_evidence": true,
+   "n_drug_and_clinical_candidates": 8,
+   "n_drug_rows_returned": 8,
+   "drug_rows_complete": true,
+   "n_approved_drugs": 6,
+   "approved_drug_examples": [
+    "BRIAKINUMAB",
+    "GUSELKUMAB",
+    "MIRIKIZUMAB",
+    "RISANKIZUMAB",
+    "TILDRAKIZUMAB",
+    "USTEKINUMAB"
+   ],
+   "association_score": 0.6307394571629612,
+   "score_by_datatype": {
+    "literature": 0.9203944527349458,
+    "animal_model": 0.3030535026093931,
+    "clinical": 0.9847642681127319
+   },
+   "n_approved_binders_moa": 0,
+   "n_approved_binders_annotated": 0,
+   "n_approved_binders_bioactivity": 0,
+   "n_approved_biologic_binders": 0,
+   "n_approved_peptide_binders": 0,
+   "known_approved_drugs": [],
+   "approved_binders_offtarget_only": [],
+   "approved_biologic_binders": [],
+   "corpus_symbols_matched": [],
+   "target_class": [],
+   "target_class_detail": [],
+   "tractability": {
+    "antibody": [
+     "Approved Drug",
+     "GO CC high conf",
+     "UniProt SigP or TMHMM",
+     "UniProt loc high conf"
+    ],
+    "small_molecule": [
+     "Structure with Ligand"
+    ]
+   },
+   "n_safety_liabilities": 0,
+   "safety_flags": [],
+   "safety_sources": [],
+   "circularity": {
+    "known_drug_datatype_id": "clinical",
+    "known_drug_score": 0.9847642681127319,
+    "known_drug_share_of_datatype_sum": 0.446,
+    "known_drug_is_largest_datatype": true,
+    "largest_datatype": "clinical",
+    "known_drug_dominated": true,
+    "circularity_note": "known-drug evidence is this target's single largest datatype (0.985, 45% of the datatype-score sum); a 'discovery' of its approved drugs is partly a lookup of the evidence that ranked it"
+   },
+   "uniprot_sites": {
+    "sequence_length": 189,
+    "active_sites": [],
+    "site_anchors": [],
+    "site_anchor_rule": "UniProt ACT_SITE positions whose residue is S/C/T (the catalytic nucleophile). His/Asp members of a charge-relay triad are excluded: they sit behind the nucleophile and a sphere over all three reaches into the core rather than the ligand site.",
+    "mature_chains": [
+     {
+      "description": "Interleukin-23 subunit alpha",
+      "start": 20,
+      "end": 189
+     }
+    ]
+   },
+   "structure": {
+    "structure_status": "ok",
+    "n_entities_total": 14,
+    "n_entities_ligand_bound_total": 3,
+    "n_entities_examined": 14,
+    "n_entries_examined": 14,
+    "n_entries_usable": 12,
+    "n_entries_rejected": 2,
+    "reject_reason_counts": {
+     "co_crystallised_peptide_polymer_chain": 2
+    },
+    "structure": {
+     "pdb_id": "5MJ3",
+     "method": "X-ray",
+     "resolution_a": 1.74,
+     "chain": "B",
+     "chain_entity_length_aa": 179,
+     "target_entities": [
+      {
+       "entity_id": "5MJ3_2",
+       "length_aa": 179,
+       "polymer_type": "polypeptide(L)",
+       "auth_chain_ids": [
+        "B"
+       ],
+       "description": "Interleukin-23 subunit alpha",
+       "accessions": [
+        "Q9NPF7"
+       ]
+      }
+     ],
+     "foreign_peptide_chains": [],
+     "foreign_polymer_chains": [
+      {
+       "entity_id": "5MJ3_3",
+       "length_aa": 118,
+       "polymer_type": "polypeptide(L)",
+       "auth_chain_ids": [
+        "C"
+       ],
+       "description": "ALPHABODY MA12",
+       "accessions": []
+      },
+      {
+       "entity_id": "5MJ3_1",
+       "length_aa": 306,
+       "polymer_type": "polypeptide(L)",
+       "auth_chain_ids": [
+        "A"
+       ],
+       "description": "Interleukin-12 subunit beta",
+       "accessions": [
+        "P29460"
+       ]
+      }
+     ],
+     "drug_like_ligands": [],
+     "all_het_comp_ids": [
+      "NA",
+      "PG4",
+      "PGE"
+     ],
+     "apo_or_holo": "apo"
+    },
+    "rejected_better_resolution": [],
+    "runner_up_entries": [
+     {
+      "pdb_id": "3D85",
+      "chain": "C",
+      "resolution_a": 1.9,
+      "apo_or_holo": "apo"
+     },
+     {
+      "pdb_id": "8CR8",
+      "chain": "B",
+      "resolution_a": 2.0,
+      "apo_or_holo": "apo"
+     },
+     {
+      "pdb_id": "3DUH",
+      "chain": "C",
+      "resolution_a": 2.3,
+      "apo_or_holo": "apo"
+     },
+     {
+      "pdb_id": "5MXA",
+      "chain": "B",
+      "resolution_a": 2.501,
+      "apo_or_holo": "apo"
+     },
+     {
+      "pdb_id": "4GRW",
+      "chain": "A",
+      "resolution_a": 2.55,
+      "apo_or_holo": "apo"
+     }
+    ]
+   },
+   "literature_query": "(TITLE_ABS:\"IL23A\" OR TITLE_ABS:\"IL-23\" OR TITLE_ABS:\"IL-23-A\" OR TITLE_ABS:\"IL-23A\" OR TITLE_ABS:\"IL-23p19\" OR TITLE_ABS:\"IL23P19\" OR TITLE_ABS:\"UNQ2498/PRO5798\") AND TITLE_ABS:\"rheumatoid arthritis\" AND (TITLE_ABS:\"inhibitor\" OR TITLE_ABS:\"inhibition\" OR TITLE_ABS:\"binder\" OR TITLE_ABS:\"antagonist\" OR TITLE_ABS:\"blockade\") AND (HAS_ABSTRACT:Y) AND (SRC:MED)",
+   "literature_hit_count": 113,
+   "literature": [
+    {
+     "pmid": "42161470",
+     "title": "IL-23 blockade: A strategy for managing pain-related inflammatory diseases.",
+     "year": "2026",
+     "journal": "International review of cell and molecular biology",
+     "claim": "Additionally, the therapeutic potential of IL-23 inhibition is examined, with a particular focus on immunotherapy, through the review of clinical data that supports the high efficacy of IL-23 blockade in reducing inflammation, alleviating symptoms, and improving patient outcomes.",
+     "claim_tier": "target+term",
+     "claim_alias": "IL-23",
+     "doi": "10.1016/bs.ircmb.2026.02.005",
+     "title_verified": true,
+     "verification": "match"
+    },
+    {
+     "pmid": "42439331",
+     "title": "Mechanistic Study of Yibi Decoction in Treating Rheumatoid Arthritis via Modulating the JAK2/STAT3 Signaling Pathway.",
+     "year": "2026",
+     "journal": "Endocrine, metabolic & immune disorders drug targets",
+     "claim": "In CIA rats, YBD treatment significantly downregulated the expression of IL-6, IL-17, IL-23, JAK2, and STAT3 in ankle joint tissues (P < 0.05), and markedly reduced serum levels of anti-cyclic citrullinated peptide (anti-CCP) antibodies and rheumatoid factor (P < 0.05).",
+     "claim_tier": "target-only",
+     "claim_alias": "IL-23",
+     "doi": "10.2174/0118715303459997260621164500",
+     "title_verified": true,
+     "verification": "match"
+    }
+   ],
+   "literature_dropped_failed_verification": [],
+   "literature_status": "ok",
+   "site_type_hint": "ppi_interface",
+   "site_type_evidence": "5MJ3 has a partner polymer chain and no drug-like heteroatom",
+   "preferred_modalities": [
+    "unknown"
+   ],
+   "preferred_modalities_rule": "a modality is listed only where an approved drug of that kind binds this target in the local corpora, or (small_molecule) the chosen structure carries a drug-like HETATM ligand",
+   "opentargets_tractability_modalities": [
+    "antibody",
+    "small_molecule"
+   ],
+   "gate_has_approved_positive_control": false,
+   "gate_has_usable_structure": true,
+   "usable_for_pipeline": false,
+   "unusable_reasons": [
+    "no approved drug has IL23A as its mechanism-of-action target (0 off-target annotations, 0 pchembl-backed) - the matching arms would have no positive control"
+   ],
+   "pipeline_config": null
+  },
+  {
+   "rank": 15,
+   "ensembl_id": "ENSG00000196664",
+   "approved_symbol": "TLR7",
+   "approved_name": "toll like receptor 7",
+   "biotype": "protein_coding",
+   "symbol_synonyms": [
+    "IMD74",
+    "SLEB17",
+    "TLR7",
+    "TLR7-like",
+    "UNQ248/PRO285"
+   ],
+   "uniprot": "Q9NYK1",
+   "uniprot_source": "opentargets_proteinIds:uniprot_swissprot",
+   "overall_association_score": 0.6295989771226254,
+   "datatype_scores": {
+    "genetic_association": null,
+    "known_drug": 0.9834116205818025,
+    "literature": 0.8480956867553812,
+    "rna_expression": 0.04522340482669109,
+    "somatic_mutation": null,
+    "animal_model": 0.41673656176276624,
+    "affected_pathway": null
+   },
+   "all_datatype_scores": {
+    "literature": 0.8480956867553812,
+    "rna_expression": 0.04522340482669109,
+    "animal_model": 0.41673656176276624,
+    "clinical": 0.9834116205818025
+   },
+   "known_drug_datatype_id": "clinical",
+   "known_drug_score": 0.9834116205818025,
+   "has_known_drug_evidence": true,
+   "n_drug_and_clinical_candidates": 12,
+   "n_drug_rows_returned": 12,
+   "drug_rows_complete": true,
+   "n_approved_drugs": 3,
+   "approved_drug_examples": [
+    "HYDROXYCHLOROQUINE",
+    "HYDROXYCHLOROQUINE SULFATE",
+    "IMIQUIMOD"
+   ],
+   "association_score": 0.6295989771226254,
+   "score_by_datatype": {
+    "literature": 0.8480956867553812,
+    "rna_expression": 0.04522340482669109,
+    "animal_model": 0.41673656176276624,
+    "clinical": 0.9834116205818025
+   },
+   "n_approved_binders_moa": 2,
+   "n_approved_binders_annotated": 2,
+   "n_approved_binders_bioactivity": 2,
+   "n_approved_biologic_binders": 0,
+   "n_approved_peptide_binders": 0,
+   "known_approved_drugs": [
+    "hydroxychloroquine",
+    "imiquimod"
+   ],
+   "approved_binders_offtarget_only": [],
+   "approved_biologic_binders": [],
+   "corpus_symbols_matched": [
+    "TLR7"
+   ],
+   "target_class": [
+    "Membrane receptor",
+    "Toll-like and Il-1 receptors"
+   ],
+   "target_class_detail": [
+    {
+     "label": "Toll-like and Il-1 receptors",
+     "level": "l2"
+    },
+    {
+     "label": "Membrane receptor",
+     "level": "l1"
+    }
+   ],
+   "tractability": {
+    "antibody": [
+     "GO CC high conf",
+     "UniProt SigP or TMHMM"
+    ],
+    "other": [
+     "Advanced Clinical"
+    ],
+    "protac": [
+     "Database Ubiquitination",
+     "Half-life Data",
+     "Small Molecule Binder"
+    ],
+    "small_molecule": [
+     "Approved Drug",
+     "Druggable Family",
+     "High-Quality Ligand"
+    ]
+   },
+   "n_safety_liabilities": 0,
+   "safety_flags": [],
+   "safety_sources": [],
+   "circularity": {
+    "known_drug_datatype_id": "clinical",
+    "known_drug_score": 0.9834116205818025,
+    "known_drug_share_of_datatype_sum": 0.4288,
+    "known_drug_is_largest_datatype": true,
+    "largest_datatype": "clinical",
+    "known_drug_dominated": true,
+    "circularity_note": "known-drug evidence is this target's single largest datatype (0.983, 43% of the datatype-score sum); a 'discovery' of its approved drugs is partly a lookup of the evidence that ranked it"
+   },
+   "uniprot_sites": {
+    "sequence_length": 1049,
+    "active_sites": [],
+    "site_anchors": [],
+    "site_anchor_rule": "UniProt ACT_SITE positions whose residue is S/C/T (the catalytic nucleophile). His/Asp members of a charge-relay triad are excluded: they sit behind the nucleophile and a sphere over all three reaches into the core rather than the ligand site.",
+    "mature_chains": [
+     {
+      "description": "Toll-like receptor 7",
+      "start": 27,
+      "end": 1049
+     }
+    ]
+   },
+   "structure": {
+    "structure_status": "no_xray_entity_maps_to_this_accession",
+    "n_entities_total": 0,
+    "n_entities_ligand_bound_total": 0,
+    "n_entities_examined": 0,
+    "structure": null
+   },
+   "literature_query": "(TITLE_ABS:\"TLR7\" OR TITLE_ABS:\"IMD74\" OR TITLE_ABS:\"SLEB17\" OR TITLE_ABS:\"TLR7-like\" OR TITLE_ABS:\"UNQ248/PRO285\") AND TITLE_ABS:\"rheumatoid arthritis\" AND (TITLE_ABS:\"inhibitor\" OR TITLE_ABS:\"inhibition\" OR TITLE_ABS:\"binder\" OR TITLE_ABS:\"antagonist\" OR TITLE_ABS:\"blockade\") AND (HAS_ABSTRACT:Y) AND (SRC:MED)",
+   "literature_hit_count": 17,
+   "literature": [
+    {
+     "pmid": "40207810",
+     "title": "Virtual Screening Approaches Towards the Discovery of Toll-like Receptor 7 (TLR7) Antagonists for the Management of Rheumatoid Arthritis During COVID Infection.",
+     "year": "2026",
+     "journal": "Current rheumatology reviews",
+     "claim": "Since, some TLR7 antagonists targeting the TLR7 protein are in the clinical trials, but yet to reach the market, and many lead to serious toxicities.",
+     "claim_tier": "target+term",
+     "claim_alias": "TLR7",
+     "doi": "10.2174/0115733971351438250220063238",
+     "title_verified": true,
+     "verification": "match"
+    },
+    {
+     "pmid": "38904299",
+     "title": "Discovery of Novel Small Molecule Dual Inhibitor Targeting Toll-Like Receptors 7 and 9.",
+     "year": "2024",
+     "journal": "Journal of chemical information and modeling",
+     "claim": "Here, we applied the principles of computer-aided drug discovery to identify a novel low-molecular-weight compound, TLR inhibitory compound 10 (TIC10), and its potent derivative (TIC10g), which demonstrated dual inhibition of TLR7 and TLR9 signaling pathways.",
+     "claim_tier": "target+term",
+     "claim_alias": "TLR7",
+     "doi": "10.1021/acs.jcim.4c00578",
+     "title_verified": true,
+     "verification": "match"
+    }
+   ],
+   "literature_dropped_failed_verification": [],
+   "literature_status": "ok",
+   "site_type_hint": "unknown",
+   "site_type_evidence": "no structure selected",
+   "preferred_modalities": [
+    "small_molecule"
+   ],
+   "preferred_modalities_rule": "a modality is listed only where an approved drug of that kind binds this target in the local corpora, or (small_molecule) the chosen structure carries a drug-like HETATM ligand",
+   "opentargets_tractability_modalities": [
+    "antibody",
+    "other",
+    "protac",
+    "small_molecule"
+   ],
+   "gate_has_approved_positive_control": true,
+   "gate_has_usable_structure": false,
+   "usable_for_pipeline": false,
+   "unusable_reasons": [
+    "no usable structure (no_xray_entity_maps_to_this_accession)"
+   ],
+   "pipeline_config": null
+  },
+  {
+   "rank": 16,
+   "ensembl_id": "ENSG00000105639",
+   "approved_symbol": "JAK3",
+   "approved_name": "Janus kinase 3",
+   "biotype": "protein_coding",
+   "symbol_synonyms": [
+    "JAK-3",
+    "JAK3",
+    "JAK3_HUMAN",
+    "JAKL",
+    "L-JAK",
+    "LJAK"
+   ],
+   "uniprot": "P52333",
+   "uniprot_source": "opentargets_proteinIds:uniprot_swissprot",
+   "overall_association_score": 0.6238736526991762,
+   "datatype_scores": {
+    "genetic_association": null,
+    "known_drug": 0.9913532664133954,
+    "literature": 0.5344779193974286,
+    "rna_expression": null,
+    "somatic_mutation": null,
+    "animal_model": 0.36664306403956864,
+    "affected_pathway": null
+   },
+   "all_datatype_scores": {
+    "literature": 0.5344779193974286,
+    "animal_model": 0.36664306403956864,
+    "clinical": 0.9913532664133954
+   },
+   "known_drug_datatype_id": "clinical",
+   "known_drug_score": 0.9913532664133954,
+   "has_known_drug_evidence": true,
+   "n_drug_and_clinical_candidates": 20,
+   "n_drug_rows_returned": 20,
+   "drug_rows_complete": true,
+   "n_approved_drugs": 11,
+   "approved_drug_examples": [
+    "DELGOCITINIB",
+    "DEURUXOLITINIB PHOSPHATE",
+    "FILGOTINIB",
+    "FILGOTINIB MALEATE",
+    "RITLECITINIB",
+    "RITLECITINIB TOSYLATE",
+    "RUXOLITINIB",
+    "TOFACITINIB"
+   ],
+   "association_score": 0.6238736526991762,
+   "score_by_datatype": {
+    "literature": 0.5344779193974286,
+    "animal_model": 0.36664306403956864,
+    "clinical": 0.9913532664133954
+   },
+   "n_approved_binders_moa": 3,
+   "n_approved_binders_annotated": 23,
+   "n_approved_binders_bioactivity": 25,
+   "n_approved_biologic_binders": 0,
+   "n_approved_peptide_binders": 0,
+   "known_approved_drugs": [
+    "delgocitinib",
+    "tofacitinib",
+    "upadacitinib"
+   ],
+   "approved_binders_offtarget_only": [
+    "axitinib",
+    "baricitinib",
+    "bosutinib",
+    "ceritinib",
+    "crizotinib",
+    "dacomitinib",
+    "dasatinib",
+    "entrectinib",
+    "erlotinib",
+    "fedratinib",
+    "filgotinib",
+    "ibrutinib"
+   ],
+   "approved_biologic_binders": [],
+   "corpus_symbols_matched": [
+    "JAK3"
+   ],
+   "target_class": [
+    "Enzyme",
+    "Kinase"
+   ],
+   "target_class_detail": [
+    {
+     "label": "TK protein kinase group",
+     "level": "l4"
+    },
+    {
+     "label": "Enzyme",
+     "level": "l1"
+    },
+    {
+     "label": "Kinase",
+     "level": "l2"
+    },
+    {
+     "label": "Protein Kinase",
+     "level": "l3"
+    },
+    {
+     "label": "Tyrosine protein kinase JakA family",
+     "level": "l5"
+    }
+   ],
+   "tractability": {
+    "antibody": [
+     "GO CC high conf",
+     "Human Protein Atlas loc",
+     "UniProt loc med conf"
+    ],
+    "protac": [
+     "Database Ubiquitination",
+     "Half-life Data",
+     "Literature",
+     "Small Molecule Binder"
+    ],
+    "small_molecule": [
+     "Approved Drug",
+     "Druggable Family",
+     "High-Quality Ligand",
+     "High-Quality Pocket",
+     "Structure with Ligand"
+    ]
+   },
+   "n_safety_liabilities": 0,
+   "safety_flags": [],
+   "safety_sources": [],
+   "circularity": {
+    "known_drug_datatype_id": "clinical",
+    "known_drug_score": 0.9913532664133954,
+    "known_drug_share_of_datatype_sum": 0.5238,
+    "known_drug_is_largest_datatype": true,
+    "largest_datatype": "clinical",
+    "known_drug_dominated": true,
+    "circularity_note": "known-drug evidence is this target's single largest datatype (0.991, 52% of the datatype-score sum); a 'discovery' of its approved drugs is partly a lookup of the evidence that ranked it"
+   },
+   "uniprot_sites": {
+    "sequence_length": 1124,
+    "active_sites": [
+     {
+      "position": 949,
+      "residue": "D",
+      "description": "Proton acceptor"
+     }
+    ],
+    "site_anchors": [],
+    "site_anchor_rule": "UniProt ACT_SITE positions whose residue is S/C/T (the catalytic nucleophile). His/Asp members of a charge-relay triad are excluded: they sit behind the nucleophile and a sphere over all three reaches into the core rather than the ligand site.",
+    "mature_chains": [
+     {
+      "description": "Tyrosine-protein kinase JAK3",
+      "start": 1,
+      "end": 1124
+     }
+    ]
+   },
+   "structure": {
+    "structure_status": "ok",
+    "n_entities_total": 44,
+    "n_entities_ligand_bound_total": 44,
+    "n_entities_examined": 44,
+    "n_entries_examined": 43,
+    "n_entries_usable": 43,
+    "n_entries_rejected": 0,
+    "reject_reason_counts": {},
+    "structure": {
+     "pdb_id": "5LWM",
+     "method": "X-ray",
+     "resolution_a": 1.55,
+     "chain": "A",
+     "chain_entity_length_aa": 294,
+     "target_entities": [
+      {
+       "entity_id": "5LWM_1",
+       "length_aa": 294,
+       "polymer_type": "polypeptide(L)",
+       "auth_chain_ids": [
+        "A"
+       ],
+       "description": "Tyrosine-protein kinase JAK3",
+       "accessions": [
+        "P52333"
+       ]
+      }
+     ],
+     "foreign_peptide_chains": [],
+     "foreign_polymer_chains": [],
+     "drug_like_ligands": [
+      "79T"
+     ],
+     "all_het_comp_ids": [
+      "EDO",
+      "PHU",
+      "79T"
+     ],
+     "apo_or_holo": "holo"
+    },
+    "rejected_better_resolution": [],
+    "runner_up_entries": [
+     {
+      "pdb_id": "5LWN",
+      "chain": "A",
+      "resolution_a": 1.6,
+      "apo_or_holo": "holo"
+     },
+     {
+      "pdb_id": "6DUD",
+      "chain": "A",
+      "resolution_a": 1.66,
+      "apo_or_holo": "holo"
+     },
+     {
+      "pdb_id": "6DB4",
+      "chain": "A",
+      "resolution_a": 1.662,
+      "apo_or_holo": "holo"
+     },
+     {
+      "pdb_id": "6GL9",
+      "chain": "A",
+      "resolution_a": 1.7,
+      "apo_or_holo": "holo"
+     },
+     {
+      "pdb_id": "5TTU",
+      "chain": "A",
+      "resolution_a": 1.72,
+      "apo_or_holo": "holo"
+     }
+    ]
+   },
+   "literature_query": "(TITLE_ABS:\"JAK3\" OR TITLE_ABS:\"JAK-3\" OR TITLE_ABS:\"JAK3_HUMAN\" OR TITLE_ABS:\"JAKL\" OR TITLE_ABS:\"L-JAK\" OR TITLE_ABS:\"LJAK\") AND TITLE_ABS:\"rheumatoid arthritis\" AND (TITLE_ABS:\"inhibitor\" OR TITLE_ABS:\"inhibition\" OR TITLE_ABS:\"binder\" OR TITLE_ABS:\"antagonist\" OR TITLE_ABS:\"blockade\") AND (HAS_ABSTRACT:Y) AND (SRC:MED)",
+   "literature_hit_count": 146,
+   "literature": [
+    {
+     "pmid": "40626319",
+     "title": "A Novel Dual Bruton's Tyrosine Kinase/Janus Kinase 3 Inhibitor Wj1113 and its Therapeutic Effects on Rheumatoid Arthritis.",
+     "year": "2025",
+     "journal": "MedComm",
+     "claim": "Here, we report Wj1113, a novel dual inhibitor that potently blocks BTK (IC50 = 0.7 nM) and JAK3 (IC50 = 26.2 nM).",
+     "claim_tier": "target+term",
+     "claim_alias": "JAK3",
+     "doi": "10.1002/mco2.70207",
+     "title_verified": true,
+     "verification": "match"
+    },
+    {
+     "pmid": "41388548",
+     "title": "Targeting macrophage JAK3/STAT3 signaling with tectochrysin: a novel therapeutic strategy to ameliorate bone erosion and synovitis in rheumatoid arthritis.",
+     "year": "2025",
+     "journal": "Journal of orthopaedic surgery and research",
+     "claim": "In vitro experiments involved THP-1-induced macrophages, examining the impact of Tectochrysin on macrophages and CIA mouse peritoneal macrophages, as well as on JAK3 and STAT3 phosphorylation.",
+     "claim_tier": "target-only",
+     "claim_alias": "JAK3",
+     "doi": "10.1186/s13018-025-06481-w",
+     "title_verified": true,
+     "verification": "match"
+    }
+   ],
+   "literature_dropped_failed_verification": [],
+   "literature_status": "ok",
+   "site_type_hint": "pocket",
+   "site_type_evidence": "chosen structure 5LWM binds 79T as HETATM",
+   "preferred_modalities": [
+    "small_molecule"
+   ],
+   "preferred_modalities_rule": "a modality is listed only where an approved drug of that kind binds this target in the local corpora, or (small_molecule) the chosen structure carries a drug-like HETATM ligand",
+   "opentargets_tractability_modalities": [
+    "antibody",
+    "protac",
+    "small_molecule"
+   ],
+   "gate_has_approved_positive_control": true,
+   "gate_has_usable_structure": true,
+   "usable_for_pipeline": true,
+   "unusable_reasons": [],
+   "pipeline_config": {
+    "symbol": "JAK3",
+    "uniprot": "P52333",
+    "pdb_id": "5LWM",
+    "chain": "A",
+    "out": "jak3",
+    "protocol": "protein-anything",
+    "binder_length": "60..90"
+   },
+   "pipeline_rank": 6
+  },
+  {
+   "rank": 17,
+   "ensembl_id": "ENSG00000121594",
+   "approved_symbol": "CD80",
+   "approved_name": "CD80 molecule",
+   "biotype": "protein_coding",
+   "symbol_synonyms": [
+    "B7",
+    "B7-1",
+    "B7.1",
+    "BB1",
+    "CD28LG",
+    "CD28LG1",
+    "CD80",
+    "LAB7"
+   ],
+   "uniprot": "P33681",
+   "uniprot_source": "opentargets_proteinIds:uniprot_swissprot",
+   "overall_association_score": 0.6236257724381868,
+   "datatype_scores": {
+    "genetic_association": null,
+    "known_drug": 0.9849207235444242,
+    "literature": 0.8179263655431186,
+    "rna_expression": null,
+    "somatic_mutation": null,
+    "animal_model": null,
+    "affected_pathway": null
+   },
+   "all_datatype_scores": {
+    "literature": 0.8179263655431186,
+    "clinical": 0.9849207235444242
+   },
+   "known_drug_datatype_id": "clinical",
+   "known_drug_score": 0.9849207235444242,
+   "has_known_drug_evidence": true,
+   "n_drug_and_clinical_candidates": 3,
+   "n_drug_rows_returned": 3,
+   "drug_rows_complete": true,
+   "n_approved_drugs": 2,
+   "approved_drug_examples": [
+    "ABATACEPT",
+    "BELATACEPT"
+   ],
+   "association_score": 0.6236257724381868,
+   "score_by_datatype": {
+    "literature": 0.8179263655431186,
+    "clinical": 0.9849207235444242
+   },
+   "n_approved_binders_moa": 0,
+   "n_approved_binders_annotated": 0,
+   "n_approved_binders_bioactivity": 0,
+   "n_approved_biologic_binders": 0,
+   "n_approved_peptide_binders": 0,
+   "known_approved_drugs": [],
+   "approved_binders_offtarget_only": [],
+   "approved_biologic_binders": [],
+   "corpus_symbols_matched": [],
+   "target_class": [
+    "Surface antigen"
+   ],
+   "target_class_detail": [
+    {
+     "label": "Surface antigen",
+     "level": "l1"
+    }
+   ],
+   "tractability": {
+    "antibody": [
+     "Advanced Clinical",
+     "GO CC high conf",
+     "UniProt SigP or TMHMM",
+     "UniProt loc high conf"
+    ],
+    "other": [
+     "Approved Drug"
+    ]
+   },
+   "n_safety_liabilities": 0,
+   "safety_flags": [],
+   "safety_sources": [],
+   "circularity": {
+    "known_drug_datatype_id": "clinical",
+    "known_drug_score": 0.9849207235444242,
+    "known_drug_share_of_datatype_sum": 0.5463,
+    "known_drug_is_largest_datatype": true,
+    "largest_datatype": "clinical",
+    "known_drug_dominated": true,
+    "circularity_note": "known-drug evidence is this target's single largest datatype (0.985, 55% of the datatype-score sum); a 'discovery' of its approved drugs is partly a lookup of the evidence that ranked it"
+   },
+   "uniprot_sites": {
+    "sequence_length": 288,
+    "active_sites": [],
+    "site_anchors": [],
+    "site_anchor_rule": "UniProt ACT_SITE positions whose residue is S/C/T (the catalytic nucleophile). His/Asp members of a charge-relay triad are excluded: they sit behind the nucleophile and a sphere over all three reaches into the core rather than the ligand site.",
+    "mature_chains": [
+     {
+      "description": "T-lymphocyte activation antigen CD80",
+      "start": 35,
+      "end": 288
+     }
+    ]
+   },
+   "structure": {
+    "structure_status": "ok",
+    "n_entities_total": 3,
+    "n_entities_ligand_bound_total": 2,
+    "n_entities_examined": 3,
+    "n_entries_examined": 3,
+    "n_entries_usable": 3,
+    "n_entries_rejected": 0,
+    "reject_reason_counts": {},
+    "structure": {
+     "pdb_id": "1DR9",
+     "method": "X-ray",
+     "resolution_a": 3.0,
+     "chain": "A",
+     "chain_entity_length_aa": 201,
+     "target_entities": [
+      {
+       "entity_id": "1DR9_1",
+       "length_aa": 201,
+       "polymer_type": "polypeptide(L)",
+       "auth_chain_ids": [
+        "A"
+       ],
+       "description": "T LYMPHOCYTE ACTIVATION ANTIGEN",
+       "accessions": [
+        "P33681"
+       ]
+      }
+     ],
+     "foreign_peptide_chains": [],
+     "foreign_polymer_chains": [],
+     "drug_like_ligands": [],
+     "all_het_comp_ids": [
+      "NAG"
+     ],
+     "apo_or_holo": "apo"
+    },
+    "rejected_better_resolution": [],
+    "runner_up_entries": [
+     {
+      "pdb_id": "1I8L",
+      "chain": "A",
+      "resolution_a": 3.0,
+      "apo_or_holo": "apo"
+     },
+     {
+      "pdb_id": "7TPS",
+      "chain": "A",
+      "resolution_a": 3.15,
+      "apo_or_holo": "apo"
+     }
+    ]
+   },
+   "literature_query": "(TITLE_ABS:\"CD80\" OR TITLE_ABS:\"B7-1\" OR TITLE_ABS:\"CD28LG\" OR TITLE_ABS:\"CD28LG1\" OR TITLE_ABS:\"LAB7\") AND TITLE_ABS:\"rheumatoid arthritis\" AND (TITLE_ABS:\"inhibitor\" OR TITLE_ABS:\"inhibition\" OR TITLE_ABS:\"binder\" OR TITLE_ABS:\"antagonist\" OR TITLE_ABS:\"blockade\") AND (HAS_ABSTRACT:Y) AND (SRC:MED)",
+   "literature_hit_count": 70,
+   "literature": [
+    {
+     "pmid": "42632933",
+     "title": "Exploring the role of TNF/TNFR superfamily and NF-\u03baB pathway in regulating B7/CD28 expression in rheumatoid arthritis: An in-vitro study.",
+     "year": "2026",
+     "journal": "Pakistan journal of pharmaceutical sciences",
+     "claim": "NF-\u03baB inhibition with PDTC significantly reduced FLS viability and increased apoptosis, downregulated IL-1\u03b2 and COX-2 and restored CD28/CD80 expression on CD4+ T cells (P < 0.05), but did not alter TNF-\u03b1 or TNFR mRNA levels.",
+     "claim_tier": "target+term",
+     "claim_alias": "CD80",
+     "doi": "10.36721/pjps.2026.39.11.312.1",
+     "title_verified": true,
+     "verification": "match"
+    },
+    {
+     "pmid": "42696910",
+     "title": "Synovial short-lived plasma cells mediate adalimumab resistance in rheumatoid arthritis via MIF-CD74 axis-driven, partially TNF-\u03b1-independent inflammation.",
+     "year": "2026",
+     "journal": "Journal of autoimmunity",
+     "claim": "In vitro, rh-MIF upregulated macrophage activation markers (CD74, CD80, CD86, HLA-DR) and induced IL-6 and TNF-\u03b1 secretion.",
+     "claim_tier": "target-only",
+     "claim_alias": "CD80",
+     "doi": "10.1016/j.jaut.2026.103622",
+     "title_verified": true,
+     "verification": "match"
+    }
+   ],
+   "literature_dropped_failed_verification": [],
+   "literature_status": "ok",
+   "site_type_hint": "unknown",
+   "site_type_evidence": "1DR9 is apo and has no partner chain",
+   "preferred_modalities": [
+    "unknown"
+   ],
+   "preferred_modalities_rule": "a modality is listed only where an approved drug of that kind binds this target in the local corpora, or (small_molecule) the chosen structure carries a drug-like HETATM ligand",
+   "opentargets_tractability_modalities": [
+    "antibody",
+    "other"
+   ],
+   "gate_has_approved_positive_control": false,
+   "gate_has_usable_structure": true,
+   "usable_for_pipeline": false,
+   "unusable_reasons": [
+    "no approved drug has CD80 as its mechanism-of-action target (0 off-target annotations, 0 pchembl-backed) - the matching arms would have no positive control"
+   ],
+   "pipeline_config": null
+  },
+  {
+   "rank": 18,
+   "ensembl_id": "ENSG00000114013",
+   "approved_symbol": "CD86",
+   "approved_name": "CD86 molecule",
+   "biotype": "protein_coding",
+   "symbol_synonyms": [
+    "B7-2",
+    "B7.2",
+    "B70",
+    "BU63",
+    "CD28LG2",
+    "CD86",
+    "CD86 v6",
+    "FUN-1",
+    "LAB72"
+   ],
+   "uniprot": "P42081",
+   "uniprot_source": "opentargets_proteinIds:uniprot_swissprot",
+   "overall_association_score": 0.6229484616907661,
+   "datatype_scores": {
+    "genetic_association": null,
+    "known_drug": 0.9849207235444242,
+    "literature": 0.780813103152792,
+    "rna_expression": 0.03336922666417508,
+    "somatic_mutation": null,
+    "animal_model": null,
+    "affected_pathway": null
+   },
+   "all_datatype_scores": {
+    "literature": 0.780813103152792,
+    "rna_expression": 0.03336922666417508,
+    "clinical": 0.9849207235444242
+   },
+   "known_drug_datatype_id": "clinical",
+   "known_drug_score": 0.9849207235444242,
+   "has_known_drug_evidence": true,
+   "n_drug_and_clinical_candidates": 2,
+   "n_drug_rows_returned": 2,
+   "drug_rows_complete": true,
+   "n_approved_drugs": 2,
+   "approved_drug_examples": [
+    "ABATACEPT",
+    "BELATACEPT"
+   ],
+   "association_score": 0.6229484616907661,
+   "score_by_datatype": {
+    "literature": 0.780813103152792,
+    "rna_expression": 0.03336922666417508,
+    "clinical": 0.9849207235444242
+   },
+   "n_approved_binders_moa": 0,
+   "n_approved_binders_annotated": 0,
+   "n_approved_binders_bioactivity": 0,
+   "n_approved_biologic_binders": 0,
+   "n_approved_peptide_binders": 0,
+   "known_approved_drugs": [],
+   "approved_binders_offtarget_only": [],
+   "approved_biologic_binders": [],
+   "corpus_symbols_matched": [],
+   "target_class": [
+    "Surface antigen"
+   ],
+   "target_class_detail": [
+    {
+     "label": "Surface antigen",
+     "level": "l1"
+    }
+   ],
+   "tractability": {
+    "antibody": [
+     "GO CC high conf",
+     "Human Protein Atlas loc",
+     "UniProt SigP or TMHMM",
+     "UniProt loc med conf"
+    ],
+    "other": [
+     "Approved Drug"
+    ],
+    "protac": [
+     "UniProt Ubiquitination"
+    ]
+   },
+   "n_safety_liabilities": 0,
+   "safety_flags": [],
+   "safety_sources": [],
+   "circularity": {
+    "known_drug_datatype_id": "clinical",
+    "known_drug_score": 0.9849207235444242,
+    "known_drug_share_of_datatype_sum": 0.5475,
+    "known_drug_is_largest_datatype": true,
+    "largest_datatype": "clinical",
+    "known_drug_dominated": true,
+    "circularity_note": "known-drug evidence is this target's single largest datatype (0.985, 55% of the datatype-score sum); a 'discovery' of its approved drugs is partly a lookup of the evidence that ranked it"
+   },
+   "uniprot_sites": {
+    "sequence_length": 329,
+    "active_sites": [],
+    "site_anchors": [],
+    "site_anchor_rule": "UniProt ACT_SITE positions whose residue is S/C/T (the catalytic nucleophile). His/Asp members of a charge-relay triad are excluded: they sit behind the nucleophile and a sphere over all three reaches into the core rather than the ligand site.",
+    "mature_chains": [
+     {
+      "description": "T-lymphocyte activation antigen CD86",
+      "start": 24,
+      "end": 329
+     }
+    ]
+   },
+   "structure": {
+    "structure_status": "ok",
+    "n_entities_total": 3,
+    "n_entities_ligand_bound_total": 0,
+    "n_entities_examined": 3,
+    "n_entries_examined": 3,
+    "n_entries_usable": 3,
+    "n_entries_rejected": 0,
+    "reject_reason_counts": {},
+    "structure": {
+     "pdb_id": "5YXK",
+     "method": "X-ray",
+     "resolution_a": 1.9,
+     "chain": "A",
+     "chain_entity_length_aa": 111,
+     "target_entities": [
+      {
+       "entity_id": "5YXK_1",
+       "length_aa": 111,
+       "polymer_type": "polypeptide(L)",
+       "auth_chain_ids": [
+        "A",
+        "B",
+        "C",
+        "D"
+       ],
+       "description": "T-lymphocyte activation antigen CD86",
+       "accessions": [
+        "P42081"
+       ]
+      }
+     ],
+     "foreign_peptide_chains": [],
+     "foreign_polymer_chains": [],
+     "drug_like_ligands": [],
+     "all_het_comp_ids": [],
+     "apo_or_holo": "apo"
+    },
+    "rejected_better_resolution": [],
+    "runner_up_entries": [
+     {
+      "pdb_id": "1NCN",
+      "chain": "A",
+      "resolution_a": 2.7,
+      "apo_or_holo": "apo"
+     },
+     {
+      "pdb_id": "1I85",
+      "chain": "A",
+      "resolution_a": 3.2,
+      "apo_or_holo": "apo"
+     }
+    ]
+   },
+   "literature_query": "(TITLE_ABS:\"CD86\" OR TITLE_ABS:\"B7-2\" OR TITLE_ABS:\"BU63\" OR TITLE_ABS:\"CD28LG2\" OR TITLE_ABS:\"FUN-1\" OR TITLE_ABS:\"LAB72\") AND TITLE_ABS:\"rheumatoid arthritis\" AND (TITLE_ABS:\"inhibitor\" OR TITLE_ABS:\"inhibition\" OR TITLE_ABS:\"binder\" OR TITLE_ABS:\"antagonist\" OR TITLE_ABS:\"blockade\") AND (HAS_ABSTRACT:Y) AND (SRC:MED)",
+   "literature_hit_count": 76,
+   "literature": [
+    {
+     "pmid": "42370510",
+     "title": "Synovial resident macrophage-derived PU.1 alleviates rheumatoid arthritis by promoting efferocytosis of fibroblast-like synoviocytes.",
+     "year": "2026",
+     "journal": "Clinical and experimental rheumatology",
+     "claim": "Additionally, PU.1 depletion decreased expansion of gelsolin (GSN)+CD86+ cells.",
+     "claim_tier": "target-only",
+     "claim_alias": "CD86",
+     "doi": "10.55563/clinexprheumatol/kd33az",
+     "title_verified": true,
+     "verification": "match"
+    },
+    {
+     "pmid": "42696910",
+     "title": "Synovial short-lived plasma cells mediate adalimumab resistance in rheumatoid arthritis via MIF-CD74 axis-driven, partially TNF-\u03b1-independent inflammation.",
+     "year": "2026",
+     "journal": "Journal of autoimmunity",
+     "claim": "In vitro, rh-MIF upregulated macrophage activation markers (CD74, CD80, CD86, HLA-DR) and induced IL-6 and TNF-\u03b1 secretion.",
+     "claim_tier": "target-only",
+     "claim_alias": "CD86",
+     "doi": "10.1016/j.jaut.2026.103622",
+     "title_verified": true,
+     "verification": "match"
+    }
+   ],
+   "literature_dropped_failed_verification": [],
+   "literature_status": "ok",
+   "site_type_hint": "unknown",
+   "site_type_evidence": "5YXK is apo and has no partner chain",
+   "preferred_modalities": [
+    "unknown"
+   ],
+   "preferred_modalities_rule": "a modality is listed only where an approved drug of that kind binds this target in the local corpora, or (small_molecule) the chosen structure carries a drug-like HETATM ligand",
+   "opentargets_tractability_modalities": [
+    "antibody",
+    "other",
+    "protac"
+   ],
+   "gate_has_approved_positive_control": false,
+   "gate_has_usable_structure": true,
+   "usable_for_pipeline": false,
+   "unusable_reasons": [
+    "no approved drug has CD86 as its mechanism-of-action target (0 off-target annotations, 0 pchembl-backed) - the matching arms would have no positive control"
+   ],
+   "pipeline_config": null
+  },
+  {
+   "rank": 19,
+   "ensembl_id": "ENSG00000239732",
+   "approved_symbol": "TLR9",
+   "approved_name": "toll like receptor 9",
+   "biotype": "protein_coding",
+   "symbol_synonyms": [
+    "CD289",
+    "TLR9",
+    "UNQ5798/PRO19605"
+   ],
+   "uniprot": "Q9NR96",
+   "uniprot_source": "opentargets_proteinIds:uniprot_swissprot",
+   "overall_association_score": 0.6222753332117764,
+   "datatype_scores": {
+    "genetic_association": null,
+    "known_drug": 0.9834116205818025,
+    "literature": 0.8036810251074342,
+    "rna_expression": null,
+    "somatic_mutation": null,
+    "animal_model": null,
+    "affected_pathway": null
+   },
+   "all_datatype_scores": {
+    "literature": 0.8036810251074342,
+    "clinical": 0.9834116205818025
+   },
+   "known_drug_datatype_id": "clinical",
+   "known_drug_score": 0.9834116205818025,
+   "has_known_drug_evidence": true,
+   "n_drug_and_clinical_candidates": 11,
+   "n_drug_rows_returned": 11,
+   "drug_rows_complete": true,
+   "n_approved_drugs": 2,
+   "approved_drug_examples": [
+    "HYDROXYCHLOROQUINE",
+    "HYDROXYCHLOROQUINE SULFATE"
+   ],
+   "association_score": 0.6222753332117764,
+   "score_by_datatype": {
+    "literature": 0.8036810251074342,
+    "clinical": 0.9834116205818025
+   },
+   "n_approved_binders_moa": 1,
+   "n_approved_binders_annotated": 1,
+   "n_approved_binders_bioactivity": 1,
+   "n_approved_biologic_binders": 0,
+   "n_approved_peptide_binders": 0,
+   "known_approved_drugs": [
+    "hydroxychloroquine"
+   ],
+   "approved_binders_offtarget_only": [],
+   "approved_biologic_binders": [],
+   "corpus_symbols_matched": [
+    "TLR9"
+   ],
+   "target_class": [
+    "Membrane receptor",
+    "Toll-like and Il-1 receptors"
+   ],
+   "target_class_detail": [
+    {
+     "label": "Toll-like and Il-1 receptors",
+     "level": "l2"
+    },
+    {
+     "label": "Membrane receptor",
+     "level": "l1"
+    }
+   ],
+   "tractability": {
+    "antibody": [
+     "GO CC high conf",
+     "UniProt SigP or TMHMM"
+    ],
+    "other": [
+     "Advanced Clinical"
+    ],
+    "protac": [
+     "Database Ubiquitination",
+     "Small Molecule Binder"
+    ],
+    "small_molecule": [
+     "Approved Drug",
+     "Druggable Family",
+     "High-Quality Ligand"
+    ]
+   },
+   "n_safety_liabilities": 0,
+   "safety_flags": [],
+   "safety_sources": [],
+   "circularity": {
+    "known_drug_datatype_id": "clinical",
+    "known_drug_score": 0.9834116205818025,
+    "known_drug_share_of_datatype_sum": 0.5503,
+    "known_drug_is_largest_datatype": true,
+    "largest_datatype": "clinical",
+    "known_drug_dominated": true,
+    "circularity_note": "known-drug evidence is this target's single largest datatype (0.983, 55% of the datatype-score sum); a 'discovery' of its approved drugs is partly a lookup of the evidence that ranked it"
+   },
+   "uniprot_sites": {
+    "sequence_length": 1032,
+    "active_sites": [],
+    "site_anchors": [],
+    "site_anchor_rule": "UniProt ACT_SITE positions whose residue is S/C/T (the catalytic nucleophile). His/Asp members of a charge-relay triad are excluded: they sit behind the nucleophile and a sphere over all three reaches into the core rather than the ligand site.",
+    "mature_chains": [
+     {
+      "description": "Toll-like receptor 9",
+      "start": 26,
+      "end": 1032
+     }
+    ]
+   },
+   "structure": {
+    "structure_status": "ok",
+    "n_entities_total": 2,
+    "n_entities_ligand_bound_total": 0,
+    "n_entities_examined": 2,
+    "n_entries_examined": 2,
+    "n_entries_usable": 2,
+    "n_entries_rejected": 0,
+    "reject_reason_counts": {},
+    "structure": {
+     "pdb_id": "9L48",
+     "method": "X-ray",
+     "resolution_a": 1.9,
+     "chain": "C",
+     "chain_entity_length_aa": 9,
+     "target_entities": [
+      {
+       "entity_id": "9L48_3",
+       "length_aa": 9,
+       "polymer_type": "polypeptide(L)",
+       "auth_chain_ids": [
+        "C"
+       ],
+       "description": "Toll-like receptor 9",
+       "accessions": [
+        "Q9NR96"
+       ]
+      }
+     ],
+     "foreign_peptide_chains": [],
+     "foreign_polymer_chains": [
+      {
+       "entity_id": "9L48_2",
+       "length_aa": 100,
+       "polymer_type": "polypeptide(L)",
+       "auth_chain_ids": [
+        "B"
+       ],
+       "description": "Beta-2-microglobulin",
+       "accessions": [
+        "P61769"
+       ]
+      },
+      {
+       "entity_id": "9L48_1",
+       "length_aa": 273,
+       "polymer_type": "polypeptide(L)",
+       "auth_chain_ids": [
+        "A"
+       ],
+       "description": "MHC class I antigen",
+       "accessions": [
+        "S5DHS4"
+       ]
+      }
+     ],
+     "drug_like_ligands": [],
+     "all_het_comp_ids": [],
+     "apo_or_holo": "apo"
+    },
+    "rejected_better_resolution": [],
+    "runner_up_entries": [
+     {
+      "pdb_id": "9L49",
+      "chain": "C",
+      "resolution_a": 3.0,
+      "apo_or_holo": "apo"
+     }
+    ]
+   },
+   "literature_query": "(TITLE_ABS:\"TLR9\" OR TITLE_ABS:\"CD289\" OR TITLE_ABS:\"UNQ5798/PRO19605\") AND TITLE_ABS:\"rheumatoid arthritis\" AND (TITLE_ABS:\"inhibitor\" OR TITLE_ABS:\"inhibition\" OR TITLE_ABS:\"binder\" OR TITLE_ABS:\"antagonist\" OR TITLE_ABS:\"blockade\") AND (HAS_ABSTRACT:Y) AND (SRC:MED)",
+   "literature_hit_count": 23,
+   "literature": [
+    {
+     "pmid": "38904299",
+     "title": "Discovery of Novel Small Molecule Dual Inhibitor Targeting Toll-Like Receptors 7 and 9.",
+     "year": "2024",
+     "journal": "Journal of chemical information and modeling",
+     "claim": "Here, we applied the principles of computer-aided drug discovery to identify a novel low-molecular-weight compound, TLR inhibitory compound 10 (TIC10), and its potent derivative (TIC10g), which demonstrated dual inhibition of TLR7 and TLR9 signaling pathways.",
+     "claim_tier": "target+term",
+     "claim_alias": "TLR9",
+     "doi": "10.1021/acs.jcim.4c00578",
+     "title_verified": true,
+     "verification": "match"
+    },
+    {
+     "pmid": "41641971",
+     "title": "Circadian regulator PER1 inhibits osteoclastogenesis by activating inflammatory genes.",
+     "year": "2026",
+     "journal": "Journal of bone and mineral research : the official journal of the American Society for Bone and Mineral Research",
+     "claim": "Knockdown of Nlrp3, Tlr8, or Tlr9 in the group of genes promoted osteoclastogenesis, mirroring the effects of Per1 knockout and offering a mechanistic explanation for the Per1-mediated inhibition of osteoclastogenesis.",
+     "claim_tier": "target+term",
+     "claim_alias": "TLR9",
+     "doi": "10.1093/jbmr/zjag025",
+     "title_verified": true,
+     "verification": "match"
+    }
+   ],
+   "literature_dropped_failed_verification": [],
+   "literature_status": "ok",
+   "site_type_hint": "ppi_interface",
+   "site_type_evidence": "9L48 has a partner polymer chain and no drug-like heteroatom",
+   "preferred_modalities": [
+    "small_molecule"
+   ],
+   "preferred_modalities_rule": "a modality is listed only where an approved drug of that kind binds this target in the local corpora, or (small_molecule) the chosen structure carries a drug-like HETATM ligand",
+   "opentargets_tractability_modalities": [
+    "antibody",
+    "other",
+    "protac",
+    "small_molecule"
+   ],
+   "gate_has_approved_positive_control": true,
+   "gate_has_usable_structure": true,
+   "usable_for_pipeline": true,
+   "unusable_reasons": [],
+   "pipeline_config": {
+    "symbol": "TLR9",
+    "uniprot": "Q9NR96",
+    "pdb_id": "9L48",
+    "chain": "C",
+    "out": "tlr9",
+    "protocol": "protein-anything",
+    "binder_length": "60..90"
+   },
+   "pipeline_rank": 7
+  },
+  {
+   "rank": 20,
+   "ensembl_id": "ENSG00000228716",
+   "approved_symbol": "DHFR",
+   "approved_name": "dihydrofolate reductase",
+   "biotype": "protein_coding",
+   "symbol_synonyms": [
+    "DHFR",
+    "DHFR1",
+    "DYR"
+   ],
+   "uniprot": "P00374",
+   "uniprot_source": "opentargets_proteinIds:uniprot_swissprot",
+   "overall_association_score": 0.618306125512417,
+   "datatype_scores": {
+    "genetic_association": null,
+    "known_drug": 0.9951696854600107,
+    "literature": 0.4379388221193853,
+    "rna_expression": null,
+    "somatic_mutation": null,
+    "animal_model": null,
+    "affected_pathway": null
+   },
+   "all_datatype_scores": {
+    "literature": 0.4379388221193853,
+    "clinical": 0.9951696854600107
+   },
+   "known_drug_datatype_id": "clinical",
+   "known_drug_score": 0.9951696854600107,
+   "has_known_drug_evidence": true,
+   "n_drug_and_clinical_candidates": 9,
+   "n_drug_rows_returned": 9,
+   "drug_rows_complete": true,
+   "n_approved_drugs": 8,
+   "approved_drug_examples": [
+    "METHOTREXATE",
+    "METHOTREXATE SODIUM",
+    "PEMETREXED",
+    "PEMETREXED DIPOTASSIUM",
+    "PEMETREXED DISODIUM",
+    "PEMETREXED MONOHYDRATE",
+    "PEMETREXED TROMETHAMINE",
+    "PRALATREXATE"
+   ],
+   "association_score": 0.618306125512417,
+   "score_by_datatype": {
+    "literature": 0.4379388221193853,
+    "clinical": 0.9951696854600107
+   },
+   "n_approved_binders_moa": 4,
+   "n_approved_binders_annotated": 12,
+   "n_approved_binders_bioactivity": 13,
+   "n_approved_biologic_binders": 0,
+   "n_approved_peptide_binders": 0,
+   "known_approved_drugs": [
+    "edatrexate",
+    "methotrexate",
+    "pemetrexed",
+    "pralatrexate"
+   ],
+   "approved_binders_offtarget_only": [
+    "diflunisal",
+    "leucovorin",
+    "pyrimethamine",
+    "raltitrexed",
+    "sulfacetamide",
+    "teriflunomide",
+    "trimethoprim",
+    "trimetrexate"
+   ],
+   "approved_biologic_binders": [],
+   "corpus_symbols_matched": [
+    "DHFR"
+   ],
+   "target_class": [
+    "Enzyme",
+    "Oxidoreductase"
+   ],
+   "target_class_detail": [
+    {
+     "label": "Enzyme",
+     "level": "l1"
+    },
+    {
+     "label": "Oxidoreductase",
+     "level": "l2"
+    }
+   ],
+   "tractability": {
+    "protac": [
+     "Database Ubiquitination",
+     "Half-life Data",
+     "Small Molecule Binder"
+    ],
+    "small_molecule": [
+     "Approved Drug",
+     "Druggable Family",
+     "High-Quality Ligand",
+     "High-Quality Pocket",
+     "Structure with Ligand"
+    ]
+   },
+   "n_safety_liabilities": 3,
+   "safety_flags": [
+    "drug toxicity",
+    "mucositis",
+    "side effects"
+   ],
+   "safety_sources": [
+    "ClinPGx"
+   ],
+   "circularity": {
+    "known_drug_datatype_id": "clinical",
+    "known_drug_score": 0.9951696854600107,
+    "known_drug_share_of_datatype_sum": 0.6944,
+    "known_drug_is_largest_datatype": true,
+    "largest_datatype": "clinical",
+    "known_drug_dominated": true,
+    "circularity_note": "known-drug evidence is this target's single largest datatype (0.995, 69% of the datatype-score sum); a 'discovery' of its approved drugs is partly a lookup of the evidence that ranked it"
+   },
+   "uniprot_sites": {
+    "sequence_length": 187,
+    "active_sites": [],
+    "site_anchors": [],
+    "site_anchor_rule": "UniProt ACT_SITE positions whose residue is S/C/T (the catalytic nucleophile). His/Asp members of a charge-relay triad are excluded: they sit behind the nucleophile and a sphere over all three reaches into the core rather than the ligand site.",
+    "mature_chains": [
+     {
+      "description": "Dihydrofolate reductase",
+      "start": 1,
+      "end": 187
+     }
+    ]
+   },
+   "structure": {
+    "structure_status": "ok",
+    "n_entities_total": 88,
+    "n_entities_ligand_bound_total": 87,
+    "n_entities_examined": 60,
+    "n_entries_examined": 60,
+    "n_entries_usable": 60,
+    "n_entries_rejected": 0,
+    "reject_reason_counts": {},
+    "structure": {
+     "pdb_id": "1KMV",
+     "method": "X-ray",
+     "resolution_a": 1.05,
+     "chain": "A",
+     "chain_entity_length_aa": 186,
+     "target_entities": [
+      {
+       "entity_id": "1KMV_1",
+       "length_aa": 186,
+       "polymer_type": "polypeptide(L)",
+       "auth_chain_ids": [
+        "A"
+       ],
+       "description": "DIHYDROFOLATE REDUCTASE",
+       "accessions": [
+        "P00374"
+       ]
+      }
+     ],
+     "foreign_peptide_chains": [],
+     "foreign_polymer_chains": [],
+     "drug_like_ligands": [
+      "LII",
+      "NDP"
+     ],
+     "all_het_comp_ids": [
+      "SO4",
+      "LII",
+      "NDP",
+      "DMS"
+     ],
+     "apo_or_holo": "holo"
+    },
+    "rejected_better_resolution": [],
+    "runner_up_entries": [
+     {
+      "pdb_id": "1KMS",
+      "chain": "A",
+      "resolution_a": 1.09,
+      "apo_or_holo": "holo"
+     },
+     {
+      "pdb_id": "4M6J",
+      "chain": "A",
+      "resolution_a": 1.201,
+      "apo_or_holo": "holo"
+     },
+     {
+      "pdb_id": "5HSR",
+      "chain": "A",
+      "resolution_a": 1.21,
+      "apo_or_holo": "holo"
+     },
+     {
+      "pdb_id": "3FS6",
+      "chain": "A",
+      "resolution_a": 1.23,
+      "apo_or_holo": "holo"
+     },
+     {
+      "pdb_id": "3GHW",
+      "chain": "A",
+      "resolution_a": 1.24,
+      "apo_or_holo": "holo"
+     }
+    ]
+   },
+   "literature_query": "(TITLE_ABS:\"DHFR\" OR TITLE_ABS:\"DHFR1\") AND TITLE_ABS:\"rheumatoid arthritis\" AND (TITLE_ABS:\"inhibitor\" OR TITLE_ABS:\"inhibition\" OR TITLE_ABS:\"binder\" OR TITLE_ABS:\"antagonist\" OR TITLE_ABS:\"blockade\") AND (HAS_ABSTRACT:Y) AND (SRC:MED)",
+   "literature_hit_count": 8,
+   "literature": [
+    {
+     "pmid": "42334839",
+     "title": "Mechanism of auranofin toxicity: Inhibition of tetrahydrobiopterin metabolism.",
+     "year": "2026",
+     "journal": "Toxicology and applied pharmacology",
+     "claim": "This was due to the inhibition of both SPR and DHFR.",
+     "claim_tier": "target+term",
+     "claim_alias": "DHFR",
+     "doi": "10.1016/j.taap.2025.117615",
+     "title_verified": true,
+     "verification": "match"
+    },
+    {
+     "pmid": "38003865",
+     "title": "Network-Based In Silico Analysis of New Combinations of Modern Drug Targets with Methotrexate for Response-Based Treatment of Rheumatoid Arthritis.",
+     "year": "2023",
+     "journal": "Journal of personalized medicine",
+     "claim": "The STRING-MODEL showed that DHFR, TYMS, and ATIC, as the receptors of MTX, interact with each other but are not connected to the major interacted receptors.",
+     "claim_tier": "target-only",
+     "claim_alias": "DHFR",
+     "doi": "10.3390/jpm13111550",
+     "title_verified": true,
+     "verification": "match"
+    }
+   ],
+   "literature_dropped_failed_verification": [],
+   "literature_status": "ok",
+   "site_type_hint": "pocket",
+   "site_type_evidence": "chosen structure 1KMV binds LII/NDP as HETATM",
+   "preferred_modalities": [
+    "small_molecule"
+   ],
+   "preferred_modalities_rule": "a modality is listed only where an approved drug of that kind binds this target in the local corpora, or (small_molecule) the chosen structure carries a drug-like HETATM ligand",
+   "opentargets_tractability_modalities": [
+    "protac",
+    "small_molecule"
+   ],
+   "gate_has_approved_positive_control": true,
+   "gate_has_usable_structure": true,
+   "usable_for_pipeline": true,
+   "unusable_reasons": [],
+   "pipeline_config": {
+    "symbol": "DHFR",
+    "uniprot": "P00374",
+    "pdb_id": "1KMV",
+    "chain": "A",
+    "out": "dhfr",
+    "protocol": "protein-anything",
+    "binder_length": "60..90"
+   },
+   "pipeline_rank": 8
+  }
+ ]
+}

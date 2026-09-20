@@ -88,10 +88,10 @@ is negative-is-better, so the negative correlation points the right way.
 | | ρ | p |
 |---|---|---|
 | n = 23 (first pass) | −0.084 | 0.703 |
-| **n = 199** | **−0.182** | **0.0099** |
+| **n = 199** | **−0.146** | **0.040** |
 
-Quartile test agrees: best 49 dockers mean 0.1871 similarity to known binders vs
-worst 49 at 0.1680, Mann-Whitney **p = 0.0069**.
+Quartile test agrees: best 49 dockers mean 0.1835 similarity to known binders vs
+worst 49 at 0.1662, Mann-Whitney **p = 0.021**.
 
 **This result did not exist at n = 23.** Docking 200 molecules instead of 24 cost
 19.23 credits and turned a reported null into a significant effect. The effect
@@ -100,14 +100,14 @@ pass was reported as "docking adds nothing" — that was an underpowered null
 mislabelled as a negative.
 
 ### E — No generated molecule resembles a thrombin drug
-**NEGATIVE · thrombin · 591 generated vs 4,099 approved** · `09_smallmol_match.json`
+**NEGATIVE · thrombin · 591 generated vs 2,153 approved** · `09_smallmol_match.json`
 
 591 drug-like molecules sampled from `entropy/gpt2_zinc_87m` (MIT), matched by
 ECFP4-2048 Tanimoto. Best match is **dithranol**, a psoriasis anthralin, at
 Tanimoto 0.579 — a real chemical resemblance to an approved drug, but not to a
 thrombin drug. Nothing in the top ten carries an F2 annotation. Null over the 391
-undocked molecules: mean 0.284, p95 0.378. F2-annotated drugs in the corpus:
-18 of 4,099, base rate 0.44%.
+undocked molecules: mean 0.270, p95 0.350. F2-annotated drugs in the corpus:
+12 of 2,153, base rate 0.56%.
 
 **What this is:** virtual screening with a generative front end. The generator is
 not conditioned on the binding site; the pocket enters only as a docking filter.
@@ -115,6 +115,128 @@ Every pocket-conditioned generator (DiffSBDD, Pocket2Mol, TargetDiff, PocketFlow
 DecompDiff, LiGAN) depends on `torch-scatter`/`torch-sparse`/`torch-cluster`,
 which have no build for torch 2.14 and have never shipped a native macOS arm64
 wheel. Rowan hosts no de novo generator either.
+
+---
+
+## Second round: improving the similarity itself
+
+Five further experiments, run after the first report, aimed at the matching step
+rather than the pipeline around it.
+
+### F — Rank fusion wins global ranking and loses the top of the list
+**MIXED · n = 2,114 drugs** · `results/demo/fusion/fusion_targets.json`
+
+Reciprocal Rank Fusion over ECFP4 + USRCAT + pharmacophore, on the E1 retrieval
+task, using `scripts/metrics.py` for CIs, paired Wilcoxon and Holm correction:
+
+| representation | AUROC | p@1 | nDCG@10 | ef@5pct |
+|---|---|---|---|---|
+| morgan (ECFP4) | 0.6692 | **0.6597** | **0.5122** | 5.2437 |
+| usrcat | 0.6227 | 0.3504 | 0.2580 | 3.2134 |
+| gobbi_pharm2d | 0.6627 | 0.6133 | 0.4648 | 4.8434 |
+| **RRF fusion** | **0.6839** | 0.6240 | 0.4979 | **5.3441** |
+
+All 12 comparisons Holm-significant. Fusion beats ECFP4 on AUROC (+0.0147,
+p = 0.0024) and ef@5pct (+0.100, p = 0.0172); loses on p@1 (−0.0358) and nDCG@10
+(−0.0143). README result #2 a third time — report one metric and you hide the
+disagreement. USRCAT alone is catastrophic at the top (p@1 0.350 vs 0.660), which
+plausibly drags the fusion there.
+
+RRF rather than score averaging because Tanimoto and cosine are not on a common
+scale, and normalising them invents a calibration nobody measured.
+
+### G — Multi-query retrieval is worse, not better
+**NEGATIVE · n = 300 drugs**
+
+Querying by the whole co-target group instead of one molecule: p@1 −0.158
+(Holm p = 0.0032), nDCG@10 −0.074 (p = 0.0056), ef@5pct −1.05 (p = 0.026), AUROC
+flat. A max over the group means an item scores high if it resembles *any*
+member, so one promiscuous binder drags unrelated molecules up and flattens
+exactly the top of the list.
+
+Limitation: the group is "shares any target", and the corpus maximum is 275
+annotated targets per drug, so those groups are large and heterogeneous. A
+per-named-target version would be a fairer test and is not what this measured.
+
+A leak was caught mid-implementation: the first version scored each relevant item
+against a group containing itself, which would have produced near-perfect
+retrieval measuring nothing.
+
+### H — The two arms are uncorrelated, and fusing them beats either alone
+**POSITIVE · CDK2 · n = 14 drugs, 5 positives** · `results/demo/cdk2/10_arm_agreement.json`
+
+| arm | mean positive | mean decoy | p | top-ranked | positive ranks |
+|---|---|---|---|---|---|
+| footprint | 0.507 | 0.427 | 0.2289 | atorvastatin *(decoy)* | 2, 3, 4, 7, 9 |
+| chemical | 0.408 | 0.175 | **0.0297** | ribociclib | 1, 2, 3, 5, 11 |
+| **fused** | — | — | **0.0159** | trilaciclib | 1, 2, 3, 5, **7** |
+
+Kendall τ between arms = **−0.083, p = 0.695** — they order the same drugs
+essentially independently, which is the precondition for combining them being
+worth anything. The footprint arm is not significant alone yet still contributes.
+
+Caveats: n = 14 with 5 positives, so read the direction not the p-value; and the
+chemical arm scores against curated annotations, so it is closer to a lookup than
+the footprint arm and should be expected to do better for that reason alone.
+
+### I — Scaffold seeding: a decoy control destroys the headline
+**NEGATIVE · thrombin** · `results/demo/seeded/11_seeded_vs_unseeded.json`
+
+| set | n | best NN | median | NN is F2-annotated |
+|---|---|---|---|---|
+| seeded (from the 4 F2 drugs) | 378 | 0.6026 | 0.3066 | 151 (40.0%) |
+| seeded, seeds deleted | 378 | 0.4182 | 0.2872 | 23 (6.1%) |
+| LibInvent (REINVENT4) | 81 | 0.5789 | 0.3725 | 1 (1.2%) |
+| **decoy-seeded**, F2-free drugs | 726 | **0.8200** | **0.3623** | 1 (0.14%) |
+| unseeded | 591 | 0.5789 | 0.2639 | 5 (0.85%) |
+
+Seeding beats unseeded on Tanimoto at p = 1.25e-45 — and **BRICS seeded from
+random, MW-matched, thrombin-free approved drugs does better still**
+(rank-biserial −0.452 against the thrombin arm). Recombining approved-drug
+fragments produces approved-drug-like molecules regardless of the seeds, so
+**the Tanimoto lift is 0% target-specific**. Without the decoy panel, "0.60 to
+argatroban beats 0.58 to dithranol" would have read as a result.
+
+The annotation enrichment is target-specific but ~89% circular: 135 of 151
+annotated nearest neighbours are the seeds themselves (argatroban ×115,
+ximelagatran ×20), and all ten of the top ten are argatroban. Leave-seeds-out
+leaves 23, every one captopril — an off-target annotation. Structural caveat: all
+four F2-*mechanism* drugs are the seeds, so leave-seeds-out makes a
+mechanism-level hit impossible by construction.
+
+**One non-circular hit, n = 1.** LibInvent proposed **nafamostat**, a
+guanidinobenzoate serine-protease inhibitor — chemically right for an Asp189 S1
+pocket, not a seed, and verified F2-annotated in the corpus (off-target). 1/81 vs
+5/591, **p = 0.539**. Not significant; reported as what it is.
+
+**Where seeding unambiguously works:** the arginine mimetic, the pharmacophore
+this target needs. Unseeded proposes it 1 time in 591 (0.17%); seeded 38.6%.
+Fisher OR = 371, p = 1.66e-67.
+
+### J — Annotation enrichment helps coverage, not thrombin
+**MIXED · n = 28,337 annotation rows** · `docs/12-TARGET-ANNOTATIONS.md`
+
+Approved-library coverage 77.5% → 80.4%; 63 of 484 unannotated approved drugs
+rescued. Agreement with the curated column, n = 1,167: 96.1% share ≥1 target.
+
+But **F2 coverage does not improve**: 12 → 13, and the 13th is liothyronine, a
+false positive from a `THR` abbreviation collision assigning thyroid hormone
+receptor data to Prothrombin. Inspection turns up further suspects at threshold —
+captopril (an ACE inhibitor) at Ki 7.32, betrixaban (a selective FXa drug) at
+IC50 7.75. **The enriched set is noisier than the curated one for the one target
+this project uses for controls, so it is not wired into them.**
+
+The cause is the corpus, not the annotations: dabigatran's active form,
+melagatran, lepirudin, desirudin, hirudin and heparin are all absent from
+`approved_drugs.csv`. No annotation source fixes that; only adding drugs does.
+
+Three findings that generalise: an unfiltered ChEMBL pull is actively harmful
+(aspirin→TSHR; restricting to Ki/Kd/IC50/EC50 and assay type B/F moved agreement
+83.1% → 96.1% with recall *up*); human-only was the wrong filter (27% of a random
+120 unannotated drugs get a hit once any organism is allowed — the tail is
+anti-infectives); and 212 approved drugs have no activity data anywhere, many of
+them imaging agents, sunscreens and excipients that should be flagged **out of
+the retrieval denominator** rather than counted as misses.
 
 ---
 
@@ -127,8 +249,8 @@ runs a positive control on the same data with the same metric.
 |---|---|---|---|
 | ESM-C, peptides | bivalirudin → lepirudin | rank 1 of 36 | passes |
 | ESM-C, peptides | lepirudin → bivalirudin | rank 5 of 36 | passes |
-| ECFP4, small molecules | argatroban → bivalirudin | rank 10 of 4,098 | passes |
-| ECFP4, small molecules | ximelagatran → dabigatran | rank 30 of 4,098 | passes |
+| ECFP4, small molecules | argatroban → bivalirudin | rank 9 of 2,152 | passes |
+| ECFP4, small molecules | ximelagatran → dabigatran | rank 21 of 2,152 | passes |
 | Vina docking | 3 known drugs vs 199 generated | beat the median | passes |
 | Hub check | random shuffles → abarelix | 53% of 60 | hub found |
 
@@ -224,6 +346,24 @@ to choose: the site recovers 10 of PPACK's 23 contact residues, Jaccard 0.303.
    within its own set.
 6. **A broad `git add`** swept in another agent's mid-edit file, committing a
    stale intermediate version.
+7. **The site definition omitted the pocket's defining residue.** The thrombin
+   site was built as a 6 A shell around catalytic Ser195, and **Asp189 is not in
+   it** — UniProt 562, structure label 199, the base of the S1 pocket and the
+   salt-bridge partner for essentially every thrombin inhibitor. The anchor
+   choice was justified in writing; what was never checked is whether the
+   resulting shell contained S1. The peptide designs were aimed at a site
+   missing it.
+8. **"48% of the library is unannotated" was over the wrong denominator.** 1,501
+   of the 1,985 unannotated rows are `approved != 1`. The approved library is
+   **77.5%** annotated, so the gap called "the binding constraint" is about half
+   the size reported.
+9. **The corpus was mis-described as "4,099 approved drugs" throughout.** It is
+   4,099 DrugCentral *structures*, of which only **2,153** carry `approved == 1`;
+   the rest have an empty `approval_agencies`. The matching code did not filter,
+   so two reported top hits (idrocilamide, pamaquine) were not approved drugs at
+   all, and the target base rate was understated by a diluted denominator.
+   Corrected: the effect in finding D survives but weakens, from ρ = −0.182,
+   p = 0.0099 to ρ = −0.146, p = 0.040.
 
 ### Ideas, ranked by value per hour
 

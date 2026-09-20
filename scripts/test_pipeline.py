@@ -18,7 +18,12 @@ import tempfile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-PY = str(ROOT / "env" / "bin" / "python")
+# The project venv when it exists, otherwise whatever interpreter is running
+# this file. CI has no env/ - it installs into the runner's own Python - so a
+# hardcoded path made two of these ten tests fail on every push regardless of
+# what changed.
+_VENV = ROOT / "env" / "bin" / "python"
+PY = str(_VENV) if _VENV.exists() else sys.executable
 PIPE = ROOT / "results" / "pipeline" / "colorectal-cancer"
 BOARD = ROOT / "results" / "repurpose_colorectal-cancer.json"
 

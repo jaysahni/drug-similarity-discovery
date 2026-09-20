@@ -1,0 +1,248 @@
+{
+ "target": {
+  "symbol": "MSH2",
+  "uniprot": "P43246",
+  "pdb_id": "8RB1",
+  "chain": "A",
+  "out": "msh2",
+  "select_chains": [
+   "A"
+  ],
+  "site_anchors": [
+   642,
+   648,
+   649,
+   650,
+   651,
+   653,
+   670,
+   671,
+   672,
+   673,
+   674,
+   675,
+   676,
+   677,
+   815
+  ],
+  "protocol": "protein-anything",
+  "binder_length": "60..90"
+ },
+ "uniprot": {
+  "accession": "P43246",
+  "id": "MSH2_HUMAN",
+  "name": "DNA mismatch repair protein Msh2",
+  "organism": "Homo sapiens",
+  "sequence_length": 934,
+  "sequence": "MAVQPKETLQLESAAEVGFVRFFQGMPEKPTTTVRLFDRGDFYTAHGEDALLAAREVFKTQGVIKYMGPAGAKNLQSVVLSKMNFESFVKDLLLVRQYRVEVYKNRAGNKASKENDWYLAYKASPGNLSQFEDILFGNNDMSASIGVVGVKMSAVDGQRQVGVGYVDSIQRKLGLCEFPDNDQFSNLEALLIQIGPKECVLPGGETAGDMGKLRQIIQRGGILITERKKADFSTKDIYQDLNRLLKGKKGEQMNSAVLPEMENQVAVSSLSAVIKFLELLSDDSNFGQFELTTFDFSQYMKLDIAAVRALNLFQGSVEDTTGSQSLAALLNKCKTPQGQRLVNQWIKQPLMDKNRIEERLNLVEAFVEDAELRQTLQEDLLRRFPDLNRLAKKFQRQAANLQDCYRLYQGINQLPNVIQALEKHEGKHQKLLLAVFVTPLTDLRSDFSKFQEMIETTLDMDQVENHEFLVKPSFDPNLSELREIMNDLEKKMQSTLISAARDLGLDPGKQIKLDSSAQFGYYFRVTCKEEKVLRNNKNFSTVDIQKNGVKFTNSKLTSLNEEYTKNKTEYEEAQDAIVKEIVNISSGYVEPMQTLNDVLAQLDAVVSFAHVSNGAPVPYVRPAILEKGQGRIILKASRHACVEVQDEIAFIPNDVYFEKDKQMFHIITGPNMGGKSTYIRQTGVIVLMAQIGCFVPCESAEVSIVDCILARVGAGDSQLKGVSTFMAEMLETASILRSATKDSLIIIDELGRGTSTYDGFGLAWAISEYIATKIGAFCMFATHFHELTALANQIPTVNNLHVTALTTEETLTMLYQVKKGVCDQSFGIHVAELANFPKHVIECAKQKALELEEFQYIGESQGYDIMEPAAKKCYLEREQGEKIIQEFLSKVKQMPFTEMSEENITIKLKQLKAEVIAKNNSFVNEIISRIKVTT"
+ },
+ "annotated_site": {
+  "source": "UniProt features (ft_binding, ft_act_site)",
+  "ligands": [
+   "ATP"
+  ],
+  "residue_ids_author": [
+   669,
+   670,
+   671,
+   672,
+   673,
+   674,
+   675,
+   676
+  ],
+  "n": 8,
+  "features": [
+   {
+    "type": "Binding site",
+    "start": 669,
+    "end": 676,
+    "ligand": "ATP"
+   }
+  ]
+ },
+ "literature": {
+  "query": "MSH2[Title/Abstract] AND (inhibitor[Title/Abstract] OR \"drug repurposing\"[Title/Abstract])",
+  "n_hits": 10,
+  "articles": [
+   {
+    "pmid": "20301390",
+    "title": "Lynch Syndrome.",
+    "journal": "",
+    "pub_date": "1993",
+    "authors": [
+     "Adam MP",
+     "Bick S",
+     "Mirzaa GM",
+     "Wallace SE",
+     "Amemiya A",
+     "Idos G",
+     "Hampel H",
+     "Valle L"
+    ]
+   },
+   {
+    "pmid": "42682916",
+    "title": "Immune Checkpoint Inhibitor Resistance in Rectal Adenocarcinoma Containing a Mismatch Repair Deficiency Component: A Case Report.",
+    "journal": "Cancer diagnosis & prognosis",
+    "pub_date": "2026 Sep-Oct",
+    "authors": [
+     "Okura K",
+     "Takenaka H",
+     "Fujita H",
+     "Hanada N",
+     "Komohara Y"
+    ]
+   },
+   {
+    "pmid": "42480596",
+    "title": "PMS1 loss defines distinct mismatch repair complex deficiencies across dog and human cancers.",
+    "journal": "Molecular cancer therapeutics",
+    "pub_date": "2026 Jul 22",
+    "authors": [
+     "Wilsker D",
+     "Begum A",
+     "Brooks A",
+     "Parchment RE",
+     "Doroshow JH"
+    ]
+   },
+   {
+    "pmid": "42466612",
+    "title": "5-FU in combination with PARP inhibitor ABT-888 deregulates MGMT-dependent mismatch repair (MMR) pathway in MMR-proficient colorectal cancer stem cells by modulating MGMT/PARP1/MSH6 complex.",
+    "journal": "Expert opinion on therapeutic targets",
+    "pub_date": "2026 Jul",
+    "authors": [
+     "Paul S",
+     "Das C",
+     "Bhal S",
+     "Sinha S",
+     "Dash SR",
+     "Acharya SS",
+     "Goswami A",
+     "Goutam K",
+     "Kundu CN",
+     "Parija T"
+    ]
+   },
+   {
+    "pmid": "42361800",
+    "title": "Case of complete response to immunotherapy in MMR-deficient prostate cancer associated with NK-like and CD4(+)CD8(+) T cells.",
+    "journal": "Cell reports. Medicine",
+    "pub_date": "2026 Jul 21",
+    "authors": [
+     "Tsai AK",
+     "Lozada JR",
+     "Kennedy PR",
+     "Moline D",
+     "Pandey R",
+     "Lyons RC",
+     "Luo C",
+     "Wang R",
+     "Arafa AT",
+     "Femino EL",
+     "Zipkowitz S",
+     "Figueroa A",
+     "McCann PJ",
+     "Dallos MC",
+     "Elliott A",
+     "Murugan P",
+     "Felices M",
+     "Zorko NA",
+     "Konety BR",
+     "Dehm SM",
+     "Miller JS",
+     "Shen SS",
+     "Thompson EA",
+     "Sena LA",
+     "Yegnasubramanian S",
+     "Hwang J",
+     "Antonarakis ES"
+    ]
+   },
+   {
+    "pmid": "42281350",
+    "title": "Clinicopathologic Study of 39 Mismatch Repair-deficient Sarcomas Demonstrates Recurrent Histologic Patterns and Supports Universal Screening of Pleomorphic Rhabdomyosarcoma, Uterine Leiomyosarcoma, and Undifferentiated and Unclassified Sarcomas.",
+    "journal": "The American journal of surgical pathology",
+    "pub_date": "2026 Sep 1",
+    "authors": [
+     "Odintsov I",
+     "Nowak JA",
+     "Baranov E",
+     "Alcindor T",
+     "Haddox CL",
+     "Venkataraman V",
+     "Sholl LM",
+     "George S",
+     "Doyle LA",
+     "Redston M",
+     "Papke DJ Jr"
+    ]
+   },
+   {
+    "pmid": "42252346",
+    "title": "Rho-associated kinase inhibitors in cerebral cavernous malformations: a preclinical systematic review.",
+    "journal": "Neurosurgical review",
+    "pub_date": "2026 Jun 8",
+    "authors": [
+     "Uslu I",
+     "Senturk E",
+     "Celikkiran ZE",
+     "Kara B",
+     "Turkmenel MG",
+     "Kilic B",
+     "Alomari O",
+     "Demir Yangi DD",
+     "Yangi K"
+    ]
+   },
+   {
+    "pmid": "42209463",
+    "title": "Inhibition of TGM2 enhances cisplatin sensitivity in MSH2-deficient bladder cancer.",
+    "journal": "Cell death discovery",
+    "pub_date": "2026 May 28",
+    "authors": [
+     "Wei W",
+     "Xiao X",
+     "Ren C",
+     "Zhang H",
+     "Sun J",
+     "Wang M",
+     "Wang L",
+     "Chen H",
+     "Jiang G",
+     "Huang C"
+    ]
+   },
+   {
+    "pmid": "42147655",
+    "title": "Exceptional Response to Pembrolizumab Immunotherapy in a Young Patient With Lynch Syndrome-Associated Metastatic Colorectal Cancer.",
+    "journal": "Cureus",
+    "pub_date": "2026 Apr",
+    "authors": [
+     "Niazi M",
+     "Crossley R"
+    ]
+   },
+   {
+    "pmid": "41878704",
+    "title": "Treating microsatellite unstable metastatic parathyroid carcinoma with anti-PD1 therapy.",
+    "journal": "JCEM case reports",
+    "pub_date": "2026 Apr",
+    "authors": [
+     "Amir-Kabirian B",
+     "AlRubaye R",
+     "Cadle B",
+     "Mais D",
+     "Sibai Z",
+     "Redman R"
+    ]
+   }
+  ],
+  "error": null
+ },
+ "toolkit": [
+  "database.fetch_uniprot_entry",
+  "literature.search_pubmed"
+ ]
+}

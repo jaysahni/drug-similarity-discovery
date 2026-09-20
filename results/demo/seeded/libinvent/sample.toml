@@ -1,0 +1,10 @@
+run_type = "sampling"
+device = "mps"
+
+[parameters]
+model_file = "/private/tmp/claude-501/-Users-jaysahni-drug-similarity-discovery/5f7a1295-9699-4ed2-87b0-160fe37c7c5f/scratchpad/priors/libinvent.prior"
+smiles_file = "scaffolds.smi"
+output_file = "sampled.csv"
+num_smiles = 200
+unique_molecules = true
+randomize_smiles = true

@@ -1,0 +1,57 @@
+{
+ "KDR_axitinib_approved_drug": {
+  "workflow_uuid": "99a6db37-a5c4-4129-b75b-0e4a2a251ba1",
+  "structure_uuid": "5069da77-c8c6-49f0-86d0-15e6a06156e3",
+  "iptm": 0.992
+ },
+ "KDR_mebendazole_hit": {
+  "workflow_uuid": "b0943765-2274-4a74-b98d-9d88a284501b",
+  "structure_uuid": "e7a3a28c-8697-402b-b805-ed47c514a48d",
+  "iptm": 0.99
+ },
+ "KDR_niclosamide": {
+  "workflow_uuid": "39bca085-b23d-41b4-bcec-c48a9d85a31c",
+  "structure_uuid": "873bbdcf-aa28-4380-957f-40a5b0b7b5a5",
+  "iptm": 0.978
+ },
+ "MSH2_warfarin": {
+  "workflow_uuid": "67f548e4-9d10-465f-8a5b-df685a377dde",
+  "structure_uuid": "6cddeba6-741e-4997-a031-e8e4a9b9606a",
+  "iptm": 0.547
+ },
+ "MSH2_paracetamol": {
+  "workflow_uuid": "05132b7b-ef70-45ce-903d-5aaa1bf5fa3c",
+  "structure_uuid": "497198cb-104c-4860-9891-a9c8a60cb78a",
+  "iptm": 0.587
+ },
+ "MSH2_fludarabine_phosphate": {
+  "workflow_uuid": "540cc063-6dd5-4146-846f-67c9c2125bf3",
+  "structure_uuid": "b3e923cc-62c9-41cb-a3dc-b7ef3f201fc1",
+  "iptm": 0.98
+ },
+ "MSH2_adenosine": {
+  "workflow_uuid": "d22e5dc5-13c8-477b-b057-6540d0614a70",
+  "structure_uuid": "d1cd8747-85ea-41f1-a045-23869ac384cf",
+  "iptm": 0.964
+ },
+ "MSH2_ADP_reference": {
+  "workflow_uuid": "c7af4b79-dcd2-4e22-887e-76a45e830cb4",
+  "structure_uuid": "4571fe6f-3b6c-450c-ae16-d4aa24a3b8df",
+  "iptm": 0.972
+ },
+ "KDR_decoy_furosemide": {
+  "workflow_uuid": "c36fa311-1f36-4e44-971e-0bd0465cd27f",
+  "structure_uuid": "0b005267-38c9-4a92-a3e7-000f3e859ad9",
+  "iptm": 0.883
+ },
+ "KDR_decoy_warfarin": {
+  "workflow_uuid": "450d5ffd-9358-44eb-a215-50faaebf2ef5",
+  "structure_uuid": "d4ca82e6-2cfc-47b7-a409-f9ca3eef20ab",
+  "iptm": 0.953
+ },
+ "KDR_decoy_paracetamol": {
+  "workflow_uuid": "fabe41f7-a3ef-4967-9765-fd6418ef372b",
+  "structure_uuid": "1a77a25e-6992-4f52-8d76-8312990cc285",
+  "iptm": 0.97
+ }
+}

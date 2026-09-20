@@ -1,0 +1,57 @@
+{
+ "target": "MSH2 (P43246)",
+ "structure": "8RB1 chain A",
+ "reference": "ADP, the natural cofactor",
+ "why_cofactor_reference": "no approved drug targets MSH2, so no drug can serve as the reference pose",
+ "site_n": 28,
+ "adp_contacts_in_site": "15/16",
+ "results": {
+  "ADP_reference": {
+   "role": "reference",
+   "iptm": 0.972,
+   "n_contacts": 16,
+   "shared_with_adp": 16,
+   "jaccard_vs_adp": 1.0,
+   "site_coverage": 0.5357,
+   "credits": 14.09
+  },
+  "adenosine": {
+   "role": "candidate",
+   "iptm": 0.964,
+   "n_contacts": 12,
+   "shared_with_adp": 12,
+   "jaccard_vs_adp": 0.75,
+   "site_coverage": 0.3929,
+   "credits": 14.47
+  },
+  "fludarabine phosphate": {
+   "role": "candidate",
+   "iptm": 0.98,
+   "n_contacts": 14,
+   "shared_with_adp": 14,
+   "jaccard_vs_adp": 0.875,
+   "site_coverage": 0.4643,
+   "credits": 11.99
+  },
+  "paracetamol": {
+   "role": "decoy",
+   "iptm": 0.587,
+   "n_contacts": 8,
+   "shared_with_adp": 1,
+   "jaccard_vs_adp": 0.0435,
+   "site_coverage": 0.0357,
+   "credits": 6.88
+  },
+  "warfarin": {
+   "role": "decoy",
+   "iptm": 0.547,
+   "n_contacts": 17,
+   "shared_with_adp": 2,
+   "jaccard_vs_adp": 0.0645,
+   "site_coverage": 0.1071,
+   "credits": 7.8
+  }
+ },
+ "finding": "Candidates separate cleanly from decoys: adenosine and fludarabine phosphate reproduce ADP pose at Jaccard 0.750 and 0.875 with every contact shared, while paracetamol and warfarin reach 0.043 and 0.065. Unlike KDR, ipTM also separates here (candidates 0.96-0.98, decoys 0.55-0.59), so on this target both signals agree.",
+ "what_it_does_not_show": "The candidates are nucleotide analogues occupying a nucleotide site - the least surprising possible result, and a sanity check that the machinery works on this target rather than a repurposing hit. No approved drug targets MSH2, so there is NO positive control anywhere in this run. And MSH2 is a TUMOUR SUPPRESSOR: loss of it causes Lynch syndrome, so inhibiting it is the opposite of a therapeutic goal. Open Targets ranks by disease ASSOCIATION, which does not distinguish a driver from a gene whose loss causes the disease - a real limitation of association-driven target selection that this run exposes."
+}

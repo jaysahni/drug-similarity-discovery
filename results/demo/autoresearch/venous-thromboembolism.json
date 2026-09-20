@@ -1,0 +1,5887 @@
+{
+ "meta": {
+  "script": "demo/autoresearch.py",
+  "generated_utc": "2026-09-20T07:16:07+00:00",
+  "disease_query": "venous thromboembolism",
+  "efo_id": "MONDO_0005399",
+  "disease_name": "venous thromboembolism",
+  "disease_resolution_rule": "exact_name_match",
+  "disease_search_hits_considered": [
+   {
+    "id": "MONDO_0005399",
+    "name": "venous thromboembolism",
+    "entity": "disease",
+    "score": 5282.5117
+   },
+   {
+    "id": "MONDO_0008559",
+    "name": "thrombophilia due to thrombin defect",
+    "entity": "disease",
+    "score": 2921.9465
+   },
+   {
+    "id": "HP_0004936",
+    "name": "Venous thrombosis",
+    "entity": "disease",
+    "score": 365.52304
+   },
+   {
+    "id": "MONDO_0013144",
+    "name": "hereditary antithrombin deficiency",
+    "entity": "disease",
+    "score": 232.11667
+   },
+   {
+    "id": "MONDO_0100319",
+    "name": "COVID-19\u2013associated multisystem inflammatory syndrome in adults",
+    "entity": "disease",
+    "score": 192.39023
+   },
+   {
+    "id": "MONDO_0026777",
+    "name": "VEXAS syndrome",
+    "entity": "disease",
+    "score": 7.9177547
+   }
+  ],
+  "n_disease_hits": 6,
+  "n_associated_targets_total": 967,
+  "n_targets_examined": 25,
+  "n_usable": 5,
+  "n_failing_positive_control_gate": 20,
+  "n_failing_structure_gate": 3,
+  "n_usable_with_peptide_control": 1,
+  "targets_without_positive_control": [
+   "PROC",
+   "PROS1",
+   "F11",
+   "PLCG2",
+   "F5",
+   "ABO",
+   "PROCR",
+   "VWF",
+   "C4BPB",
+   "F9",
+   "GRK5",
+   "KNG1",
+   "SH2B3",
+   "SCARA5",
+   "SERPINE2",
+   "GP6",
+   "PLEK",
+   "FGG",
+   "TRIM58",
+   "TSPAN15"
+  ],
+  "targets_without_usable_structure": [
+   "PROS1",
+   "C4BPB",
+   "SH2B3"
+  ],
+  "known_drug_dominated_among_usable": [
+   "F10",
+   "F2",
+   "SERPINC1"
+  ],
+  "corpora": {
+   "approved_drugs_csv_rows": 4099,
+   "approved_drugs_csv_approved_rows": 2153,
+   "target_annotations_rows": 28337,
+   "target_annotations_rows_used": 20744,
+   "approved_biologics_rows": 262
+  },
+  "gates": {
+   "positive_control": "n_approved_binders_moa >= 1",
+   "structure": "an X-ray entry maps to the accession, has an auth chain for it, reports a resolution, and carries no foreign polypeptide of <= 50 aa",
+   "ranking": "gates first, then Open Targets association score descending"
+  },
+  "circularity_caveat": "Open Targets association evidence includes ChEMBL known-drug data (PROJECT_GOAL.md 1.3). The positive-control gate selects FOR targets with approved drugs, so it selects for exactly the evidence that is circular. known_drug_dominated_among_usable is the size of that overlap; it is reported, not filtered.",
+  "opentargets": {
+   "endpoint": "https://api.platform.opentargets.org/api/v4/graphql",
+   "api_name": "Open Targets GraphQL & REST API Beta",
+   "api_version": "26.6.3",
+   "data_version": "26.06"
+  },
+  "reused_from": [
+   "scripts/disease_targets.py: resolve_disease, associated_targets, build_target, gql, api_meta",
+   "scripts/target_evidence.py: search_target, verify, aliases, epmc",
+   "scripts/prep_target.py: http, cached, NOT_LIGANDS, MIN_LIGAND_MW, RCSB endpoints"
+  ]
+ },
+ "targets": [
+  {
+   "rank": 1,
+   "ensembl_id": "ENSG00000115718",
+   "approved_symbol": "PROC",
+   "approved_name": "protein C, inactivator of coagulation factors Va and VIIIa",
+   "biotype": "protein_coding",
+   "symbol_synonyms": [
+    "APC",
+    "PC",
+    "PROC",
+    "PROC1",
+    "THPH3",
+    "THPH4"
+   ],
+   "uniprot": "P04070",
+   "uniprot_source": "opentargets_proteinIds:uniprot_swissprot",
+   "overall_association_score": 0.741704571515153,
+   "datatype_scores": {
+    "genetic_association": 0.9208031394848348,
+    "known_drug": 0.607930797611621,
+    "literature": 0.11967275651112512,
+    "rna_expression": null,
+    "somatic_mutation": null,
+    "animal_model": null,
+    "affected_pathway": null
+   },
+   "all_datatype_scores": {
+    "literature": 0.11967275651112512,
+    "genetic_association": 0.9208031394848348,
+    "clinical": 0.607930797611621
+   },
+   "known_drug_datatype_id": "clinical",
+   "known_drug_score": 0.607930797611621,
+   "has_known_drug_evidence": true,
+   "n_drug_and_clinical_candidates": 2,
+   "n_drug_rows_returned": 2,
+   "drug_rows_complete": true,
+   "n_approved_drugs": 1,
+   "approved_drug_examples": [
+    "PROTEIN C CONCENTRATE (HUMAN)"
+   ],
+   "association_score": 0.741704571515153,
+   "score_by_datatype": {
+    "literature": 0.11967275651112512,
+    "genetic_association": 0.9208031394848348,
+    "clinical": 0.607930797611621
+   },
+   "n_approved_binders_moa": 0,
+   "n_approved_binders_annotated": 2,
+   "n_approved_binders_bioactivity": 0,
+   "n_approved_biologic_binders": 0,
+   "n_approved_peptide_binders": 0,
+   "known_approved_drugs": [],
+   "approved_binders_offtarget_only": [
+    "dabigatran etexilate",
+    "ximelagatran"
+   ],
+   "approved_biologic_binders": [],
+   "corpus_symbols_matched": [
+    "PROC"
+   ],
+   "target_class": [
+    "Enzyme",
+    "Protease"
+   ],
+   "target_class_detail": [
+    {
+     "label": "Serine protease",
+     "level": "l3"
+    },
+    {
+     "label": "Enzyme",
+     "level": "l1"
+    },
+    {
+     "label": "Serine protease PA clan",
+     "level": "l4"
+    },
+    {
+     "label": "Serine protease S1A subfamily",
+     "level": "l5"
+    },
+    {
+     "label": "Protease",
+     "level": "l2"
+    }
+   ],
+   "tractability": {
+    "antibody": [
+     "GO CC high conf",
+     "UniProt SigP or TMHMM",
+     "UniProt loc high conf"
+    ],
+    "other": [
+     "Approved Drug"
+    ],
+    "protac": [
+     "Half-life Data",
+     "Small Molecule Binder"
+    ],
+    "small_molecule": [
+     "Druggable Family",
+     "High-Quality Ligand",
+     "Med-Quality Pocket",
+     "Structure with Ligand"
+    ]
+   },
+   "n_safety_liabilities": 0,
+   "safety_flags": [],
+   "safety_sources": [],
+   "circularity": {
+    "known_drug_datatype_id": "clinical",
+    "known_drug_score": 0.607930797611621,
+    "known_drug_share_of_datatype_sum": 0.3688,
+    "known_drug_is_largest_datatype": false,
+    "largest_datatype": "genetic_association",
+    "known_drug_dominated": false,
+    "circularity_note": "largest datatype is genetic_association (0.921); known-drug contributes 0.608"
+   },
+   "uniprot_sites": {
+    "sequence_length": 461,
+    "active_sites": [
+     {
+      "position": 253,
+      "residue": "H",
+      "description": "Charge relay system"
+     },
+     {
+      "position": 299,
+      "residue": "D",
+      "description": "Charge relay system"
+     },
+     {
+      "position": 402,
+      "residue": "S",
+      "description": "Charge relay system"
+     }
+    ],
+    "site_anchors": [
+     402
+    ],
+    "site_anchor_rule": "UniProt ACT_SITE positions whose residue is S/C/T (the catalytic nucleophile). His/Asp members of a charge-relay triad are excluded: they sit behind the nucleophile and a sphere over all three reaches into the core rather than the ligand site.",
+    "mature_chains": [
+     {
+      "description": "Vitamin K-dependent protein C",
+      "start": 43,
+      "end": 461
+     },
+     {
+      "description": "Vitamin K-dependent protein C light chain",
+      "start": 43,
+      "end": 197
+     },
+     {
+      "description": "Vitamin K-dependent protein C heavy chain",
+      "start": 200,
+      "end": 461
+     }
+    ]
+   },
+   "structure": {
+    "structure_status": "ok",
+    "n_entities_total": 11,
+    "n_entities_ligand_bound_total": 6,
+    "n_entities_examined": 11,
+    "n_entries_examined": 7,
+    "n_entries_usable": 6,
+    "n_entries_rejected": 1,
+    "reject_reason_counts": {
+     "co_crystallised_peptide_polymer_chain": 1
+    },
+    "structure": {
+     "pdb_id": "1AUT",
+     "method": "X-ray",
+     "resolution_a": 2.8,
+     "chain": "C",
+     "chain_entity_length_aa": 250,
+     "target_entities": [
+      {
+       "entity_id": "1AUT_1",
+       "length_aa": 250,
+       "polymer_type": "polypeptide(L)",
+       "auth_chain_ids": [
+        "C"
+       ],
+       "description": "ACTIVATED PROTEIN C",
+       "accessions": [
+        "P04070"
+       ]
+      },
+      {
+       "entity_id": "1AUT_2",
+       "length_aa": 114,
+       "polymer_type": "polypeptide(L)",
+       "auth_chain_ids": [
+        "L"
+       ],
+       "description": "ACTIVATED PROTEIN C",
+       "accessions": [
+        "P04070"
+       ]
+      }
+     ],
+     "foreign_peptide_chains": [],
+     "foreign_polymer_chains": [],
+     "drug_like_ligands": [
+      "0G6"
+     ],
+     "all_het_comp_ids": [
+      "0G6"
+     ],
+     "apo_or_holo": "holo"
+    },
+    "rejected_better_resolution": [
+     {
+      "pdb_id": "4DT7",
+      "resolution_a": 1.9,
+      "reject_reason": "co_crystallised_peptide_polymer_chain",
+      "reject_detail": [
+       "4DT7_1 Thrombin light chain (32 aa)"
+      ]
+     }
+    ],
+    "runner_up_entries": [
+     {
+      "pdb_id": "3F6U",
+      "chain": "H",
+      "resolution_a": 2.8,
+      "apo_or_holo": "holo"
+     },
+     {
+      "pdb_id": "1LQV",
+      "chain": "C",
+      "resolution_a": 1.6,
+      "apo_or_holo": "holo"
+     },
+     {
+      "pdb_id": "3JTC",
+      "chain": "C",
+      "resolution_a": 1.6,
+      "apo_or_holo": "holo"
+     },
+     {
+      "pdb_id": "6M3B",
+      "chain": "A",
+      "resolution_a": 2.2,
+      "apo_or_holo": "apo"
+     },
+     {
+      "pdb_id": "6M3C",
+      "chain": "A",
+      "resolution_a": 3.7,
+      "apo_or_holo": "apo"
+     }
+    ]
+   },
+   "literature_query": "(TITLE_ABS:\"PROC\" OR TITLE_ABS:\"PROC1\" OR TITLE_ABS:\"THPH3\" OR TITLE_ABS:\"THPH4\") AND TITLE_ABS:\"venous thromboembolism\" AND (TITLE_ABS:\"inhibitor\" OR TITLE_ABS:\"inhibition\" OR TITLE_ABS:\"binder\" OR TITLE_ABS:\"antagonist\" OR TITLE_ABS:\"blockade\") AND (HAS_ABSTRACT:Y) AND (SRC:MED)",
+   "literature_hit_count": 2,
+   "literature": [
+    {
+     "pmid": "15735816",
+     "title": "\"ProC Global\": a functional screening test that predicts recurrent venous thromboembolism.",
+     "year": "2005",
+     "journal": "Thrombosis and haemostasis",
+     "claim": "ProC Global is a coagulation assay that reflects the net effect of the PC pathway by measuring the activated partial thromboplastin time (APTT) of patient and control plasma, before and after activation of endogenous PC by Protac, a snake venom.",
+     "claim_tier": "target-only",
+     "claim_alias": "PROC",
+     "doi": "10.1160/th04-07-0445",
+     "title_verified": true,
+     "verification": "match"
+    },
+    {
+     "pmid": "11672753",
+     "title": "Sensitivity of the ProC global assay for protein C pathway abnormalities. clinical experience in 899 unselected patients with venous thromboembolism.",
+     "year": "2001",
+     "journal": "Thrombosis research",
+     "claim": "The ProC Global is a clotting assay designed to globally evaluate the functionality of the protein C (PC) pathway, which is found defective in up to 30% of the Caucasian patients with thrombophilia.",
+     "claim_tier": "target-only",
+     "claim_alias": "PROC",
+     "doi": "10.1016/s0049-3848(01)00361-9",
+     "title_verified": true,
+     "verification": "match"
+    }
+   ],
+   "literature_dropped_failed_verification": [],
+   "literature_status": "ok",
+   "site_type_hint": "pocket",
+   "site_type_evidence": "chosen structure 1AUT binds 0G6 as HETATM",
+   "preferred_modalities": [
+    "small_molecule"
+   ],
+   "preferred_modalities_rule": "a modality is listed only where an approved drug of that kind binds this target in the local corpora, or (small_molecule) the chosen structure carries a drug-like HETATM ligand",
+   "opentargets_tractability_modalities": [
+    "antibody",
+    "other",
+    "protac",
+    "small_molecule"
+   ],
+   "gate_has_approved_positive_control": false,
+   "gate_has_usable_structure": true,
+   "usable_for_pipeline": false,
+   "unusable_reasons": [
+    "no approved drug has PROC as its mechanism-of-action target (2 off-target annotations, 0 pchembl-backed) - the matching arms would have no positive control"
+   ],
+   "pipeline_config": null
+  },
+  {
+   "rank": 2,
+   "ensembl_id": "ENSG00000126218",
+   "approved_symbol": "F10",
+   "approved_name": "coagulation factor X",
+   "biotype": "protein_coding",
+   "symbol_synonyms": [
+    "F10",
+    "FX",
+    "FXA",
+    "fX"
+   ],
+   "uniprot": "P00742",
+   "uniprot_source": "opentargets_proteinIds:uniprot_swissprot",
+   "overall_association_score": 0.7257961678689105,
+   "datatype_scores": {
+    "genetic_association": 0.8317547168855703,
+    "known_drug": 0.9810299542502167,
+    "literature": 0.22099278233154085,
+    "rna_expression": null,
+    "somatic_mutation": null,
+    "animal_model": null,
+    "affected_pathway": null
+   },
+   "all_datatype_scores": {
+    "literature": 0.22099278233154085,
+    "genetic_association": 0.8317547168855703,
+    "clinical": 0.9810299542502167
+   },
+   "known_drug_datatype_id": "clinical",
+   "known_drug_score": 0.9810299542502167,
+   "has_known_drug_evidence": true,
+   "n_drug_and_clinical_candidates": 16,
+   "n_drug_rows_returned": 16,
+   "drug_rows_complete": true,
+   "n_approved_drugs": 9,
+   "approved_drug_examples": [
+    "ANTITHROMBIN ALFA",
+    "APIXABAN",
+    "BEMIPARIN",
+    "BETRIXABAN",
+    "COAGULATION FACTOR X HUMAN",
+    "EDOXABAN",
+    "EDOXABAN TOSYLATE",
+    "EMICIZUMAB"
+   ],
+   "association_score": 0.7257961678689105,
+   "score_by_datatype": {
+    "literature": 0.22099278233154085,
+    "genetic_association": 0.8317547168855703,
+    "clinical": 0.9810299542502167
+   },
+   "n_approved_binders_moa": 4,
+   "n_approved_binders_annotated": 9,
+   "n_approved_binders_bioactivity": 9,
+   "n_approved_biologic_binders": 0,
+   "n_approved_peptide_binders": 0,
+   "known_approved_drugs": [
+    "apixaban",
+    "betrixaban",
+    "edoxaban",
+    "rivaroxaban"
+   ],
+   "approved_binders_offtarget_only": [
+    "argatroban",
+    "dabigatran etexilate",
+    "nafamostat",
+    "pentamidine",
+    "ximelagatran"
+   ],
+   "approved_biologic_binders": [],
+   "corpus_symbols_matched": [
+    "F10"
+   ],
+   "target_class": [
+    "Enzyme",
+    "Protease"
+   ],
+   "target_class_detail": [
+    {
+     "label": "Serine protease",
+     "level": "l3"
+    },
+    {
+     "label": "Enzyme",
+     "level": "l1"
+    },
+    {
+     "label": "Serine protease PA clan",
+     "level": "l4"
+    },
+    {
+     "label": "Serine protease S1A subfamily",
+     "level": "l5"
+    },
+    {
+     "label": "Protease",
+     "level": "l2"
+    }
+   ],
+   "tractability": {
+    "antibody": [
+     "GO CC high conf",
+     "UniProt SigP or TMHMM",
+     "UniProt loc med conf"
+    ],
+    "other": [
+     "Approved Drug"
+    ],
+    "protac": [
+     "Small Molecule Binder"
+    ],
+    "small_molecule": [
+     "Approved Drug",
+     "Druggable Family",
+     "High-Quality Ligand",
+     "Med-Quality Pocket",
+     "Structure with Ligand"
+    ]
+   },
+   "n_safety_liabilities": 0,
+   "safety_flags": [],
+   "safety_sources": [],
+   "circularity": {
+    "known_drug_datatype_id": "clinical",
+    "known_drug_score": 0.9810299542502167,
+    "known_drug_share_of_datatype_sum": 0.4824,
+    "known_drug_is_largest_datatype": true,
+    "largest_datatype": "clinical",
+    "known_drug_dominated": true,
+    "circularity_note": "known-drug evidence is this target's single largest datatype (0.981, 48% of the datatype-score sum); a 'discovery' of its approved drugs is partly a lookup of the evidence that ranked it"
+   },
+   "uniprot_sites": {
+    "sequence_length": 488,
+    "active_sites": [
+     {
+      "position": 276,
+      "residue": "H",
+      "description": "Charge relay system"
+     },
+     {
+      "position": 322,
+      "residue": "D",
+      "description": "Charge relay system"
+     },
+     {
+      "position": 419,
+      "residue": "S",
+      "description": "Charge relay system"
+     }
+    ],
+    "site_anchors": [
+     419
+    ],
+    "site_anchor_rule": "UniProt ACT_SITE positions whose residue is S/C/T (the catalytic nucleophile). His/Asp members of a charge-relay triad are excluded: they sit behind the nucleophile and a sphere over all three reaches into the core rather than the ligand site.",
+    "mature_chains": [
+     {
+      "description": "Coagulation factor X",
+      "start": 41,
+      "end": 488
+     },
+     {
+      "description": "Factor X light chain",
+      "start": 41,
+      "end": 179
+     },
+     {
+      "description": "Factor X heavy chain",
+      "start": 183,
+      "end": 488
+     },
+     {
+      "description": "Activated factor Xa heavy chain",
+      "start": 235,
+      "end": 488
+     }
+    ]
+   },
+   "structure": {
+    "structure_status": "ok",
+    "n_entities_total": 315,
+    "n_entities_ligand_bound_total": 299,
+    "n_entities_examined": 62,
+    "n_entries_examined": 36,
+    "n_entries_usable": 35,
+    "n_entries_rejected": 1,
+    "reject_reason_counts": {
+     "co_crystallised_peptide_polymer_chain": 1
+    },
+    "structure": {
+     "pdb_id": "2JKH",
+     "method": "X-ray",
+     "resolution_a": 1.25,
+     "chain": "A",
+     "chain_entity_length_aa": 241,
+     "target_entities": [
+      {
+       "entity_id": "2JKH_1",
+       "length_aa": 241,
+       "polymer_type": "polypeptide(L)",
+       "auth_chain_ids": [
+        "A"
+       ],
+       "description": "ACTIVATED FACTOR XA HEAVY CHAIN",
+       "accessions": [
+        "P00742"
+       ]
+      },
+      {
+       "entity_id": "2JKH_2",
+       "length_aa": 55,
+       "polymer_type": "polypeptide(L)",
+       "auth_chain_ids": [
+        "L"
+       ],
+       "description": "FACTOR X LIGHT CHAIN",
+       "accessions": [
+        "P00742"
+       ]
+      }
+     ],
+     "foreign_peptide_chains": [],
+     "foreign_polymer_chains": [],
+     "drug_like_ligands": [
+      "BI7"
+     ],
+     "all_het_comp_ids": [
+      "NA",
+      "CA",
+      "BI7"
+     ],
+     "apo_or_holo": "holo"
+    },
+    "rejected_better_resolution": [
+     {
+      "pdb_id": "9I24",
+      "resolution_a": 1.2,
+      "reject_reason": "co_crystallised_peptide_polymer_chain",
+      "reject_detail": [
+       "9I24_4 GLU-GLY-ARG-chloromethyl ketone inhibitor (EGRCK) (3 aa)",
+       "9I24_3 Coagulation factor V heavy chain (15 aa)"
+      ]
+     }
+    ],
+    "runner_up_entries": [
+     {
+      "pdb_id": "2Y5F",
+      "chain": "A",
+      "resolution_a": 1.29,
+      "apo_or_holo": "holo"
+     },
+     {
+      "pdb_id": "2Y5G",
+      "chain": "A",
+      "resolution_a": 1.29,
+      "apo_or_holo": "holo"
+     },
+     {
+      "pdb_id": "2Y5H",
+      "chain": "A",
+      "resolution_a": 1.33,
+      "apo_or_holo": "holo"
+     },
+     {
+      "pdb_id": "3KL6",
+      "chain": "A",
+      "resolution_a": 1.45,
+      "apo_or_holo": "holo"
+     },
+     {
+      "pdb_id": "2PR3",
+      "chain": "A",
+      "resolution_a": 1.5,
+      "apo_or_holo": "holo"
+     }
+    ]
+   },
+   "literature_query": "(TITLE_ABS:\"F10\") AND TITLE_ABS:\"venous thromboembolism\" AND (TITLE_ABS:\"inhibitor\" OR TITLE_ABS:\"inhibition\" OR TITLE_ABS:\"binder\" OR TITLE_ABS:\"antagonist\" OR TITLE_ABS:\"blockade\") AND (HAS_ABSTRACT:Y) AND (SRC:MED)",
+   "literature_hit_count": 2,
+   "literature": [
+    {
+     "pmid": "41552755",
+     "title": "Discrepancy between international normalized ratio measurements in a heterozygous carrier of F10:p.Gly244Arg with recurrent venous thromboembolism: a case report.",
+     "year": "2026",
+     "journal": "Research and practice in thrombosis and haemostasis",
+     "claim": "It is unknown whether genetic variants in F10 affect INR measured with thromboplastins from different species.",
+     "claim_tier": "target-only",
+     "claim_alias": "F10",
+     "doi": "10.1016/j.rpth.2025.103298",
+     "title_verified": true,
+     "verification": "match"
+    },
+    {
+     "pmid": "24226152",
+     "title": "Influence of single nucleotide polymorphisms on thrombin generation in factor V Leiden heterozygotes.",
+     "year": "2014",
+     "journal": "Thrombosis and haemostasis",
+     "claim": "Several SNPs in the F2 (rs1799963, rs3136516), F10 (rs693335), SERPINC1 (rs2227589), PROS1 (Heerlen polymorphism) and TFPI (rs5940) genes significantly affected the ETP-APC and/or the ETP+APC in FV Leiden carriers.",
+     "claim_tier": "target-only",
+     "claim_alias": "F10",
+     "doi": "10.1160/th13-05-0360",
+     "title_verified": true,
+     "verification": "match"
+    }
+   ],
+   "literature_dropped_failed_verification": [],
+   "literature_status": "ok",
+   "site_type_hint": "pocket",
+   "site_type_evidence": "chosen structure 2JKH binds BI7 as HETATM",
+   "preferred_modalities": [
+    "small_molecule"
+   ],
+   "preferred_modalities_rule": "a modality is listed only where an approved drug of that kind binds this target in the local corpora, or (small_molecule) the chosen structure carries a drug-like HETATM ligand",
+   "opentargets_tractability_modalities": [
+    "antibody",
+    "other",
+    "protac",
+    "small_molecule"
+   ],
+   "gate_has_approved_positive_control": true,
+   "gate_has_usable_structure": true,
+   "usable_for_pipeline": true,
+   "unusable_reasons": [],
+   "pipeline_config": {
+    "symbol": "F10",
+    "uniprot": "P00742",
+    "pdb_id": "2JKH",
+    "chain": "A",
+    "out": "f10",
+    "protocol": "protein-anything",
+    "binder_length": "60..90",
+    "site_anchors": [
+     419
+    ]
+   },
+   "pipeline_rank": 1
+  },
+  {
+   "rank": 3,
+   "ensembl_id": "ENSG00000180210",
+   "approved_symbol": "F2",
+   "approved_name": "coagulation factor II, thrombin",
+   "biotype": "protein_coding",
+   "symbol_synonyms": [
+    "F2",
+    "PT",
+    "RPRGL2",
+    "THPH1"
+   ],
+   "uniprot": "P00734",
+   "uniprot_source": "opentargets_proteinIds:uniprot_swissprot",
+   "overall_association_score": 0.7084007600918842,
+   "datatype_scores": {
+    "genetic_association": 0.7813141230105604,
+    "known_drug": 0.9012480067263033,
+    "literature": 0.3591719608600941,
+    "rna_expression": null,
+    "somatic_mutation": null,
+    "animal_model": null,
+    "affected_pathway": null
+   },
+   "all_datatype_scores": {
+    "literature": 0.3591719608600941,
+    "genetic_association": 0.7813141230105604,
+    "clinical": 0.9012480067263033
+   },
+   "known_drug_datatype_id": "clinical",
+   "known_drug_score": 0.9012480067263033,
+   "has_known_drug_evidence": true,
+   "n_drug_and_clinical_candidates": 14,
+   "n_drug_rows_returned": 14,
+   "drug_rows_complete": true,
+   "n_approved_drugs": 11,
+   "approved_drug_examples": [
+    "ANTITHROMBIN ALFA",
+    "ARGATROBAN",
+    "BIVALIRUDIN",
+    "DABIGATRAN",
+    "DABIGATRAN ETEXILATE",
+    "DABIGATRAN ETEXILATE MESYLATE",
+    "DEFIBROTIDE",
+    "DESIRUDIN"
+   ],
+   "association_score": 0.7084007600918842,
+   "score_by_datatype": {
+    "literature": 0.3591719608600941,
+    "genetic_association": 0.7813141230105604,
+    "clinical": 0.9012480067263033
+   },
+   "n_approved_binders_moa": 4,
+   "n_approved_binders_annotated": 12,
+   "n_approved_binders_bioactivity": 13,
+   "n_approved_biologic_binders": 2,
+   "n_approved_peptide_binders": 1,
+   "known_approved_drugs": [
+    "argatroban",
+    "bivalirudin",
+    "dabigatran etexilate",
+    "ximelagatran"
+   ],
+   "approved_binders_offtarget_only": [
+    "apixaban",
+    "betrixaban",
+    "bortezomib",
+    "captopril",
+    "cianidanol",
+    "nafamostat",
+    "phenindione",
+    "sitosterol"
+   ],
+   "approved_biologic_binders": [
+    {
+     "name": "bivalirudin",
+     "modality": "peptide",
+     "action": "INHIBITOR"
+    },
+    {
+     "name": "lepirudin",
+     "modality": "other",
+     "action": "INHIBITOR"
+    }
+   ],
+   "corpus_symbols_matched": [
+    "F2"
+   ],
+   "target_class": [
+    "Enzyme",
+    "Protease"
+   ],
+   "target_class_detail": [
+    {
+     "label": "Serine protease",
+     "level": "l3"
+    },
+    {
+     "label": "Enzyme",
+     "level": "l1"
+    },
+    {
+     "label": "Serine protease PA clan",
+     "level": "l4"
+    },
+    {
+     "label": "Serine protease S1A subfamily",
+     "level": "l5"
+    },
+    {
+     "label": "Protease",
+     "level": "l2"
+    }
+   ],
+   "tractability": {
+    "antibody": [
+     "Advanced Clinical",
+     "GO CC high conf",
+     "UniProt SigP or TMHMM",
+     "UniProt loc med conf"
+    ],
+    "other": [
+     "Approved Drug"
+    ],
+    "protac": [
+     "Half-life Data",
+     "Small Molecule Binder"
+    ],
+    "small_molecule": [
+     "Approved Drug",
+     "Druggable Family",
+     "High-Quality Ligand",
+     "High-Quality Pocket",
+     "Structure with Ligand"
+    ]
+   },
+   "n_safety_liabilities": 3,
+   "safety_flags": [
+    "Impaired recruitment , Population trajectory",
+    "deep vein thrombosis",
+    "hemorrhagic events"
+   ],
+   "safety_sources": [
+    "AOP-Wiki",
+    "ClinPGx",
+    "Urban et al. (2012)"
+   ],
+   "circularity": {
+    "known_drug_datatype_id": "clinical",
+    "known_drug_score": 0.9012480067263033,
+    "known_drug_share_of_datatype_sum": 0.4414,
+    "known_drug_is_largest_datatype": true,
+    "largest_datatype": "clinical",
+    "known_drug_dominated": true,
+    "circularity_note": "known-drug evidence is this target's single largest datatype (0.901, 44% of the datatype-score sum); a 'discovery' of its approved drugs is partly a lookup of the evidence that ranked it"
+   },
+   "uniprot_sites": {
+    "sequence_length": 622,
+    "active_sites": [
+     {
+      "position": 406,
+      "residue": "H",
+      "description": "Charge relay system"
+     },
+     {
+      "position": 462,
+      "residue": "D",
+      "description": "Charge relay system"
+     },
+     {
+      "position": 568,
+      "residue": "S",
+      "description": "Charge relay system"
+     }
+    ],
+    "site_anchors": [
+     568
+    ],
+    "site_anchor_rule": "UniProt ACT_SITE positions whose residue is S/C/T (the catalytic nucleophile). His/Asp members of a charge-relay triad are excluded: they sit behind the nucleophile and a sphere over all three reaches into the core rather than the ligand site.",
+    "mature_chains": [
+     {
+      "description": "Prothrombin",
+      "start": 44,
+      "end": 622
+     },
+     {
+      "description": "Thrombin light chain",
+      "start": 315,
+      "end": 363
+     },
+     {
+      "description": "Thrombin heavy chain",
+      "start": 364,
+      "end": 622
+     }
+    ]
+   },
+   "structure": {
+    "structure_status": "ok",
+    "n_entities_total": 900,
+    "n_entities_ligand_bound_total": 199,
+    "n_entities_examined": 120,
+    "n_entries_examined": 64,
+    "n_entries_usable": 27,
+    "n_entries_rejected": 37,
+    "reject_reason_counts": {
+     "co_crystallised_peptide_polymer_chain": 37
+    },
+    "structure": {
+     "pdb_id": "1SHH",
+     "method": "X-ray",
+     "resolution_a": 1.55,
+     "chain": "B",
+     "chain_entity_length_aa": 259,
+     "target_entities": [
+      {
+       "entity_id": "1SHH_1",
+       "length_aa": 36,
+       "polymer_type": "polypeptide(L)",
+       "auth_chain_ids": [
+        "A",
+        "D"
+       ],
+       "description": "thrombin",
+       "accessions": [
+        "P00734"
+       ]
+      },
+      {
+       "entity_id": "1SHH_2",
+       "length_aa": 259,
+       "polymer_type": "polypeptide(L)",
+       "auth_chain_ids": [
+        "B",
+        "E"
+       ],
+       "description": "thrombin",
+       "accessions": [
+        "P00734"
+       ]
+      }
+     ],
+     "foreign_peptide_chains": [],
+     "foreign_polymer_chains": [],
+     "drug_like_ligands": [
+      "0G6"
+     ],
+     "all_het_comp_ids": [
+      "NAG",
+      "0G6"
+     ],
+     "apo_or_holo": "holo"
+    },
+    "rejected_better_resolution": [
+     {
+      "pdb_id": "5AHG",
+      "resolution_a": 1.24,
+      "reject_reason": "co_crystallised_peptide_polymer_chain",
+      "reject_detail": [
+       "5AHG_2 HIRUDIN VARIANT-2 (12 aa)"
+      ]
+     },
+     {
+      "pdb_id": "5AFY",
+      "resolution_a": 1.12,
+      "reject_reason": "co_crystallised_peptide_polymer_chain",
+      "reject_detail": [
+       "5AFY_2 Hirudin-2 (12 aa)"
+      ]
+     },
+     {
+      "pdb_id": "5AF9",
+      "resolution_a": 1.18,
+      "reject_reason": "co_crystallised_peptide_polymer_chain",
+      "reject_detail": [
+       "5AF9_2 HIRUDIN VARIANT-2 (12 aa)"
+      ]
+     },
+     {
+      "pdb_id": "4UEH",
+      "resolution_a": 1.16,
+      "reject_reason": "co_crystallised_peptide_polymer_chain",
+      "reject_detail": [
+       "4UEH_2 HIRUDIN VARIANT-2 (12 aa)"
+      ]
+     },
+     {
+      "pdb_id": "4UE7",
+      "resolution_a": 1.129,
+      "reject_reason": "co_crystallised_peptide_polymer_chain",
+      "reject_detail": [
+       "4UE7_2 HIRUDIN VARIANT-2 (12 aa)"
+      ]
+     },
+     {
+      "pdb_id": "4UDW",
+      "resolution_a": 1.16,
+      "reject_reason": "co_crystallised_peptide_polymer_chain",
+      "reject_detail": [
+       "4UDW_2 HIRUDIN VARIANT-2 (11 aa)"
+      ]
+     },
+     {
+      "pdb_id": "4UD9",
+      "resolution_a": 1.124,
+      "reject_reason": "co_crystallised_peptide_polymer_chain",
+      "reject_detail": [
+       "4UD9_2 Hirudin-2 (12 aa)"
+      ]
+     },
+     {
+      "pdb_id": "3RM2",
+      "resolution_a": 1.23,
+      "reject_reason": "co_crystallised_peptide_polymer_chain",
+      "reject_detail": [
+       "3RM2_3 Hirudin variant-2 (13 aa)"
+      ]
+     },
+     {
+      "pdb_id": "6FJT",
+      "resolution_a": 1.27,
+      "reject_reason": "co_crystallised_peptide_polymer_chain",
+      "reject_detail": [
+       "6FJT_3 Hirudin variant-2 (11 aa)"
+      ]
+     },
+     {
+      "pdb_id": "5MM6",
+      "resolution_a": 1.29,
+      "reject_reason": "co_crystallised_peptide_polymer_chain",
+      "reject_detail": [
+       "5MM6_3 Hirudin variant-2 (12 aa)"
+      ]
+     }
+    ],
+    "runner_up_entries": [
+     {
+      "pdb_id": "2OD3",
+      "chain": "B",
+      "resolution_a": 1.75,
+      "apo_or_holo": "holo"
+     },
+     {
+      "pdb_id": "2PGQ",
+      "chain": "B",
+      "resolution_a": 1.8,
+      "apo_or_holo": "holo"
+     },
+     {
+      "pdb_id": "4RKO",
+      "chain": "B",
+      "resolution_a": 1.84,
+      "apo_or_holo": "holo"
+     },
+     {
+      "pdb_id": "1XMN",
+      "chain": "B",
+      "resolution_a": 1.85,
+      "apo_or_holo": "holo"
+     },
+     {
+      "pdb_id": "6Z8V",
+      "chain": "H",
+      "resolution_a": 1.58,
+      "apo_or_holo": "holo"
+     }
+    ]
+   },
+   "literature_query": "(TITLE_ABS:\"F2\" OR TITLE_ABS:\"RPRGL2\" OR TITLE_ABS:\"THPH1\") AND TITLE_ABS:\"venous thromboembolism\" AND (TITLE_ABS:\"inhibitor\" OR TITLE_ABS:\"inhibition\" OR TITLE_ABS:\"binder\" OR TITLE_ABS:\"antagonist\" OR TITLE_ABS:\"blockade\") AND (HAS_ABSTRACT:Y) AND (SRC:MED)",
+   "literature_hit_count": 5,
+   "literature": [
+    {
+     "pmid": "38925156",
+     "title": "High Prevalence of F2 20210G > A in Splanchnic Vein Thrombosis and Cerebral Venous Sinus Thrombosis: A Retrospective Cohort Study of Patients with Thrombosis in Atypical Sites.",
+     "year": "2026",
+     "journal": "Hamostaseologie",
+     "claim": "While the prevalence of inhibitor deficiencies and factor V Leiden mutation did not differ between cohorts, the prevalence of F2 20210G > A was higher in SVT (15.7%, p = 0.003) and CVST (15.9%, p = 0.003) than in typical VTE (7.0%).",
+     "claim_tier": "target+term",
+     "claim_alias": "F2",
+     "doi": "10.1055/a-2329-1798",
+     "title_verified": true,
+     "verification": "match"
+    },
+    {
+     "pmid": "41303772",
+     "title": "Population-Based Genetic Assessment of Thrombophilia Polymorphisms: Allelic Frequencies and Population Linkage Dynamics.",
+     "year": "2025",
+     "journal": "Medicina (Kaunas, Lithuania)",
+     "claim": "Five thrombophilia-related polymorphisms, Factor V Leiden (F5 G1691A), prothrombin (F2 G20210A), methylenetetrahydrofolate reductase (MTHFR C677T and MTHFR A1298C), and Plasminogen Activator Inhibitor-1 (PAI-1) 4G/5G, were examined for allele and genotype frequencies, Hardy-Weinberg equilibrium testing, pairwise linkage disequilibrium (D' and r2), and power analysis.",
+     "claim_tier": "target+term",
+     "claim_alias": "F2",
+     "doi": "10.3390/medicina61111935",
+     "title_verified": true,
+     "verification": "match"
+    }
+   ],
+   "literature_dropped_failed_verification": [],
+   "literature_status": "ok",
+   "site_type_hint": "pocket",
+   "site_type_evidence": "chosen structure 1SHH binds 0G6 as HETATM",
+   "preferred_modalities": [
+    "small_molecule",
+    "peptide",
+    "biologic"
+   ],
+   "preferred_modalities_rule": "a modality is listed only where an approved drug of that kind binds this target in the local corpora, or (small_molecule) the chosen structure carries a drug-like HETATM ligand",
+   "opentargets_tractability_modalities": [
+    "antibody",
+    "other",
+    "protac",
+    "small_molecule"
+   ],
+   "gate_has_approved_positive_control": true,
+   "gate_has_usable_structure": true,
+   "usable_for_pipeline": true,
+   "unusable_reasons": [],
+   "pipeline_config": {
+    "symbol": "F2",
+    "uniprot": "P00734",
+    "pdb_id": "1SHH",
+    "chain": "B",
+    "out": "f2",
+    "protocol": "peptide-anything",
+    "binder_length": "8..16",
+    "site_anchors": [
+     568
+    ]
+   },
+   "pipeline_rank": 2
+  },
+  {
+   "rank": 4,
+   "ensembl_id": "ENSG00000184500",
+   "approved_symbol": "PROS1",
+   "approved_name": "protein S",
+   "biotype": "protein_coding",
+   "symbol_synonyms": [
+    "PROS",
+    "PROS1",
+    "PS21",
+    "PS22",
+    "PS23",
+    "PS24",
+    "PS25",
+    "PSA",
+    "THPH5",
+    "THPH6"
+   ],
+   "uniprot": "P07225",
+   "uniprot_source": "opentargets_proteinIds:uniprot_swissprot",
+   "overall_association_score": 0.6846908538285136,
+   "datatype_scores": {
+    "genetic_association": 0.8903222818292417,
+    "known_drug": null,
+    "literature": 0.6012725202484424,
+    "rna_expression": null,
+    "somatic_mutation": null,
+    "animal_model": null,
+    "affected_pathway": null
+   },
+   "all_datatype_scores": {
+    "literature": 0.6012725202484424,
+    "genetic_association": 0.8903222818292417
+   },
+   "known_drug_datatype_id": null,
+   "known_drug_score": null,
+   "has_known_drug_evidence": false,
+   "n_drug_and_clinical_candidates": 2,
+   "n_drug_rows_returned": 2,
+   "drug_rows_complete": true,
+   "n_approved_drugs": 0,
+   "approved_drug_examples": [],
+   "association_score": 0.6846908538285136,
+   "score_by_datatype": {
+    "literature": 0.6012725202484424,
+    "genetic_association": 0.8903222818292417
+   },
+   "n_approved_binders_moa": 0,
+   "n_approved_binders_annotated": 0,
+   "n_approved_binders_bioactivity": 0,
+   "n_approved_biologic_binders": 0,
+   "n_approved_peptide_binders": 0,
+   "known_approved_drugs": [],
+   "approved_binders_offtarget_only": [],
+   "approved_biologic_binders": [],
+   "corpus_symbols_matched": [],
+   "target_class": [
+    "Unclassified protein"
+   ],
+   "target_class_detail": [
+    {
+     "label": "Unclassified protein",
+     "level": "l1"
+    }
+   ],
+   "tractability": {
+    "antibody": [
+     "GO CC high conf",
+     "UniProt SigP or TMHMM",
+     "UniProt loc med conf"
+    ],
+    "protac": [
+     "Half-life Data"
+    ]
+   },
+   "n_safety_liabilities": 0,
+   "safety_flags": [],
+   "safety_sources": [],
+   "circularity": {
+    "known_drug_datatype_id": null,
+    "known_drug_score": null,
+    "known_drug_share_of_datatype_sum": null,
+    "known_drug_is_largest_datatype": false,
+    "known_drug_dominated": false,
+    "circularity_note": "no known-drug datatype on this target"
+   },
+   "uniprot_sites": {
+    "sequence_length": 676,
+    "active_sites": [],
+    "site_anchors": [],
+    "site_anchor_rule": "UniProt ACT_SITE positions whose residue is S/C/T (the catalytic nucleophile). His/Asp members of a charge-relay triad are excluded: they sit behind the nucleophile and a sphere over all three reaches into the core rather than the ligand site.",
+    "mature_chains": [
+     {
+      "description": "Vitamin K-dependent protein S",
+      "start": 42,
+      "end": 676
+     }
+    ]
+   },
+   "structure": {
+    "structure_status": "no_xray_entity_maps_to_this_accession",
+    "n_entities_total": 0,
+    "n_entities_ligand_bound_total": 0,
+    "n_entities_examined": 0,
+    "structure": null
+   },
+   "literature_query": "(TITLE_ABS:\"PROS1\" OR TITLE_ABS:\"PROS\" OR TITLE_ABS:\"PS21\" OR TITLE_ABS:\"PS22\" OR TITLE_ABS:\"PS23\" OR TITLE_ABS:\"PS24\" OR TITLE_ABS:\"PS25\") AND TITLE_ABS:\"venous thromboembolism\" AND (TITLE_ABS:\"inhibitor\" OR TITLE_ABS:\"inhibition\" OR TITLE_ABS:\"binder\" OR TITLE_ABS:\"antagonist\" OR TITLE_ABS:\"blockade\") AND (HAS_ABSTRACT:Y) AND (SRC:MED)",
+   "literature_hit_count": 7,
+   "literature": [
+    {
+     "pmid": "39243859",
+     "title": "Development of an assay using a modified coagulation factor V to measure protein S activity.",
+     "year": "2024",
+     "journal": "Journal of thrombosis and haemostasis : JTH",
+     "claim": "We then sequenced all exons of PROS1 from 47 subjects with <60% activity in either the FVm cleavage assay or the clot-based assay.",
+     "claim_tier": "target-only",
+     "claim_alias": "PROS1",
+     "doi": "10.1016/j.jtha.2024.08.010",
+     "title_verified": true,
+     "verification": "match"
+    },
+    {
+     "pmid": "30669159",
+     "title": "Clinical Manifestation and Mutation Spectrum of 53 Unrelated Pedigrees with Protein S Deficiency in China.",
+     "year": "2019",
+     "journal": "Thrombosis and haemostasis",
+     "claim": "Genetic analysis of PROS1 including direct sequencing, copy number variant detection and messenger ribonucleic acid analysis was performed in probands and related family members.",
+     "claim_tier": "target-only",
+     "claim_alias": "PROS1",
+     "doi": "10.1055/s-0038-1677031",
+     "title_verified": true,
+     "verification": "match"
+    }
+   ],
+   "literature_dropped_failed_verification": [],
+   "literature_status": "ok",
+   "site_type_hint": "unknown",
+   "site_type_evidence": "no structure selected",
+   "preferred_modalities": [
+    "unknown"
+   ],
+   "preferred_modalities_rule": "a modality is listed only where an approved drug of that kind binds this target in the local corpora, or (small_molecule) the chosen structure carries a drug-like HETATM ligand",
+   "opentargets_tractability_modalities": [
+    "antibody",
+    "protac"
+   ],
+   "gate_has_approved_positive_control": false,
+   "gate_has_usable_structure": false,
+   "usable_for_pipeline": false,
+   "unusable_reasons": [
+    "no approved drug has PROS1 as its mechanism-of-action target (0 off-target annotations, 0 pchembl-backed) - the matching arms would have no positive control",
+    "no usable structure (no_xray_entity_maps_to_this_accession)"
+   ],
+   "pipeline_config": null
+  },
+  {
+   "rank": 5,
+   "ensembl_id": "ENSG00000117601",
+   "approved_symbol": "SERPINC1",
+   "approved_name": "serpin family C member 1",
+   "biotype": "protein_coding",
+   "symbol_synonyms": [
+    "AT3",
+    "AT3D",
+    "ATIII",
+    "ATIII-R2",
+    "ATIII-T1",
+    "ATIII-T2",
+    "MGC22579",
+    "PRO0309",
+    "SERPINC1",
+    "THPH7"
+   ],
+   "uniprot": "P01008",
+   "uniprot_source": "opentargets_proteinIds:uniprot_swissprot",
+   "overall_association_score": 0.6611523105372568,
+   "datatype_scores": {
+    "genetic_association": 0.3586607154076217,
+    "known_drug": 0.9604065020008311,
+    "literature": 0.1936240758821294,
+    "rna_expression": null,
+    "somatic_mutation": null,
+    "animal_model": null,
+    "affected_pathway": null
+   },
+   "all_datatype_scores": {
+    "literature": 0.1936240758821294,
+    "genetic_association": 0.3586607154076217,
+    "clinical": 0.9604065020008311
+   },
+   "known_drug_datatype_id": "clinical",
+   "known_drug_score": 0.9604065020008311,
+   "has_known_drug_evidence": true,
+   "n_drug_and_clinical_candidates": 12,
+   "n_drug_rows_returned": 12,
+   "drug_rows_complete": true,
+   "n_approved_drugs": 10,
+   "approved_drug_examples": [
+    "DALTEPARIN SODIUM",
+    "DANAPAROID SODIUM",
+    "ENOXAPARIN SODIUM",
+    "FONDAPARINUX",
+    "FONDAPARINUX SODIUM",
+    "HEPARIN",
+    "HEPARIN CALCIUM",
+    "HEPARIN SODIUM"
+   ],
+   "association_score": 0.6611523105372568,
+   "score_by_datatype": {
+    "literature": 0.1936240758821294,
+    "genetic_association": 0.3586607154076217,
+    "clinical": 0.9604065020008311
+   },
+   "n_approved_binders_moa": 1,
+   "n_approved_binders_annotated": 1,
+   "n_approved_binders_bioactivity": 0,
+   "n_approved_biologic_binders": 0,
+   "n_approved_peptide_binders": 0,
+   "known_approved_drugs": [
+    "fondaparinux"
+   ],
+   "approved_binders_offtarget_only": [],
+   "approved_biologic_binders": [],
+   "corpus_symbols_matched": [
+    "SERPINC1"
+   ],
+   "target_class": [
+    "Secreted protein"
+   ],
+   "target_class_detail": [
+    {
+     "label": "Secreted protein",
+     "level": "l1"
+    }
+   ],
+   "tractability": {
+    "antibody": [
+     "GO CC high conf",
+     "UniProt SigP or TMHMM",
+     "UniProt loc med conf"
+    ],
+    "other": [
+     "Approved Drug"
+    ],
+    "protac": [
+     "Small Molecule Binder"
+    ],
+    "small_molecule": [
+     "Druggable Family",
+     "High-Quality Pocket",
+     "Structure with Ligand"
+    ]
+   },
+   "n_safety_liabilities": 1,
+   "safety_flags": [
+    "thrombocytopenia"
+   ],
+   "safety_sources": [
+    "ClinPGx"
+   ],
+   "circularity": {
+    "known_drug_datatype_id": "clinical",
+    "known_drug_score": 0.9604065020008311,
+    "known_drug_share_of_datatype_sum": 0.6349,
+    "known_drug_is_largest_datatype": true,
+    "largest_datatype": "clinical",
+    "known_drug_dominated": true,
+    "circularity_note": "known-drug evidence is this target's single largest datatype (0.960, 63% of the datatype-score sum); a 'discovery' of its approved drugs is partly a lookup of the evidence that ranked it"
+   },
+   "uniprot_sites": {
+    "sequence_length": 464,
+    "active_sites": [],
+    "site_anchors": [],
+    "site_anchor_rule": "UniProt ACT_SITE positions whose residue is S/C/T (the catalytic nucleophile). His/Asp members of a charge-relay triad are excluded: they sit behind the nucleophile and a sphere over all three reaches into the core rather than the ligand site.",
+    "mature_chains": [
+     {
+      "description": "Antithrombin-III",
+      "start": 33,
+      "end": 464
+     }
+    ]
+   },
+   "structure": {
+    "structure_status": "ok",
+    "n_entities_total": 34,
+    "n_entities_ligand_bound_total": 23,
+    "n_entities_examined": 34,
+    "n_entries_examined": 27,
+    "n_entries_usable": 20,
+    "n_entries_rejected": 7,
+    "reject_reason_counts": {
+     "co_crystallised_peptide_polymer_chain": 7
+    },
+    "structure": {
+     "pdb_id": "1E04",
+     "method": "X-ray",
+     "resolution_a": 2.6,
+     "chain": "I",
+     "chain_entity_length_aa": 432,
+     "target_entities": [
+      {
+       "entity_id": "1E04_1",
+       "length_aa": 432,
+       "polymer_type": "polypeptide(L)",
+       "auth_chain_ids": [
+        "I",
+        "L"
+       ],
+       "description": "ANTITHROMBIN-III",
+       "accessions": [
+        "P01008"
+       ]
+      }
+     ],
+     "foreign_peptide_chains": [],
+     "foreign_polymer_chains": [],
+     "drug_like_ligands": [],
+     "all_het_comp_ids": [
+      "MAN",
+      "GOL",
+      "PO4"
+     ],
+     "apo_or_holo": "apo"
+    },
+    "rejected_better_resolution": [
+     {
+      "pdb_id": "2B5T",
+      "resolution_a": 2.1,
+      "reject_reason": "co_crystallised_peptide_polymer_chain",
+      "reject_detail": [
+       "2B5T_1 Thrombin (49 aa)"
+      ]
+     },
+     {
+      "pdb_id": "1TB6",
+      "resolution_a": 2.5,
+      "reject_reason": "co_crystallised_peptide_polymer_chain",
+      "reject_detail": [
+       "1TB6_1 thrombin (49 aa)"
+      ]
+     }
+    ],
+    "runner_up_entries": [
+     {
+      "pdb_id": "1NQ9",
+      "chain": "I",
+      "resolution_a": 2.6,
+      "apo_or_holo": "apo"
+     },
+     {
+      "pdb_id": "2ANT",
+      "chain": "I",
+      "resolution_a": 2.6,
+      "apo_or_holo": "apo"
+     },
+     {
+      "pdb_id": "1E05",
+      "chain": "I",
+      "resolution_a": 2.62,
+      "apo_or_holo": "apo"
+     },
+     {
+      "pdb_id": "1OYH",
+      "chain": "I",
+      "resolution_a": 2.62,
+      "apo_or_holo": "apo"
+     },
+     {
+      "pdb_id": "2BEH",
+      "chain": "I",
+      "resolution_a": 2.7,
+      "apo_or_holo": "apo"
+     }
+    ]
+   },
+   "literature_query": "(TITLE_ABS:\"SERPINC1\" OR TITLE_ABS:\"AT3D\" OR TITLE_ABS:\"ATIII-R2\" OR TITLE_ABS:\"ATIII-T1\" OR TITLE_ABS:\"ATIII-T2\" OR TITLE_ABS:\"MGC22579\" OR TITLE_ABS:\"PRO0309\") AND TITLE_ABS:\"venous thromboembolism\" AND (TITLE_ABS:\"inhibitor\" OR TITLE_ABS:\"inhibition\" OR TITLE_ABS:\"binder\" OR TITLE_ABS:\"antagonist\" OR TITLE_ABS:\"blockade\") AND (HAS_ABSTRACT:Y) AND (SRC:MED)",
+   "literature_hit_count": 7,
+   "literature": [
+    {
+     "pmid": "34783290",
+     "title": "Downregulation of microRNA-200c-3p alleviates the aggravation of venous thromboembolism by targeting serpin family C member 1.",
+     "year": "2021",
+     "journal": "Bioengineered",
+     "claim": "The results of reverse transcription quantitative polymerase-chain reaction (RT-qPCR) and western blotting showed that serpin family C member 1 (SERPINC1) was downregulated in VTE rat models and showed an inverse correlation with thrombus load.",
+     "claim_tier": "target-only",
+     "claim_alias": "SERPINC1",
+     "doi": "10.1080/21655979.2021.2005982",
+     "title_verified": true,
+     "verification": "match"
+    },
+    {
+     "pmid": "32450575",
+     "title": "Phenotypic and Genotypic Analysis of a Hereditary Antithrombin Deficiency Pedigree Due to a Novel SERPINC1 Mutation (p.Met281Thr).",
+     "year": "2020",
+     "journal": "Hamostaseologie",
+     "claim": "As a protease inhibitor belonging to the serpin superfamily, AT is able to inactivate thrombin and inhibit activated coagulation factors IX, X, XI, and XII (FIXa, FXa, FXIa, and FXIIa).1 Moreover, it has been found that AT can inhibit activated FVII (FVIIa) by accelerating dissociation of FVIIa-tissue factor complex and preventing it from recombining.2 The AT gene (SERPINC1), located on chromos...",
+     "claim_tier": "target+term",
+     "claim_alias": "SERPINC1",
+     "doi": "10.1055/a-1145-4224",
+     "title_verified": true,
+     "verification": "match"
+    }
+   ],
+   "literature_dropped_failed_verification": [],
+   "literature_status": "ok",
+   "site_type_hint": "unknown",
+   "site_type_evidence": "1E04 is apo and has no partner chain",
+   "preferred_modalities": [
+    "small_molecule"
+   ],
+   "preferred_modalities_rule": "a modality is listed only where an approved drug of that kind binds this target in the local corpora, or (small_molecule) the chosen structure carries a drug-like HETATM ligand",
+   "opentargets_tractability_modalities": [
+    "antibody",
+    "other",
+    "protac",
+    "small_molecule"
+   ],
+   "gate_has_approved_positive_control": true,
+   "gate_has_usable_structure": true,
+   "usable_for_pipeline": true,
+   "unusable_reasons": [],
+   "pipeline_config": {
+    "symbol": "SERPINC1",
+    "uniprot": "P01008",
+    "pdb_id": "1E04",
+    "chain": "I",
+    "out": "serpinc1",
+    "protocol": "protein-anything",
+    "binder_length": "60..90"
+   },
+   "pipeline_rank": 3
+  },
+  {
+   "rank": 6,
+   "ensembl_id": "ENSG00000088926",
+   "approved_symbol": "F11",
+   "approved_name": "coagulation factor XI",
+   "biotype": "protein_coding",
+   "symbol_synonyms": [
+    "F11",
+    "FXI",
+    "PTA"
+   ],
+   "uniprot": "P03951",
+   "uniprot_source": "opentargets_proteinIds:uniprot_swissprot",
+   "overall_association_score": 0.6442239784733832,
+   "datatype_scores": {
+    "genetic_association": 0.9217939962942506,
+    "known_drug": 0.5319394479101685,
+    "literature": 0.22143007764047024,
+    "rna_expression": null,
+    "somatic_mutation": null,
+    "animal_model": null,
+    "affected_pathway": null
+   },
+   "all_datatype_scores": {
+    "literature": 0.22143007764047024,
+    "genetic_association": 0.9217939962942506,
+    "clinical": 0.5319394479101685
+   },
+   "known_drug_datatype_id": "clinical",
+   "known_drug_score": 0.5319394479101685,
+   "has_known_drug_evidence": true,
+   "n_drug_and_clinical_candidates": 4,
+   "n_drug_rows_returned": 4,
+   "drug_rows_complete": true,
+   "n_approved_drugs": 1,
+   "approved_drug_examples": [
+    "HUMAN C1-ESTERASE INHIBITOR"
+   ],
+   "association_score": 0.6442239784733832,
+   "score_by_datatype": {
+    "literature": 0.22143007764047024,
+    "genetic_association": 0.9217939962942506,
+    "clinical": 0.5319394479101685
+   },
+   "n_approved_binders_moa": 0,
+   "n_approved_binders_annotated": 1,
+   "n_approved_binders_bioactivity": 0,
+   "n_approved_biologic_binders": 0,
+   "n_approved_peptide_binders": 0,
+   "known_approved_drugs": [],
+   "approved_binders_offtarget_only": [
+    "ximelagatran"
+   ],
+   "approved_biologic_binders": [],
+   "corpus_symbols_matched": [
+    "F11"
+   ],
+   "target_class": [
+    "Enzyme",
+    "Protease"
+   ],
+   "target_class_detail": [
+    {
+     "label": "Serine protease",
+     "level": "l3"
+    },
+    {
+     "label": "Enzyme",
+     "level": "l1"
+    },
+    {
+     "label": "Serine protease PA clan",
+     "level": "l4"
+    },
+    {
+     "label": "Serine protease S1A subfamily",
+     "level": "l5"
+    },
+    {
+     "label": "Protease",
+     "level": "l2"
+    }
+   ],
+   "tractability": {
+    "antibody": [
+     "Advanced Clinical",
+     "GO CC high conf",
+     "UniProt SigP or TMHMM",
+     "UniProt loc med conf"
+    ],
+    "other": [
+     "Approved Drug"
+    ],
+    "protac": [
+     "Half-life Data",
+     "Small Molecule Binder"
+    ],
+    "small_molecule": [
+     "Advanced Clinical",
+     "Druggable Family",
+     "High-Quality Ligand",
+     "Med-Quality Pocket",
+     "Structure with Ligand"
+    ]
+   },
+   "n_safety_liabilities": 1,
+   "safety_flags": [
+    "venous thrombosis"
+   ],
+   "safety_sources": [
+    "ClinPGx"
+   ],
+   "circularity": {
+    "known_drug_datatype_id": "clinical",
+    "known_drug_score": 0.5319394479101685,
+    "known_drug_share_of_datatype_sum": 0.3175,
+    "known_drug_is_largest_datatype": false,
+    "largest_datatype": "genetic_association",
+    "known_drug_dominated": false,
+    "circularity_note": "largest datatype is genetic_association (0.922); known-drug contributes 0.532"
+   },
+   "uniprot_sites": {
+    "sequence_length": 625,
+    "active_sites": [
+     {
+      "position": 431,
+      "residue": "H",
+      "description": "Charge relay system"
+     },
+     {
+      "position": 480,
+      "residue": "D",
+      "description": "Charge relay system"
+     },
+     {
+      "position": 575,
+      "residue": "S",
+      "description": "Charge relay system"
+     }
+    ],
+    "site_anchors": [
+     575
+    ],
+    "site_anchor_rule": "UniProt ACT_SITE positions whose residue is S/C/T (the catalytic nucleophile). His/Asp members of a charge-relay triad are excluded: they sit behind the nucleophile and a sphere over all three reaches into the core rather than the ligand site.",
+    "mature_chains": [
+     {
+      "description": "Coagulation factor XIa heavy chain",
+      "start": 19,
+      "end": 387
+     },
+     {
+      "description": "Coagulation factor XIa light chain",
+      "start": 388,
+      "end": 625
+     }
+    ]
+   },
+   "structure": {
+    "structure_status": "ok",
+    "n_entities_total": 120,
+    "n_entities_ligand_bound_total": 113,
+    "n_entities_examined": 62,
+    "n_entries_examined": 59,
+    "n_entries_usable": 59,
+    "n_entries_rejected": 0,
+    "reject_reason_counts": {},
+    "structure": {
+     "pdb_id": "7MBO",
+     "method": "X-ray",
+     "resolution_a": 0.924,
+     "chain": "A",
+     "chain_entity_length_aa": 238,
+     "target_entities": [
+      {
+       "entity_id": "7MBO_1",
+       "length_aa": 238,
+       "polymer_type": "polypeptide(L)",
+       "auth_chain_ids": [
+        "A"
+       ],
+       "description": "Coagulation factor XIa light chain",
+       "accessions": [
+        "P03951"
+       ]
+      }
+     ],
+     "foreign_peptide_chains": [],
+     "foreign_polymer_chains": [],
+     "drug_like_ligands": [
+      "YXG"
+     ],
+     "all_het_comp_ids": [
+      "YXG",
+      "NAG"
+     ],
+     "apo_or_holo": "holo"
+    },
+    "rejected_better_resolution": [],
+    "runner_up_entries": [
+     {
+      "pdb_id": "6TS4",
+      "chain": "A",
+      "resolution_a": 1.17,
+      "apo_or_holo": "holo"
+     },
+     {
+      "pdb_id": "4CRG",
+      "chain": "A",
+      "resolution_a": 1.25,
+      "apo_or_holo": "holo"
+     },
+     {
+      "pdb_id": "8BO6",
+      "chain": "AAA",
+      "resolution_a": 1.25,
+      "apo_or_holo": "holo"
+     },
+     {
+      "pdb_id": "8BO7",
+      "chain": "AAA",
+      "resolution_a": 1.25,
+      "apo_or_holo": "holo"
+     },
+     {
+      "pdb_id": "6USY",
+      "chain": "A",
+      "resolution_a": 1.26,
+      "apo_or_holo": "holo"
+     }
+    ]
+   },
+   "literature_query": "(TITLE_ABS:\"F11\") AND TITLE_ABS:\"venous thromboembolism\" AND (TITLE_ABS:\"inhibitor\" OR TITLE_ABS:\"inhibition\" OR TITLE_ABS:\"binder\" OR TITLE_ABS:\"antagonist\" OR TITLE_ABS:\"blockade\") AND (HAS_ABSTRACT:Y) AND (SRC:MED)",
+   "literature_hit_count": 1,
+   "literature": [
+    {
+     "pmid": "31766871",
+     "title": "Plasma Kallikrein Contributes to Coagulation in the Absence of Factor XI by Activating Factor IX.",
+     "year": "2020",
+     "journal": "Arteriosclerosis, thrombosis, and vascular biology",
+     "claim": "In addition, FIXa-AT complex formation was significantly increased in F11-/- mice treated with ellagic acid or long-chain polyphosphates compared with controls and this increase was significantly reduced by inhibition of PKa.",
+     "claim_tier": "target+term",
+     "claim_alias": "F11",
+     "doi": "10.1161/atvbaha.119.313503",
+     "title_verified": true,
+     "verification": "match"
+    }
+   ],
+   "literature_dropped_failed_verification": [],
+   "literature_status": "ok",
+   "site_type_hint": "pocket",
+   "site_type_evidence": "chosen structure 7MBO binds YXG as HETATM",
+   "preferred_modalities": [
+    "small_molecule"
+   ],
+   "preferred_modalities_rule": "a modality is listed only where an approved drug of that kind binds this target in the local corpora, or (small_molecule) the chosen structure carries a drug-like HETATM ligand",
+   "opentargets_tractability_modalities": [
+    "antibody",
+    "other",
+    "protac",
+    "small_molecule"
+   ],
+   "gate_has_approved_positive_control": false,
+   "gate_has_usable_structure": true,
+   "usable_for_pipeline": false,
+   "unusable_reasons": [
+    "no approved drug has F11 as its mechanism-of-action target (1 off-target annotations, 0 pchembl-backed) - the matching arms would have no positive control"
+   ],
+   "pipeline_config": null
+  },
+  {
+   "rank": 7,
+   "ensembl_id": "ENSG00000197943",
+   "approved_symbol": "PLCG2",
+   "approved_name": "phospholipase C gamma 2",
+   "biotype": "protein_coding",
+   "symbol_synonyms": [
+    "APLAID",
+    "FCAS3",
+    "LOC105369213",
+    "PLC-IV",
+    "PLC-gamma-2",
+    "PLCG2"
+   ],
+   "uniprot": "P16885",
+   "uniprot_source": "opentargets_proteinIds:uniprot_swissprot",
+   "overall_association_score": 0.5744425707098475,
+   "datatype_scores": {
+    "genetic_association": 0.9449144096115235,
+    "known_drug": null,
+    "literature": null,
+    "rna_expression": null,
+    "somatic_mutation": null,
+    "animal_model": null,
+    "affected_pathway": null
+   },
+   "all_datatype_scores": {
+    "genetic_association": 0.9449144096115235
+   },
+   "known_drug_datatype_id": null,
+   "known_drug_score": null,
+   "has_known_drug_evidence": false,
+   "n_drug_and_clinical_candidates": 0,
+   "n_drug_rows_returned": 0,
+   "drug_rows_complete": true,
+   "n_approved_drugs": 0,
+   "approved_drug_examples": [],
+   "association_score": 0.5744425707098475,
+   "score_by_datatype": {
+    "genetic_association": 0.9449144096115235
+   },
+   "n_approved_binders_moa": 0,
+   "n_approved_binders_annotated": 0,
+   "n_approved_binders_bioactivity": 0,
+   "n_approved_biologic_binders": 0,
+   "n_approved_peptide_binders": 0,
+   "known_approved_drugs": [],
+   "approved_binders_offtarget_only": [],
+   "approved_biologic_binders": [],
+   "corpus_symbols_matched": [],
+   "target_class": [
+    "Enzyme",
+    "Hydrolase"
+   ],
+   "target_class_detail": [
+    {
+     "label": "Enzyme",
+     "level": "l1"
+    },
+    {
+     "label": "Hydrolase",
+     "level": "l2"
+    }
+   ],
+   "tractability": {
+    "antibody": [
+     "GO CC high conf"
+    ],
+    "protac": [
+     "Database Ubiquitination",
+     "Half-life Data",
+     "Small Molecule Binder"
+    ],
+    "small_molecule": [
+     "Druggable Family",
+     "Structure with Ligand"
+    ]
+   },
+   "n_safety_liabilities": 0,
+   "safety_flags": [],
+   "safety_sources": [],
+   "circularity": {
+    "known_drug_datatype_id": null,
+    "known_drug_score": null,
+    "known_drug_share_of_datatype_sum": null,
+    "known_drug_is_largest_datatype": false,
+    "known_drug_dominated": false,
+    "circularity_note": "no known-drug datatype on this target"
+   },
+   "uniprot_sites": {
+    "sequence_length": 1265,
+    "active_sites": [
+     {
+      "position": 327,
+      "residue": "H",
+      "description": ""
+     },
+     {
+      "position": 372,
+      "residue": "H",
+      "description": ""
+     }
+    ],
+    "site_anchors": [],
+    "site_anchor_rule": "UniProt ACT_SITE positions whose residue is S/C/T (the catalytic nucleophile). His/Asp members of a charge-relay triad are excluded: they sit behind the nucleophile and a sphere over all three reaches into the core rather than the ligand site.",
+    "mature_chains": [
+     {
+      "description": "1-phosphatidylinositol 4,5-bisphosphate phosphodiesterase gamma-2",
+      "start": 1,
+      "end": 1265
+     }
+    ]
+   },
+   "structure": {
+    "structure_status": "ok",
+    "n_entities_total": 4,
+    "n_entities_ligand_bound_total": 1,
+    "n_entities_examined": 4,
+    "n_entries_examined": 3,
+    "n_entries_usable": 3,
+    "n_entries_rejected": 0,
+    "reject_reason_counts": {},
+    "structure": {
+     "pdb_id": "2W2X",
+     "method": "X-ray",
+     "resolution_a": 2.3,
+     "chain": "C",
+     "chain_entity_length_aa": 124,
+     "target_entities": [
+      {
+       "entity_id": "2W2X_2",
+       "length_aa": 124,
+       "polymer_type": "polypeptide(L)",
+       "auth_chain_ids": [
+        "C"
+       ],
+       "description": "1-PHOSPHATIDYLINOSITOL-4,5-BISPHOSPHATE PHOSPHODIESTERASE GAMMA-2",
+       "accessions": [
+        "P16885"
+       ]
+      },
+      {
+       "entity_id": "2W2X_3",
+       "length_aa": 124,
+       "polymer_type": "polypeptide(L)",
+       "auth_chain_ids": [
+        "D"
+       ],
+       "description": "1-PHOSPHATIDYLINOSITOL-4,5-BISPHOSPHATE PHOSPHODIESTERASE GAMMA-2",
+       "accessions": [
+        "P16885"
+       ]
+      }
+     ],
+     "foreign_peptide_chains": [],
+     "foreign_polymer_chains": [
+      {
+       "entity_id": "2W2X_1",
+       "length_aa": 185,
+       "polymer_type": "polypeptide(L)",
+       "auth_chain_ids": [
+        "A",
+        "B"
+       ],
+       "description": "RAS-RELATED C3 BOTULINUM TOXIN SUBSTRATE 2",
+       "accessions": [
+        "P15153"
+       ]
+      }
+     ],
+     "drug_like_ligands": [
+      "GSP"
+     ],
+     "all_het_comp_ids": [
+      "GSP",
+      "MG"
+     ],
+     "apo_or_holo": "holo"
+    },
+    "rejected_better_resolution": [],
+    "runner_up_entries": [
+     {
+      "pdb_id": "8T7C",
+      "chain": "A",
+      "resolution_a": 2.55,
+      "apo_or_holo": "apo"
+     },
+     {
+      "pdb_id": "2W2W",
+      "chain": "A",
+      "resolution_a": 2.8,
+      "apo_or_holo": "apo"
+     }
+    ]
+   },
+   "literature_query": "(TITLE_ABS:\"PLCG2\" OR TITLE_ABS:\"PLC-gamma-2\" OR TITLE_ABS:\"FCAS3\" OR TITLE_ABS:\"LOC105369213\" OR TITLE_ABS:\"APLAID\" OR TITLE_ABS:\"PLC-IV\") AND TITLE_ABS:\"venous thromboembolism\" AND (TITLE_ABS:\"inhibitor\" OR TITLE_ABS:\"inhibition\" OR TITLE_ABS:\"binder\" OR TITLE_ABS:\"antagonist\" OR TITLE_ABS:\"blockade\") AND (HAS_ABSTRACT:Y) AND (SRC:MED)",
+   "literature_hit_count": 1,
+   "literature": [
+    {
+     "pmid": "40972150",
+     "title": "The KRAS-G12D mutation drives venous thromboembolism (VTE) and colorectal cancer progression via MAPK/ERK signaling.",
+     "year": "2025",
+     "journal": "Translational oncology",
+     "claim": "Results: Integrating TCGA data, we constructed a KRAS-G12D-associated coagulation gene (PLCG2/MAPK12/C4B)-based prognostic model, where high-risk patients exhibited significantly reduced overall survival (HR=3.44) and superior 1-year AUC (0.718).",
+     "claim_tier": "target-only",
+     "claim_alias": "PLCG2",
+     "doi": "10.1016/j.tranon.2025.102529",
+     "title_verified": true,
+     "verification": "match"
+    }
+   ],
+   "literature_dropped_failed_verification": [],
+   "literature_status": "ok",
+   "site_type_hint": "pocket",
+   "site_type_evidence": "chosen structure 2W2X binds GSP as HETATM",
+   "preferred_modalities": [
+    "small_molecule"
+   ],
+   "preferred_modalities_rule": "a modality is listed only where an approved drug of that kind binds this target in the local corpora, or (small_molecule) the chosen structure carries a drug-like HETATM ligand",
+   "opentargets_tractability_modalities": [
+    "antibody",
+    "protac",
+    "small_molecule"
+   ],
+   "gate_has_approved_positive_control": false,
+   "gate_has_usable_structure": true,
+   "usable_for_pipeline": false,
+   "unusable_reasons": [
+    "no approved drug has PLCG2 as its mechanism-of-action target (0 off-target annotations, 0 pchembl-backed) - the matching arms would have no positive control"
+   ],
+   "pipeline_config": null
+  },
+  {
+   "rank": 8,
+   "ensembl_id": "ENSG00000198734",
+   "approved_symbol": "F5",
+   "approved_name": "coagulation factor V",
+   "biotype": "protein_coding",
+   "symbol_synonyms": [
+    "F5",
+    "FVL",
+    "PCCF",
+    "RPRGL1",
+    "THPH2",
+    "fV"
+   ],
+   "uniprot": "P12259",
+   "uniprot_source": "opentargets_proteinIds:uniprot_swissprot",
+   "overall_association_score": 0.5614232684355462,
+   "datatype_scores": {
+    "genetic_association": 0.9082363951320708,
+    "known_drug": null,
+    "literature": 0.3052450166846298,
+    "rna_expression": null,
+    "somatic_mutation": null,
+    "animal_model": null,
+    "affected_pathway": null
+   },
+   "all_datatype_scores": {
+    "literature": 0.3052450166846298,
+    "genetic_association": 0.9082363951320708
+   },
+   "known_drug_datatype_id": null,
+   "known_drug_score": null,
+   "has_known_drug_evidence": false,
+   "n_drug_and_clinical_candidates": 1,
+   "n_drug_rows_returned": 1,
+   "drug_rows_complete": true,
+   "n_approved_drugs": 1,
+   "approved_drug_examples": [
+    "DROTRECOGIN ALFA (ACTIVATED)"
+   ],
+   "association_score": 0.5614232684355462,
+   "score_by_datatype": {
+    "literature": 0.3052450166846298,
+    "genetic_association": 0.9082363951320708
+   },
+   "n_approved_binders_moa": 0,
+   "n_approved_binders_annotated": 0,
+   "n_approved_binders_bioactivity": 0,
+   "n_approved_biologic_binders": 0,
+   "n_approved_peptide_binders": 0,
+   "known_approved_drugs": [],
+   "approved_binders_offtarget_only": [],
+   "approved_biologic_binders": [],
+   "corpus_symbols_matched": [],
+   "target_class": [
+    "Secreted protein"
+   ],
+   "target_class_detail": [
+    {
+     "label": "Secreted protein",
+     "level": "l1"
+    }
+   ],
+   "tractability": {
+    "antibody": [
+     "GO CC high conf",
+     "UniProt SigP or TMHMM",
+     "UniProt loc med conf"
+    ],
+    "other": [
+     "Approved Drug"
+    ],
+    "protac": [
+     "Half-life Data",
+     "Small Molecule Binder"
+    ],
+    "small_molecule": [
+     "High-Quality Ligand",
+     "Structure with Ligand"
+    ]
+   },
+   "n_safety_liabilities": 1,
+   "safety_flags": [
+    "thrombosis"
+   ],
+   "safety_sources": [
+    "ClinPGx"
+   ],
+   "circularity": {
+    "known_drug_datatype_id": null,
+    "known_drug_score": null,
+    "known_drug_share_of_datatype_sum": null,
+    "known_drug_is_largest_datatype": false,
+    "known_drug_dominated": false,
+    "circularity_note": "no known-drug datatype on this target"
+   },
+   "uniprot_sites": {
+    "sequence_length": 2224,
+    "active_sites": [],
+    "site_anchors": [],
+    "site_anchor_rule": "UniProt ACT_SITE positions whose residue is S/C/T (the catalytic nucleophile). His/Asp members of a charge-relay triad are excluded: they sit behind the nucleophile and a sphere over all three reaches into the core rather than the ligand site.",
+    "mature_chains": [
+     {
+      "description": "Coagulation factor V",
+      "start": 29,
+      "end": 2224
+     },
+     {
+      "description": "Coagulation factor V heavy chain",
+      "start": 29,
+      "end": 737
+     },
+     {
+      "description": "Coagulation factor V light chain",
+      "start": 1574,
+      "end": 2224
+     }
+    ]
+   },
+   "structure": {
+    "structure_status": "ok",
+    "n_entities_total": 8,
+    "n_entities_ligand_bound_total": 2,
+    "n_entities_examined": 8,
+    "n_entries_examined": 8,
+    "n_entries_usable": 5,
+    "n_entries_rejected": 3,
+    "reject_reason_counts": {
+     "co_crystallised_peptide_polymer_chain": 3
+    },
+    "structure": {
+     "pdb_id": "1CZS",
+     "method": "X-ray",
+     "resolution_a": 1.9,
+     "chain": "A",
+     "chain_entity_length_aa": 160,
+     "target_entities": [
+      {
+       "entity_id": "1CZS_1",
+       "length_aa": 160,
+       "polymer_type": "polypeptide(L)",
+       "auth_chain_ids": [
+        "A"
+       ],
+       "description": "PROTEIN (COAGULATION FACTOR V)",
+       "accessions": [
+        "P12259"
+       ]
+      }
+     ],
+     "foreign_peptide_chains": [],
+     "foreign_polymer_chains": [],
+     "drug_like_ligands": [
+      "PHG"
+     ],
+     "all_het_comp_ids": [
+      "PHG"
+     ],
+     "apo_or_holo": "holo"
+    },
+    "rejected_better_resolution": [
+     {
+      "pdb_id": "9I24",
+      "resolution_a": 1.2,
+      "reject_reason": "co_crystallised_peptide_polymer_chain",
+      "reject_detail": [
+       "9I24_4 GLU-GLY-ARG-chloromethyl ketone inhibitor (EGRCK) (3 aa)"
+      ]
+     },
+     {
+      "pdb_id": "3P6Z",
+      "resolution_a": 1.7,
+      "reject_reason": "co_crystallised_peptide_polymer_chain",
+      "reject_detail": [
+       "3P6Z_1 Thrombin light chain (36 aa)"
+      ]
+     }
+    ],
+    "runner_up_entries": [
+     {
+      "pdb_id": "1CZT",
+      "chain": "A",
+      "resolution_a": 1.87,
+      "apo_or_holo": "apo"
+     },
+     {
+      "pdb_id": "1CZV",
+      "chain": "A",
+      "resolution_a": 2.4,
+      "apo_or_holo": "apo"
+     },
+     {
+      "pdb_id": "3S9C",
+      "chain": "B",
+      "resolution_a": 1.8,
+      "apo_or_holo": "apo"
+     },
+     {
+      "pdb_id": "9T00",
+      "chain": "B",
+      "resolution_a": 2.8,
+      "apo_or_holo": "apo"
+     }
+    ]
+   },
+   "literature_query": "(TITLE_ABS:\"F5\" OR TITLE_ABS:\"RPRGL1\" OR TITLE_ABS:\"THPH2\" OR TITLE_ABS:\"PCCF\") AND TITLE_ABS:\"venous thromboembolism\" AND (TITLE_ABS:\"inhibitor\" OR TITLE_ABS:\"inhibition\" OR TITLE_ABS:\"binder\" OR TITLE_ABS:\"antagonist\" OR TITLE_ABS:\"blockade\") AND (HAS_ABSTRACT:Y) AND (SRC:MED)",
+   "literature_hit_count": 5,
+   "literature": [
+    {
+     "pmid": "39365993",
+     "title": "The common VTE-protective G haplotype of F5 increases factor V-short, TFPI function, and risk of bleeding.",
+     "year": "2025",
+     "journal": "Blood advances",
+     "claim": "Abstract: The G haplotype is a group of co-inherited single nucleotide variants in the F5 gene that reduce venous thromboembolism (VTE) risk.",
+     "claim_tier": "target-only",
+     "claim_alias": "F5",
+     "doi": "10.1182/bloodadvances.2024014020",
+     "title_verified": true,
+     "verification": "match"
+    },
+    {
+     "pmid": "39793535",
+     "title": "Chemotherapy alters thrombomodulin and factor VIIIc expression resulting in acquired activated protein C resistance and enhanced thrombin generation in cancer associated thrombosis.",
+     "year": "2025",
+     "journal": "Thrombosis research",
+     "claim": "F5 mRNA levels were lower in tumours from VTE(+) patients compared with controls.",
+     "claim_tier": "target-only",
+     "claim_alias": "F5",
+     "doi": "10.1016/j.thromres.2024.109251",
+     "title_verified": true,
+     "verification": "match"
+    }
+   ],
+   "literature_dropped_failed_verification": [],
+   "literature_status": "ok",
+   "site_type_hint": "pocket",
+   "site_type_evidence": "chosen structure 1CZS binds PHG as HETATM",
+   "preferred_modalities": [
+    "small_molecule"
+   ],
+   "preferred_modalities_rule": "a modality is listed only where an approved drug of that kind binds this target in the local corpora, or (small_molecule) the chosen structure carries a drug-like HETATM ligand",
+   "opentargets_tractability_modalities": [
+    "antibody",
+    "other",
+    "protac",
+    "small_molecule"
+   ],
+   "gate_has_approved_positive_control": false,
+   "gate_has_usable_structure": true,
+   "usable_for_pipeline": false,
+   "unusable_reasons": [
+    "no approved drug has F5 as its mechanism-of-action target (0 off-target annotations, 0 pchembl-backed) - the matching arms would have no positive control"
+   ],
+   "pipeline_config": null
+  },
+  {
+   "rank": 9,
+   "ensembl_id": "ENSG00000175164",
+   "approved_symbol": "ABO",
+   "approved_name": "ABO, alpha 1-3-N-acetylgalactosaminyltransferase and alpha 1-3-galactosyltransferase",
+   "biotype": "protein_coding",
+   "symbol_synonyms": [
+    "A transferase",
+    "A3GALNT",
+    "A3GALT1",
+    "ABO",
+    "B transferase",
+    "GTA",
+    "GTB",
+    "NAGAT"
+   ],
+   "uniprot": "P16442",
+   "uniprot_source": "uniprot_rest",
+   "overall_association_score": 0.5590027068207275,
+   "datatype_scores": {
+    "genetic_association": 0.9137309150478303,
+    "known_drug": null,
+    "literature": 0.11572181725692986,
+    "rna_expression": null,
+    "somatic_mutation": null,
+    "animal_model": null,
+    "affected_pathway": null
+   },
+   "all_datatype_scores": {
+    "literature": 0.11572181725692986,
+    "genetic_association": 0.9137309150478303
+   },
+   "known_drug_datatype_id": null,
+   "known_drug_score": null,
+   "has_known_drug_evidence": false,
+   "n_drug_and_clinical_candidates": 0,
+   "n_drug_rows_returned": 0,
+   "drug_rows_complete": true,
+   "n_approved_drugs": 0,
+   "approved_drug_examples": [],
+   "association_score": 0.5590027068207275,
+   "score_by_datatype": {
+    "literature": 0.11572181725692986,
+    "genetic_association": 0.9137309150478303
+   },
+   "n_approved_binders_moa": 0,
+   "n_approved_binders_annotated": 0,
+   "n_approved_binders_bioactivity": 0,
+   "n_approved_biologic_binders": 0,
+   "n_approved_peptide_binders": 0,
+   "known_approved_drugs": [],
+   "approved_binders_offtarget_only": [],
+   "approved_biologic_binders": [],
+   "corpus_symbols_matched": [],
+   "target_class": [
+    "Enzyme"
+   ],
+   "target_class_detail": [
+    {
+     "label": "Enzyme",
+     "level": "l1"
+    }
+   ],
+   "tractability": {},
+   "n_safety_liabilities": 3,
+   "safety_flags": [
+    "Cough",
+    "angiotensin-converting enzyme inhibitors-induced cough",
+    "venous thrombosis"
+   ],
+   "safety_sources": [
+    "ClinPGx"
+   ],
+   "circularity": {
+    "known_drug_datatype_id": null,
+    "known_drug_score": null,
+    "known_drug_share_of_datatype_sum": null,
+    "known_drug_is_largest_datatype": false,
+    "known_drug_dominated": false,
+    "circularity_note": "no known-drug datatype on this target"
+   },
+   "uniprot_sites": {
+    "sequence_length": 354,
+    "active_sites": [
+     {
+      "position": 303,
+      "residue": "E",
+      "description": "Nucleophile"
+     }
+    ],
+    "site_anchors": [],
+    "site_anchor_rule": "UniProt ACT_SITE positions whose residue is S/C/T (the catalytic nucleophile). His/Asp members of a charge-relay triad are excluded: they sit behind the nucleophile and a sphere over all three reaches into the core rather than the ligand site.",
+    "mature_chains": [
+     {
+      "description": "Histo-blood group ABO system transferase",
+      "start": 1,
+      "end": 354
+     },
+     {
+      "description": "Fucosylglycoprotein alpha-N-acetylgalactosaminyltransferase soluble form",
+      "start": 54,
+      "end": 354
+     }
+    ]
+   },
+   "structure": {
+    "structure_status": "ok",
+    "n_entities_total": 151,
+    "n_entities_ligand_bound_total": 142,
+    "n_entities_examined": 63,
+    "n_entries_examined": 63,
+    "n_entries_usable": 63,
+    "n_entries_rejected": 0,
+    "reject_reason_counts": {},
+    "structure": {
+     "pdb_id": "6GX2",
+     "method": "X-ray",
+     "resolution_a": 1.07,
+     "chain": "A",
+     "chain_entity_length_aa": 298,
+     "target_entities": [
+      {
+       "entity_id": "6GX2_1",
+       "length_aa": 298,
+       "polymer_type": "polypeptide(L)",
+       "auth_chain_ids": [
+        "A"
+       ],
+       "description": "ABO blood group (transferase A, alpha 1-3-N-acetylgalactosaminyltransferase transferase B, alpha 1-3-galactosyltransferase)",
+       "accessions": [
+        "P16442"
+       ]
+      }
+     ],
+     "foreign_peptide_chains": [],
+     "foreign_polymer_chains": [],
+     "drug_like_ligands": [
+      "UDP"
+     ],
+     "all_het_comp_ids": [
+      "UDP",
+      "GOL",
+      "SO4",
+      "EDO",
+      "MN"
+     ],
+     "apo_or_holo": "holo"
+    },
+    "rejected_better_resolution": [],
+    "runner_up_entries": [
+     {
+      "pdb_id": "5M7D",
+      "chain": "A",
+      "resolution_a": 1.2,
+      "apo_or_holo": "holo"
+     },
+     {
+      "pdb_id": "6GX0",
+      "chain": "A",
+      "resolution_a": 1.25,
+      "apo_or_holo": "holo"
+     },
+     {
+      "pdb_id": "4Y63",
+      "chain": "A",
+      "resolution_a": 1.3,
+      "apo_or_holo": "holo"
+     },
+     {
+      "pdb_id": "5M79",
+      "chain": "A",
+      "resolution_a": 1.3,
+      "apo_or_holo": "holo"
+     },
+     {
+      "pdb_id": "5M7A",
+      "chain": "A",
+      "resolution_a": 1.304,
+      "apo_or_holo": "holo"
+     }
+    ]
+   },
+   "literature_query": "(TITLE_ABS:\"ABO\" OR TITLE_ABS:\"A3GALNT\" OR TITLE_ABS:\"A3GALT1\" OR TITLE_ABS:\"NAGAT\") AND TITLE_ABS:\"venous thromboembolism\" AND (TITLE_ABS:\"inhibitor\" OR TITLE_ABS:\"inhibition\" OR TITLE_ABS:\"binder\" OR TITLE_ABS:\"antagonist\" OR TITLE_ABS:\"blockade\") AND (HAS_ABSTRACT:Y) AND (SRC:MED)",
+   "literature_hit_count": 5,
+   "literature": [
+    {
+     "pmid": "39586830",
+     "title": "The Plasma Proteome and Risk of Future Venous Thromboembolism-Results from the HUNT Study.",
+     "year": "2025",
+     "journal": "Thrombosis and haemostasis",
+     "claim": "Except for coagulation factor VIII and tumor necrosis factor soluble receptor II, these proteins were novel associations and included collagen alpha-3(VI):BPTI/Kunitz inhibitor, histo-blood group ABO system transferase, peroxidasin, human epididymis protein 4, and regulator of G protein signaling 3.",
+     "claim_tier": "target+term",
+     "claim_alias": "ABO",
+     "doi": "10.1055/a-2484-0836",
+     "title_verified": true,
+     "verification": "match"
+    },
+    {
+     "pmid": "33112684",
+     "title": "Oral Contraceptive Types in Relation to ABO Blood Groups Among Saudi Women of Different Reproductive Age Groups and Impact on Venous Thromboembolism.",
+     "year": "2020",
+     "journal": "Clinical and applied thrombosis/hemostasis : official journal of the International Academy of Clinical and Applied Thrombosis/Hemostasis",
+     "claim": "This study evaluated the effect of OC types in relation to ABO blood group on the risk of VTE among Saudi women.",
+     "claim_tier": "target-only",
+     "claim_alias": "ABO",
+     "doi": "10.1177/1076029620966051",
+     "title_verified": true,
+     "verification": "match"
+    }
+   ],
+   "literature_dropped_failed_verification": [],
+   "literature_status": "ok",
+   "site_type_hint": "pocket",
+   "site_type_evidence": "chosen structure 6GX2 binds UDP as HETATM",
+   "preferred_modalities": [
+    "small_molecule"
+   ],
+   "preferred_modalities_rule": "a modality is listed only where an approved drug of that kind binds this target in the local corpora, or (small_molecule) the chosen structure carries a drug-like HETATM ligand",
+   "opentargets_tractability_modalities": [],
+   "gate_has_approved_positive_control": false,
+   "gate_has_usable_structure": true,
+   "usable_for_pipeline": false,
+   "unusable_reasons": [
+    "no approved drug has ABO as its mechanism-of-action target (0 off-target annotations, 0 pchembl-backed) - the matching arms would have no positive control"
+   ],
+   "pipeline_config": null
+  },
+  {
+   "rank": 10,
+   "ensembl_id": "ENSG00000101000",
+   "approved_symbol": "PROCR",
+   "approved_name": "protein C receptor",
+   "biotype": "protein_coding",
+   "symbol_synonyms": [
+    "APC receptor",
+    "CCCA",
+    "CCD41",
+    "CD201",
+    "EPCR",
+    "PROCR"
+   ],
+   "uniprot": "Q9UNN8",
+   "uniprot_source": "opentargets_proteinIds:uniprot_swissprot",
+   "overall_association_score": 0.5526123828044142,
+   "datatype_scores": {
+    "genetic_association": 0.8966776244841322,
+    "known_drug": null,
+    "literature": 0.24655567313666168,
+    "rna_expression": null,
+    "somatic_mutation": null,
+    "animal_model": null,
+    "affected_pathway": null
+   },
+   "all_datatype_scores": {
+    "literature": 0.24655567313666168,
+    "genetic_association": 0.8966776244841322
+   },
+   "known_drug_datatype_id": null,
+   "known_drug_score": null,
+   "has_known_drug_evidence": false,
+   "n_drug_and_clinical_candidates": 0,
+   "n_drug_rows_returned": 0,
+   "drug_rows_complete": true,
+   "n_approved_drugs": 0,
+   "approved_drug_examples": [],
+   "association_score": 0.5526123828044142,
+   "score_by_datatype": {
+    "literature": 0.24655567313666168,
+    "genetic_association": 0.8966776244841322
+   },
+   "n_approved_binders_moa": 0,
+   "n_approved_binders_annotated": 0,
+   "n_approved_binders_bioactivity": 0,
+   "n_approved_biologic_binders": 0,
+   "n_approved_peptide_binders": 0,
+   "known_approved_drugs": [],
+   "approved_binders_offtarget_only": [],
+   "approved_biologic_binders": [],
+   "corpus_symbols_matched": [],
+   "target_class": [],
+   "target_class_detail": [],
+   "tractability": {
+    "antibody": [
+     "GO CC high conf",
+     "UniProt SigP or TMHMM"
+    ],
+    "small_molecule": [
+     "High-Quality Pocket",
+     "Structure with Ligand"
+    ]
+   },
+   "n_safety_liabilities": 0,
+   "safety_flags": [],
+   "safety_sources": [],
+   "circularity": {
+    "known_drug_datatype_id": null,
+    "known_drug_score": null,
+    "known_drug_share_of_datatype_sum": null,
+    "known_drug_is_largest_datatype": false,
+    "known_drug_dominated": false,
+    "circularity_note": "no known-drug datatype on this target"
+   },
+   "uniprot_sites": {
+    "sequence_length": 238,
+    "active_sites": [],
+    "site_anchors": [],
+    "site_anchor_rule": "UniProt ACT_SITE positions whose residue is S/C/T (the catalytic nucleophile). His/Asp members of a charge-relay triad are excluded: they sit behind the nucleophile and a sphere over all three reaches into the core rather than the ligand site.",
+    "mature_chains": [
+     {
+      "description": "Endothelial protein C receptor",
+      "start": 18,
+      "end": 238
+     }
+    ]
+   },
+   "structure": {
+    "structure_status": "ok",
+    "n_entities_total": 12,
+    "n_entities_ligand_bound_total": 12,
+    "n_entities_examined": 12,
+    "n_entries_examined": 12,
+    "n_entries_usable": 9,
+    "n_entries_rejected": 3,
+    "reject_reason_counts": {
+     "co_crystallised_peptide_polymer_chain": 3
+    },
+    "structure": {
+     "pdb_id": "7Q5D",
+     "method": "X-ray",
+     "resolution_a": 1.8,
+     "chain": "A",
+     "chain_entity_length_aa": 195,
+     "target_entities": [
+      {
+       "entity_id": "7Q5D_1",
+       "length_aa": 195,
+       "polymer_type": "polypeptide(L)",
+       "auth_chain_ids": [
+        "A"
+       ],
+       "description": "Endothelial protein C receptor",
+       "accessions": [
+        "Q9UNN8"
+       ]
+      }
+     ],
+     "foreign_peptide_chains": [],
+     "foreign_polymer_chains": [],
+     "drug_like_ligands": [
+      "PTY"
+     ],
+     "all_het_comp_ids": [
+      "GOL",
+      "PTY",
+      "CYS"
+     ],
+     "apo_or_holo": "holo"
+    },
+    "rejected_better_resolution": [
+     {
+      "pdb_id": "3JTC",
+      "resolution_a": 1.6,
+      "reject_reason": "co_crystallised_peptide_polymer_chain",
+      "reject_detail": [
+       "3JTC_2 Vitamin K-dependent protein C (33 aa)"
+      ]
+     },
+     {
+      "pdb_id": "1LQV",
+      "resolution_a": 1.6,
+      "reject_reason": "co_crystallised_peptide_polymer_chain",
+      "reject_detail": [
+       "1LQV_2 Vitamin-K dependent protein C (33 aa)"
+      ]
+     }
+    ],
+    "runner_up_entries": [
+     {
+      "pdb_id": "7OKS",
+      "chain": "A",
+      "resolution_a": 1.95,
+      "apo_or_holo": "holo"
+     },
+     {
+      "pdb_id": "7OKT",
+      "chain": "A",
+      "resolution_a": 1.95,
+      "apo_or_holo": "holo"
+     },
+     {
+      "pdb_id": "7OKU",
+      "chain": "A",
+      "resolution_a": 1.95,
+      "apo_or_holo": "holo"
+     },
+     {
+      "pdb_id": "1L8J",
+      "chain": "A",
+      "resolution_a": 2.0,
+      "apo_or_holo": "holo"
+     },
+     {
+      "pdb_id": "4V3D",
+      "chain": "B",
+      "resolution_a": 2.65,
+      "apo_or_holo": "holo"
+     }
+    ]
+   },
+   "literature_query": "(TITLE_ABS:\"PROCR\" OR TITLE_ABS:\"CCD41\" OR TITLE_ABS:\"CD201\" OR TITLE_ABS:\"CCCA\" OR TITLE_ABS:\"EPCR\") AND TITLE_ABS:\"venous thromboembolism\" AND (TITLE_ABS:\"inhibitor\" OR TITLE_ABS:\"inhibition\" OR TITLE_ABS:\"binder\" OR TITLE_ABS:\"antagonist\" OR TITLE_ABS:\"blockade\") AND (HAS_ABSTRACT:Y) AND (SRC:MED)",
+   "literature_hit_count": 3,
+   "literature": [
+    {
+     "pmid": "39846164",
+     "title": "Endothelium Modulates the Prothrombotic Phenotype of Factor V Leiden: Evidence From an Ex Vivo Model.",
+     "year": "2025",
+     "journal": "Arteriosclerosis, thrombosis, and vascular biology",
+     "claim": "Expression of TM (thrombomodulin) and EPCR (endothelial protein C receptor) on ECFCs was assessed using cell-based ELISAs.",
+     "claim_tier": "target-only",
+     "claim_alias": "EPCR",
+     "doi": "10.1161/atvbaha.124.322116",
+     "title_verified": true,
+     "verification": "match"
+    },
+    {
+     "pmid": "39793535",
+     "title": "Chemotherapy alters thrombomodulin and factor VIIIc expression resulting in acquired activated protein C resistance and enhanced thrombin generation in cancer associated thrombosis.",
+     "year": "2025",
+     "journal": "Thrombosis research",
+     "claim": "Thrombin generation, Factor V(FV), VIIIc(FVIIIc), Tissue Factor Pathway Inhibitor(TFPI), soluble Thrombomodulin(sTM), Protein S(PS), C(PC) endothelial protein C receptor(EPCR) and fibrinogen were compared in each group.",
+     "claim_tier": "target+term",
+     "claim_alias": "EPCR",
+     "doi": "10.1016/j.thromres.2024.109251",
+     "title_verified": true,
+     "verification": "match"
+    }
+   ],
+   "literature_dropped_failed_verification": [],
+   "literature_status": "ok",
+   "site_type_hint": "pocket",
+   "site_type_evidence": "chosen structure 7Q5D binds PTY as HETATM",
+   "preferred_modalities": [
+    "small_molecule"
+   ],
+   "preferred_modalities_rule": "a modality is listed only where an approved drug of that kind binds this target in the local corpora, or (small_molecule) the chosen structure carries a drug-like HETATM ligand",
+   "opentargets_tractability_modalities": [
+    "antibody",
+    "small_molecule"
+   ],
+   "gate_has_approved_positive_control": false,
+   "gate_has_usable_structure": true,
+   "usable_for_pipeline": false,
+   "unusable_reasons": [
+    "no approved drug has PROCR as its mechanism-of-action target (0 off-target annotations, 0 pchembl-backed) - the matching arms would have no positive control"
+   ],
+   "pipeline_config": null
+  },
+  {
+   "rank": 11,
+   "ensembl_id": "ENSG00000110799",
+   "approved_symbol": "VWF",
+   "approved_name": "von Willebrand factor",
+   "biotype": "protein_coding",
+   "symbol_synonyms": [
+    "F8VWF",
+    "VWD",
+    "VWF",
+    "vWF"
+   ],
+   "uniprot": "P04275",
+   "uniprot_source": "opentargets_proteinIds:uniprot_swissprot",
+   "overall_association_score": 0.5403281385172128,
+   "datatype_scores": {
+    "genetic_association": 0.877816003563154,
+    "known_drug": null,
+    "literature": 0.21965511012273167,
+    "rna_expression": null,
+    "somatic_mutation": null,
+    "animal_model": null,
+    "affected_pathway": null
+   },
+   "all_datatype_scores": {
+    "literature": 0.21965511012273167,
+    "genetic_association": 0.877816003563154
+   },
+   "known_drug_datatype_id": null,
+   "known_drug_score": null,
+   "has_known_drug_evidence": false,
+   "n_drug_and_clinical_candidates": 4,
+   "n_drug_rows_returned": 4,
+   "drug_rows_complete": true,
+   "n_approved_drugs": 3,
+   "approved_drug_examples": [
+    "CAPLACIZUMAB",
+    "VON WILLEBRAND FACTOR HUMAN",
+    "VONICOG ALFA"
+   ],
+   "association_score": 0.5403281385172128,
+   "score_by_datatype": {
+    "literature": 0.21965511012273167,
+    "genetic_association": 0.877816003563154
+   },
+   "n_approved_binders_moa": 0,
+   "n_approved_binders_annotated": 0,
+   "n_approved_binders_bioactivity": 0,
+   "n_approved_biologic_binders": 1,
+   "n_approved_peptide_binders": 0,
+   "known_approved_drugs": [],
+   "approved_binders_offtarget_only": [],
+   "approved_biologic_binders": [
+    {
+     "name": "caplacizumab",
+     "modality": "antibody_fragment",
+     "action": "INHIBITOR"
+    }
+   ],
+   "corpus_symbols_matched": [],
+   "target_class": [
+    "Adhesion"
+   ],
+   "target_class_detail": [
+    {
+     "label": "Adhesion",
+     "level": "l1"
+    }
+   ],
+   "tractability": {
+    "antibody": [
+     "Approved Drug",
+     "GO CC high conf",
+     "UniProt SigP or TMHMM",
+     "UniProt loc high conf"
+    ],
+    "other": [
+     "Approved Drug"
+    ],
+    "protac": [
+     "Database Ubiquitination"
+    ],
+    "small_molecule": [
+     "Med-Quality Pocket"
+    ]
+   },
+   "n_safety_liabilities": 0,
+   "safety_flags": [],
+   "safety_sources": [],
+   "circularity": {
+    "known_drug_datatype_id": null,
+    "known_drug_score": null,
+    "known_drug_share_of_datatype_sum": null,
+    "known_drug_is_largest_datatype": false,
+    "known_drug_dominated": false,
+    "circularity_note": "no known-drug datatype on this target"
+   },
+   "uniprot_sites": {
+    "sequence_length": 2813,
+    "active_sites": [],
+    "site_anchors": [],
+    "site_anchor_rule": "UniProt ACT_SITE positions whose residue is S/C/T (the catalytic nucleophile). His/Asp members of a charge-relay triad are excluded: they sit behind the nucleophile and a sphere over all three reaches into the core rather than the ligand site.",
+    "mature_chains": [
+     {
+      "description": "von Willebrand antigen 2",
+      "start": 23,
+      "end": 763
+     },
+     {
+      "description": "von Willebrand factor",
+      "start": 764,
+      "end": 2813
+     }
+    ]
+   },
+   "structure": {
+    "structure_status": "ok",
+    "n_entities_total": 30,
+    "n_entities_ligand_bound_total": 15,
+    "n_entities_examined": 30,
+    "n_entries_examined": 30,
+    "n_entries_usable": 30,
+    "n_entries_rejected": 0,
+    "reject_reason_counts": {},
+    "structure": {
+     "pdb_id": "5BV8",
+     "method": "X-ray",
+     "resolution_a": 1.59,
+     "chain": "A",
+     "chain_entity_length_aa": 249,
+     "target_entities": [
+      {
+       "entity_id": "5BV8_1",
+       "length_aa": 249,
+       "polymer_type": "polypeptide(L)",
+       "auth_chain_ids": [
+        "A"
+       ],
+       "description": "von Willebrand factor",
+       "accessions": [
+        "P04275"
+       ]
+      }
+     ],
+     "foreign_peptide_chains": [],
+     "foreign_polymer_chains": [],
+     "drug_like_ligands": [],
+     "all_het_comp_ids": [
+      "CL",
+      "EDO"
+     ],
+     "apo_or_holo": "apo"
+    },
+    "rejected_better_resolution": [],
+    "runner_up_entries": [
+     {
+      "pdb_id": "3ZQK",
+      "chain": "A",
+      "resolution_a": 1.7,
+      "apo_or_holo": "apo"
+     },
+     {
+      "pdb_id": "1ATZ",
+      "chain": "A",
+      "resolution_a": 1.8,
+      "apo_or_holo": "apo"
+     },
+     {
+      "pdb_id": "1IJB",
+      "chain": "A",
+      "resolution_a": 1.8,
+      "apo_or_holo": "apo"
+     },
+     {
+      "pdb_id": "3GXB",
+      "chain": "A",
+      "resolution_a": 1.9,
+      "apo_or_holo": "apo"
+     },
+     {
+      "pdb_id": "3PPV",
+      "chain": "A",
+      "resolution_a": 1.9,
+      "apo_or_holo": "apo"
+     }
+    ]
+   },
+   "literature_query": "(TITLE_ABS:\"VWF\" OR TITLE_ABS:\"F8VWF\") AND TITLE_ABS:\"venous thromboembolism\" AND (TITLE_ABS:\"inhibitor\" OR TITLE_ABS:\"inhibition\" OR TITLE_ABS:\"binder\" OR TITLE_ABS:\"antagonist\" OR TITLE_ABS:\"blockade\") AND (HAS_ABSTRACT:Y) AND (SRC:MED)",
+   "literature_hit_count": 21,
+   "literature": [
+    {
+     "pmid": "39416877",
+     "title": "Biomarkers of Prothrombotic State and Risk Assessment of Exacerbations in Patients with Chronic Obstructive Pulmonary Disease.",
+     "year": "2024",
+     "journal": "International journal of chronic obstructive pulmonary disease",
+     "claim": "Von Willebrand factor (vWF) and plasminogen activator inhibitor type-1 (PAI-1) are frequently investigated in COPD as crucial parameters for coagulation and fibrinolysis.",
+     "claim_tier": "target+term",
+     "claim_alias": "VWF",
+     "doi": "10.2147/copd.s466563",
+     "title_verified": true,
+     "verification": "match"
+    },
+    {
+     "pmid": "38421488",
+     "title": "The pathogenesis of cancer-associated thrombosis.",
+     "year": "2024",
+     "journal": "International journal of hematology",
+     "claim": "This review summarizes the specific pathways that contribute to VTE in cancer patients, with a particular focus on leukocytosis, neutrophil extracellular traps (NETs), tissue factor (TF), thrombocytosis, podoplanin (PDPN), plasminogen activator inhibitor-1 (PAI-1), the intrinsic coagulation pathway, and von Willebrand factor (VWF).",
+     "claim_tier": "target+term",
+     "claim_alias": "VWF",
+     "doi": "10.1007/s12185-024-03735-x",
+     "title_verified": true,
+     "verification": "match"
+    }
+   ],
+   "literature_dropped_failed_verification": [],
+   "literature_status": "ok",
+   "site_type_hint": "unknown",
+   "site_type_evidence": "5BV8 is apo and has no partner chain",
+   "preferred_modalities": [
+    "biologic"
+   ],
+   "preferred_modalities_rule": "a modality is listed only where an approved drug of that kind binds this target in the local corpora, or (small_molecule) the chosen structure carries a drug-like HETATM ligand",
+   "opentargets_tractability_modalities": [
+    "antibody",
+    "other",
+    "protac",
+    "small_molecule"
+   ],
+   "gate_has_approved_positive_control": false,
+   "gate_has_usable_structure": true,
+   "usable_for_pipeline": false,
+   "unusable_reasons": [
+    "no approved drug has VWF as its mechanism-of-action target (0 off-target annotations, 0 pchembl-backed) - the matching arms would have no positive control"
+   ],
+   "pipeline_config": null
+  },
+  {
+   "rank": 12,
+   "ensembl_id": "ENSG00000123843",
+   "approved_symbol": "C4BPB",
+   "approved_name": "complement component 4 binding protein beta",
+   "biotype": "protein_coding",
+   "symbol_synonyms": [
+    "C4BP",
+    "C4BPB"
+   ],
+   "uniprot": "P20851",
+   "uniprot_source": "opentargets_proteinIds:uniprot_swissprot",
+   "overall_association_score": 0.5349497748111322,
+   "datatype_scores": {
+    "genetic_association": 0.8799517591686263,
+    "known_drug": null,
+    "literature": null,
+    "rna_expression": null,
+    "somatic_mutation": null,
+    "animal_model": null,
+    "affected_pathway": null
+   },
+   "all_datatype_scores": {
+    "genetic_association": 0.8799517591686263
+   },
+   "known_drug_datatype_id": null,
+   "known_drug_score": null,
+   "has_known_drug_evidence": false,
+   "n_drug_and_clinical_candidates": 0,
+   "n_drug_rows_returned": 0,
+   "drug_rows_complete": true,
+   "n_approved_drugs": 0,
+   "approved_drug_examples": [],
+   "association_score": 0.5349497748111322,
+   "score_by_datatype": {
+    "genetic_association": 0.8799517591686263
+   },
+   "n_approved_binders_moa": 0,
+   "n_approved_binders_annotated": 0,
+   "n_approved_binders_bioactivity": 0,
+   "n_approved_biologic_binders": 0,
+   "n_approved_peptide_binders": 0,
+   "known_approved_drugs": [],
+   "approved_binders_offtarget_only": [],
+   "approved_biologic_binders": [],
+   "corpus_symbols_matched": [],
+   "target_class": [],
+   "target_class_detail": [],
+   "tractability": {
+    "antibody": [
+     "GO CC high conf",
+     "UniProt SigP or TMHMM",
+     "UniProt loc med conf"
+    ],
+    "protac": [
+     "Database Ubiquitination",
+     "Half-life Data"
+    ]
+   },
+   "n_safety_liabilities": 0,
+   "safety_flags": [],
+   "safety_sources": [],
+   "circularity": {
+    "known_drug_datatype_id": null,
+    "known_drug_score": null,
+    "known_drug_share_of_datatype_sum": null,
+    "known_drug_is_largest_datatype": false,
+    "known_drug_dominated": false,
+    "circularity_note": "no known-drug datatype on this target"
+   },
+   "uniprot_sites": {
+    "sequence_length": 252,
+    "active_sites": [],
+    "site_anchors": [],
+    "site_anchor_rule": "UniProt ACT_SITE positions whose residue is S/C/T (the catalytic nucleophile). His/Asp members of a charge-relay triad are excluded: they sit behind the nucleophile and a sphere over all three reaches into the core rather than the ligand site.",
+    "mature_chains": [
+     {
+      "description": "C4b-binding protein beta chain",
+      "start": 18,
+      "end": 252
+     }
+    ]
+   },
+   "structure": {
+    "structure_status": "no_xray_entity_maps_to_this_accession",
+    "n_entities_total": 0,
+    "n_entities_ligand_bound_total": 0,
+    "n_entities_examined": 0,
+    "structure": null
+   },
+   "literature_query": "(TITLE_ABS:\"C4BPB\" OR TITLE_ABS:\"C4BP\") AND TITLE_ABS:\"venous thromboembolism\" AND (TITLE_ABS:\"inhibitor\" OR TITLE_ABS:\"inhibition\" OR TITLE_ABS:\"binder\" OR TITLE_ABS:\"antagonist\" OR TITLE_ABS:\"blockade\") AND (HAS_ABSTRACT:Y) AND (SRC:MED)",
+   "literature_hit_count": 1,
+   "literature": [
+    {
+     "pmid": "30349894",
+     "title": "Protein S K196E mutation reduces its cofactor activity for APC but not for TFPI.",
+     "year": "2018",
+     "journal": "Research and practice in thrombosis and haemostasis",
+     "claim": "We investigated the anticoagulant functions of PS-K and PS-E by measuring APC cofactor activity, TFPI cofactor activity, affinity for the \u03b2 chain of complement component C4b-binding protein (C4BP), and cleavage by thrombin.",
+     "claim_tier": "target-only",
+     "claim_alias": "C4BP",
+     "doi": "10.1002/rth2.12152",
+     "title_verified": true,
+     "verification": "match"
+    }
+   ],
+   "literature_dropped_failed_verification": [],
+   "literature_status": "ok",
+   "site_type_hint": "unknown",
+   "site_type_evidence": "no structure selected",
+   "preferred_modalities": [
+    "unknown"
+   ],
+   "preferred_modalities_rule": "a modality is listed only where an approved drug of that kind binds this target in the local corpora, or (small_molecule) the chosen structure carries a drug-like HETATM ligand",
+   "opentargets_tractability_modalities": [
+    "antibody",
+    "protac"
+   ],
+   "gate_has_approved_positive_control": false,
+   "gate_has_usable_structure": false,
+   "usable_for_pipeline": false,
+   "unusable_reasons": [
+    "no approved drug has C4BPB as its mechanism-of-action target (0 off-target annotations, 0 pchembl-backed) - the matching arms would have no positive control",
+    "no usable structure (no_xray_entity_maps_to_this_accession)"
+   ],
+   "pipeline_config": null
+  },
+  {
+   "rank": 13,
+   "ensembl_id": "ENSG00000101981",
+   "approved_symbol": "F9",
+   "approved_name": "coagulation factor IX",
+   "biotype": "protein_coding",
+   "symbol_synonyms": [
+    "F9",
+    "F9 p22",
+    "FIX",
+    "HEMB",
+    "P19",
+    "PTC",
+    "THPH8"
+   ],
+   "uniprot": "P00740",
+   "uniprot_source": "opentargets_proteinIds:uniprot_swissprot",
+   "overall_association_score": 0.5249581869565519,
+   "datatype_scores": {
+    "genetic_association": 0.8594008711056061,
+    "known_drug": null,
+    "literature": 0.08230969468986442,
+    "rna_expression": null,
+    "somatic_mutation": null,
+    "animal_model": null,
+    "affected_pathway": null
+   },
+   "all_datatype_scores": {
+    "literature": 0.08230969468986442,
+    "genetic_association": 0.8594008711056061
+   },
+   "known_drug_datatype_id": null,
+   "known_drug_score": null,
+   "has_known_drug_evidence": false,
+   "n_drug_and_clinical_candidates": 12,
+   "n_drug_rows_returned": 12,
+   "drug_rows_complete": true,
+   "n_approved_drugs": 9,
+   "approved_drug_examples": [
+    "ALBUTREPENONACOG ALFA",
+    "COAGULATION FACTOR IX HUMAN",
+    "COAGULATION FACTOR IX RECOMBINANT HUMAN",
+    "EFTRENONACOG ALFA",
+    "EMICIZUMAB",
+    "ETRANACOGENE DEZAPARVOVEC",
+    "FIDANACOGENE ELAPARVOVEC",
+    "NONACOG BETA PEGOL"
+   ],
+   "association_score": 0.5249581869565519,
+   "score_by_datatype": {
+    "literature": 0.08230969468986442,
+    "genetic_association": 0.8594008711056061
+   },
+   "n_approved_binders_moa": 0,
+   "n_approved_binders_annotated": 0,
+   "n_approved_binders_bioactivity": 0,
+   "n_approved_biologic_binders": 2,
+   "n_approved_peptide_binders": 0,
+   "known_approved_drugs": [],
+   "approved_binders_offtarget_only": [],
+   "approved_biologic_binders": [
+    {
+     "name": "etranacogene dezaparvovec",
+     "modality": "other",
+     "action": "EXOGENOUS PROTEIN"
+    },
+    {
+     "name": "nonacog beta pegol",
+     "modality": "other",
+     "action": "EXOGENOUS PROTEIN"
+    }
+   ],
+   "corpus_symbols_matched": [],
+   "target_class": [
+    "Enzyme",
+    "Protease"
+   ],
+   "target_class_detail": [
+    {
+     "label": "Serine protease",
+     "level": "l3"
+    },
+    {
+     "label": "Enzyme",
+     "level": "l1"
+    },
+    {
+     "label": "Serine protease PA clan",
+     "level": "l4"
+    },
+    {
+     "label": "Serine protease S1A subfamily",
+     "level": "l5"
+    },
+    {
+     "label": "Protease",
+     "level": "l2"
+    }
+   ],
+   "tractability": {
+    "antibody": [
+     "GO CC high conf",
+     "UniProt SigP or TMHMM",
+     "UniProt loc high conf"
+    ],
+    "other": [
+     "Approved Drug"
+    ],
+    "protac": [
+     "Half-life Data",
+     "Small Molecule Binder"
+    ],
+    "small_molecule": [
+     "Druggable Family",
+     "High-Quality Ligand",
+     "Structure with Ligand"
+    ]
+   },
+   "n_safety_liabilities": 0,
+   "safety_flags": [],
+   "safety_sources": [],
+   "circularity": {
+    "known_drug_datatype_id": null,
+    "known_drug_score": null,
+    "known_drug_share_of_datatype_sum": null,
+    "known_drug_is_largest_datatype": false,
+    "known_drug_dominated": false,
+    "circularity_note": "no known-drug datatype on this target"
+   },
+   "uniprot_sites": {
+    "sequence_length": 461,
+    "active_sites": [
+     {
+      "position": 267,
+      "residue": "H",
+      "description": "Charge relay system"
+     },
+     {
+      "position": 315,
+      "residue": "D",
+      "description": "Charge relay system"
+     },
+     {
+      "position": 411,
+      "residue": "S",
+      "description": "Charge relay system"
+     }
+    ],
+    "site_anchors": [
+     411
+    ],
+    "site_anchor_rule": "UniProt ACT_SITE positions whose residue is S/C/T (the catalytic nucleophile). His/Asp members of a charge-relay triad are excluded: they sit behind the nucleophile and a sphere over all three reaches into the core rather than the ligand site.",
+    "mature_chains": [
+     {
+      "description": "Coagulation factor IX",
+      "start": 47,
+      "end": 461
+     },
+     {
+      "description": "Coagulation factor IXa light chain",
+      "start": 47,
+      "end": 191
+     },
+     {
+      "description": "Coagulation factor IXa heavy chain",
+      "start": 227,
+      "end": 461
+     }
+    ]
+   },
+   "structure": {
+    "structure_status": "ok",
+    "n_entities_total": 75,
+    "n_entities_ligand_bound_total": 53,
+    "n_entities_examined": 71,
+    "n_entries_examined": 42,
+    "n_entries_usable": 35,
+    "n_entries_rejected": 7,
+    "reject_reason_counts": {
+     "co_crystallised_peptide_polymer_chain": 7
+    },
+    "structure": {
+     "pdb_id": "5JB9",
+     "method": "X-ray",
+     "resolution_a": 1.3,
+     "chain": "S",
+     "chain_entity_length_aa": 235,
+     "target_entities": [
+      {
+       "entity_id": "5JB9_1",
+       "length_aa": 58,
+       "polymer_type": "polypeptide(L)",
+       "auth_chain_ids": [
+        "E"
+       ],
+       "description": "Coagulation factor IX",
+       "accessions": [
+        "P00740"
+       ]
+      },
+      {
+       "entity_id": "5JB9_2",
+       "length_aa": 235,
+       "polymer_type": "polypeptide(L)",
+       "auth_chain_ids": [
+        "S"
+       ],
+       "description": "Coagulation factor IX",
+       "accessions": [
+        "P00740"
+       ]
+      }
+     ],
+     "foreign_peptide_chains": [],
+     "foreign_polymer_chains": [],
+     "drug_like_ligands": [
+      "0G6"
+     ],
+     "all_het_comp_ids": [
+      "DMS",
+      "CA",
+      "0G6"
+     ],
+     "apo_or_holo": "holo"
+    },
+    "rejected_better_resolution": [],
+    "runner_up_entries": [
+     {
+      "pdb_id": "5JBA",
+      "chain": "S",
+      "resolution_a": 1.4,
+      "apo_or_holo": "holo"
+     },
+     {
+      "pdb_id": "5TNT",
+      "chain": "A",
+      "resolution_a": 1.4,
+      "apo_or_holo": "holo"
+     },
+     {
+      "pdb_id": "4YZU",
+      "chain": "A",
+      "resolution_a": 1.41,
+      "apo_or_holo": "holo"
+     },
+     {
+      "pdb_id": "4Z0K",
+      "chain": "A",
+      "resolution_a": 1.41,
+      "apo_or_holo": "holo"
+     },
+     {
+      "pdb_id": "5JB8",
+      "chain": "S",
+      "resolution_a": 1.45,
+      "apo_or_holo": "holo"
+     }
+    ]
+   },
+   "literature_query": "(TITLE_ABS:\"F9\" OR TITLE_ABS:\"THPH8\" OR TITLE_ABS:\"HEMB\") AND TITLE_ABS:\"venous thromboembolism\" AND (TITLE_ABS:\"inhibitor\" OR TITLE_ABS:\"inhibition\" OR TITLE_ABS:\"binder\" OR TITLE_ABS:\"antagonist\" OR TITLE_ABS:\"blockade\") AND (HAS_ABSTRACT:Y) AND (SRC:MED)",
+   "literature_hit_count": 1,
+   "literature": [
+    {
+     "pmid": "20696792",
+     "title": "Changes in coagulation indexes and occurrence of venous thromboembolism in patients with Cushing's syndrome: results from a prospective study before and after surgery.",
+     "year": "2010",
+     "journal": "European journal of endocrinology",
+     "claim": "Results: CS patients at baseline had a hypercoagulative phenotype when compared with normal subjects (activated partial thromboplastin time (aPTT), fibrinogen, D-Dimer, von Willebrand factor (VWF), plasminogen activator inhibitor 1 (PAI-1 or SERPINE1), antithrombin III (ATIII or SERPINC1), P<0.0001, \u03b1(2) antiplasmin, P=0.0004, thrombin-antithrombin complex (TAT), P=0.01, factor IX (F9), P=0.03).",
+     "claim_tier": "target+term",
+     "claim_alias": "F9",
+     "doi": "10.1530/eje-10-0583",
+     "title_verified": true,
+     "verification": "match"
+    }
+   ],
+   "literature_dropped_failed_verification": [],
+   "literature_status": "ok",
+   "site_type_hint": "pocket",
+   "site_type_evidence": "chosen structure 5JB9 binds 0G6 as HETATM",
+   "preferred_modalities": [
+    "biologic",
+    "small_molecule"
+   ],
+   "preferred_modalities_rule": "a modality is listed only where an approved drug of that kind binds this target in the local corpora, or (small_molecule) the chosen structure carries a drug-like HETATM ligand",
+   "opentargets_tractability_modalities": [
+    "antibody",
+    "other",
+    "protac",
+    "small_molecule"
+   ],
+   "gate_has_approved_positive_control": false,
+   "gate_has_usable_structure": true,
+   "usable_for_pipeline": false,
+   "unusable_reasons": [
+    "no approved drug has F9 as its mechanism-of-action target (0 off-target annotations, 0 pchembl-backed) - the matching arms would have no positive control"
+   ],
+   "pipeline_config": null
+  },
+  {
+   "rank": 14,
+   "ensembl_id": "ENSG00000021826",
+   "approved_symbol": "CPS1",
+   "approved_name": "carbamoyl-phosphate synthase 1",
+   "biotype": "protein_coding",
+   "symbol_synonyms": [
+    "CPS1",
+    "CPS1D",
+    "CPSASE1",
+    "CPSase I",
+    "GATD6",
+    "PHN"
+   ],
+   "uniprot": "P31327",
+   "uniprot_source": "opentargets_proteinIds:uniprot_swissprot",
+   "overall_association_score": 0.5187637773878971,
+   "datatype_scores": {
+    "genetic_association": 0.8533270224603943,
+    "known_drug": null,
+    "literature": null,
+    "rna_expression": null,
+    "somatic_mutation": null,
+    "animal_model": null,
+    "affected_pathway": null
+   },
+   "all_datatype_scores": {
+    "genetic_association": 0.8533270224603943
+   },
+   "known_drug_datatype_id": null,
+   "known_drug_score": null,
+   "has_known_drug_evidence": false,
+   "n_drug_and_clinical_candidates": 1,
+   "n_drug_rows_returned": 1,
+   "drug_rows_complete": true,
+   "n_approved_drugs": 1,
+   "approved_drug_examples": [
+    "CARGLUMIC ACID"
+   ],
+   "association_score": 0.5187637773878971,
+   "score_by_datatype": {
+    "genetic_association": 0.8533270224603943
+   },
+   "n_approved_binders_moa": 1,
+   "n_approved_binders_annotated": 1,
+   "n_approved_binders_bioactivity": 0,
+   "n_approved_biologic_binders": 0,
+   "n_approved_peptide_binders": 0,
+   "known_approved_drugs": [
+    "carglumic acid"
+   ],
+   "approved_binders_offtarget_only": [],
+   "approved_biologic_binders": [],
+   "corpus_symbols_matched": [
+    "CPS1"
+   ],
+   "target_class": [
+    "Enzyme",
+    "Ligase"
+   ],
+   "target_class_detail": [
+    {
+     "label": "Enzyme",
+     "level": "l1"
+    },
+    {
+     "label": "Ligase",
+     "level": "l2"
+    }
+   ],
+   "tractability": {
+    "antibody": [
+     "GO CC med conf",
+     "UniProt loc high conf",
+     "UniProt loc med conf"
+    ],
+    "protac": [
+     "Database Ubiquitination",
+     "Half-life Data",
+     "Small Molecule Binder"
+    ],
+    "small_molecule": [
+     "Approved Drug",
+     "Druggable Family",
+     "High-Quality Ligand",
+     "High-Quality Pocket",
+     "Structure with Ligand"
+    ]
+   },
+   "n_safety_liabilities": 0,
+   "safety_flags": [],
+   "safety_sources": [],
+   "circularity": {
+    "known_drug_datatype_id": null,
+    "known_drug_score": null,
+    "known_drug_share_of_datatype_sum": null,
+    "known_drug_is_largest_datatype": false,
+    "known_drug_dominated": false,
+    "circularity_note": "no known-drug datatype on this target"
+   },
+   "uniprot_sites": {
+    "sequence_length": 1500,
+    "active_sites": [],
+    "site_anchors": [],
+    "site_anchor_rule": "UniProt ACT_SITE positions whose residue is S/C/T (the catalytic nucleophile). His/Asp members of a charge-relay triad are excluded: they sit behind the nucleophile and a sphere over all three reaches into the core rather than the ligand site.",
+    "mature_chains": [
+     {
+      "description": "Carbamoyl-phosphate synthase [ammonia], mitochondrial",
+      "start": 39,
+      "end": 1500
+     }
+    ]
+   },
+   "structure": {
+    "structure_status": "ok",
+    "n_entities_total": 14,
+    "n_entities_ligand_bound_total": 13,
+    "n_entities_examined": 14,
+    "n_entries_examined": 14,
+    "n_entries_usable": 14,
+    "n_entries_rejected": 0,
+    "reject_reason_counts": {},
+    "structure": {
+     "pdb_id": "6UEL",
+     "method": "X-ray",
+     "resolution_a": 1.9,
+     "chain": "A",
+     "chain_entity_length_aa": 1500,
+     "target_entities": [
+      {
+       "entity_id": "6UEL_1",
+       "length_aa": 1500,
+       "polymer_type": "polypeptide(L)",
+       "auth_chain_ids": [
+        "A",
+        "B"
+       ],
+       "description": "Carbamoyl-phosphate synthase [ammonia], mitochondrial",
+       "accessions": [
+        "P31327"
+       ]
+      }
+     ],
+     "foreign_peptide_chains": [],
+     "foreign_polymer_chains": [],
+     "drug_like_ligands": [
+      "Q5A"
+     ],
+     "all_het_comp_ids": [
+      "Q5A",
+      "ZN"
+     ],
+     "apo_or_holo": "holo"
+    },
+    "rejected_better_resolution": [],
+    "runner_up_entries": [
+     {
+      "pdb_id": "5DOU",
+      "chain": "A",
+      "resolution_a": 2.6,
+      "apo_or_holo": "holo"
+     },
+     {
+      "pdb_id": "6W2J",
+      "chain": "A",
+      "resolution_a": 2.62,
+      "apo_or_holo": "holo"
+     },
+     {
+      "pdb_id": "4UUA",
+      "chain": "D",
+      "resolution_a": 2.8,
+      "apo_or_holo": "holo"
+     },
+     {
+      "pdb_id": "2YVQ",
+      "chain": "A",
+      "resolution_a": 1.98,
+      "apo_or_holo": "apo"
+     },
+     {
+      "pdb_id": "5DOT",
+      "chain": "A",
+      "resolution_a": 2.4,
+      "apo_or_holo": "apo"
+     }
+    ]
+   },
+   "literature_query": "(TITLE_ABS:\"CPS1\" OR TITLE_ABS:\"CPS1D\" OR TITLE_ABS:\"CPSASE1\" OR TITLE_ABS:\"GATD6\") AND TITLE_ABS:\"venous thromboembolism\" AND (TITLE_ABS:\"inhibitor\" OR TITLE_ABS:\"inhibition\" OR TITLE_ABS:\"binder\" OR TITLE_ABS:\"antagonist\" OR TITLE_ABS:\"blockade\") AND (HAS_ABSTRACT:Y) AND (SRC:MED)",
+   "literature_hit_count": 0,
+   "literature": [],
+   "literature_dropped_failed_verification": [],
+   "literature_status": "no verified paper",
+   "site_type_hint": "pocket",
+   "site_type_evidence": "chosen structure 6UEL binds Q5A as HETATM",
+   "preferred_modalities": [
+    "small_molecule"
+   ],
+   "preferred_modalities_rule": "a modality is listed only where an approved drug of that kind binds this target in the local corpora, or (small_molecule) the chosen structure carries a drug-like HETATM ligand",
+   "opentargets_tractability_modalities": [
+    "antibody",
+    "protac",
+    "small_molecule"
+   ],
+   "gate_has_approved_positive_control": true,
+   "gate_has_usable_structure": true,
+   "usable_for_pipeline": true,
+   "unusable_reasons": [],
+   "pipeline_config": {
+    "symbol": "CPS1",
+    "uniprot": "P31327",
+    "pdb_id": "6UEL",
+    "chain": "A",
+    "out": "cps1",
+    "protocol": "protein-anything",
+    "binder_length": "60..90"
+   },
+   "pipeline_rank": 4
+  },
+  {
+   "rank": 15,
+   "ensembl_id": "ENSG00000198873",
+   "approved_symbol": "GRK5",
+   "approved_name": "G protein-coupled receptor kinase 5",
+   "biotype": "protein_coding",
+   "symbol_synonyms": [
+    "FP2025",
+    "GPRK5",
+    "GRK5"
+   ],
+   "uniprot": "P34947",
+   "uniprot_source": "opentargets_proteinIds:uniprot_swissprot",
+   "overall_association_score": 0.5177339739551959,
+   "datatype_scores": {
+    "genetic_association": 0.8507211778133521,
+    "known_drug": null,
+    "literature": 0.01823792392834863,
+    "rna_expression": null,
+    "somatic_mutation": null,
+    "animal_model": null,
+    "affected_pathway": null
+   },
+   "all_datatype_scores": {
+    "literature": 0.01823792392834863,
+    "genetic_association": 0.8507211778133521
+   },
+   "known_drug_datatype_id": null,
+   "known_drug_score": null,
+   "has_known_drug_evidence": false,
+   "n_drug_and_clinical_candidates": 0,
+   "n_drug_rows_returned": 0,
+   "drug_rows_complete": true,
+   "n_approved_drugs": 0,
+   "approved_drug_examples": [],
+   "association_score": 0.5177339739551959,
+   "score_by_datatype": {
+    "literature": 0.01823792392834863,
+    "genetic_association": 0.8507211778133521
+   },
+   "n_approved_binders_moa": 0,
+   "n_approved_binders_annotated": 0,
+   "n_approved_binders_bioactivity": 1,
+   "n_approved_biologic_binders": 0,
+   "n_approved_peptide_binders": 0,
+   "known_approved_drugs": [],
+   "approved_binders_offtarget_only": [],
+   "approved_biologic_binders": [],
+   "corpus_symbols_matched": [],
+   "target_class": [
+    "Enzyme",
+    "Kinase"
+   ],
+   "target_class_detail": [
+    {
+     "label": "AGC protein kinase GRK family",
+     "level": "l5"
+    },
+    {
+     "label": "Kinase",
+     "level": "l2"
+    },
+    {
+     "label": "AGC protein kinase group",
+     "level": "l4"
+    },
+    {
+     "label": "AGC protein kinase GRK subfamily",
+     "level": "l6"
+    },
+    {
+     "label": "Enzyme",
+     "level": "l1"
+    },
+    {
+     "label": "Protein Kinase",
+     "level": "l3"
+    }
+   ],
+   "tractability": {
+    "antibody": [
+     "GO CC high conf",
+     "Human Protein Atlas loc",
+     "UniProt loc med conf"
+    ],
+    "protac": [
+     "Database Ubiquitination",
+     "Small Molecule Binder"
+    ],
+    "small_molecule": [
+     "Druggable Family",
+     "High-Quality Ligand",
+     "Structure with Ligand"
+    ]
+   },
+   "n_safety_liabilities": 1,
+   "safety_flags": [
+    "heart disease"
+   ],
+   "safety_sources": [
+    "Force et al. (2011)"
+   ],
+   "circularity": {
+    "known_drug_datatype_id": null,
+    "known_drug_score": null,
+    "known_drug_share_of_datatype_sum": null,
+    "known_drug_is_largest_datatype": false,
+    "known_drug_dominated": false,
+    "circularity_note": "no known-drug datatype on this target"
+   },
+   "uniprot_sites": {
+    "sequence_length": 590,
+    "active_sites": [
+     {
+      "position": 311,
+      "residue": "D",
+      "description": "Proton acceptor"
+     }
+    ],
+    "site_anchors": [],
+    "site_anchor_rule": "UniProt ACT_SITE positions whose residue is S/C/T (the catalytic nucleophile). His/Asp members of a charge-relay triad are excluded: they sit behind the nucleophile and a sphere over all three reaches into the core rather than the ligand site.",
+    "mature_chains": [
+     {
+      "description": "G protein-coupled receptor kinase 5",
+      "start": 1,
+      "end": 590
+     }
+    ]
+   },
+   "structure": {
+    "structure_status": "ok",
+    "n_entities_total": 23,
+    "n_entities_ligand_bound_total": 22,
+    "n_entities_examined": 23,
+    "n_entries_examined": 23,
+    "n_entries_usable": 23,
+    "n_entries_rejected": 0,
+    "reject_reason_counts": {},
+    "structure": {
+     "pdb_id": "4TND",
+     "method": "X-ray",
+     "resolution_a": 1.802,
+     "chain": "A",
+     "chain_entity_length_aa": 590,
+     "target_entities": [
+      {
+       "entity_id": "4TND_1",
+       "length_aa": 590,
+       "polymer_type": "polypeptide(L)",
+       "auth_chain_ids": [
+        "A"
+       ],
+       "description": "G protein-coupled receptor kinase 5",
+       "accessions": [
+        "P34947"
+       ]
+      }
+     ],
+     "foreign_peptide_chains": [],
+     "foreign_polymer_chains": [],
+     "drug_like_ligands": [
+      "ANP"
+     ],
+     "all_het_comp_ids": [
+      "MG",
+      "ANP"
+     ],
+     "apo_or_holo": "holo"
+    },
+    "rejected_better_resolution": [],
+    "runner_up_entries": [
+     {
+      "pdb_id": "4TNB",
+      "chain": "A",
+      "resolution_a": 2.113,
+      "apo_or_holo": "holo"
+     },
+     {
+      "pdb_id": "8UAP",
+      "chain": "A",
+      "resolution_a": 2.5,
+      "apo_or_holo": "holo"
+     },
+     {
+      "pdb_id": "9CKP",
+      "chain": "A",
+      "resolution_a": 2.6,
+      "apo_or_holo": "holo"
+     },
+     {
+      "pdb_id": "9BRG",
+      "chain": "A",
+      "resolution_a": 2.7,
+      "apo_or_holo": "holo"
+     },
+     {
+      "pdb_id": "9BRK",
+      "chain": "A",
+      "resolution_a": 2.7,
+      "apo_or_holo": "holo"
+     }
+    ]
+   },
+   "literature_query": "(TITLE_ABS:\"GRK5\" OR TITLE_ABS:\"FP2025\" OR TITLE_ABS:\"GPRK5\") AND TITLE_ABS:\"venous thromboembolism\" AND (TITLE_ABS:\"inhibitor\" OR TITLE_ABS:\"inhibition\" OR TITLE_ABS:\"binder\" OR TITLE_ABS:\"antagonist\" OR TITLE_ABS:\"blockade\") AND (HAS_ABSTRACT:Y) AND (SRC:MED)",
+   "literature_hit_count": 1,
+   "literature": [
+    {
+     "pmid": "41557909",
+     "title": "Understanding how a highly prevalent GRK5 polymorphism affects platelets and enhances thrombotic risk.",
+     "year": "2026",
+     "journal": "Blood",
+     "claim": "These findings were corroborated in GRK5-/- induced pluripotent stem cell-derived megakaryocytes, transgenic Grk5-deficient murine platelets, and AA platelets exposed to a GRK5 inhibitor.",
+     "claim_tier": "target+term",
+     "claim_alias": "GRK5",
+     "doi": "10.1182/blood.2025030223",
+     "title_verified": true,
+     "verification": "match"
+    }
+   ],
+   "literature_dropped_failed_verification": [],
+   "literature_status": "ok",
+   "site_type_hint": "pocket",
+   "site_type_evidence": "chosen structure 4TND binds ANP as HETATM",
+   "preferred_modalities": [
+    "small_molecule"
+   ],
+   "preferred_modalities_rule": "a modality is listed only where an approved drug of that kind binds this target in the local corpora, or (small_molecule) the chosen structure carries a drug-like HETATM ligand",
+   "opentargets_tractability_modalities": [
+    "antibody",
+    "protac",
+    "small_molecule"
+   ],
+   "gate_has_approved_positive_control": false,
+   "gate_has_usable_structure": true,
+   "usable_for_pipeline": false,
+   "unusable_reasons": [
+    "no approved drug has GRK5 as its mechanism-of-action target (0 off-target annotations, 1 pchembl-backed) - the matching arms would have no positive control"
+   ],
+   "pipeline_config": null
+  },
+  {
+   "rank": 16,
+   "ensembl_id": "ENSG00000113889",
+   "approved_symbol": "KNG1",
+   "approved_name": "kininogen 1",
+   "biotype": "protein_coding",
+   "symbol_synonyms": [
+    "BDK",
+    "BK",
+    "HAE6",
+    "HK",
+    "HMWK",
+    "KNG",
+    "KNG1"
+   ],
+   "uniprot": "P01042",
+   "uniprot_source": "opentargets_proteinIds:uniprot_swissprot",
+   "overall_association_score": 0.5035373980565276,
+   "datatype_scores": {
+    "genetic_association": 0.8244748001141218,
+    "known_drug": null,
+    "literature": 0.07611969064761509,
+    "rna_expression": null,
+    "somatic_mutation": null,
+    "animal_model": null,
+    "affected_pathway": null
+   },
+   "all_datatype_scores": {
+    "literature": 0.07611969064761509,
+    "genetic_association": 0.8244748001141218
+   },
+   "known_drug_datatype_id": null,
+   "known_drug_score": null,
+   "has_known_drug_evidence": false,
+   "n_drug_and_clinical_candidates": 0,
+   "n_drug_rows_returned": 0,
+   "drug_rows_complete": true,
+   "n_approved_drugs": 0,
+   "approved_drug_examples": [],
+   "association_score": 0.5035373980565276,
+   "score_by_datatype": {
+    "literature": 0.07611969064761509,
+    "genetic_association": 0.8244748001141218
+   },
+   "n_approved_binders_moa": 0,
+   "n_approved_binders_annotated": 0,
+   "n_approved_binders_bioactivity": 0,
+   "n_approved_biologic_binders": 0,
+   "n_approved_peptide_binders": 0,
+   "known_approved_drugs": [],
+   "approved_binders_offtarget_only": [],
+   "approved_biologic_binders": [],
+   "corpus_symbols_matched": [],
+   "target_class": [],
+   "target_class_detail": [],
+   "tractability": {
+    "antibody": [
+     "GO CC high conf",
+     "UniProt SigP or TMHMM",
+     "UniProt loc med conf"
+    ],
+    "protac": [
+     "Half-life Data"
+    ],
+    "small_molecule": [
+     "Structure with Ligand"
+    ]
+   },
+   "n_safety_liabilities": 1,
+   "safety_flags": [
+    "venous thrombosis"
+   ],
+   "safety_sources": [
+    "ClinPGx"
+   ],
+   "circularity": {
+    "known_drug_datatype_id": null,
+    "known_drug_score": null,
+    "known_drug_share_of_datatype_sum": null,
+    "known_drug_is_largest_datatype": false,
+    "known_drug_dominated": false,
+    "circularity_note": "no known-drug datatype on this target"
+   },
+   "uniprot_sites": {
+    "sequence_length": 644,
+    "active_sites": [],
+    "site_anchors": [],
+    "site_anchor_rule": "UniProt ACT_SITE positions whose residue is S/C/T (the catalytic nucleophile). His/Asp members of a charge-relay triad are excluded: they sit behind the nucleophile and a sphere over all three reaches into the core rather than the ligand site.",
+    "mature_chains": [
+     {
+      "description": "Kininogen-1",
+      "start": 19,
+      "end": 644
+     },
+     {
+      "description": "Kininogen-1 heavy chain",
+      "start": 19,
+      "end": 380
+     },
+     {
+      "description": "Kininogen-1 light chain",
+      "start": 390,
+      "end": 644
+     }
+    ]
+   },
+   "structure": {
+    "structure_status": "ok",
+    "n_entities_total": 11,
+    "n_entities_ligand_bound_total": 8,
+    "n_entities_examined": 11,
+    "n_entries_examined": 11,
+    "n_entries_usable": 10,
+    "n_entries_rejected": 1,
+    "reject_reason_counts": {
+     "co_crystallised_peptide_polymer_chain": 1
+    },
+    "structure": {
+     "pdb_id": "7QOX",
+     "method": "X-ray",
+     "resolution_a": 2.32,
+     "chain": "C",
+     "chain_entity_length_aa": 29,
+     "target_entities": [
+      {
+       "entity_id": "7QOX_2",
+       "length_aa": 29,
+       "polymer_type": "polypeptide(L)",
+       "auth_chain_ids": [
+        "C",
+        "D"
+       ],
+       "description": "Kininogen-1 light chain",
+       "accessions": [
+        "P01042"
+       ]
+      }
+     ],
+     "foreign_peptide_chains": [],
+     "foreign_polymer_chains": [
+      {
+       "entity_id": "7QOX_1",
+       "length_aa": 367,
+       "polymer_type": "polypeptide(L)",
+       "auth_chain_ids": [
+        "A",
+        "B"
+       ],
+       "description": "Plasma kallikrein heavy chain",
+       "accessions": [
+        "P03952"
+       ]
+      }
+     ],
+     "drug_like_ligands": [
+      "PG6",
+      "PE4"
+     ],
+     "all_het_comp_ids": [
+      "PG6",
+      "NAG",
+      "PG4",
+      "PE4",
+      "PEG",
+      "GOL"
+     ],
+     "apo_or_holo": "holo"
+    },
+    "rejected_better_resolution": [
+     {
+      "pdb_id": "1NY2",
+      "resolution_a": 2.3,
+      "reject_reason": "co_crystallised_peptide_polymer_chain",
+      "reject_detail": [
+       "1NY2_3 Hirugen (10 aa)",
+       "1NY2_1 thrombin light chain (36 aa)"
+      ]
+     }
+    ],
+    "runner_up_entries": [
+     {
+      "pdb_id": "9PQ1",
+      "chain": "B",
+      "resolution_a": 3.218,
+      "apo_or_holo": "holo"
+     },
+     {
+      "pdb_id": "4ECB",
+      "chain": "A",
+      "resolution_a": 2.2,
+      "apo_or_holo": "apo"
+     },
+     {
+      "pdb_id": "4ECC",
+      "chain": "A",
+      "resolution_a": 2.2,
+      "apo_or_holo": "apo"
+     },
+     {
+      "pdb_id": "2WOK",
+      "chain": "B",
+      "resolution_a": 1.7,
+      "apo_or_holo": "apo"
+     },
+     {
+      "pdb_id": "4ASR",
+      "chain": "P",
+      "resolution_a": 1.9,
+      "apo_or_holo": "apo"
+     }
+    ]
+   },
+   "literature_query": "(TITLE_ABS:\"KNG1\" OR TITLE_ABS:\"HAE6\" OR TITLE_ABS:\"HMWK\") AND TITLE_ABS:\"venous thromboembolism\" AND (TITLE_ABS:\"inhibitor\" OR TITLE_ABS:\"inhibition\" OR TITLE_ABS:\"binder\" OR TITLE_ABS:\"antagonist\" OR TITLE_ABS:\"blockade\") AND (HAS_ABSTRACT:Y) AND (SRC:MED)",
+   "literature_hit_count": 1,
+   "literature": [
+    {
+     "pmid": "35285134",
+     "title": "Multi-phenotype analyses of hemostatic traits with cardiovascular events reveal novel genetic associations.",
+     "year": "2022",
+     "journal": "Journal of thrombosis and haemostasis : JTH",
+     "claim": "Results: Across the 27 multi-trait analyses, we found 4 novel pleiotropic loci (XXYLT1, KNG1, SUGP1/MAU2, TBL2/MLXIPL) that were not significant in the original individual datasets, were not described in previous GWAS for the individual traits, and that presented a common associated variant between the studied phenotypes.",
+     "claim_tier": "target-only",
+     "claim_alias": "KNG1",
+     "doi": "10.1111/jth.15698",
+     "title_verified": true,
+     "verification": "match"
+    }
+   ],
+   "literature_dropped_failed_verification": [],
+   "literature_status": "ok",
+   "site_type_hint": "pocket",
+   "site_type_evidence": "chosen structure 7QOX binds PG6/PE4 as HETATM",
+   "preferred_modalities": [
+    "small_molecule"
+   ],
+   "preferred_modalities_rule": "a modality is listed only where an approved drug of that kind binds this target in the local corpora, or (small_molecule) the chosen structure carries a drug-like HETATM ligand",
+   "opentargets_tractability_modalities": [
+    "antibody",
+    "protac",
+    "small_molecule"
+   ],
+   "gate_has_approved_positive_control": false,
+   "gate_has_usable_structure": true,
+   "usable_for_pipeline": false,
+   "unusable_reasons": [
+    "no approved drug has KNG1 as its mechanism-of-action target (0 off-target annotations, 0 pchembl-backed) - the matching arms would have no positive control"
+   ],
+   "pipeline_config": null
+  },
+  {
+   "rank": 17,
+   "ensembl_id": "ENSG00000164344",
+   "approved_symbol": "KLKB1",
+   "approved_name": "kallikrein B1",
+   "biotype": "protein_coding",
+   "symbol_synonyms": [
+    "KLK3",
+    "KLKB1",
+    "PKK",
+    "PKKD",
+    "PPK"
+   ],
+   "uniprot": "P03952",
+   "uniprot_source": "opentargets_proteinIds:uniprot_swissprot",
+   "overall_association_score": 0.5007457505116679,
+   "datatype_scores": {
+    "genetic_association": 0.8230808056160538,
+    "known_drug": null,
+    "literature": 0.012158615952232422,
+    "rna_expression": null,
+    "somatic_mutation": null,
+    "animal_model": null,
+    "affected_pathway": null
+   },
+   "all_datatype_scores": {
+    "literature": 0.012158615952232422,
+    "genetic_association": 0.8230808056160538
+   },
+   "known_drug_datatype_id": null,
+   "known_drug_score": null,
+   "has_known_drug_evidence": false,
+   "n_drug_and_clinical_candidates": 7,
+   "n_drug_rows_returned": 7,
+   "drug_rows_complete": true,
+   "n_approved_drugs": 6,
+   "approved_drug_examples": [
+    "APROTININ",
+    "BEROTRALSTAT",
+    "BEROTRALSTAT HYDROCHLORIDE",
+    "ECALLANTIDE",
+    "HUMAN C1-ESTERASE INHIBITOR",
+    "LANADELUMAB"
+   ],
+   "association_score": 0.5007457505116679,
+   "score_by_datatype": {
+    "literature": 0.012158615952232422,
+    "genetic_association": 0.8230808056160538
+   },
+   "n_approved_binders_moa": 2,
+   "n_approved_binders_annotated": 2,
+   "n_approved_binders_bioactivity": 1,
+   "n_approved_biologic_binders": 2,
+   "n_approved_peptide_binders": 0,
+   "known_approved_drugs": [
+    "berotralstat",
+    "gallium (68Ga) gozetotide"
+   ],
+   "approved_binders_offtarget_only": [],
+   "approved_biologic_binders": [
+    {
+     "name": "ecallantide",
+     "modality": "other",
+     "action": "INHIBITOR"
+    },
+    {
+     "name": "lanadelumab",
+     "modality": "mab",
+     "action": "INHIBITOR"
+    }
+   ],
+   "corpus_symbols_matched": [
+    "KLKB1",
+    "KLK3"
+   ],
+   "target_class": [
+    "Enzyme",
+    "Protease"
+   ],
+   "target_class_detail": [
+    {
+     "label": "Serine protease",
+     "level": "l3"
+    },
+    {
+     "label": "Enzyme",
+     "level": "l1"
+    },
+    {
+     "label": "Serine protease PA clan",
+     "level": "l4"
+    },
+    {
+     "label": "Serine protease S1A subfamily",
+     "level": "l5"
+    },
+    {
+     "label": "Protease",
+     "level": "l2"
+    }
+   ],
+   "tractability": {
+    "antibody": [
+     "Approved Drug",
+     "GO CC high conf",
+     "UniProt SigP or TMHMM",
+     "UniProt loc med conf"
+    ],
+    "other": [
+     "Approved Drug"
+    ],
+    "protac": [
+     "Half-life Data",
+     "Small Molecule Binder"
+    ],
+    "small_molecule": [
+     "Approved Drug",
+     "Druggable Family",
+     "High-Quality Ligand",
+     "Structure with Ligand"
+    ]
+   },
+   "n_safety_liabilities": 0,
+   "safety_flags": [],
+   "safety_sources": [],
+   "circularity": {
+    "known_drug_datatype_id": null,
+    "known_drug_score": null,
+    "known_drug_share_of_datatype_sum": null,
+    "known_drug_is_largest_datatype": false,
+    "known_drug_dominated": false,
+    "circularity_note": "no known-drug datatype on this target"
+   },
+   "uniprot_sites": {
+    "sequence_length": 638,
+    "active_sites": [
+     {
+      "position": 434,
+      "residue": "H",
+      "description": "Charge relay system"
+     },
+     {
+      "position": 483,
+      "residue": "D",
+      "description": "Charge relay system"
+     },
+     {
+      "position": 578,
+      "residue": "S",
+      "description": "Charge relay system"
+     }
+    ],
+    "site_anchors": [
+     578
+    ],
+    "site_anchor_rule": "UniProt ACT_SITE positions whose residue is S/C/T (the catalytic nucleophile). His/Asp members of a charge-relay triad are excluded: they sit behind the nucleophile and a sphere over all three reaches into the core rather than the ligand site.",
+    "mature_chains": [
+     {
+      "description": "Plasma kallikrein heavy chain",
+      "start": 20,
+      "end": 390
+     },
+     {
+      "description": "Plasma kallikrein light chain",
+      "start": 391,
+      "end": 638
+     }
+    ]
+   },
+   "structure": {
+    "structure_status": "ok",
+    "n_entities_total": 21,
+    "n_entities_ligand_bound_total": 18,
+    "n_entities_examined": 21,
+    "n_entries_examined": 21,
+    "n_entries_usable": 16,
+    "n_entries_rejected": 5,
+    "reject_reason_counts": {
+     "co_crystallised_peptide_polymer_chain": 5
+    },
+    "structure": {
+     "pdb_id": "6I44",
+     "method": "X-ray",
+     "resolution_a": 1.36,
+     "chain": "A",
+     "chain_entity_length_aa": 627,
+     "target_entities": [
+      {
+       "entity_id": "6I44_1",
+       "length_aa": 627,
+       "polymer_type": "polypeptide(L)",
+       "auth_chain_ids": [
+        "A"
+       ],
+       "description": "Plasma kallikrein",
+       "accessions": [
+        "P03952"
+       ]
+      }
+     ],
+     "foreign_peptide_chains": [],
+     "foreign_polymer_chains": [],
+     "drug_like_ligands": [
+      "PE4"
+     ],
+     "all_het_comp_ids": [
+      "PEG",
+      "NA",
+      "CL",
+      "SO4",
+      "PE4",
+      "MPD",
+      "BEN",
+      "SER",
+      "GLY",
+      "ACT",
+      "FMT",
+      "GOL"
+     ],
+     "apo_or_holo": "holo"
+    },
+    "rejected_better_resolution": [],
+    "runner_up_entries": [
+     {
+      "pdb_id": "5TJX",
+      "chain": "A",
+      "resolution_a": 1.408,
+      "apo_or_holo": "holo"
+     },
+     {
+      "pdb_id": "6T7P",
+      "chain": "A",
+      "resolution_a": 1.416,
+      "apo_or_holo": "holo"
+     },
+     {
+      "pdb_id": "10LR",
+      "chain": "A",
+      "resolution_a": 1.583,
+      "apo_or_holo": "holo"
+     },
+     {
+      "pdb_id": "10MW",
+      "chain": "A",
+      "resolution_a": 1.62,
+      "apo_or_holo": "holo"
+     },
+     {
+      "pdb_id": "10MV",
+      "chain": "A",
+      "resolution_a": 1.66,
+      "apo_or_holo": "holo"
+     }
+    ]
+   },
+   "literature_query": "(TITLE_ABS:\"KLKB1\" OR TITLE_ABS:\"KLK3\" OR TITLE_ABS:\"PKKD\") AND TITLE_ABS:\"venous thromboembolism\" AND (TITLE_ABS:\"inhibitor\" OR TITLE_ABS:\"inhibition\" OR TITLE_ABS:\"binder\" OR TITLE_ABS:\"antagonist\" OR TITLE_ABS:\"blockade\") AND (HAS_ABSTRACT:Y) AND (SRC:MED)",
+   "literature_hit_count": 1,
+   "literature": [
+    {
+     "pmid": "34532976",
+     "title": "Kallikrein augments the anticoagulant function of the protein C system in thrombin generation.",
+     "year": "2022",
+     "journal": "Journal of thrombosis and haemostasis : JTH",
+     "claim": "Genotyping showed that the KLKB1 gene (top SNP: rs4241819) on chromosome 4 was associated with the normalized sensitivity ratio of endogenous thrombin potential to TM at genome-wide level (nETP-TMsr, P = 4.27 \u00d7 10-8 ).",
+     "claim_tier": "target-only",
+     "claim_alias": "KLKB1",
+     "doi": "10.1111/jth.15530",
+     "title_verified": true,
+     "verification": "match"
+    }
+   ],
+   "literature_dropped_failed_verification": [],
+   "literature_status": "ok",
+   "site_type_hint": "pocket",
+   "site_type_evidence": "chosen structure 6I44 binds PE4 as HETATM",
+   "preferred_modalities": [
+    "small_molecule",
+    "biologic"
+   ],
+   "preferred_modalities_rule": "a modality is listed only where an approved drug of that kind binds this target in the local corpora, or (small_molecule) the chosen structure carries a drug-like HETATM ligand",
+   "opentargets_tractability_modalities": [
+    "antibody",
+    "other",
+    "protac",
+    "small_molecule"
+   ],
+   "gate_has_approved_positive_control": true,
+   "gate_has_usable_structure": true,
+   "usable_for_pipeline": true,
+   "unusable_reasons": [],
+   "pipeline_config": {
+    "symbol": "KLKB1",
+    "uniprot": "P03952",
+    "pdb_id": "6I44",
+    "chain": "A",
+    "out": "klkb1",
+    "protocol": "protein-anything",
+    "binder_length": "60..90",
+    "site_anchors": [
+     578
+    ]
+   },
+   "pipeline_rank": 5
+  },
+  {
+   "rank": 18,
+   "ensembl_id": "ENSG00000111252",
+   "approved_symbol": "SH2B3",
+   "approved_name": "SH2B adaptor protein 3",
+   "biotype": "protein_coding",
+   "symbol_synonyms": [
+    "IDDM20",
+    "LNK",
+    "SH2B3"
+   ],
+   "uniprot": "Q9UQQ2",
+   "uniprot_source": "opentargets_proteinIds:uniprot_swissprot",
+   "overall_association_score": 0.499411093433492,
+   "datatype_scores": {
+    "genetic_association": 0.8214933268647178,
+    "known_drug": null,
+    "literature": null,
+    "rna_expression": null,
+    "somatic_mutation": null,
+    "animal_model": null,
+    "affected_pathway": null
+   },
+   "all_datatype_scores": {
+    "genetic_association": 0.8214933268647178
+   },
+   "known_drug_datatype_id": null,
+   "known_drug_score": null,
+   "has_known_drug_evidence": false,
+   "n_drug_and_clinical_candidates": 0,
+   "n_drug_rows_returned": 0,
+   "drug_rows_complete": true,
+   "n_approved_drugs": 0,
+   "approved_drug_examples": [],
+   "association_score": 0.499411093433492,
+   "score_by_datatype": {
+    "genetic_association": 0.8214933268647178
+   },
+   "n_approved_binders_moa": 0,
+   "n_approved_binders_annotated": 0,
+   "n_approved_binders_bioactivity": 0,
+   "n_approved_biologic_binders": 0,
+   "n_approved_peptide_binders": 0,
+   "known_approved_drugs": [],
+   "approved_binders_offtarget_only": [],
+   "approved_biologic_binders": [],
+   "corpus_symbols_matched": [],
+   "target_class": [],
+   "target_class_detail": [],
+   "tractability": {
+    "antibody": [
+     "GO CC med conf"
+    ],
+    "protac": [
+     "Database Ubiquitination"
+    ]
+   },
+   "n_safety_liabilities": 0,
+   "safety_flags": [],
+   "safety_sources": [],
+   "circularity": {
+    "known_drug_datatype_id": null,
+    "known_drug_score": null,
+    "known_drug_share_of_datatype_sum": null,
+    "known_drug_is_largest_datatype": false,
+    "known_drug_dominated": false,
+    "circularity_note": "no known-drug datatype on this target"
+   },
+   "uniprot_sites": {
+    "sequence_length": 575,
+    "active_sites": [],
+    "site_anchors": [],
+    "site_anchor_rule": "UniProt ACT_SITE positions whose residue is S/C/T (the catalytic nucleophile). His/Asp members of a charge-relay triad are excluded: they sit behind the nucleophile and a sphere over all three reaches into the core rather than the ligand site.",
+    "mature_chains": [
+     {
+      "description": "SH2B adapter protein 3",
+      "start": 1,
+      "end": 575
+     }
+    ]
+   },
+   "structure": {
+    "structure_status": "no_xray_entity_maps_to_this_accession",
+    "n_entities_total": 0,
+    "n_entities_ligand_bound_total": 0,
+    "n_entities_examined": 0,
+    "structure": null
+   },
+   "literature_query": "(TITLE_ABS:\"SH2B3\" OR TITLE_ABS:\"IDDM20\") AND TITLE_ABS:\"venous thromboembolism\" AND (TITLE_ABS:\"inhibitor\" OR TITLE_ABS:\"inhibition\" OR TITLE_ABS:\"binder\" OR TITLE_ABS:\"antagonist\" OR TITLE_ABS:\"blockade\") AND (HAS_ABSTRACT:Y) AND (SRC:MED)",
+   "literature_hit_count": 0,
+   "literature": [],
+   "literature_dropped_failed_verification": [],
+   "literature_status": "no verified paper",
+   "site_type_hint": "unknown",
+   "site_type_evidence": "no structure selected",
+   "preferred_modalities": [
+    "unknown"
+   ],
+   "preferred_modalities_rule": "a modality is listed only where an approved drug of that kind binds this target in the local corpora, or (small_molecule) the chosen structure carries a drug-like HETATM ligand",
+   "opentargets_tractability_modalities": [
+    "antibody",
+    "protac"
+   ],
+   "gate_has_approved_positive_control": false,
+   "gate_has_usable_structure": false,
+   "usable_for_pipeline": false,
+   "unusable_reasons": [
+    "no approved drug has SH2B3 as its mechanism-of-action target (0 off-target annotations, 0 pchembl-backed) - the matching arms would have no positive control",
+    "no usable structure (no_xray_entity_maps_to_this_accession)"
+   ],
+   "pipeline_config": null
+  },
+  {
+   "rank": 19,
+   "ensembl_id": "ENSG00000168079",
+   "approved_symbol": "SCARA5",
+   "approved_name": "scavenger receptor class A member 5",
+   "biotype": "protein_coding",
+   "symbol_synonyms": [
+    "FLJ23907",
+    "MGC45780",
+    "NET33",
+    "SCARA5",
+    "Tesr",
+    "UNQ2938/PRO28700"
+   ],
+   "uniprot": "Q6ZMJ2",
+   "uniprot_source": "opentargets_proteinIds:uniprot_swissprot",
+   "overall_association_score": 0.4965823449833133,
+   "datatype_scores": {
+    "genetic_association": 0.8159283542634003,
+    "known_drug": null,
+    "literature": 0.01823792392834863,
+    "rna_expression": null,
+    "somatic_mutation": null,
+    "animal_model": null,
+    "affected_pathway": null
+   },
+   "all_datatype_scores": {
+    "literature": 0.01823792392834863,
+    "genetic_association": 0.8159283542634003
+   },
+   "known_drug_datatype_id": null,
+   "known_drug_score": null,
+   "has_known_drug_evidence": false,
+   "n_drug_and_clinical_candidates": 0,
+   "n_drug_rows_returned": 0,
+   "drug_rows_complete": true,
+   "n_approved_drugs": 0,
+   "approved_drug_examples": [],
+   "association_score": 0.4965823449833133,
+   "score_by_datatype": {
+    "literature": 0.01823792392834863,
+    "genetic_association": 0.8159283542634003
+   },
+   "n_approved_binders_moa": 0,
+   "n_approved_binders_annotated": 0,
+   "n_approved_binders_bioactivity": 0,
+   "n_approved_biologic_binders": 0,
+   "n_approved_peptide_binders": 0,
+   "known_approved_drugs": [],
+   "approved_binders_offtarget_only": [],
+   "approved_biologic_binders": [],
+   "corpus_symbols_matched": [],
+   "target_class": [],
+   "target_class_detail": [],
+   "tractability": {
+    "antibody": [
+     "GO CC med conf",
+     "UniProt SigP or TMHMM",
+     "UniProt loc med conf"
+    ]
+   },
+   "n_safety_liabilities": 0,
+   "safety_flags": [],
+   "safety_sources": [],
+   "circularity": {
+    "known_drug_datatype_id": null,
+    "known_drug_score": null,
+    "known_drug_share_of_datatype_sum": null,
+    "known_drug_is_largest_datatype": false,
+    "known_drug_dominated": false,
+    "circularity_note": "no known-drug datatype on this target"
+   },
+   "uniprot_sites": {
+    "sequence_length": 495,
+    "active_sites": [],
+    "site_anchors": [],
+    "site_anchor_rule": "UniProt ACT_SITE positions whose residue is S/C/T (the catalytic nucleophile). His/Asp members of a charge-relay triad are excluded: they sit behind the nucleophile and a sphere over all three reaches into the core rather than the ligand site.",
+    "mature_chains": [
+     {
+      "description": "Scavenger receptor class A member 5",
+      "start": 1,
+      "end": 495
+     }
+    ]
+   },
+   "structure": {
+    "structure_status": "ok",
+    "n_entities_total": 1,
+    "n_entities_ligand_bound_total": 1,
+    "n_entities_examined": 1,
+    "n_entries_examined": 1,
+    "n_entries_usable": 1,
+    "n_entries_rejected": 0,
+    "reject_reason_counts": {},
+    "structure": {
+     "pdb_id": "7C00",
+     "method": "X-ray",
+     "resolution_a": 1.7,
+     "chain": "A",
+     "chain_entity_length_aa": 114,
+     "target_entities": [
+      {
+       "entity_id": "7C00_1",
+       "length_aa": 114,
+       "polymer_type": "polypeptide(L)",
+       "auth_chain_ids": [
+        "A"
+       ],
+       "description": "Scavenger receptor class A member 5",
+       "accessions": [
+        "Q6ZMJ2"
+       ]
+      }
+     ],
+     "foreign_peptide_chains": [],
+     "foreign_polymer_chains": [],
+     "drug_like_ligands": [],
+     "all_het_comp_ids": [
+      "CA",
+      "NAG"
+     ],
+     "apo_or_holo": "apo"
+    },
+    "rejected_better_resolution": [],
+    "runner_up_entries": []
+   },
+   "literature_query": "(TITLE_ABS:\"SCARA5\" OR TITLE_ABS:\"FLJ23907\" OR TITLE_ABS:\"MGC45780\" OR TITLE_ABS:\"NET33\" OR TITLE_ABS:\"UNQ2938/PRO28700\" OR TITLE_ABS:\"Tesr\") AND TITLE_ABS:\"venous thromboembolism\" AND (TITLE_ABS:\"inhibitor\" OR TITLE_ABS:\"inhibition\" OR TITLE_ABS:\"binder\" OR TITLE_ABS:\"antagonist\" OR TITLE_ABS:\"blockade\") AND (HAS_ABSTRACT:Y) AND (SRC:MED)",
+   "literature_hit_count": 0,
+   "literature": [],
+   "literature_dropped_failed_verification": [],
+   "literature_status": "no verified paper",
+   "site_type_hint": "unknown",
+   "site_type_evidence": "7C00 is apo and has no partner chain",
+   "preferred_modalities": [
+    "unknown"
+   ],
+   "preferred_modalities_rule": "a modality is listed only where an approved drug of that kind binds this target in the local corpora, or (small_molecule) the chosen structure carries a drug-like HETATM ligand",
+   "opentargets_tractability_modalities": [
+    "antibody"
+   ],
+   "gate_has_approved_positive_control": false,
+   "gate_has_usable_structure": true,
+   "usable_for_pipeline": false,
+   "unusable_reasons": [
+    "no approved drug has SCARA5 as its mechanism-of-action target (0 off-target annotations, 0 pchembl-backed) - the matching arms would have no positive control"
+   ],
+   "pipeline_config": null
+  },
+  {
+   "rank": 20,
+   "ensembl_id": "ENSG00000135919",
+   "approved_symbol": "SERPINE2",
+   "approved_name": "serpin family E member 2",
+   "biotype": "protein_coding",
+   "symbol_synonyms": [
+    "GDN",
+    "GDNPF",
+    "PI-7",
+    "PI7",
+    "PN-1",
+    "PN1",
+    "PNI",
+    "SERPINE2",
+    "nexin"
+   ],
+   "uniprot": "P07093",
+   "uniprot_source": "opentargets_proteinIds:uniprot_swissprot",
+   "overall_association_score": 0.49501236795235837,
+   "datatype_scores": {
+    "genetic_association": 0.8142577574571225,
+    "known_drug": null,
+    "literature": null,
+    "rna_expression": null,
+    "somatic_mutation": null,
+    "animal_model": null,
+    "affected_pathway": null
+   },
+   "all_datatype_scores": {
+    "genetic_association": 0.8142577574571225
+   },
+   "known_drug_datatype_id": null,
+   "known_drug_score": null,
+   "has_known_drug_evidence": false,
+   "n_drug_and_clinical_candidates": 0,
+   "n_drug_rows_returned": 0,
+   "drug_rows_complete": true,
+   "n_approved_drugs": 0,
+   "approved_drug_examples": [],
+   "association_score": 0.49501236795235837,
+   "score_by_datatype": {
+    "genetic_association": 0.8142577574571225
+   },
+   "n_approved_binders_moa": 0,
+   "n_approved_binders_annotated": 0,
+   "n_approved_binders_bioactivity": 0,
+   "n_approved_biologic_binders": 0,
+   "n_approved_peptide_binders": 0,
+   "known_approved_drugs": [],
+   "approved_binders_offtarget_only": [],
+   "approved_biologic_binders": [],
+   "corpus_symbols_matched": [],
+   "target_class": [],
+   "target_class_detail": [],
+   "tractability": {
+    "antibody": [
+     "GO CC high conf",
+     "UniProt SigP or TMHMM",
+     "UniProt loc med conf"
+    ],
+    "protac": [
+     "Database Ubiquitination",
+     "Half-life Data"
+    ]
+   },
+   "n_safety_liabilities": 0,
+   "safety_flags": [],
+   "safety_sources": [],
+   "circularity": {
+    "known_drug_datatype_id": null,
+    "known_drug_score": null,
+    "known_drug_share_of_datatype_sum": null,
+    "known_drug_is_largest_datatype": false,
+    "known_drug_dominated": false,
+    "circularity_note": "no known-drug datatype on this target"
+   },
+   "uniprot_sites": {
+    "sequence_length": 398,
+    "active_sites": [],
+    "site_anchors": [],
+    "site_anchor_rule": "UniProt ACT_SITE positions whose residue is S/C/T (the catalytic nucleophile). His/Asp members of a charge-relay triad are excluded: they sit behind the nucleophile and a sphere over all three reaches into the core rather than the ligand site.",
+    "mature_chains": [
+     {
+      "description": "Glia-derived nexin",
+      "start": 20,
+      "end": 398
+     }
+    ]
+   },
+   "structure": {
+    "structure_status": "ok",
+    "n_entities_total": 2,
+    "n_entities_ligand_bound_total": 1,
+    "n_entities_examined": 2,
+    "n_entries_examined": 2,
+    "n_entries_usable": 1,
+    "n_entries_rejected": 1,
+    "reject_reason_counts": {
+     "co_crystallised_peptide_polymer_chain": 1
+    },
+    "structure": {
+     "pdb_id": "4DY0",
+     "method": "X-ray",
+     "resolution_a": 2.35,
+     "chain": "A",
+     "chain_entity_length_aa": 379,
+     "target_entities": [
+      {
+       "entity_id": "4DY0_1",
+       "length_aa": 379,
+       "polymer_type": "polypeptide(L)",
+       "auth_chain_ids": [
+        "A",
+        "B"
+       ],
+       "description": "Glia-derived nexin",
+       "accessions": [
+        "P07093"
+       ]
+      }
+     ],
+     "foreign_peptide_chains": [],
+     "foreign_polymer_chains": [],
+     "drug_like_ligands": [],
+     "all_het_comp_ids": [
+      "GOL",
+      "SO4"
+     ],
+     "apo_or_holo": "apo"
+    },
+    "rejected_better_resolution": [],
+    "runner_up_entries": []
+   },
+   "literature_query": "(TITLE_ABS:\"SERPINE2\" OR TITLE_ABS:\"PI-7\" OR TITLE_ABS:\"PN-1\" OR TITLE_ABS:\"GDNPF\" OR TITLE_ABS:\"nexin\") AND TITLE_ABS:\"venous thromboembolism\" AND (TITLE_ABS:\"inhibitor\" OR TITLE_ABS:\"inhibition\" OR TITLE_ABS:\"binder\" OR TITLE_ABS:\"antagonist\" OR TITLE_ABS:\"blockade\") AND (HAS_ABSTRACT:Y) AND (SRC:MED)",
+   "literature_hit_count": 1,
+   "literature": [
+    {
+     "pmid": "41360087",
+     "title": "Thrombosis Caused by Factor XI Gly397Ser Mutation with Enhanced Procoagulant Activity.",
+     "year": "2025",
+     "journal": "Thrombosis and haemostasis",
+     "claim": "Otherwise, the G397S FXI mutant exhibited similar hydrolytic activity of FXIa against FIX, and equivalent inhibition of FXIa by Protease nexin 2 (PN2).",
+     "claim_tier": "target+term",
+     "claim_alias": "nexin",
+     "doi": "10.1055/a-2740-1731",
+     "title_verified": true,
+     "verification": "match"
+    }
+   ],
+   "literature_dropped_failed_verification": [],
+   "literature_status": "ok",
+   "site_type_hint": "unknown",
+   "site_type_evidence": "4DY0 is apo and has no partner chain",
+   "preferred_modalities": [
+    "unknown"
+   ],
+   "preferred_modalities_rule": "a modality is listed only where an approved drug of that kind binds this target in the local corpora, or (small_molecule) the chosen structure carries a drug-like HETATM ligand",
+   "opentargets_tractability_modalities": [
+    "antibody",
+    "protac"
+   ],
+   "gate_has_approved_positive_control": false,
+   "gate_has_usable_structure": true,
+   "usable_for_pipeline": false,
+   "unusable_reasons": [
+    "no approved drug has SERPINE2 as its mechanism-of-action target (0 off-target annotations, 0 pchembl-backed) - the matching arms would have no positive control"
+   ],
+   "pipeline_config": null
+  },
+  {
+   "rank": 21,
+   "ensembl_id": "ENSG00000088053",
+   "approved_symbol": "GP6",
+   "approved_name": "glycoprotein VI platelet",
+   "biotype": "protein_coding",
+   "symbol_synonyms": [
+    "BDPLT11",
+    "GP6",
+    "GPIV",
+    "GPVI"
+   ],
+   "uniprot": "Q9HCN6",
+   "uniprot_source": "opentargets_proteinIds:uniprot_swissprot",
+   "overall_association_score": 0.493728672961755,
+   "datatype_scores": {
+    "genetic_association": 0.8069823955906426,
+    "known_drug": null,
+    "literature": 0.1032756216375942,
+    "rna_expression": null,
+    "somatic_mutation": null,
+    "animal_model": null,
+    "affected_pathway": null
+   },
+   "all_datatype_scores": {
+    "literature": 0.1032756216375942,
+    "genetic_association": 0.8069823955906426
+   },
+   "known_drug_datatype_id": null,
+   "known_drug_score": null,
+   "has_known_drug_evidence": false,
+   "n_drug_and_clinical_candidates": 1,
+   "n_drug_rows_returned": 1,
+   "drug_rows_complete": true,
+   "n_approved_drugs": 0,
+   "approved_drug_examples": [],
+   "association_score": 0.493728672961755,
+   "score_by_datatype": {
+    "literature": 0.1032756216375942,
+    "genetic_association": 0.8069823955906426
+   },
+   "n_approved_binders_moa": 0,
+   "n_approved_binders_annotated": 1,
+   "n_approved_binders_bioactivity": 4,
+   "n_approved_biologic_binders": 0,
+   "n_approved_peptide_binders": 0,
+   "known_approved_drugs": [],
+   "approved_binders_offtarget_only": [
+    "losartan"
+   ],
+   "approved_biologic_binders": [],
+   "corpus_symbols_matched": [
+    "GP6"
+   ],
+   "target_class": [
+    "Adhesion"
+   ],
+   "target_class_detail": [
+    {
+     "label": "Adhesion",
+     "level": "l1"
+    }
+   ],
+   "tractability": {
+    "antibody": [
+     "Advanced Clinical",
+     "GO CC high conf",
+     "Human Protein Atlas loc",
+     "UniProt SigP or TMHMM",
+     "UniProt loc med conf"
+    ],
+    "protac": [
+     "Small Molecule Binder"
+    ],
+    "small_molecule": [
+     "High-Quality Ligand"
+    ]
+   },
+   "n_safety_liabilities": 0,
+   "safety_flags": [],
+   "safety_sources": [],
+   "circularity": {
+    "known_drug_datatype_id": null,
+    "known_drug_score": null,
+    "known_drug_share_of_datatype_sum": null,
+    "known_drug_is_largest_datatype": false,
+    "known_drug_dominated": false,
+    "circularity_note": "no known-drug datatype on this target"
+   },
+   "uniprot_sites": {
+    "sequence_length": 339,
+    "active_sites": [],
+    "site_anchors": [],
+    "site_anchor_rule": "UniProt ACT_SITE positions whose residue is S/C/T (the catalytic nucleophile). His/Asp members of a charge-relay triad are excluded: they sit behind the nucleophile and a sphere over all three reaches into the core rather than the ligand site.",
+    "mature_chains": [
+     {
+      "description": "Platelet glycoprotein VI",
+      "start": 21,
+      "end": 339
+     }
+    ]
+   },
+   "structure": {
+    "structure_status": "ok",
+    "n_entities_total": 6,
+    "n_entities_ligand_bound_total": 5,
+    "n_entities_examined": 6,
+    "n_entries_examined": 6,
+    "n_entries_usable": 4,
+    "n_entries_rejected": 2,
+    "reject_reason_counts": {
+     "co_crystallised_peptide_polymer_chain": 2
+    },
+    "structure": {
+     "pdb_id": "5OU7",
+     "method": "X-ray",
+     "resolution_a": 1.9,
+     "chain": "A",
+     "chain_entity_length_aa": 181,
+     "target_entities": [
+      {
+       "entity_id": "5OU7_1",
+       "length_aa": 181,
+       "polymer_type": "polypeptide(L)",
+       "auth_chain_ids": [
+        "A",
+        "B",
+        "C",
+        "D"
+       ],
+       "description": "Platelet glycoprotein VI",
+       "accessions": [
+        "Q9HCN6"
+       ]
+      }
+     ],
+     "foreign_peptide_chains": [],
+     "foreign_polymer_chains": [],
+     "drug_like_ligands": [
+      "PG6"
+     ],
+     "all_het_comp_ids": [
+      "NAG",
+      "PG6",
+      "PO4",
+      "CL"
+     ],
+     "apo_or_holo": "holo"
+    },
+    "rejected_better_resolution": [],
+    "runner_up_entries": [
+     {
+      "pdb_id": "2GI7",
+      "chain": "A",
+      "resolution_a": 2.4,
+      "apo_or_holo": "apo"
+     },
+     {
+      "pdb_id": "7R58",
+      "chain": "A",
+      "resolution_a": 1.902,
+      "apo_or_holo": "apo"
+     },
+     {
+      "pdb_id": "7NMU",
+      "chain": "AAA",
+      "resolution_a": 2.5,
+      "apo_or_holo": "apo"
+     }
+    ]
+   },
+   "literature_query": "(TITLE_ABS:\"GP6\" OR TITLE_ABS:\"BDPLT11\" OR TITLE_ABS:\"GPIV\" OR TITLE_ABS:\"GPVI\") AND TITLE_ABS:\"venous thromboembolism\" AND (TITLE_ABS:\"inhibitor\" OR TITLE_ABS:\"inhibition\" OR TITLE_ABS:\"binder\" OR TITLE_ABS:\"antagonist\" OR TITLE_ABS:\"blockade\") AND (HAS_ABSTRACT:Y) AND (SRC:MED)",
+   "literature_hit_count": 2,
+   "literature": [
+    {
+     "pmid": "34496636",
+     "title": "Platelet GPVI (Glycoprotein VI) and Thrombotic Complications in the Venous System.",
+     "year": "2021",
+     "journal": "Arteriosclerosis, thrombosis, and vascular biology",
+     "claim": "However, preclinical studies on the inhibition of GPVI-ligand interactions are focused on arterial thrombotic complications.",
+     "claim_tier": "target+term",
+     "claim_alias": "GPVI",
+     "doi": "10.1161/atvbaha.121.316108",
+     "title_verified": true,
+     "verification": "match"
+    },
+    {
+     "pmid": "36473362",
+     "title": "Translational insights into mechanisms underlying residual venous obstruction and the role of factor XI, P-selectin and GPVI in recurrent venous thromboembolism.",
+     "year": "2023",
+     "journal": "Thrombosis research",
+     "claim": "Background: Residual venous obstruction (RVO) after deep vein thrombosis (DVT) is considered a risk factor of recurrent venous thromboembolism (VTE), arterial events and post-thrombotic syndrome (PTS).",
+     "claim_tier": "first-sentence",
+     "claim_alias": null,
+     "doi": "10.1016/j.thromres.2022.11.023",
+     "title_verified": true,
+     "verification": "match"
+    }
+   ],
+   "literature_dropped_failed_verification": [],
+   "literature_status": "ok",
+   "site_type_hint": "pocket",
+   "site_type_evidence": "chosen structure 5OU7 binds PG6 as HETATM",
+   "preferred_modalities": [
+    "small_molecule"
+   ],
+   "preferred_modalities_rule": "a modality is listed only where an approved drug of that kind binds this target in the local corpora, or (small_molecule) the chosen structure carries a drug-like HETATM ligand",
+   "opentargets_tractability_modalities": [
+    "antibody",
+    "protac",
+    "small_molecule"
+   ],
+   "gate_has_approved_positive_control": false,
+   "gate_has_usable_structure": true,
+   "usable_for_pipeline": false,
+   "unusable_reasons": [
+    "no approved drug has GP6 as its mechanism-of-action target (1 off-target annotations, 4 pchembl-backed) - the matching arms would have no positive control"
+   ],
+   "pipeline_config": null
+  },
+  {
+   "rank": 22,
+   "ensembl_id": "ENSG00000115956",
+   "approved_symbol": "PLEK",
+   "approved_name": "pleckstrin",
+   "biotype": "protein_coding",
+   "symbol_synonyms": [
+    "P47",
+    "PLEK",
+    "PLEK1",
+    "p47"
+   ],
+   "uniprot": "P08567",
+   "uniprot_source": "opentargets_proteinIds:uniprot_swissprot",
+   "overall_association_score": 0.4913415293464578,
+   "datatype_scores": {
+    "genetic_association": 0.8050278700011164,
+    "known_drug": null,
+    "literature": 0.06383273374922022,
+    "rna_expression": null,
+    "somatic_mutation": null,
+    "animal_model": null,
+    "affected_pathway": null
+   },
+   "all_datatype_scores": {
+    "literature": 0.06383273374922022,
+    "genetic_association": 0.8050278700011164
+   },
+   "known_drug_datatype_id": null,
+   "known_drug_score": null,
+   "has_known_drug_evidence": false,
+   "n_drug_and_clinical_candidates": 0,
+   "n_drug_rows_returned": 0,
+   "drug_rows_complete": true,
+   "n_approved_drugs": 0,
+   "approved_drug_examples": [],
+   "association_score": 0.4913415293464578,
+   "score_by_datatype": {
+    "literature": 0.06383273374922022,
+    "genetic_association": 0.8050278700011164
+   },
+   "n_approved_binders_moa": 0,
+   "n_approved_binders_annotated": 0,
+   "n_approved_binders_bioactivity": 0,
+   "n_approved_biologic_binders": 0,
+   "n_approved_peptide_binders": 0,
+   "known_approved_drugs": [],
+   "approved_binders_offtarget_only": [],
+   "approved_biologic_binders": [],
+   "corpus_symbols_matched": [],
+   "target_class": [
+    "Unclassified protein"
+   ],
+   "target_class_detail": [
+    {
+     "label": "Unclassified protein",
+     "level": "l1"
+    }
+   ],
+   "tractability": {
+    "antibody": [
+     "GO CC high conf"
+    ],
+    "protac": [
+     "Database Ubiquitination",
+     "Half-life Data"
+    ]
+   },
+   "n_safety_liabilities": 0,
+   "safety_flags": [],
+   "safety_sources": [],
+   "circularity": {
+    "known_drug_datatype_id": null,
+    "known_drug_score": null,
+    "known_drug_share_of_datatype_sum": null,
+    "known_drug_is_largest_datatype": false,
+    "known_drug_dominated": false,
+    "circularity_note": "no known-drug datatype on this target"
+   },
+   "uniprot_sites": {
+    "sequence_length": 350,
+    "active_sites": [],
+    "site_anchors": [],
+    "site_anchor_rule": "UniProt ACT_SITE positions whose residue is S/C/T (the catalytic nucleophile). His/Asp members of a charge-relay triad are excluded: they sit behind the nucleophile and a sphere over all three reaches into the core rather than the ligand site.",
+    "mature_chains": [
+     {
+      "description": "Pleckstrin",
+      "start": 1,
+      "end": 350
+     }
+    ]
+   },
+   "structure": {
+    "structure_status": "ok",
+    "n_entities_total": 3,
+    "n_entities_ligand_bound_total": 2,
+    "n_entities_examined": 3,
+    "n_entries_examined": 3,
+    "n_entries_usable": 3,
+    "n_entries_rejected": 0,
+    "reject_reason_counts": {},
+    "structure": {
+     "pdb_id": "2I5F",
+     "method": "X-ray",
+     "resolution_a": 1.35,
+     "chain": "A",
+     "chain_entity_length_aa": 109,
+     "target_entities": [
+      {
+       "entity_id": "2I5F_1",
+       "length_aa": 109,
+       "polymer_type": "polypeptide(L)",
+       "auth_chain_ids": [
+        "A"
+       ],
+       "description": "Pleckstrin",
+       "accessions": [
+        "P08567"
+       ]
+      }
+     ],
+     "foreign_peptide_chains": [],
+     "foreign_polymer_chains": [],
+     "drug_like_ligands": [
+      "5IP"
+     ],
+     "all_het_comp_ids": [
+      "5IP"
+     ],
+     "apo_or_holo": "holo"
+    },
+    "rejected_better_resolution": [],
+    "runner_up_entries": [
+     {
+      "pdb_id": "2I5C",
+      "chain": "A",
+      "resolution_a": 1.75,
+      "apo_or_holo": "holo"
+     },
+     {
+      "pdb_id": "1ZM0",
+      "chain": "A",
+      "resolution_a": 2.1,
+      "apo_or_holo": "apo"
+     }
+    ]
+   },
+   "literature_query": "(TITLE_ABS:\"PLEK\" OR TITLE_ABS:\"PLEK1\") AND TITLE_ABS:\"venous thromboembolism\" AND (TITLE_ABS:\"inhibitor\" OR TITLE_ABS:\"inhibition\" OR TITLE_ABS:\"binder\" OR TITLE_ABS:\"antagonist\" OR TITLE_ABS:\"blockade\") AND (HAS_ABSTRACT:Y) AND (SRC:MED)",
+   "literature_hit_count": 0,
+   "literature": [],
+   "literature_dropped_failed_verification": [],
+   "literature_status": "no verified paper",
+   "site_type_hint": "pocket",
+   "site_type_evidence": "chosen structure 2I5F binds 5IP as HETATM",
+   "preferred_modalities": [
+    "small_molecule"
+   ],
+   "preferred_modalities_rule": "a modality is listed only where an approved drug of that kind binds this target in the local corpora, or (small_molecule) the chosen structure carries a drug-like HETATM ligand",
+   "opentargets_tractability_modalities": [
+    "antibody",
+    "protac"
+   ],
+   "gate_has_approved_positive_control": false,
+   "gate_has_usable_structure": true,
+   "usable_for_pipeline": false,
+   "unusable_reasons": [
+    "no approved drug has PLEK as its mechanism-of-action target (0 off-target annotations, 0 pchembl-backed) - the matching arms would have no positive control"
+   ],
+   "pipeline_config": null
+  },
+  {
+   "rank": 23,
+   "ensembl_id": "ENSG00000171557",
+   "approved_symbol": "FGG",
+   "approved_name": "fibrinogen gamma chain",
+   "biotype": "protein_coding",
+   "symbol_synonyms": [
+    "FGG",
+    "PRO2061"
+   ],
+   "uniprot": "P02679",
+   "uniprot_source": "opentargets_proteinIds:uniprot_swissprot",
+   "overall_association_score": 0.4846189125747991,
+   "datatype_scores": {
+    "genetic_association": 0.7956499290576134,
+    "known_drug": null,
+    "literature": 0.030227670214577826,
+    "rna_expression": null,
+    "somatic_mutation": null,
+    "animal_model": null,
+    "affected_pathway": null
+   },
+   "all_datatype_scores": {
+    "literature": 0.030227670214577826,
+    "genetic_association": 0.7956499290576134
+   },
+   "known_drug_datatype_id": null,
+   "known_drug_score": null,
+   "has_known_drug_evidence": false,
+   "n_drug_and_clinical_candidates": 5,
+   "n_drug_rows_returned": 5,
+   "drug_rows_complete": true,
+   "n_approved_drugs": 3,
+   "approved_drug_examples": [
+    "ANCROD",
+    "FIBRINOGEN, HUMAN",
+    "FIBRINOLYSIN, HUMAN"
+   ],
+   "association_score": 0.4846189125747991,
+   "score_by_datatype": {
+    "literature": 0.030227670214577826,
+    "genetic_association": 0.7956499290576134
+   },
+   "n_approved_binders_moa": 0,
+   "n_approved_binders_annotated": 0,
+   "n_approved_binders_bioactivity": 0,
+   "n_approved_biologic_binders": 0,
+   "n_approved_peptide_binders": 0,
+   "known_approved_drugs": [],
+   "approved_binders_offtarget_only": [],
+   "approved_biologic_binders": [],
+   "corpus_symbols_matched": [],
+   "target_class": [],
+   "target_class_detail": [],
+   "tractability": {
+    "antibody": [
+     "GO CC high conf",
+     "UniProt SigP or TMHMM",
+     "UniProt loc high conf"
+    ],
+    "other": [
+     "Approved Drug"
+    ],
+    "protac": [
+     "Half-life Data"
+    ],
+    "small_molecule": [
+     "High-Quality Pocket",
+     "Structure with Ligand"
+    ]
+   },
+   "n_safety_liabilities": 0,
+   "safety_flags": [],
+   "safety_sources": [],
+   "circularity": {
+    "known_drug_datatype_id": null,
+    "known_drug_score": null,
+    "known_drug_share_of_datatype_sum": null,
+    "known_drug_is_largest_datatype": false,
+    "known_drug_dominated": false,
+    "circularity_note": "no known-drug datatype on this target"
+   },
+   "uniprot_sites": {
+    "sequence_length": 453,
+    "active_sites": [],
+    "site_anchors": [],
+    "site_anchor_rule": "UniProt ACT_SITE positions whose residue is S/C/T (the catalytic nucleophile). His/Asp members of a charge-relay triad are excluded: they sit behind the nucleophile and a sphere over all three reaches into the core rather than the ligand site.",
+    "mature_chains": [
+     {
+      "description": "Fibrinogen gamma chain",
+      "start": 27,
+      "end": 453
+     }
+    ]
+   },
+   "structure": {
+    "structure_status": "ok",
+    "n_entities_total": 47,
+    "n_entities_ligand_bound_total": 9,
+    "n_entities_examined": 47,
+    "n_entries_examined": 47,
+    "n_entries_usable": 21,
+    "n_entries_rejected": 26,
+    "reject_reason_counts": {
+     "co_crystallised_peptide_polymer_chain": 26
+    },
+    "structure": {
+     "pdb_id": "1DUG",
+     "method": "X-ray",
+     "resolution_a": 1.8,
+     "chain": "A",
+     "chain_entity_length_aa": 234,
+     "target_entities": [
+      {
+       "entity_id": "1DUG_1",
+       "length_aa": 234,
+       "polymer_type": "polypeptide(L)",
+       "auth_chain_ids": [
+        "A",
+        "B"
+       ],
+       "description": "chimera of GLUTATHIONE S-TRANSFERASE-synthetic LINKEr-C-TERMINAL FIBRINOGEN GAMMA CHAIN",
+       "accessions": [
+        "P02679",
+        "P08515"
+       ]
+      }
+     ],
+     "foreign_peptide_chains": [],
+     "foreign_polymer_chains": [],
+     "drug_like_ligands": [
+      "GSH"
+     ],
+     "all_het_comp_ids": [
+      "GSH"
+     ],
+     "apo_or_holo": "holo"
+    },
+    "rejected_better_resolution": [
+     {
+      "pdb_id": "9KHC",
+      "resolution_a": 1.32,
+      "reject_reason": "co_crystallised_peptide_polymer_chain",
+      "reject_detail": [
+       "9KHC_2 GLY-PRO-ARG-PRO (4 aa)"
+      ]
+     }
+    ],
+    "runner_up_entries": [
+     {
+      "pdb_id": "9KHB",
+      "chain": "A",
+      "resolution_a": 1.03,
+      "apo_or_holo": "apo"
+     },
+     {
+      "pdb_id": "1FIB",
+      "chain": "A",
+      "resolution_a": 2.1,
+      "apo_or_holo": "apo"
+     },
+     {
+      "pdb_id": "1FID",
+      "chain": "A",
+      "resolution_a": 2.1,
+      "apo_or_holo": "apo"
+     },
+     {
+      "pdb_id": "3FIB",
+      "chain": "A",
+      "resolution_a": 2.1,
+      "apo_or_holo": "apo"
+     },
+     {
+      "pdb_id": "1FIC",
+      "chain": "A",
+      "resolution_a": 2.5,
+      "apo_or_holo": "apo"
+     }
+    ]
+   },
+   "literature_query": "(TITLE_ABS:\"FGG\" OR TITLE_ABS:\"PRO2061\") AND TITLE_ABS:\"venous thromboembolism\" AND (TITLE_ABS:\"inhibitor\" OR TITLE_ABS:\"inhibition\" OR TITLE_ABS:\"binder\" OR TITLE_ABS:\"antagonist\" OR TITLE_ABS:\"blockade\") AND (HAS_ABSTRACT:Y) AND (SRC:MED)",
+   "literature_hit_count": 1,
+   "literature": [
+    {
+     "pmid": "31131962",
+     "title": "Fibrinogen Columbus II: A novel c.1075G>T mutation in the FGG gene causing hypodysfibrinogenemia and thrombosis in an adolescent male.",
+     "year": "2019",
+     "journal": "Pediatric blood & cancer",
+     "claim": "Sequencing of the FGG gene identified a novel heterozygous mutation, c.1075G>T.",
+     "claim_tier": "target-only",
+     "claim_alias": "FGG",
+     "doi": "10.1002/pbc.27832",
+     "title_verified": true,
+     "verification": "match"
+    }
+   ],
+   "literature_dropped_failed_verification": [],
+   "literature_status": "ok",
+   "site_type_hint": "pocket",
+   "site_type_evidence": "chosen structure 1DUG binds GSH as HETATM",
+   "preferred_modalities": [
+    "small_molecule"
+   ],
+   "preferred_modalities_rule": "a modality is listed only where an approved drug of that kind binds this target in the local corpora, or (small_molecule) the chosen structure carries a drug-like HETATM ligand",
+   "opentargets_tractability_modalities": [
+    "antibody",
+    "other",
+    "protac",
+    "small_molecule"
+   ],
+   "gate_has_approved_positive_control": false,
+   "gate_has_usable_structure": true,
+   "usable_for_pipeline": false,
+   "unusable_reasons": [
+    "no approved drug has FGG as its mechanism-of-action target (0 off-target annotations, 0 pchembl-backed) - the matching arms would have no positive control"
+   ],
+   "pipeline_config": null
+  },
+  {
+   "rank": 24,
+   "ensembl_id": "ENSG00000162722",
+   "approved_symbol": "TRIM58",
+   "approved_name": "tripartite motif containing 58",
+   "biotype": "protein_coding",
+   "symbol_synonyms": [
+    "BIA2",
+    "TRIM58"
+   ],
+   "uniprot": "Q8NG06",
+   "uniprot_source": "opentargets_proteinIds:uniprot_swissprot",
+   "overall_association_score": 0.481193556179726,
+   "datatype_scores": {
+    "genetic_association": 0.7915268613963827,
+    "known_drug": null,
+    "literature": null,
+    "rna_expression": null,
+    "somatic_mutation": null,
+    "animal_model": null,
+    "affected_pathway": null
+   },
+   "all_datatype_scores": {
+    "genetic_association": 0.7915268613963827
+   },
+   "known_drug_datatype_id": null,
+   "known_drug_score": null,
+   "has_known_drug_evidence": false,
+   "n_drug_and_clinical_candidates": 0,
+   "n_drug_rows_returned": 0,
+   "drug_rows_complete": true,
+   "n_approved_drugs": 0,
+   "approved_drug_examples": [],
+   "association_score": 0.481193556179726,
+   "score_by_datatype": {
+    "genetic_association": 0.7915268613963827
+   },
+   "n_approved_binders_moa": 0,
+   "n_approved_binders_annotated": 0,
+   "n_approved_binders_bioactivity": 0,
+   "n_approved_biologic_binders": 0,
+   "n_approved_peptide_binders": 0,
+   "known_approved_drugs": [],
+   "approved_binders_offtarget_only": [],
+   "approved_biologic_binders": [],
+   "corpus_symbols_matched": [],
+   "target_class": [
+    "Enzyme",
+    "Transferase"
+   ],
+   "target_class_detail": [
+    {
+     "label": "Enzyme",
+     "level": "l1"
+    },
+    {
+     "label": "Transferase",
+     "level": "l2"
+    }
+   ],
+   "tractability": {
+    "small_molecule": [
+     "Structure with Ligand"
+    ]
+   },
+   "n_safety_liabilities": 0,
+   "safety_flags": [],
+   "safety_sources": [],
+   "circularity": {
+    "known_drug_datatype_id": null,
+    "known_drug_score": null,
+    "known_drug_share_of_datatype_sum": null,
+    "known_drug_is_largest_datatype": false,
+    "known_drug_dominated": false,
+    "circularity_note": "no known-drug datatype on this target"
+   },
+   "uniprot_sites": {
+    "sequence_length": 486,
+    "active_sites": [],
+    "site_anchors": [],
+    "site_anchor_rule": "UniProt ACT_SITE positions whose residue is S/C/T (the catalytic nucleophile). His/Asp members of a charge-relay triad are excluded: they sit behind the nucleophile and a sphere over all three reaches into the core rather than the ligand site.",
+    "mature_chains": [
+     {
+      "description": "E3 ubiquitin-protein ligase TRIM58",
+      "start": 1,
+      "end": 486
+     }
+    ]
+   },
+   "structure": {
+    "structure_status": "ok",
+    "n_entities_total": 2,
+    "n_entities_ligand_bound_total": 1,
+    "n_entities_examined": 2,
+    "n_entries_examined": 2,
+    "n_entries_usable": 2,
+    "n_entries_rejected": 0,
+    "reject_reason_counts": {},
+    "structure": {
+     "pdb_id": "8PD6",
+     "method": "X-ray",
+     "resolution_a": 1.3,
+     "chain": "A",
+     "chain_entity_length_aa": 218,
+     "target_entities": [
+      {
+       "entity_id": "8PD6_1",
+       "length_aa": 218,
+       "polymer_type": "polypeptide(L)",
+       "auth_chain_ids": [
+        "A"
+       ],
+       "description": "E3 ubiquitin-protein ligase TRIM58",
+       "accessions": [
+        "Q8NG06"
+       ]
+      }
+     ],
+     "foreign_peptide_chains": [],
+     "foreign_polymer_chains": [],
+     "drug_like_ligands": [
+      "YCB"
+     ],
+     "all_het_comp_ids": [
+      "EDO",
+      "CL",
+      "MG",
+      "YCB"
+     ],
+     "apo_or_holo": "holo"
+    },
+    "rejected_better_resolution": [],
+    "runner_up_entries": [
+     {
+      "pdb_id": "8PD4",
+      "chain": "A",
+      "resolution_a": 2.714,
+      "apo_or_holo": "apo"
+     }
+    ]
+   },
+   "literature_query": "(TITLE_ABS:\"TRIM58\" OR TITLE_ABS:\"BIA2\") AND TITLE_ABS:\"venous thromboembolism\" AND (TITLE_ABS:\"inhibitor\" OR TITLE_ABS:\"inhibition\" OR TITLE_ABS:\"binder\" OR TITLE_ABS:\"antagonist\" OR TITLE_ABS:\"blockade\") AND (HAS_ABSTRACT:Y) AND (SRC:MED)",
+   "literature_hit_count": 0,
+   "literature": [],
+   "literature_dropped_failed_verification": [],
+   "literature_status": "no verified paper",
+   "site_type_hint": "pocket",
+   "site_type_evidence": "chosen structure 8PD6 binds YCB as HETATM",
+   "preferred_modalities": [
+    "small_molecule"
+   ],
+   "preferred_modalities_rule": "a modality is listed only where an approved drug of that kind binds this target in the local corpora, or (small_molecule) the chosen structure carries a drug-like HETATM ligand",
+   "opentargets_tractability_modalities": [
+    "small_molecule"
+   ],
+   "gate_has_approved_positive_control": false,
+   "gate_has_usable_structure": true,
+   "usable_for_pipeline": false,
+   "unusable_reasons": [
+    "no approved drug has TRIM58 as its mechanism-of-action target (0 off-target annotations, 0 pchembl-backed) - the matching arms would have no positive control"
+   ],
+   "pipeline_config": null
+  },
+  {
+   "rank": 25,
+   "ensembl_id": "ENSG00000099282",
+   "approved_symbol": "TSPAN15",
+   "approved_name": "tetraspanin 15",
+   "biotype": "protein_coding",
+   "symbol_synonyms": [
+    "2700063A19Rik",
+    "NET-7",
+    "NET7",
+    "TM4SF15",
+    "TSPAN15",
+    "Tspan-15",
+    "UNQ677/PRO1311"
+   ],
+   "uniprot": "O95858",
+   "uniprot_source": "opentargets_proteinIds:uniprot_swissprot",
+   "overall_association_score": 0.4788830338010964,
+   "datatype_scores": {
+    "genetic_association": 0.7841546340926997,
+    "known_drug": null,
+    "literature": 0.07143186871936548,
+    "rna_expression": null,
+    "somatic_mutation": null,
+    "animal_model": null,
+    "affected_pathway": null
+   },
+   "all_datatype_scores": {
+    "literature": 0.07143186871936548,
+    "genetic_association": 0.7841546340926997
+   },
+   "known_drug_datatype_id": null,
+   "known_drug_score": null,
+   "has_known_drug_evidence": false,
+   "n_drug_and_clinical_candidates": 0,
+   "n_drug_rows_returned": 0,
+   "drug_rows_complete": true,
+   "n_approved_drugs": 0,
+   "approved_drug_examples": [],
+   "association_score": 0.4788830338010964,
+   "score_by_datatype": {
+    "literature": 0.07143186871936548,
+    "genetic_association": 0.7841546340926997
+   },
+   "n_approved_binders_moa": 0,
+   "n_approved_binders_annotated": 0,
+   "n_approved_binders_bioactivity": 0,
+   "n_approved_biologic_binders": 0,
+   "n_approved_peptide_binders": 0,
+   "known_approved_drugs": [],
+   "approved_binders_offtarget_only": [],
+   "approved_biologic_binders": [],
+   "corpus_symbols_matched": [],
+   "target_class": [],
+   "target_class_detail": [],
+   "tractability": {
+    "antibody": [
+     "GO CC high conf",
+     "UniProt SigP or TMHMM",
+     "UniProt loc high conf"
+    ],
+    "small_molecule": [
+     "Structure with Ligand"
+    ]
+   },
+   "n_safety_liabilities": 0,
+   "safety_flags": [],
+   "safety_sources": [],
+   "circularity": {
+    "known_drug_datatype_id": null,
+    "known_drug_score": null,
+    "known_drug_share_of_datatype_sum": null,
+    "known_drug_is_largest_datatype": false,
+    "known_drug_dominated": false,
+    "circularity_note": "no known-drug datatype on this target"
+   },
+   "uniprot_sites": {
+    "sequence_length": 294,
+    "active_sites": [],
+    "site_anchors": [],
+    "site_anchor_rule": "UniProt ACT_SITE positions whose residue is S/C/T (the catalytic nucleophile). His/Asp members of a charge-relay triad are excluded: they sit behind the nucleophile and a sphere over all three reaches into the core rather than the ligand site.",
+    "mature_chains": [
+     {
+      "description": "Tetraspanin-15",
+      "start": 1,
+      "end": 294
+     }
+    ]
+   },
+   "structure": {
+    "structure_status": "ok",
+    "n_entities_total": 2,
+    "n_entities_ligand_bound_total": 0,
+    "n_entities_examined": 2,
+    "n_entries_examined": 2,
+    "n_entries_usable": 2,
+    "n_entries_rejected": 0,
+    "reject_reason_counts": {},
+    "structure": {
+     "pdb_id": "7RDB",
+     "method": "X-ray",
+     "resolution_a": 2.52,
+     "chain": "A",
+     "chain_entity_length_aa": 122,
+     "target_entities": [
+      {
+       "entity_id": "7RDB_1",
+       "length_aa": 122,
+       "polymer_type": "polypeptide(L)",
+       "auth_chain_ids": [
+        "A",
+        "B",
+        "C",
+        "D",
+        "E",
+        "F",
+        "G",
+        "H",
+        "I",
+        "J",
+        "K",
+        "L",
+        "M",
+        "N",
+        "O",
+        "P",
+        "Q",
+        "R",
+        "S",
+        "T",
+        "U",
+        "V",
+        "W",
+        "X"
+       ],
+       "description": "Tetraspanin-15",
+       "accessions": [
+        "O95858"
+       ]
+      }
+     ],
+     "foreign_peptide_chains": [],
+     "foreign_polymer_chains": [],
+     "drug_like_ligands": [],
+     "all_het_comp_ids": [],
+     "apo_or_holo": "apo"
+    },
+    "rejected_better_resolution": [],
+    "runner_up_entries": [
+     {
+      "pdb_id": "7RD5",
+      "chain": "E",
+      "resolution_a": 3.6,
+      "apo_or_holo": "apo"
+     }
+    ]
+   },
+   "literature_query": "(TITLE_ABS:\"TSPAN15\" OR TITLE_ABS:\"Tspan-15\" OR TITLE_ABS:\"2700063A19Rik\" OR TITLE_ABS:\"NET-7\" OR TITLE_ABS:\"NET7\" OR TITLE_ABS:\"TM4SF15\" OR TITLE_ABS:\"UNQ677/PRO1311\") AND TITLE_ABS:\"venous thromboembolism\" AND (TITLE_ABS:\"inhibitor\" OR TITLE_ABS:\"inhibition\" OR TITLE_ABS:\"binder\" OR TITLE_ABS:\"antagonist\" OR TITLE_ABS:\"blockade\") AND (HAS_ABSTRACT:Y) AND (SRC:MED)",
+   "literature_hit_count": 0,
+   "literature": [],
+   "literature_dropped_failed_verification": [],
+   "literature_status": "no verified paper",
+   "site_type_hint": "unknown",
+   "site_type_evidence": "7RDB is apo and has no partner chain",
+   "preferred_modalities": [
+    "unknown"
+   ],
+   "preferred_modalities_rule": "a modality is listed only where an approved drug of that kind binds this target in the local corpora, or (small_molecule) the chosen structure carries a drug-like HETATM ligand",
+   "opentargets_tractability_modalities": [
+    "antibody",
+    "small_molecule"
+   ],
+   "gate_has_approved_positive_control": false,
+   "gate_has_usable_structure": true,
+   "usable_for_pipeline": false,
+   "unusable_reasons": [
+    "no approved drug has TSPAN15 as its mechanism-of-action target (0 off-target annotations, 0 pchembl-backed) - the matching arms would have no positive control"
+   ],
+   "pipeline_config": null
+  }
+ ]
+}
