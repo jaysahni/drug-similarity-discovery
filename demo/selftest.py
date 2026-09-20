@@ -36,6 +36,42 @@ def fetch_6q4g() -> Path:
     return path
 
 
+def fetch_1ppb() -> Path:
+    CACHE.mkdir(parents=True, exist_ok=True)
+    path = CACHE / "1PPB.pdb"
+    if not path.exists():
+        url = "https://files.rcsb.org/download/1PPB.pdb"
+        with urllib.request.urlopen(url, timeout=120) as handle:
+            path.write_bytes(handle.read())
+    return path
+
+
+def insertion_code_checks() -> list[tuple[str, bool, str]]:
+    """Thrombin: residues must survive chymotrypsin insertion codes.
+
+    1PPB chain H has 259 residues under 231 distinct resseq values. Keying on
+    resseq alone drops 28 of them, including the entire 60-loop that lines the
+    active site -- silently, and with plausible-looking output.
+    """
+    pdb = fetch_1ppb()
+    numbers, _ = contacts.chain_sequence(pdb, "H")
+    loop = [n for n in numbers if str(n).startswith("60")]
+    found = contacts.contacts_to_ligand(pdb, chain="H")["residues"]
+
+    # PPACK is a D-Phe-Pro-Arg chloromethylketone bound in the active site; its
+    # contacts must include the catalytic Ser195, the S1 aspartate Asp189, and
+    # the 60-loop cage. If insertion codes were dropped, 60A/60D vanish.
+    return [
+        ("thrombin residues", len(numbers) == 259, f"{len(numbers)} (expect 259)"),
+        ("60-loop intact", len(loop) == 10, f"{loop}"),
+        ("catalytic Ser195", 195 in found, str(195 in found)),
+        ("S1 Asp189", 189 in found, str(189 in found)),
+        ("60-loop contacts", "60A" in found and "60D" in found, f'60A={"60A" in found} 60D={"60D" in found}'),
+        ("residue ordering", contacts.residue_order(60) < contacts.residue_order("60A")
+         < contacts.residue_order("60B") < contacts.residue_order(61), "60 < 60A < 60B < 61"),
+    ]
+
+
 def main() -> int:
     truth = json.loads(TRUTH.read_text())
     expected = truth["known_ligand_residue_ids"]
@@ -59,6 +95,8 @@ def main() -> int:
         ("coverage", contacts.coverage([2, 3], [2, 3, 4]) == 2 / 3,
          str(contacts.coverage([2, 3], [2, 3, 4]))),
     )
+
+    checks.extend(insertion_code_checks())
 
     failed = 0
     for name, ok, detail in checks:

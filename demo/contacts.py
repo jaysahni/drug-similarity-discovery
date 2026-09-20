@@ -19,14 +19,43 @@ import numpy as np
 CUTOFF = 4.5  # angstroms, heavy atom to heavy atom
 
 
+def residue_label(resseq: int, icode: str) -> int | str:
+    """A residue's identifier: an int normally, "60A" where an insertion code exists.
+
+    Thrombin is numbered by the chymotrypsin convention, in which 28 of 1PPB's 259
+    chain-H residues carry an insertion code -- including the whole 60-loop
+    (60A-60I) that lines the active site. Keying on resseq alone silently merges
+    60, 60A, 60B ... into one residue and loses 28 of them, which would corrupt
+    every contact set computed on this target. CDK2 has no insertion codes, so
+    its labels stay plain ints and its earlier artifacts remain comparable.
+    """
+    return int(resseq) if not icode.strip() else f"{int(resseq)}{icode.strip()}"
+
+
+def residue_order(label: int | str) -> tuple[int, str]:
+    """Sort key for residue labels, so 60 < 60A < 60B < 61.
+
+    Labels are a mix of int and "60A"-style strings once insertion codes are
+    honoured, and Python will not order those against each other.
+    """
+    if isinstance(label, int):
+        return (label, "")
+    text = str(label)
+    digits = len(text)
+    while digits and not text[:digits].lstrip("-").isdigit():
+        digits -= 1
+    return (int(text[:digits]), text[digits:]) if digits else (0, text)
+
+
 def parse_pdb(path: Path) -> tuple[dict, np.ndarray, list]:
     """Return (protein_atoms, ligand_coords, ligand_names) from a PDB file.
 
-    protein_atoms maps (chain, resseq) -> (resname, coords array).
-    Hydrogens are dropped: the cutoff is defined on heavy atoms.
+    protein_atoms maps (chain, residue_label) -> (resname, coords array), where
+    residue_label is int or "60A"-style. Hydrogens are dropped: the cutoff is
+    defined on heavy atoms.
     """
-    protein: dict[tuple[str, int], list] = {}
-    resnames: dict[tuple[str, int], str] = {}
+    protein: dict[tuple[str, int | str], list] = {}
+    resnames: dict[tuple[str, int | str], str] = {}
     ligand: list[list[float]] = []
     ligand_names: list[str] = []
 
@@ -46,7 +75,7 @@ def parse_pdb(path: Path) -> tuple[dict, np.ndarray, list]:
         resname = line[17:20].strip()
         chain = line[21].strip() or "A"
         try:
-            resseq = int(line[22:26])
+            label = residue_label(int(line[22:26]), line[26])
         except ValueError:
             continue
 
@@ -54,7 +83,7 @@ def parse_pdb(path: Path) -> tuple[dict, np.ndarray, list]:
             ligand.append(xyz)
             ligand_names.append(resname)
         elif record == "ATOM  ":
-            key = (chain, resseq)
+            key = (chain, label)
             protein.setdefault(key, []).append(xyz)
             resnames[key] = resname
 
@@ -86,8 +115,8 @@ def contacts_to_ligand(
             engaged[resseq] = {"resname": resname, "min_dist": round(dmin, 2)}
 
     return {
-        "residues": sorted(engaged),
-        "detail": {str(k): v for k, v in sorted(engaged.items())},
+        "residues": sorted(engaged, key=residue_order),
+        "detail": {str(k): v for k, v in sorted(engaged.items(), key=lambda kv: residue_order(kv[0]))},
         "n_ligand_atoms": int(ligand.shape[0]),
         "ligand_names": sorted(set(ligand_names)),
         "cutoff": cutoff,
@@ -123,8 +152,8 @@ def contacts_between_chains(
             engaged[resseq] = {"resname": resname, "min_dist": round(dmin, 2)}
 
     return {
-        "residues": sorted(engaged),
-        "detail": {str(k): v for k, v in sorted(engaged.items())},
+        "residues": sorted(engaged, key=residue_order),
+        "detail": {str(k): v for k, v in sorted(engaged.items(), key=lambda kv: residue_order(kv[0]))},
         "n_binder_atoms": int(binder_xyz.shape[0]),
         "cutoff": cutoff,
     }
@@ -142,7 +171,8 @@ def chain_sequence(pdb: Path, chain: str) -> tuple[list[int], str]:
     """Residue numbers of `chain`, in file order, and their one-letter sequence."""
     protein, _, _ = parse_pdb(pdb)
     items = sorted(
-        ((resseq, resname) for (ch, resseq), (resname, _) in protein.items() if ch == chain)
+        ((label, resname) for (ch, label), (resname, _) in protein.items() if ch == chain),
+        key=lambda item: residue_order(item[0]),
     )
     if not items:
         raise ValueError(f"{pdb.name}: no polymer chain {chain!r}")
@@ -259,7 +289,7 @@ def consensus(per_design: list[list[int]], *, core_threshold: float = 0.6) -> di
             counts[r] = counts.get(r, 0) + 1
 
     frequency = {r: c / n for r, c in counts.items()}
-    core = sorted(r for r, f in frequency.items() if f >= core_threshold)
+    core = sorted((r for r, f in frequency.items() if f >= core_threshold), key=residue_order)
 
     # How much do the designs agree with each other? A consensus over designs
     # that disagree is not a signature of anything.
@@ -274,7 +304,7 @@ def consensus(per_design: list[list[int]], *, core_threshold: float = 0.6) -> di
         "n_designs": n,
         "core": core,
         "core_threshold": core_threshold,
-        "frequency": {str(r): round(f, 3) for r, f in sorted(frequency.items())},
+        "frequency": {str(r): round(f, 3) for r, f in sorted(frequency.items(), key=lambda kv: residue_order(kv[0]))},
         "mean_pairwise_jaccard": round(float(np.mean(jaccards)), 4) if jaccards else None,
     }
 
