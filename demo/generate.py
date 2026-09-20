@@ -306,6 +306,40 @@ def run_match(out: Path, symbol: str) -> None:
             pairs.append((float(score), float(best_known)))
 
         controls_scores = [s for s in docked["scores"][n_gen:] if s is not None]
+
+        # The pocket-evidence test proper: split the docked molecules into the
+        # ones that dock WELL and the ones that dock badly, and ask whether the
+        # good dockers resemble approved drugs -- and known binders in
+        # particular -- any more than the bad ones. Unlike a split by list
+        # position, this one is actually about the pocket.
+        if len(pairs) >= 20:
+            from scipy.stats import mannwhitneyu
+
+            ordered = sorted(pairs, key=lambda p: p[0])          # most negative = best
+            cut = max(5, len(ordered) // 4)
+            good, poor = ordered[:cut], ordered[-cut:]
+            good_known = [k for _, k in good]
+            poor_known = [k for _, k in poor]
+            u, pv = mannwhitneyu(good_known, poor_known, alternative="greater")
+            quartile_test = {
+                "n_per_group": cut,
+                "mean_similarity_to_known_binders": {
+                    "good_dockers": round(float(np.mean(good_known)), 4),
+                    "poor_dockers": round(float(np.mean(poor_known)), 4),
+                },
+                "mannwhitney_U": float(u),
+                "p_good_gt_poor": float(f"{pv:.4g}"),
+                "score_ranges": {
+                    "good_dockers": [round(good[0][0], 3), round(good[-1][0], 3)],
+                    "poor_dockers": [round(poor[0][0], 3), round(poor[-1][0], 3)],
+                },
+            }
+        else:
+            quartile_test = {
+                "status": "not_evaluated",
+                "reason": f"only {len(pairs)} molecules docked; need 20 for quartiles",
+            }
+
         if len(pairs) >= 5:
             scores, sims_known = zip(*pairs)
             rho, pval = spearmanr(scores, sims_known)
@@ -325,6 +359,7 @@ def run_match(out: Path, symbol: str) -> None:
                     bool(np.median(controls_scores) < np.median(scores))
                     if controls_scores else None
                 ),
+                "good_vs_poor_dockers": quartile_test,
             }
 
     # Positive control: a known binder as the query must retrieve its analogues.
