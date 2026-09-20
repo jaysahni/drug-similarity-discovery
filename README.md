@@ -29,31 +29,52 @@ chemistry in common to compare. **No affinity is predicted or read anywhere.**
 ./env/bin/python scripts/repurpose.py score --designs v4
 ```
 
-### It works, and it finds what chemistry cannot
+### It works — and the free pocket finder wins
 
-KDR/VEGFR2, 30 approved drugs co-folded, 29 scored, 137.8 Rowan credits.
+KDR/VEGFR2. **41 approved drugs co-folded** with Boltz-2 and ranked by interface
+overlap: 10 known binders, 19 property-matched decoys, and **12 hard decoys** —
+approved kinase inhibitors that DrugCentral does not annotate against KDR, each of
+which binds *some* ATP pocket by construction. 191 Rowan credits.
+
+| signature | enrichment @25% | median known-binder rank |
+|---|---|---|
+| **p2rank_geometry** *(free, 0.47 s)* | **2.87×** | **8.0** |
+| boltzgen_consensus *(85 credits)* | 2.05× | 12.5 |
+| known_ligand | 0.82× | 16.5 |
+
+*(4.10× is the arithmetic maximum at this base rate.)* 7 of the top 10 are known
+binders; known-binder ranks 3, 4, 5, 6, 7, 9, 10, 18, 20, 22 of 41.
 
 | rank | drug | role | score |
 |---|---|---|---|
-| 1 | midostaurin | known binder | 0.810 |
-| 2 | quercetin | known binder | 0.750 |
-| 3 | *proxibarbal* | *decoy* | *0.692* |
-| 4 | **sunitinib** | known binder | 0.688 |
-| 5 | **nintedanib** | known binder | 0.667 |
-| 6 | **pazopanib** | known binder | 0.650 |
-| 7 | fedratinib | known binder | 0.625 |
-| 8 | **vandetanib** | known binder | 0.619 |
-| 9 | dasatinib | known binder | 0.600 |
+| 1 | *proxibarbal* | *decoy* | 0.923 |
+| 2 | *lapatinib* | *hard decoy* | 0.882 |
+| 3 | quercetin | known binder | 0.875 |
+| 4 | **pazopanib** | known binder | 0.850 |
+| 5 | **sunitinib** | known binder | 0.812 |
+| 6 | neratinib | known binder | 0.810 |
+| 7 | dasatinib | known binder | 0.800 |
+| 8 | *pemigatinib* | *hard decoy* | 0.800 |
+| 9 | **nintedanib** | known binder | 0.762 |
+| 10 | **vandetanib** | known binder | 0.762 |
 
-10 known binders at ranks **1, 2, 4, 5, 6, 7, 8, 9, 11, 13 of 29**. Enrichment
-**2.49×** at the top quartile against a base rate of 0.345, where 2.90× is the
-arithmetic maximum. Median known-binder rank 6 of 29.
+**The bolded four are the point of the whole repo.** Ranked by chemical similarity to
+this target's best literature ligand they sit at **464, 755, 764 and 1760**. Ranked by
+which residues they actually engage, they are at **4, 5, 9 and 10**. Two drugs that
+share a binding site need not share any chemistry.
 
-**The bolded four are the point of the whole repo.** Ranking these same drugs by
-chemical similarity to the target's best literature ligand puts them at
-**464, 755, 764 and 1760**. Interface matching puts them at **4, 5, 6 and 8**. Two
-drugs that share a binding site need not share any chemistry — and that table is
-what it costs you to look only at the molecule.
+### What the hard decoys cost, and what they mean
+
+Against easy decoys the score was 2.49× of a 2.90× ceiling — **86% of achievable**.
+Against decoys that genuinely bind ATP pockets it is 2.87× of 4.10× — **70%**.
+Performance degrades against a real null, which is the honest number and the reason
+the easy one should never be quoted alone.
+
+**lapatinib (2), pemigatinib (8) and bosutinib (11) are hard decoys scoring like
+binders.** DrugCentral's annotation is incomplete and all three are promiscuous
+kinase inhibitors, so a high score may be a **labelling gap rather than a false
+positive**. This experiment cannot currently tell those two cases apart, and that is
+a limitation, not a footnote.
 
 ### What had to be measured rather than assumed
 
@@ -74,10 +95,15 @@ artefact of the choice — only the oversized decoy moves.
 
 ### What does not work
 
-**The design step adds nothing.** `boltzgen_consensus` and `p2rank_geometry` give the
-same enrichment (2.49×), the same median rank (6.5), and per-drug scores correlating at
-Spearman **0.954**. An 85-credit design run reproduces what a 0.47-second pocket finder
-already found. That is the M2 gate result below, showing up again in the product.
+**The design step loses, in the product itself.** Against easy decoys the BoltzGen
+signature and the free pocket finder looked identical (Spearman **0.954**, same
+enrichment). The harder null separates them — and separates them *against* BoltzGen:
+**2.87× vs 2.05×**, median rank 8 vs 12.5. An 85-credit design run is beaten by a
+0.47-second pocket prediction. That is ablation I6.1 appearing a third time.
+
+**A single known ligand is worse than chance** (0.82×). One holo ligand's contacts
+describe that ligand, not the site — so aggregating across many binding events does do
+real work. It just doesn't need a GPU to do it.
 
 **The designs are not high-confidence.** All 24 sit at ipTM 0.12–0.42 against the
 plan's 0.85 filter; selecting the best 6 barely changes the signature. A filtered
