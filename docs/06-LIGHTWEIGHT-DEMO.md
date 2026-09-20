@@ -1,0 +1,140 @@
+# 06 — Lightweight demo on the NovaKit toolkit
+
+A five-stage, runnable version of the PROJECT_GOAL.md pipeline that does the
+scientific work through [`cheminformatics-kit`](https://github.com/jaysahni/cheminformatics-kit)
+(the `novakit` package) instead of this repo's own `scripts/`.
+
+Target: **CDK2 (P24941)**, design structure **6Q4G** — the same target and
+structure as `results/m2_gate_CDK2.json`, so the demo's numbers can be compared
+against the heavy pipeline's rather than sitting on their own scale.
+
+```
+research → site → design → signature → match
+UniProt    Rowan   Rowan     contacts   Rowan cofold
+PubMed     pockets BoltzGen  consensus  → ranked approved drugs
+```
+
+Entry point: `./env-kit/bin/python -m demo.pipeline --stage all`
+
+## Why a second virtualenv
+
+**`novakit` requires Python `>=3.12,<3.13`. This project's `env/` is 3.14.7.**
+They cannot be the same interpreter. The demo therefore runs in `env-kit/`
+(Python 3.12.13, created with `uv`), which is gitignored:
+
+```bash
+uv venv --python 3.12 env-kit
+uv pip install --python env-kit/bin/python \
+  "novakit[rowan,chem] @ git+https://github.com/jaysahni/cheminformatics-kit"
+```
+
+This is the same class of constraint already recorded in `requirements.txt` for
+`boltz` ("requires Python <3.13 and cannot be installed in `env/`"). Nothing in
+`demo/` is importable from `scripts/` and nothing in `scripts/` changed.
+
+`novakit` is installed from a pinned commit (`60056db`). The repo is private, so
+the install needs the git credentials already configured on this machine.
+
+## Credentials
+
+`ROWAN_API_KEY` in `.env` (gitignored; `.env.example` shows the shape).
+
+`demo/nova.py:load_env` deliberately reads `.env` into `os.environ` **before**
+any NovaKit call. NovaKit falls back to the OS keychain when the variable is
+absent, and that call blocks on a GUI prompt in a non-interactive shell — it
+hung this session once before being killed.
+
+## Cost
+
+Rowan charges per workflow. Measured on this run:
+
+| Stage | Tool | Credits |
+|---|---|---|
+| site | `rowan.detect_pockets` | 0.05 |
+| design | `rowan.design_protein_binder` (12 designs) | see `03_designs.json` |
+| match | `rowan.cofold` × 14 drugs | see `05_ranked.json` |
+
+For reference, the heavy pipeline's 24-design CDK2 run cost 55.14 credits and
+took 1,103 s on an A100-80GB, and a single KDR co-fold cost 13.09.
+
+`demo/nova.py` enforces a ceiling (`DEMO_BUDGET_CREDITS`, default 400) and passes
+an explicit `max_credits` on every billable call — NovaKit refuses a billable
+Rowan request that does not. Every workflow uuid is cached under
+`results/demo/_cache/`, so **a re-run re-reads finished workflows and costs
+nothing**.
+
+## Scope cuts, stated plainly
+
+This is a demo, so scope was cut — not rigor (CLAUDE.md working agreement).
+
+- **14 drugs, not 4,099.** Co-folding the full approved library in
+  `data/approved_drugs.csv` at ~13 credits each is ~53,000 credits. The
+  shortlist in `demo/library.py` is fixed in source and split into three tiers
+  (positive / candidate / decoy) so the leaderboard is interpretable. A
+  shortlist chosen by an upstream model would make the result a measure of that
+  model.
+- **12 designs, not 2,000.** PROJECT_GOAL.md §1.2 budgets 2,000; the M2 gate used
+  24. Twelve is enough to build a consensus and is labelled as such. The
+  convergence question (task C5) is not answered here.
+- **One target, one structure.** No cross-target claims.
+- **Small molecules only.** Tiers 2 and 3 of PROJECT_GOAL.md §2.2 (peptides,
+  biologics) are not evaluated.
+
+## Site selection, and what it is not
+
+`rowan.detect_pockets` returns 5 pockets for 6Q4G. The demo picks the one
+overlapping the **UniProt-curated ATP/Mg binding annotation** for P24941
+(`ft_binding`, `ft_act_site` — 20 residues), not the top-scoring one.
+
+That rule matters, and the reason is a finding in itself:
+
+> **The ATP site is Rowan's 4th-ranked pocket of 5** (score 3.00 vs 5.85 for the
+> top pocket). The top two pockets overlap the annotated site in **zero**
+> residues. Taking the highest-scoring pocket would have designed against the
+> wrong site entirely.
+
+The annotation is used rather than `known_ligand_contacts.json` because that file
+is marked **validation-use-only** under task B12: it is derived from the ligand
+bound in the very structure the signature is later scored against. UniProt's
+annotation is curated independently of 6Q4G, so it can drive design without
+leaking. The known-ligand contacts are read back in stage 4 **only** to score the
+signature after it is built.
+
+## Residue numbering
+
+Three numbering systems meet in this pipeline, and conflating them silently
+produces plausible nonsense:
+
+| Where | Numbering |
+|---|---|
+| UniProt, PDB author records, all reported output | author numbering (1–298) |
+| `rowan.detect_pockets` `residue_numbers` | **0-based** over residues present in the file |
+| BoltzGen `binding` spec | **1-based** over residues present in the file |
+
+6Q4G chain A has 282 of CDK2's 298 residues, so the offset is not constant — it
+steps at every gap. `demo/pipeline.py:_residue_index_map` builds the map from the
+downloaded PDB. `scripts/boltzgen_signature.py` documents the same trap, learned
+the hard way when author numbering made BoltzGen exit 1.
+
+Co-folded complexes are the exception: they are numbered 1..N over the sequence
+we supply, which is the UniProt canonical sequence, so there residue *i* is
+author residue *i*.
+
+## What the toolkit did not cover
+
+| Needed | Toolkit status | What the demo does |
+|---|---|---|
+| interface contact extraction | `protein_interactions.analyze_interface` is `experimental` and needs administrator-provisioned Modal engines | `demo/contacts.py`, a 4.5 Å heavy-atom cutoff — the same definition as `scripts/interfaces.py`, so the numbers stay comparable |
+| BoltzGen directly | no `boltz` code in the toolkit | `rowan.design_protein_binder`; the account's `boltzgen_design_limit_100` feature flag identifies the Rowan `protein_binder_design` workflow as BoltzGen-backed, which is also what `scripts/boltzgen_signature.py` assumes |
+| disease → target ranking (Open Targets) | not a toolkit domain | out of scope for the demo; the target is fixed in `demo/pipeline.py:TARGET`. The real chain exists in `scripts/disease_targets.py` and `results/pipeline/colorectal-cancer/` |
+
+## Carrying the M2 gate forward
+
+`results/m2_gate_CDK2.json` measured the BoltzGen consensus against pocket
+geometry on 31 held-out CDK2 co-crystals, and **BoltzGen lost**: Jaccard 0.338 vs
+0.494, Δ = −0.155, Holm-corrected p = 0.0016, n = 31.
+
+The demo does not pretend otherwise. Stage 5 scores every drug against **both**
+signatures — `core_coverage_boltzgen` and `core_coverage_pocket` — and reports
+both leaderboards. Ranking drugs by the BoltzGen signature alone would present an
+arm this repo has already measured as the weaker one.
