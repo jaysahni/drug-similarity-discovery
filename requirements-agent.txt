@@ -1,0 +1,12 @@
+# Optional dependencies for the agent harness (scripts/agent/).
+# Not needed for the benchmark, the pipeline, or scripts/ask.py.
+#   ./env/bin/pip install -r requirements-agent.txt
+#
+# NOT pinned against env/ (Python 3.14.7) the way requirements.txt is: these
+# were not installed or validated in this checkout. Treat the versions as a
+# floor, not as a verified environment.
+langgraph>=0.2
+langchain-core>=0.3
+langchain-anthropic>=0.3   # only if AUTOREPURPOSE_AGENT_LLM is a claude-* model
+# langchain-openai>=0.2    # uncomment for gpt-* models or a Custom base_url
+# langchain-ollama>=0.2    # uncomment for a local Ollama model
