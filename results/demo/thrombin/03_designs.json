@@ -1,9 +1,9 @@
 {
- "workflow_uuid": "bc26c048-265f-46c3-aad9-423685fb8a98",
- "n_designs": 4,
+ "workflow_uuid": "5b709fb2-0472-4b22-ad68-43f99896e1ed",
+ "n_designs": 10,
  "protocol": "peptide-anything",
  "binder_length": "8..16",
- "budget": 4,
+ "budget": 10,
  "binding_spec_1based": "27,28,29,30,40,41,43,44,99,201,202,203,204,205,206,207,224,225,226,227",
  "binding_residues_author": [
   390,
@@ -30,55 +30,115 @@
  "designs": [
   {
    "design_id": 0,
-   "bound_structure_uuid": "92b48a1c-0b8c-44c8-aa65-9882c8536296",
-   "sequence": "PPARPMAVY",
-   "iptm": 0.64,
-   "design_to_target_iptm": 0.64,
+   "bound_structure_uuid": "ab0ba01d-ddec-4ce1-afff-37cefe642a89",
+   "sequence": "RADPATGLTPLDGI",
+   "iptm": 0.62,
+   "design_to_target_iptm": 0.62,
    "quality_score": 1.0,
-   "delta_sasa_refolded": 631.324,
+   "delta_sasa_refolded": 674.334,
    "num_filters_passed": 9
   },
   {
    "design_id": 1,
-   "bound_structure_uuid": "30109442-c4de-4c25-b7e8-4f3ace9efc00",
-   "sequence": "GGQTFIEGKPVTIMG",
-   "iptm": 0.621,
-   "design_to_target_iptm": 0.621,
-   "quality_score": 0.947,
-   "delta_sasa_refolded": 711.163,
+   "bound_structure_uuid": "53157f37-9d4f-4925-8c7e-d1b93f38e56a",
+   "sequence": "TFPELVKQRKIIIGGM",
+   "iptm": 0.625,
+   "design_to_target_iptm": 0.625,
+   "quality_score": 0.98,
+   "delta_sasa_refolded": 803.796,
    "num_filters_passed": 9
   },
   {
    "design_id": 2,
-   "bound_structure_uuid": "a766531e-14a9-44e3-b523-c45511adad4f",
-   "sequence": "GGIPTSGGLVPMTSI",
-   "iptm": 0.605,
-   "design_to_target_iptm": 0.605,
-   "quality_score": 0.895,
-   "delta_sasa_refolded": 680.826,
+   "bound_structure_uuid": "4682e6ce-85ba-4f95-939d-7bab10871fdc",
+   "sequence": "RPVFISGSPVTIMA",
+   "iptm": 0.592,
+   "design_to_target_iptm": 0.592,
+   "quality_score": 0.959,
+   "delta_sasa_refolded": 726.703,
    "num_filters_passed": 9
   },
   {
    "design_id": 3,
-   "bound_structure_uuid": "82226611-9424-4a36-86e0-83079fc53586",
-   "sequence": "GSTIVFPA",
-   "iptm": 0.525,
-   "design_to_target_iptm": 0.525,
-   "quality_score": 0.842,
-   "delta_sasa_refolded": 508.146,
+   "bound_structure_uuid": "acf1359f-6b0d-4a47-bc3f-8fecdd5c9f33",
+   "sequence": "PSGITPAIPH",
+   "iptm": 0.557,
+   "design_to_target_iptm": 0.557,
+   "quality_score": 0.939,
+   "delta_sasa_refolded": 629.65,
    "num_filters_passed": 9
+  },
+  {
+   "design_id": 4,
+   "bound_structure_uuid": "d06392ec-0226-4ed6-869c-813231c06085",
+   "sequence": "GITPVIPELGAYPYG",
+   "iptm": 0.576,
+   "design_to_target_iptm": 0.576,
+   "quality_score": 0.918,
+   "delta_sasa_refolded": 679.15,
+   "num_filters_passed": 9
+  },
+  {
+   "design_id": 5,
+   "bound_structure_uuid": "f516aecc-121a-41ca-8431-7d50eb271d12",
+   "sequence": "TRIIIYGQYLQIPQVI",
+   "iptm": 0.497,
+   "design_to_target_iptm": 0.497,
+   "quality_score": 0.898,
+   "delta_sasa_refolded": 922.012,
+   "num_filters_passed": 9
+  },
+  {
+   "design_id": 6,
+   "bound_structure_uuid": "dc4143eb-272d-4465-ba09-0419f04a0560",
+   "sequence": "GGTIVFPE",
+   "iptm": 0.489,
+   "design_to_target_iptm": 0.489,
+   "quality_score": 0.878,
+   "delta_sasa_refolded": 518.543,
+   "num_filters_passed": 9
+  },
+  {
+   "design_id": 7,
+   "bound_structure_uuid": "9357bd6f-29af-4de9-88c1-66f1d0f0ce96",
+   "sequence": "GRGGIADF",
+   "iptm": 0.567,
+   "design_to_target_iptm": 0.567,
+   "quality_score": 0.857,
+   "delta_sasa_refolded": 456.369,
+   "num_filters_passed": 5
+  },
+  {
+   "design_id": 8,
+   "bound_structure_uuid": "91827db6-d5ad-4f24-923f-746f7ca7bd6f",
+   "sequence": "GRGGIVFP",
+   "iptm": 0.557,
+   "design_to_target_iptm": 0.557,
+   "quality_score": 0.837,
+   "delta_sasa_refolded": 454.236,
+   "num_filters_passed": 5
+  },
+  {
+   "design_id": 9,
+   "bound_structure_uuid": "9bb5a7ce-9b42-4e7d-bbbb-8434f3818a36",
+   "sequence": "APARPYAGD",
+   "iptm": 0.642,
+   "design_to_target_iptm": 0.642,
+   "quality_score": 0.816,
+   "delta_sasa_refolded": 603.068,
+   "num_filters_passed": 4
   }
  ],
  "iptm": {
-  "min": 0.525,
-  "max": 0.64,
-  "mean": 0.5978,
+  "min": 0.489,
+  "max": 0.642,
+  "mean": 0.5722,
   "n_above_0.85": 0,
   "note": "PROJECT_GOAL.md 4.3 suggests filtering designs at ipTM 0.85. Report the count above it; if it is zero the consensus below is UNFILTERED and must be labelled as such."
  },
- "credits_charged": 57.28,
+ "credits_charged": 63.04,
  "compute_hardware": "A100_80GB",
- "elapsed_s": 1145.53,
+ "elapsed_s": 1260.79,
  "toolkit": [
   "rowan.design_protein_binder"
  ]

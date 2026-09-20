@@ -3,7 +3,53 @@
   "symbol": "CDK2",
   "uniprot": "P24941",
   "pdb_id": "6Q4G",
-  "chain": "A"
+  "chain": "A",
+  "out": "cdk2",
+  "protocol": "protein-anything",
+  "binder_length": "60..90"
+ },
+ "tier_separation": {
+  "core_coverage_pocket": {
+   "mean_positive": 0.5067,
+   "n_positive": 5,
+   "mean_candidate": 0.4166,
+   "n_candidate": 4,
+   "mean_decoy": 0.4267,
+   "n_decoy": 5,
+   "mannwhitney_U": 16.5,
+   "p_positive_gt_decoy": 0.2289
+  },
+  "core_coverage_boltzgen": {
+   "mean_positive": 0.2444,
+   "n_positive": 5,
+   "mean_candidate": 0.2222,
+   "n_candidate": 4,
+   "mean_decoy": 0.1778,
+   "n_decoy": 5,
+   "mannwhitney_U": 15.5,
+   "p_positive_gt_decoy": 0.2919
+  },
+  "iptm": {
+   "mean_positive": 0.962,
+   "n_positive": 5,
+   "mean_candidate": 0.9497,
+   "n_candidate": 4,
+   "mean_decoy": 0.878,
+   "n_decoy": 5,
+   "mannwhitney_U": 23.0,
+   "p_positive_gt_decoy": 0.01587
+  }
+ },
+ "finding": {
+  "top_ranked_drug": "atorvastatin",
+  "top_ranked_tier": "decoy",
+  "ranks_of_target_annotated_drugs": [
+   2,
+   3,
+   4,
+   7,
+   9
+  ]
  },
  "shortlist": {
   "n": 14,
@@ -17,11 +63,17 @@
  },
  "signatures": {
   "boltzgen_consensus": {
-   "n_core": 3,
+   "n_core": 9,
    "core": [
-    25,
-    26,
-    28
+    12,
+    13,
+    14,
+    36,
+    37,
+    89,
+    167,
+    168,
+    169
    ]
   },
   "pocket_geometry": {
@@ -91,13 +143,20 @@
     158
    ],
    "ligand_atoms": 41,
-   "core_coverage_boltzgen": 0.0,
+   "core_coverage_boltzgen": 0.4444,
    "core_coverage_pocket": 0.6667,
-   "engaged_core_boltzgen": [],
+   "engaged_core_boltzgen": [
+    12,
+    13,
+    14,
+    89
+   ],
    "missed_core_boltzgen": [
-    25,
-    26,
-    28
+    36,
+    37,
+    167,
+    168,
+    169
    ],
    "engaged_core_pocket": [
     13,
@@ -119,7 +178,7 @@
     35
    ],
    "credits_charged": 3.38,
-   "rank_boltzgen": 11,
+   "rank_boltzgen": 1,
    "rank_pocket": 1
   },
   {
@@ -164,13 +223,20 @@
     148
    ],
    "ligand_atoms": 40,
-   "core_coverage_boltzgen": 0.0,
+   "core_coverage_boltzgen": 0.3333,
    "core_coverage_pocket": 0.6,
-   "engaged_core_boltzgen": [],
+   "engaged_core_boltzgen": [
+    12,
+    13,
+    14
+   ],
    "missed_core_boltzgen": [
-    25,
-    26,
-    28
+    36,
+    37,
+    89,
+    167,
+    168,
+    169
    ],
    "engaged_core_pocket": [
     13,
@@ -192,7 +258,7 @@
     129
    ],
    "credits_charged": 3.85,
-   "rank_boltzgen": 5,
+   "rank_boltzgen": 4,
    "rank_pocket": 2
   },
   {
@@ -234,13 +300,20 @@
     145
    ],
    "ligand_atoms": 33,
-   "core_coverage_boltzgen": 0.0,
+   "core_coverage_boltzgen": 0.3333,
    "core_coverage_pocket": 0.5333,
-   "engaged_core_boltzgen": [],
+   "engaged_core_boltzgen": [
+    12,
+    13,
+    89
+   ],
    "missed_core_boltzgen": [
-    25,
-    26,
-    28
+    14,
+    36,
+    37,
+    167,
+    168,
+    169
    ],
    "engaged_core_pocket": [
     13,
@@ -262,7 +335,7 @@
     129
    ],
    "credits_charged": 3.77,
-   "rank_boltzgen": 3,
+   "rank_boltzgen": 2,
    "rank_pocket": 3
   },
   {
@@ -305,13 +378,20 @@
     145
    ],
    "ligand_atoms": 38,
-   "core_coverage_boltzgen": 0.0,
+   "core_coverage_boltzgen": 0.3333,
    "core_coverage_pocket": 0.5333,
-   "engaged_core_boltzgen": [],
+   "engaged_core_boltzgen": [
+    12,
+    13,
+    89
+   ],
    "missed_core_boltzgen": [
-    25,
-    26,
-    28
+    14,
+    36,
+    37,
+    167,
+    168,
+    169
    ],
    "engaged_core_pocket": [
     13,
@@ -333,7 +413,7 @@
     129
    ],
    "credits_charged": 3.99,
-   "rank_boltzgen": 4,
+   "rank_boltzgen": 3,
    "rank_pocket": 4
   },
   {
@@ -371,13 +451,20 @@
     145
    ],
    "ligand_atoms": 26,
-   "core_coverage_boltzgen": 0.0,
+   "core_coverage_boltzgen": 0.2222,
    "core_coverage_pocket": 0.5333,
-   "engaged_core_boltzgen": [],
+   "engaged_core_boltzgen": [
+    12,
+    13
+   ],
    "missed_core_boltzgen": [
-    25,
-    26,
-    28
+    14,
+    36,
+    37,
+    89,
+    167,
+    168,
+    169
    ],
    "engaged_core_pocket": [
     13,
@@ -399,7 +486,7 @@
     129
    ],
    "credits_charged": 3.55,
-   "rank_boltzgen": 8,
+   "rank_boltzgen": 7,
    "rank_pocket": 5
   },
   {
@@ -439,13 +526,20 @@
     145
    ],
    "ligand_atoms": 21,
-   "core_coverage_boltzgen": 0.0,
+   "core_coverage_boltzgen": 0.1111,
    "core_coverage_pocket": 0.5333,
-   "engaged_core_boltzgen": [],
+   "engaged_core_boltzgen": [
+    13
+   ],
    "missed_core_boltzgen": [
-    25,
-    26,
-    28
+    12,
+    14,
+    36,
+    37,
+    89,
+    167,
+    168,
+    169
    ],
    "engaged_core_pocket": [
     13,
@@ -467,7 +561,7 @@
     129
    ],
    "credits_charged": 3.28,
-   "rank_boltzgen": 13,
+   "rank_boltzgen": 12,
    "rank_pocket": 6
   },
   {
@@ -507,13 +601,20 @@
     148
    ],
    "ligand_atoms": 32,
-   "core_coverage_boltzgen": 0.0,
+   "core_coverage_boltzgen": 0.1111,
    "core_coverage_pocket": 0.4667,
-   "engaged_core_boltzgen": [],
+   "engaged_core_boltzgen": [
+    89
+   ],
    "missed_core_boltzgen": [
-    25,
-    26,
-    28
+    12,
+    13,
+    14,
+    36,
+    37,
+    167,
+    168,
+    169
    ],
    "engaged_core_pocket": [
     18,
@@ -535,7 +636,7 @@
     129
    ],
    "credits_charged": 3.75,
-   "rank_boltzgen": 2,
+   "rank_boltzgen": 10,
    "rank_pocket": 7
   },
   {
@@ -577,13 +678,20 @@
     148
    ],
    "ligand_atoms": 29,
-   "core_coverage_boltzgen": 0.0,
+   "core_coverage_boltzgen": 0.3333,
    "core_coverage_pocket": 0.4667,
-   "engaged_core_boltzgen": [],
+   "engaged_core_boltzgen": [
+    12,
+    13,
+    89
+   ],
    "missed_core_boltzgen": [
-    25,
-    26,
-    28
+    14,
+    36,
+    37,
+    167,
+    168,
+    169
    ],
    "engaged_core_pocket": [
     13,
@@ -605,7 +713,7 @@
     132
    ],
    "credits_charged": 3.8,
-   "rank_boltzgen": 7,
+   "rank_boltzgen": 5,
    "rank_pocket": 8
   },
   {
@@ -644,13 +752,20 @@
     145
    ],
    "ligand_atoms": 33,
-   "core_coverage_boltzgen": 0.0,
+   "core_coverage_boltzgen": 0.1111,
    "core_coverage_pocket": 0.4,
-   "engaged_core_boltzgen": [],
+   "engaged_core_boltzgen": [
+    89
+   ],
    "missed_core_boltzgen": [
-    25,
-    26,
-    28
+    12,
+    13,
+    14,
+    36,
+    37,
+    167,
+    168,
+    169
    ],
    "engaged_core_pocket": [
     18,
@@ -672,7 +787,7 @@
     132
    ],
    "credits_charged": 4.35,
-   "rank_boltzgen": 1,
+   "rank_boltzgen": 9,
    "rank_pocket": 9
   },
   {
@@ -710,13 +825,20 @@
     162
    ],
    "ligand_atoms": 27,
-   "core_coverage_boltzgen": 0.0,
+   "core_coverage_boltzgen": 0.3333,
    "core_coverage_pocket": 0.4,
-   "engaged_core_boltzgen": [],
+   "engaged_core_boltzgen": [
+    12,
+    13,
+    89
+   ],
    "missed_core_boltzgen": [
-    25,
-    26,
-    28
+    14,
+    36,
+    37,
+    167,
+    168,
+    169
    ],
    "engaged_core_pocket": [
     13,
@@ -738,7 +860,7 @@
     132
    ],
    "credits_charged": 3.35,
-   "rank_boltzgen": 14,
+   "rank_boltzgen": 6,
    "rank_pocket": 10
   },
   {
@@ -778,13 +900,20 @@
     148
    ],
    "ligand_atoms": 33,
-   "core_coverage_boltzgen": 0.0,
+   "core_coverage_boltzgen": 0.1111,
    "core_coverage_pocket": 0.3333,
-   "engaged_core_boltzgen": [],
+   "engaged_core_boltzgen": [
+    89
+   ],
    "missed_core_boltzgen": [
-    25,
-    26,
-    28
+    12,
+    13,
+    14,
+    36,
+    37,
+    167,
+    168,
+    169
    ],
    "engaged_core_pocket": [
     18,
@@ -806,7 +935,7 @@
     132
    ],
    "credits_charged": 3.91,
-   "rank_boltzgen": 6,
+   "rank_boltzgen": 11,
    "rank_pocket": 11
   },
   {
@@ -844,13 +973,20 @@
     144
    ],
    "ligand_atoms": 23,
-   "core_coverage_boltzgen": 0.0,
+   "core_coverage_boltzgen": 0.2222,
    "core_coverage_pocket": 0.3333,
-   "engaged_core_boltzgen": [],
+   "engaged_core_boltzgen": [
+    12,
+    89
+   ],
    "missed_core_boltzgen": [
-    25,
-    26,
-    28
+    13,
+    14,
+    36,
+    37,
+    167,
+    168,
+    169
    ],
    "engaged_core_pocket": [
     18,
@@ -872,7 +1008,7 @@
     145
    ],
    "credits_charged": 3.67,
-   "rank_boltzgen": 9,
+   "rank_boltzgen": 8,
    "rank_pocket": 12
   },
   {
@@ -912,9 +1048,15 @@
    "core_coverage_pocket": 0.3333,
    "engaged_core_boltzgen": [],
    "missed_core_boltzgen": [
-    25,
-    26,
-    28
+    12,
+    13,
+    14,
+    36,
+    37,
+    89,
+    167,
+    168,
+    169
    ],
    "engaged_core_pocket": [
     18,
@@ -936,7 +1078,7 @@
     144
    ],
    "credits_charged": 3.37,
-   "rank_boltzgen": 12,
+   "rank_boltzgen": 14,
    "rank_pocket": 13
   },
   {
@@ -969,9 +1111,15 @@
    "core_coverage_pocket": 0.2,
    "engaged_core_boltzgen": [],
    "missed_core_boltzgen": [
-    25,
-    26,
-    28
+    12,
+    13,
+    14,
+    36,
+    37,
+    89,
+    167,
+    168,
+    169
    ],
    "engaged_core_pocket": [
     18,
@@ -993,58 +1141,12 @@
     145
    ],
    "credits_charged": 3.4,
-   "rank_boltzgen": 10,
+   "rank_boltzgen": 13,
    "rank_pocket": 14
   }
  ],
  "credits_charged_total": 51.42,
  "toolkit": [
   "rowan.cofold"
- ],
- "tier_separation": {
-  "core_coverage_pocket": {
-   "mean_positive": 0.5067,
-   "n_positive": 5,
-   "mean_candidate": 0.4166,
-   "n_candidate": 4,
-   "mean_decoy": 0.4267,
-   "n_decoy": 5,
-   "mannwhitney_U": 16.5,
-   "p_positive_gt_decoy": 0.2289
-  },
-  "core_coverage_boltzgen": {
-   "mean_positive": 0.0,
-   "n_positive": 5,
-   "mean_candidate": 0.0,
-   "n_candidate": 4,
-   "mean_decoy": 0.0,
-   "n_decoy": 5,
-   "p_positive_gt_decoy": null,
-   "note": "all values identical; no test possible"
-  },
-  "iptm": {
-   "mean_positive": 0.962,
-   "n_positive": 5,
-   "mean_candidate": 0.9497,
-   "n_candidate": 4,
-   "mean_decoy": 0.878,
-   "n_decoy": 5,
-   "mannwhitney_U": 23.0,
-   "p_positive_gt_decoy": 0.01587
-  }
- },
- "finding": {
-  "headline": "core_coverage_pocket did NOT separate known CDK2 binders from decoys",
-  "top_ranked_drug": "atorvastatin",
-  "top_ranked_tier": "decoy",
-  "ranks_of_cdk2_annotated_drugs": [
-   2,
-   3,
-   4,
-   7,
-   9
-  ],
-  "reading": "The primary score ranks a statin (atorvastatin, no CDK2 relationship) first, and positives beat decoys by 0.507 vs 0.427 at Mann-Whitney p=0.229, n=5 per tier - not significant. Boltz-2 pose confidence (ipTM) DOES separate the tiers (0.962 vs 0.878, p=0.0159), but ipTM is pose confidence, not hotspot coverage, and PROJECT_GOAL.md 4.4 deliberately excludes confidence from the ranking path. It is also the quantity most exposed to training-set leakage, since Boltz-2 has likely seen the CDK2 co-crystals of the positive tier.",
-  "boltzgen_column_invalid": "core_coverage_boltzgen is 0.00 for every drug because 04_signature.json is still the HOLO run consensus ([25,26,28]), which no ligand engages. The design stage has not been re-run since the ligand-stripping fix. That column carries no information and must not be read as a result."
- }
+ ]
 }

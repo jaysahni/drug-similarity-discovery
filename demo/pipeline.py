@@ -352,7 +352,7 @@ def stage_site() -> dict:
     )
 
 
-def _binder_chain(pdb: Path) -> str:
+def _binder_chain(pdb: Path, target_chain: str | None = None) -> str:
     """The designed chain in a BoltzGen complex.
 
     Not simply "B": Rowan returns the target as chain A, any retained heterogen
@@ -360,11 +360,12 @@ def _binder_chain(pdb: Path) -> str:
     that is not the target.
     """
     protein, _, _ = contacts.parse_pdb(pdb)
-    chains = sorted({ch for ch, _ in protein} - {TARGET["chain"]})
+    target_chain = target_chain or TARGET["chain"]
+    chains = sorted({ch for ch, _ in protein} - {target_chain})
     if len(chains) != 1:
         raise ValueError(
             f"{pdb.name}: expected exactly one designed polymer chain beside "
-            f'{TARGET["chain"]}, found {chains}'
+            f"{target_chain}, found {chains}"
         )
     return chains[0]
 
@@ -499,13 +500,24 @@ def _residue_index_map(protein_uuid: str, chain: str | None = None) -> dict[int,
 
 
 def _download_structure(uuid: str, name: str) -> Path:
-    """Fetch a Rowan structure as PDB, cached on disk."""
+    """Fetch a Rowan structure as PDB, cached on disk BY UUID.
+
+    The uuid is in the filename deliberately. Keying only on a caller-supplied
+    name (`design_0.pdb`) meant that re-running the design stage silently reused
+    the previous run's structures -- which is how a re-run after the
+    ligand-stripping fix was still scored against the holo run's complexes. The
+    alignment guard caught it (63% identity, refused), but only because it was
+    there.
+    """
     STRUCTURES.mkdir(parents=True, exist_ok=True)
-    path = STRUCTURES / f"{name}.pdb"
+    stem = f"{name}__{uuid[:8]}"
+    path = STRUCTURES / f"{stem}.pdb"
     if path.exists():
         return path
     rowan = nova.rowan_client()
-    rowan.retrieve_protein(uuid).download_pdb_file(STRUCTURES, name)
+    rowan.retrieve_protein(uuid).download_pdb_file(STRUCTURES, stem)
+    if not path.exists():
+        raise FileNotFoundError(f"Rowan did not write {path}")
     return path
 
 
@@ -634,24 +646,29 @@ def stage_signature() -> dict:
             continue
         try:
             pdb = _download_structure(uuid, f'design_{design["design_id"]}')
-            binder_chain = _binder_chain(pdb)
-            # The design complex renumbers the target by a constant offset, and
-            # it is NOT an index into the prepared structure. Measure it against
-            # the canonical sequence rather than assuming.
-            offset = contacts.author_offset(pdb, TARGET["chain"], sequence)
+            # Resolve the target chain by sequence, then map its residues by
+            # ALIGNMENT rather than by a constant offset. BoltzGen returns the
+            # target as whatever `include_proximity` retained -- on CDK2 that is
+            # a scattered 123-residue subset with labels like 1, 7, 8, ... 280 --
+            # so no single offset exists. An earlier version assumed one and was
+            # right only by accident on the holo run.
+            target_chain = resolve_chain(pdb, sequence)
+            binder_chain = _binder_chain(pdb, target_chain)
+            to_author = contacts.align_to_reference(pdb, target_chain, sequence)
             found = contacts.contacts_between_chains(
-                pdb, target=TARGET["chain"], binder=binder_chain
+                pdb, target=target_chain, binder=binder_chain
             )
         except Exception as exc:  # noqa: BLE001
             failures.append({"design_id": design["design_id"], "reason": str(exc)})
             continue
 
-        author = sorted(r + offset for r in found["residues"])
+        author = sorted(to_author[r] for r in found["residues"] if r in to_author)
         per_design.append(
             {
                 "design_id": design["design_id"],
+                "target_chain": target_chain,
                 "binder_chain": binder_chain,
-                "author_offset": offset,
+                "n_target_residues_present": len(to_author),
                 "residues_author": author,
             }
         )
@@ -793,10 +810,46 @@ def stage_match() -> dict:
 
     results.sort(key=lambda r: -r["core_coverage_pocket"])
 
+    # Tier separation, computed here rather than by an ad-hoc script afterwards
+    # -- the first version of this lived outside the pipeline and was silently
+    # lost the next time the stage re-ran.
+    from scipy.stats import mannwhitneyu
+
+    def tier(name, field):
+        return [r[field] for r in results if r["tier"] == name]
+
+    stats = {}
+    for field in ("core_coverage_pocket", "core_coverage_boltzgen", "iptm"):
+        pos, dec, cand = tier("positive", field), tier("decoy", field), tier("candidate", field)
+        entry = {
+            "mean_positive": round(sum(pos) / len(pos), 4), "n_positive": len(pos),
+            "mean_candidate": round(sum(cand) / len(cand), 4), "n_candidate": len(cand),
+            "mean_decoy": round(sum(dec) / len(dec), 4), "n_decoy": len(dec),
+        }
+        if len({*pos, *dec}) > 1:
+            u, pv = mannwhitneyu(pos, dec, alternative="greater")
+            entry["mannwhitney_U"] = float(u)
+            entry["p_positive_gt_decoy"] = float(f"{pv:.4g}")
+        else:
+            entry["p_positive_gt_decoy"] = None
+            entry["note"] = "all values identical; no test possible"
+        stats[field] = entry
+
+    ordered = sorted(results, key=lambda r: -r["core_coverage_pocket"])
+    finding = {
+        "top_ranked_drug": ordered[0]["name"],
+        "top_ranked_tier": ordered[0]["tier"],
+        "ranks_of_target_annotated_drugs": [
+            i + 1 for i, r in enumerate(ordered) if r["hits_target"]
+        ],
+    }
+
     return write(
         "05_ranked.json",
         {
             "target": TARGET,
+            "tier_separation": stats,
+            "finding": finding,
             "shortlist": library.summarise(shortlist),
             "signatures": {
                 "boltzgen_consensus": {"n_core": len(boltzgen_core), "core": boltzgen_core},

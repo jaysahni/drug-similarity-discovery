@@ -1,0 +1,80 @@
+{
+ "workflow_uuid": "d4572d90-43e5-4ad3-a639-8ac3fc33cb40",
+ "box": [
+  [
+   1.336,
+   20.938,
+   21.806
+  ],
+  [
+   30.052,
+   26.297,
+   21.988
+  ]
+ ],
+ "controls": [
+  "argatroban",
+  "ximelagatran",
+  "dabigatran etexilate"
+ ],
+ "n_generated_docked": 24,
+ "smiles": [
+  "C[C@@H](CNC(=O)NC[C@H]1CCC2(CCC2)CO1)c1nc(-c2ccccc2)no1",
+  "CCOC(=O)Nc1ccc(Br)cc1NC(=O)CCc1nc2ccccc2oc1=O",
+  "CCc1nnc(O)c(C(=O)N[C@@H](C)CC(F)(F)F)c1CC",
+  "CC(C)(C)[C@@H]1CCN(C(=O)/C=C/c2cccc(C#N)c2)C1",
+  "C[C@H](Nc1ccc(N2C[C@H]3CC[C@H]2C3)cc1)[C@H]1CCS(=O)(=O)C1",
+  "C[C@H](OC(=O)COc1ccc(Oc2ccccc2)cc1)C(=O)NCC(F)(F)F",
+  "CC(=O)N(C)c1ccc(OS(=O)(=O)C[C@@]23CCCN(CC2)C3)cc1",
+  "CO[C@@H]1C[C@H](c2n[nH]c(C)n2)N(C(=O)N[C@@H]2CCC[C@@H]2C)C1",
+  "CCN(CC)c1ccnc([C@H]2COCCN2C(=O)c2ccc(C(C)=O)cc2)n1",
+  "COC(=O)c1cc(Cl)ccc1S(=O)(=O)N1CC[C@H](Cc2cnn(C)c2)C1",
+  "COCCN(CCc1ccccc1)C(=O)c1ccc(NC2=NS(=O)(=O)c3ccccc32)cc1",
+  "CN(Cc1cccc(O)n1)C(=O)[C@@H]1C[C@H]2CC[C@@H]1O2",
+  "Cn1nnc(CN[C@@H]2CCCC[C@H]2NC(=O)c2ccc3cccnc3n2)n1",
+  "CC(C)(C)OC(=O)N1CCN(c2nnc(-c3ccccn3)n2Cc2nccs2)CC1",
+  "Cc1ncc(CN2CCc3ccc(=O)n(Cc4csc(C)n4)c3CC2)cn1",
+  "CO[C@H](C)C(=O)NCCCC[C@H](C)NC(=O)c1cc2cccn2cn1",
+  "Cc1cc(NC(=O)/C=C\\c2ccccc2)ccc1N1CCOCC1",
+  "C[C@@H]1CCN(Cc2ccccn2)C[C@@H]1NC(=O)c1cccc(F)c1",
+  "Cc1cc(C)cc(C(=O)N[C@](C)(CNC(=O)[C@H]2CCOC2)C2CC2)c1",
+  "CC(C)(O)[C@@H]1CCCN1S(=O)(=O)c1ccccc1C(=O)O",
+  "CNC(=O)NCC(=O)NC1(CNC(=O)[C@@]2(F)CCOC2)CCC1",
+  "NC(=O)CN(Cc1ccccc1)c1cccc(NC(=O)N2CCC3(CCC3)CC2)c1",
+  "COc1ccc(CN2CC[C@H](NC(=O)c3cccc(O)c3)C2=O)c(OC)c1",
+  "CCN(CC)CCCn1c(C)nnc1N(C)[C@@H](C)c1ccc(OC)cc1",
+  "CC1CNc2c(cccc2S(=O)(=O)N[C@@H](CCCNC(=N)N)C(=O)N2CC[C@@H](C)C[C@@H]2C(=O)O)C1",
+  "CCOC(=O)CN[C@@H](C(=O)N1CC[C@H]1C(=O)NCc1ccc(C(=N)NO)cc1)C1CCCCC1",
+  "CCCCCCOC(=O)NC(=N)c1ccc(NCc2nc3cc(C(=O)N(CCC(=O)OCC)c4ccccn4)ccc3n2C)cc1"
+ ],
+ "scores": [
+  -5.298,
+  -5.479,
+  -5.438,
+  -5.798,
+  null,
+  -6.148,
+  -5.431,
+  -5.42,
+  -4.858,
+  -5.322,
+  -5.333,
+  -4.998,
+  -6.014,
+  -4.89,
+  -4.499,
+  -5.326,
+  -5.943,
+  -5.748,
+  -5.502,
+  -4.971,
+  -5.548,
+  -5.943,
+  -5.67,
+  -3.682,
+  -6.217,
+  -5.899,
+  -6.414
+ ],
+ "credits_charged": 4.67
+}

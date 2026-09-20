@@ -1,6 +1,8 @@
 {
  "protein_uuid": "be35e879-0e33-46ee-8531-e1d936d21ef5",
  "pdb_id": "6Q4G",
+ "target_chain": "A",
+ "target_chain_hint": "A",
  "n_residues_in_structure": 282,
  "n_pockets": 5,
  "pockets": [
@@ -36,6 +38,20 @@
     143,
     163
    ],
+   "residue_positions_1based": [
+    45,
+    48,
+    49,
+    116,
+    117,
+    118,
+    119,
+    120,
+    141,
+    143,
+    144,
+    164
+   ],
    "overlap_with_annotated_site": 0
   },
   {
@@ -63,6 +79,17 @@
     65,
     66,
     70
+   ],
+   "residue_positions_1based": [
+    1,
+    2,
+    3,
+    4,
+    32,
+    64,
+    66,
+    67,
+    71
    ],
    "overlap_with_annotated_site": 0
   },
@@ -108,6 +135,25 @@
     139,
     141
    ],
+   "residue_positions_1based": [
+    49,
+    52,
+    53,
+    54,
+    57,
+    58,
+    59,
+    60,
+    74,
+    111,
+    112,
+    115,
+    117,
+    137,
+    139,
+    140,
+    142
+   ],
    "overlap_with_annotated_site": 1
   },
   {
@@ -148,6 +194,23 @@
     137,
     138
    ],
+   "residue_positions_1based": [
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    33,
+    34,
+    35,
+    123,
+    125,
+    126,
+    128,
+    138,
+    139
+   ],
    "overlap_with_annotated_site": 11
   },
   {
@@ -181,6 +244,20 @@
     69,
     71,
     145
+   ],
+   "residue_positions_1based": [
+    37,
+    39,
+    42,
+    43,
+    46,
+    63,
+    65,
+    68,
+    69,
+    70,
+    72,
+    146
    ],
    "overlap_with_annotated_site": 0
   }
@@ -223,9 +300,27 @@
    137,
    138
   ],
+  "residue_positions_1based": [
+   13,
+   14,
+   15,
+   16,
+   17,
+   18,
+   33,
+   34,
+   35,
+   123,
+   125,
+   126,
+   128,
+   138,
+   139
+  ],
   "overlap_with_annotated_site": 11
  },
- "selection_rule": "the detected pocket with the most residues in common with the UniProt-annotated ATP/Mg site. NOT the top-scoring pocket -- see finding below.",
+ "selection_rule": "detected pocket with the most annotated-site residues",
+ "geometric_fallback": null,
  "finding": {
   "top_scoring_pocket_rank": 0,
   "top_scoring_pocket_overlap": 0,

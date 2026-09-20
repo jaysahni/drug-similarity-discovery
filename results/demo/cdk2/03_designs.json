@@ -1,6 +1,9 @@
 {
- "workflow_uuid": "e715cb2e-c3d8-45c5-a9a1-4bcf248b4cf7",
- "n_designs": 12,
+ "workflow_uuid": "bb015bf6-1828-4a6b-9d94-b18a1a3e7cb1",
+ "n_designs": 4,
+ "protocol": "protein-anything",
+ "binder_length": "60..90",
+ "budget": 4,
  "binding_spec_1based": "13,14,15,16,17,18,33,34,35,123,125,126,128,138,139",
  "binding_residues_author": [
   13,
@@ -22,135 +25,55 @@
  "designs": [
   {
    "design_id": 0,
-   "bound_structure_uuid": "410474fc-4961-46bb-b47c-4789dda47fa2",
-   "sequence": "AVAGVLLRYDPKKVTKEDVEALAEEVREEASKYGKVLRCSAGVDEEKGLAGIVIRCESLEAALAALEIAIRLAREAGLEVVGAAVE",
-   "iptm": 0.141,
-   "design_to_target_iptm": 0.136,
+   "bound_structure_uuid": "b8322879-6089-424d-b2a6-fd1c7bc1c14b",
+   "sequence": "SPLLERALELLDKMVAAAEAGDLEAAVEHAKELKEIVDKLSPEEADEVAGYIVDVGRKLVAEGKLEAANNLGKALEESGLRVL",
+   "iptm": 0.197,
+   "design_to_target_iptm": 0.197,
    "quality_score": 1.0,
-   "delta_sasa_refolded": 659.518,
+   "delta_sasa_refolded": 938.74,
    "num_filters_passed": 1
   },
   {
    "design_id": 1,
-   "bound_structure_uuid": "c1b18855-10e9-485c-84de-14ecda09eb4a",
-   "sequence": "GIGSEEAAAAAARRCAEAVAAGEYLSAEELKELAEELGVGTGAVGAAQGAASLALGLGLSLEDAIRAGTIGAIEGGTAGRKYARAL",
-   "iptm": 0.17,
-   "design_to_target_iptm": 0.134,
-   "quality_score": 0.909,
-   "delta_sasa_refolded": 981.957,
+   "bound_structure_uuid": "fead2478-babf-46bf-9187-5e9f68f4be9f",
+   "sequence": "KAFEAALAAARAALAAGGDLAAAAGAAAGAGAREGAPGAGLRALVALGYSEEEAQEAGDAMVG",
+   "iptm": 0.288,
+   "design_to_target_iptm": 0.288,
+   "quality_score": 0.947,
+   "delta_sasa_refolded": 937.881,
    "num_filters_passed": 1
   },
   {
    "design_id": 2,
-   "bound_structure_uuid": "69efc49c-ba57-4cb0-8c3e-f70c006be2c9",
-   "sequence": "MQIFVKTLTGKTITLEVEPSDTIENVKAKIQDKEGIPPDQQRLIFAGKQLEDGRTLSDYNIQKESTLHLVLR",
-   "iptm": 0.169,
-   "design_to_target_iptm": 0.118,
-   "quality_score": 0.818,
-   "delta_sasa_refolded": 601.602,
+   "bound_structure_uuid": "1e02910c-1774-492f-9ab1-f574bb6d8da8",
+   "sequence": "KQIFVKTLTGKTITLEVEPSDTVEDLKAKIQDKEGIPPDQQSLVYEGVLLEDGTKIGELPEDATLTIRAPVP",
+   "iptm": 0.183,
+   "design_to_target_iptm": 0.183,
+   "quality_score": 0.895,
+   "delta_sasa_refolded": 735.872,
    "num_filters_passed": 1
   },
   {
    "design_id": 3,
-   "bound_structure_uuid": "4eddcab3-3687-4620-8853-8ca68b8485d6",
-   "sequence": "YAAELAKEILEELLKELKENPSVPEELIKLVEDAIKALDAKRYEEALEHVRKALELCEANPSVPESIKNKVRLALRILETALE",
-   "iptm": 0.142,
-   "design_to_target_iptm": 0.119,
-   "quality_score": 0.727,
-   "delta_sasa_refolded": 538.143,
-   "num_filters_passed": 1
-  },
-  {
-   "design_id": 4,
-   "bound_structure_uuid": "27ecf275-f881-423c-b60a-4918933b7f29",
-   "sequence": "MQIFVKTLTGKTITLEVEPSDTIENVKAKIQDKEGIPPDQQRLIFAGKQLEDGRTLSDYNIQKESTLHLVLRLR",
-   "iptm": 0.149,
-   "design_to_target_iptm": 0.118,
-   "quality_score": 0.636,
-   "delta_sasa_refolded": 313.634,
-   "num_filters_passed": 1
-  },
-  {
-   "design_id": 5,
-   "bound_structure_uuid": "202aabf9-1b19-46f9-b1c3-15b2b805fffa",
-   "sequence": "AKVTLEAAPEVAPKAKEIMKKLGPVSEKALEALEELAKTGRVTFDLDEIPLDDVSLVAHALRVAAKELKK",
-   "iptm": 0.164,
-   "design_to_target_iptm": 0.126,
-   "quality_score": 0.545,
-   "delta_sasa_refolded": 670.603,
-   "num_filters_passed": 1
-  },
-  {
-   "design_id": 6,
-   "bound_structure_uuid": "ba3edae1-2db0-4688-aee8-2c4be00b98e0",
-   "sequence": "GEEEDVERLRRLLREYIRRVAEELGIELTDEALDAMVDKLVELVVEEGVPLSKALEILRRTLERLKAAGLKTVTKEAAEETLDEVAAEVL",
-   "iptm": 0.143,
-   "design_to_target_iptm": 0.12,
-   "quality_score": 0.455,
-   "delta_sasa_refolded": 356.561,
-   "num_filters_passed": 1
-  },
-  {
-   "design_id": 7,
-   "bound_structure_uuid": "1ebe1d3a-b305-4766-bb29-7e8262c9e22e",
-   "sequence": "LPAVPEAVALLREAAELLREVAPEAALPLVEAALELLDQEATAAQQGAALGQLSTALKIIEKEKGPEAAKPVGALLGRAADVLDAAGY",
-   "iptm": 0.134,
-   "design_to_target_iptm": 0.107,
-   "quality_score": 0.364,
-   "delta_sasa_refolded": 640.54,
-   "num_filters_passed": 1
-  },
-  {
-   "design_id": 8,
-   "bound_structure_uuid": "788658d3-2c87-42a6-a5e5-73dbdac22aaf",
-   "sequence": "GIVAFARTLEELAKEYNLPVEEVRRLAEEAVKELSPEEKEELKEFTGGNETGIKSLAAYKKLK",
-   "iptm": 0.197,
-   "design_to_target_iptm": 0.113,
-   "quality_score": 0.273,
-   "delta_sasa_refolded": 751.546,
-   "num_filters_passed": 1
-  },
-  {
-   "design_id": 9,
-   "bound_structure_uuid": "e0da9c26-2fa3-4892-b654-035beaefbf09",
-   "sequence": "GAGEAALAALALQPKTPEELELLRELNELREKAKELLEKGKVEEAVELMKKRAEILKKIAELKR",
-   "iptm": 0.159,
-   "design_to_target_iptm": 0.107,
-   "quality_score": 0.182,
-   "delta_sasa_refolded": 1023.726,
-   "num_filters_passed": 1
-  },
-  {
-   "design_id": 10,
-   "bound_structure_uuid": "1da3273b-3fdf-49df-8f3d-fd84fac0d030",
-   "sequence": "EALKELIERREEEIKKLEALKEKLEKETFKSHQEAAKAAVKLAKELGLSPATIDLVLENFIKIKKENPDLSPKEAVLKAIDETIEKLK",
-   "iptm": 0.179,
-   "design_to_target_iptm": 0.099,
-   "quality_score": 0.091,
-   "delta_sasa_refolded": 793.675,
-   "num_filters_passed": 1
-  },
-  {
-   "design_id": 11,
-   "bound_structure_uuid": "60d2b053-4b6a-4a82-b085-955f071734f7",
-   "sequence": "SVEDVESKLGEALDDPNTTVEDLLALAEELLEEGVSKEDILEALRRLLSLDLSPEKKAMVEEVLKRLEE",
-   "iptm": 0.197,
-   "design_to_target_iptm": 0.093,
-   "quality_score": 0.0,
-   "delta_sasa_refolded": 377.567,
+   "bound_structure_uuid": "1ffb9bf9-b17e-4340-81a8-8284360ef628",
+   "sequence": "LTEEELKKIAEETGLSVEDVKKILELVLENNGRISEEELEALAKELGKSVETVEKAYELILKKLGLRAP",
+   "iptm": 0.185,
+   "design_to_target_iptm": 0.185,
+   "quality_score": 0.842,
+   "delta_sasa_refolded": 542.289,
    "num_filters_passed": 1
   }
  ],
  "iptm": {
-  "min": 0.134,
-  "max": 0.197,
-  "mean": 0.162,
+  "min": 0.183,
+  "max": 0.288,
+  "mean": 0.2132,
   "n_above_0.85": 0,
   "note": "PROJECT_GOAL.md 4.3 suggests filtering designs at ipTM 0.85. Report the count above it; if it is zero the consensus below is UNFILTERED and must be labelled as such."
  },
- "credits_charged": 51.95,
+ "credits_charged": 71.6,
  "compute_hardware": "A100_80GB",
- "elapsed_s": 1038.97,
+ "elapsed_s": 1432.07,
  "toolkit": [
   "rowan.design_protein_binder"
  ]
