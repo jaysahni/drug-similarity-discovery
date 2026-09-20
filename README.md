@@ -478,6 +478,38 @@ is what worked. Measured cost: **~5–7 credits per design**, 396–564 s per 4-
 
 ---
 
+## Does our score beat a free baseline? On one null, no
+
+Every co-folded pose comes back with Boltz-2 confidence fields we did not ask for.
+Tested as binder discriminators on the same 41 drugs (`scripts/confidence_gate.py`,
+costs nothing — the numbers were already cached):
+
+| signal | vs unrelated drugs | vs other kinase inhibitors |
+|---|---|---|
+| **ipTM** | **0.995** (p<1e-4) | 0.696 (p=0.129) |
+| interface overlap *(ours)* | 0.913 (p=0.0003) | 0.717 (p=0.092) |
+| confidence_score | 0.845 (p=0.003) | 0.608 (p=0.41) |
+| avg_lddt | 0.768 (p=0.02) | 0.529 (p=0.84) |
+| pTM | 0.589 (p=0.45) | 0.608 (p=0.41) |
+
+*n = 10 known binders vs 19 unrelated / 12 hard decoys.*
+
+**A free field beats our structural score on the easy null.** That is reported
+because it is true, not because it helps. Two things survive it:
+
+- **On the hard null nothing works** — not ours, not any confidence field, none
+  significant. That ceiling is shared with the co-folding backend rather than caused
+  by our scorer, which is a more useful diagnosis than "our score is weak".
+- **Interface overlap is interpretable and ipTM is not.** Ours names the residues
+  engaged and missed, so a hit can be inspected and argued with. ipTM is one number
+  with no mechanism attached.
+
+An earlier version of this claim said confidence *does not* discriminate at all. That
+was drawn from a single **constrained** probe — aspirin forced into the pocket reaches
+ipTM 0.965 — and it does not generalise to the unconstrained runs the board is built
+from. The constrained observation is still why constraints stay off; it was just never
+evidence about confidence in general.
+
 ## The scoring definition
 
 `precision_in_core` — **of the residues this drug engages, the fraction that lie in the
