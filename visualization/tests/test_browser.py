@@ -56,17 +56,25 @@ class BrowserTests(unittest.TestCase):
 
     def open(self):
         self.page.goto(self.url)
-        self.page.locator(".hero").wait_for()
+        self.page.locator("#welcome").wait_for()
 
-    def test_linked_views_and_filters(self):
+    def test_structure_modes_and_filters(self):
         self.open()
-        self.assertEqual(self.page.locator(".viewer canvas").count(), 2)
-        self.page.locator('[data-chapter="3"]').click()
+        self.page.locator('.example-link').click()
+        self.page.locator('[data-tab="structure"]').click()
+        self.assertEqual(self.page.locator(".viewer canvas").count(), 1)
+        self.assertEqual(self.page.locator('[data-view]').count(), 2)
+        self.page.locator('[data-view="binding_site"]').click()
+        self.assertEqual(self.page.locator('[data-view="binding_site"]').get_attribute("aria-pressed"), "true")
+        self.page.locator('[data-view="candidate"]').click()
+        self.page.locator('[data-tab="candidates"]').click()
         self.page.locator('.table-button[data-candidate="fixture-1"]').first.click()
-        self.assertEqual(self.page.locator("#candidate-label").inner_text(), "Fixture beta")
         self.assertIn("50%", self.page.locator("#inspector").inner_text())
+        self.page.get_by_text("View residue coverage", exact=True).click()
         self.page.locator('.heat-cell[data-residue="toy:A:7"]').first.click()
+        self.assertEqual(self.page.locator("#candidate-label").inner_text(), "Fixture beta")
         self.assertIn("Toy A:7", self.page.locator("#residue-selection").inner_text())
+        self.page.locator('[data-tab="candidates"]').click()
         self.page.locator("#novelty").select_option("known")
         self.assertNotIn("Fixture alpha", self.page.locator("#chapter-content").inner_text())
         self.page.locator("#rejected").check()
@@ -76,25 +84,31 @@ class BrowserTests(unittest.TestCase):
         self.assertEqual(self.external, [])
         self.assertEqual(self.errors, [])
 
-    def test_all_chapters_and_screenshot(self):
+    def test_chat_preview_and_reset(self):
         self.open()
-        for index in range(6):
-            self.page.locator(f'[data-chapter="{index}"]').click()
-            self.assertTrue(self.page.locator("h1").inner_text())
-            self.assertIn("SYNTHETIC FIXTURE", self.page.locator("#origin-banner").inner_text())
-        self.page.locator('[data-chapter="3"]').click()
-        self.page.wait_for_function("document.querySelector('#viewer-status').textContent.includes('linked')")
-        out = Path(__file__).resolve().parents[1] / ".test-output"
-        out.mkdir(exist_ok=True)
-        self.page.screenshot(path=str(out / "dashboard.png"), full_page=True)
+        self.page.locator('[data-prompt="Colorectal cancer"]').click()
+        self.assertEqual(self.page.locator("#prompt").input_value(), "Colorectal cancer")
+        self.page.locator("#prompt").press("Enter")
+        self.assertIn("isn’t connected", self.page.locator(".assistant-message").inner_text())
+        self.assertFalse(self.page.locator("#result").is_visible())
+        self.page.locator(".inline-action").click()
+        for tab in ("candidates", "structure", "sources"):
+            self.page.locator(f'[data-tab="{tab}"]').click()
+            self.assertIn("Synthetic example", self.page.locator("#origin-banner").inner_text())
+        self.page.locator("#new-chat").click()
+        self.assertTrue(self.page.locator("#welcome").is_visible())
+        self.assertFalse(self.page.locator("#result").is_visible())
+        self.assertEqual(self.page.locator("#conversation").inner_text(), "")
         self.assertEqual(self.external, [])
         self.assertEqual(self.errors, [])
 
     def test_no_webgl_fallback(self):
         self.context.add_init_script("HTMLCanvasElement.prototype.getContext = function() { return null; };")
         self.open()
+        self.page.locator('.example-link').click()
+        self.page.locator('[data-tab="structure"]').click()
         self.assertIn("3D unavailable", self.page.locator("#viewer-status").inner_text())
-        self.page.locator('[data-chapter="4"]').click()
+        self.page.locator('[data-tab="candidates"]').click()
         self.assertIn("Fixture alpha", self.page.locator("#chapter-content").inner_text())
         self.assertEqual(self.errors, [])
 
@@ -108,7 +122,7 @@ class BrowserTests(unittest.TestCase):
     def test_mobile_no_document_overflow(self):
         self.page.set_viewport_size({"width": 390, "height": 844})
         self.open()
-        self.page.locator('[data-chapter="3"]').click()
+        self.page.locator('.example-link').click()
         overflow = self.page.evaluate("document.documentElement.scrollWidth > window.innerWidth")
         self.assertFalse(overflow)
         self.assertEqual(self.errors, [])

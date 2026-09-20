@@ -24,7 +24,7 @@ export function suppressed(manifest, modality) {
 
 export function initialState(manifest) {
   const preferred = manifest.candidates.find(c => c.rank !== null) ?? manifest.candidates[0];
-  return {chapter: 0, modality: preferred?.modality ?? "small_molecule", novelty: "all", showRejected: false, candidate: preferred?.id ?? null, residue: null, view: "context"};
+  return {chapter: 0, modality: preferred?.modality ?? "small_molecule", novelty: "all", showRejected: manifest.data_origin === "reference_example", candidate: preferred?.id ?? null, residue: null, view: "candidate"};
 }
 
 export function reconcile(manifest, state) {

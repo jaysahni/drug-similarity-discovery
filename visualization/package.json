@@ -1,0 +1,14 @@
+{
+  "name": "autorepurpose-visualization",
+  "private": true,
+  "scripts": {
+    "build": "node frontend/build.mjs"
+  },
+  "dependencies": {
+    "react": "19.3.0",
+    "react-dom": "19.3.0"
+  },
+  "devDependencies": {
+    "esbuild": "0.28.2"
+  }
+}

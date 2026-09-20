@@ -4,3 +4,4 @@ __pycache__/
 out/
 .test-output/
 .browser-cache/
+node_modules/
