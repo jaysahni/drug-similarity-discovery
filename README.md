@@ -27,6 +27,23 @@ Boltz-2 can emit an affinity score; it is deliberately never read. Ranking is
 interface overlap only.
 <!--/LANG-EXEMPT-->
 
+**Ask it something** — instant, offline, no credits:
+
+```bash
+./env/bin/python scripts/ask.py --list             # what can be asked about
+./env/bin/python scripts/ask.py "colorectal cancer"
+./env/bin/python scripts/ask.py --target KDR --json
+./env/bin/python scripts/ask.py --explain sunitinib
+```
+
+Run the pipeline live for a new target (needs network + Rowan credits):
+
+```bash
+./env/bin/python scripts/autorepurpose.py run --target KDR --uniprot P35968
+```
+
+Or drive the stages by hand:
+
 ```bash
 ./env/bin/python scripts/repurpose.py shortlist --target KDR
 ./env/bin/python scripts/repurpose.py submit --max-credits 190
