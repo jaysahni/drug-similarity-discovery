@@ -16,8 +16,7 @@ COLORS = {"target": "#cbd5e1", "engaged": "#007f73", "missed": "#b45309", "ligan
 DISCLAIMER = "Computationally ranked hypotheses requiring experimental validation."
 
 
-class BundleError(ValueError):
-    pass
+from .errors import BundleError  # re-exported: callers have always imported it from here
 
 
 def load_json(path):

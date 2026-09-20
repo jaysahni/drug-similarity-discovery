@@ -327,22 +327,28 @@ function drawExampleStructure(entry) {
   exampleMolecule = molecule.id;
   $("#example-molecule").onchange = event => {exampleMolecule = event.target.value; renderExample();};
   const status = $("#example-viewer-status");
-  // A fresh stage per mount: the panel's markup is replaced on every step change.
-  exampleStage = new MolecularStage($("#example-viewer"), status, () => {});
-  const cached = poseCache.get(molecule.file);
+  // A fresh stage per mount, held locally: a later render replaces the markup this one drew into,
+  // and its in-flight fetch must not write over the newer view or report a failure against it.
+  const stage = new MolecularStage($("#example-viewer"), status, () => {});
+  exampleStage = stage;
+  const current = () => exampleStage === stage;
   // The stage writes a caption meant for the saved analysis; this pose has its own provenance.
   const caption = exampleView === "binding_site"
     ? `Residues within 4.5 \u00C5 of ${molecule.name}, extracted from the recorded run.`
     : `${molecule.name} as it was co-folded, protein hidden.`;
-  const show = pdb => exampleStage.draw(structureBundle(molecule, pdb, bundle?.colors ?? POSE_COLORS), {candidate: molecule.id, view: exampleView, residue: null})
-    .then(() => {status.textContent = caption;})
-    .catch(() => {status.textContent = "Structure unavailable. The recorded numbers above are unaffected.";});
+  const show = pdb => {
+    if (!current()) return;
+    stage.draw(structureBundle(molecule, pdb, bundle?.colors ?? POSE_COLORS), {candidate: molecule.id, view: exampleView, residue: null})
+      .then(() => {if (current()) status.textContent = caption;})
+      .catch(() => {if (current()) status.textContent = "This structure could not be drawn. The recorded numbers above are unaffected.";});
+  };
+  const cached = poseCache.get(molecule.file);
   if (cached) {show(cached); return;}
-  status.textContent = "Loading the co-folded structure…";
+  status.textContent = "Loading the co-folded structure\u2026";
   fetch(molecule.file)
-    .then(response => {if (!response.ok) throw new Error("missing pose"); return response.text();})
-    .then(pdb => {poseCache.set(molecule.file, pdb); if (exampleStep === "check" && exampleMolecule === molecule.id) show(pdb);})
-    .catch(() => {status.textContent = "This pose file is not part of this export.";});
+    .then(response => {if (!response.ok) throw new Error(`HTTP ${response.status}`); return response.text();})
+    .then(pdb => {poseCache.set(molecule.file, pdb); show(pdb);})
+    .catch(error => {if (current()) status.textContent = `Could not load this pose (${error.message}). The recorded numbers above are unaffected.`;});
 }
 function setResultHeading() {
   $("#origin-banner").textContent = isDemo() ? "Synthetic example" : manifest.data_origin === "computed" ? "Saved analysis" : "Reference example";
