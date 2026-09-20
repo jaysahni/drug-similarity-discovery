@@ -1,0 +1,115 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "AutoRepurpose visualization handoff v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "run_id", "data_origin", "disease", "target", "signature", "structures", "candidates", "evidence", "validation", "provenance"],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "run_id": {"type": "string", "pattern": "^[A-Za-z0-9_-]+$"},
+    "data_origin": {"enum": ["computed", "synthetic_fixture", "reference_example"]},
+    "disease": {"$ref": "#/$defs/identity"},
+    "target": {
+      "type": "object", "additionalProperties": false,
+      "required": ["id", "name", "structure_id", "site_kind", "rationale"],
+      "properties": {
+        "id": {"type": "string"}, "name": {"type": "string"},
+        "structure_id": {"type": ["string", "null"]},
+        "site_kind": {"enum": ["pocket", "interface", "epitope", "unknown"]},
+        "rationale": {"type": "string"}
+      }
+    },
+    "design_reference": {
+      "type": ["object", "null"], "additionalProperties": false,
+      "required": ["id", "name", "structure_id", "protocol", "source"],
+      "properties": {"id": {"type": "string", "pattern": "^[A-Za-z0-9_-]+$"}, "name": {"type": "string"}, "structure_id": {"type": "string"}, "protocol": {"type": "string"}, "source": {"type": "string"}}
+    },
+    "signature": {
+      "type": "object", "additionalProperties": false,
+      "required": ["id", "source", "status", "reason", "threshold", "n_generated", "n_surviving", "addressability", "residues"],
+      "properties": {
+        "id": {"type": "string"},
+        "source": {"enum": ["boltzgen_consensus", "p2rank_geometry", "known_ligand", "hybrid"]},
+        "status": {"$ref": "#/$defs/status"}, "reason": {"type": "string"},
+        "threshold": {"$ref": "#/$defs/fraction"},
+        "n_generated": {"type": "integer", "minimum": 0},
+        "n_surviving": {"type": "integer", "minimum": 0},
+        "addressability": {
+          "type": "object", "additionalProperties": false, "required": ["status", "reason"],
+          "properties": {"status": {"enum": ["addressable", "not_addressable", "not_evaluated"]}, "reason": {"type": "string"}}
+        },
+        "residues": {"type": "array", "items": {
+          "type": "object", "additionalProperties": false,
+          "required": ["key", "label", "frequency", "core"],
+          "properties": {"key": {"type": "string"}, "label": {"type": "string"}, "frequency": {"$ref": "#/$defs/fraction"}, "core": {"type": "boolean"}}
+        }}
+      }
+    },
+    "structures": {"type": "array", "items": {"$ref": "#/$defs/structure"}},
+    "candidates": {"type": "array", "items": {"$ref": "#/$defs/candidate"}},
+    "evidence": {"type": "array", "items": {
+      "type": "object", "additionalProperties": false, "required": ["id", "title", "claim", "url"],
+      "properties": {"id": {"type": "string"}, "title": {"type": "string"}, "claim": {"type": "string"}, "url": {"type": ["string", "null"], "pattern": "^https://"}}
+    }},
+    "validation": {"type": "array", "items": {
+      "type": "object", "additionalProperties": false, "required": ["label", "status", "reason", "value", "n", "source"],
+      "properties": {"label": {"type": "string"}, "status": {"$ref": "#/$defs/status"}, "reason": {"type": "string"}, "value": {"type": ["number", "null"]}, "n": {"type": "integer", "minimum": 0}, "source": {"type": "string"}}
+    }},
+    "provenance": {"type": "object", "minProperties": 1, "additionalProperties": {"type": "string"}}
+  },
+  "$defs": {
+    "status": {"enum": ["available", "not_evaluated", "failed", "not_applicable"]},
+    "fraction": {"type": "number", "minimum": 0, "maximum": 1},
+    "identity": {"type": "object", "additionalProperties": false, "required": ["id", "name"], "properties": {"id": {"type": "string"}, "name": {"type": "string"}}},
+    "measurement": {
+      "type": "object", "additionalProperties": false, "required": ["status", "value", "reason"],
+      "properties": {"status": {"$ref": "#/$defs/status"}, "value": {"type": ["number", "null"], "minimum": 0, "maximum": 1}, "reason": {"type": "string"}}
+    },
+    "structure": {
+      "type": "object", "additionalProperties": false,
+      "required": ["id", "path", "sha256", "format", "origin", "frame_id", "source", "license", "residue_map", "ligand_residues"],
+      "properties": {
+        "id": {"type": "string", "pattern": "^[A-Za-z0-9_-]+$"},
+        "path": {"type": "string"}, "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+        "format": {"enum": ["pdb", "cif"]}, "origin": {"enum": ["experimental", "predicted", "synthetic_fixture"]},
+        "frame_id": {"type": "string", "minLength": 1}, "source": {"type": "string", "minLength": 1}, "license": {"type": "string", "minLength": 1},
+        "residue_map": {"type": "object", "additionalProperties": {"$ref": "#/$defs/residue"}},
+        "ligand_residues": {"type": "array", "items": {"$ref": "#/$defs/residue"}},
+        "alignment": {
+          "type": "object", "additionalProperties": false, "required": ["reference_id", "atom_pairs", "max_rmsd"],
+          "properties": {
+            "reference_id": {"type": "string"}, "max_rmsd": {"type": "number", "exclusiveMinimum": 0},
+            "atom_pairs": {"type": "array", "minItems": 3, "items": {"type": "array", "minItems": 2, "maxItems": 2, "items": {"type": "integer"}}}
+          }
+        }
+      }
+    },
+    "residue": {
+      "type": "object", "additionalProperties": false, "required": ["chain", "number", "insertion"],
+      "properties": {"chain": {"type": "string"}, "number": {"type": "integer"}, "insertion": {"type": "string", "maxLength": 1}}
+    },
+    "candidate": {
+      "type": "object", "additionalProperties": false,
+      "required": ["id", "name", "modality", "novelty", "rank", "ranking_metric", "structure_id", "approval", "coverage", "engaged", "missed", "confidence", "decoys", "caveats", "source"],
+      "properties": {
+        "id": {"type": "string", "pattern": "^[A-Za-z0-9_-]+$"}, "name": {"type": "string"},
+        "modality": {"enum": ["small_molecule", "peptide", "biologic"]},
+        "novelty": {"enum": ["known_moa", "known_offtarget", "novel_pairing", "unknown"]},
+        "rank": {"type": ["integer", "null"], "minimum": 1}, "ranking_metric": {"type": "string", "minLength": 1},
+        "structure_id": {"type": ["string", "null"]}, "approval": {"type": "string"},
+        "coverage": {"$ref": "#/$defs/measurement"},
+        "engaged": {"type": "array", "uniqueItems": true, "items": {"type": "string"}},
+        "missed": {"type": "array", "uniqueItems": true, "items": {"type": "string"}},
+        "confidence": {
+          "type": "object", "additionalProperties": false, "required": ["name", "value", "scale", "gate", "rule", "reason"],
+          "properties": {"name": {"type": "string"}, "value": {"type": ["number", "null"]}, "scale": {"type": "string"}, "gate": {"enum": ["passed", "failed", "not_evaluated"]}, "rule": {"type": "string"}, "reason": {"type": "string"}}
+        },
+        "decoys": {
+          "type": "object", "additionalProperties": false, "required": ["status", "reason", "percentile", "scores", "n", "metric", "context", "tie_rule"],
+          "properties": {"status": {"$ref": "#/$defs/status"}, "reason": {"type": "string"}, "percentile": {"type": ["number", "null"], "minimum": 0, "maximum": 100}, "scores": {"type": "array", "items": {"$ref": "#/$defs/fraction"}}, "n": {"type": "integer", "minimum": 0}, "metric": {"const": "core_coverage"}, "context": {"type": "string"}, "tie_rule": {"type": "string"}}
+        },
+        "caveats": {"type": "array", "items": {"type": "string"}}, "source": {"type": "string", "minLength": 1}
+      }
+    }
+  }
+}

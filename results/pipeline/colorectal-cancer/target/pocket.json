@@ -1,0 +1,232 @@
+{
+  "site_id": "3VHE_A_pocket1",
+  "uniprot_id": "P35968",
+  "structure_source": "pdb",
+  "structure_id": "3VHE",
+  "structure_path": "results/pipeline/colorectal-cancer/target/structure/3VHE_A_stripped.pdb",
+  "apo_or_holo": "stripped_holo",
+  "chain_id": "A",
+  "construct_range": [
+    834,
+    1162
+  ],
+  "site_kind": "pocket",
+  "detector": "P2Rank 2.5 (default model), run on the ligand-stripped structure",
+  "residue_ids": [
+    840,
+    848,
+    866,
+    868,
+    885,
+    889,
+    899,
+    914,
+    916,
+    918,
+    919,
+    922,
+    923,
+    1035,
+    1045,
+    1046,
+    1047
+  ],
+  "center": [
+    -22.029,
+    -0.245,
+    -12.811
+  ],
+  "p2rank_score": 13.02,
+  "p2rank_probability": 0.671,
+  "environment": {
+    "has_metal": false,
+    "metal_comp_ids": [],
+    "has_ordered_water": true,
+    "n_ordered_waters_in_site": 50,
+    "has_cofactor": false,
+    "other_het_comp_ids": [],
+    "additive_comp_ids": [],
+    "cutoff_a": 5.0
+  },
+  "geometry_method": {
+    "grid_spacing_a": 0.6,
+    "grid_bounds": "bounding box of the pocket-lining heavy atoms padded by 3 A; a cavity lobe reaching past that is not measured, so volume and extent are lower bounds for tunnel-shaped sites",
+    "cavity_point": "grid point free of protein (dist to every heavy atom > vdW + 1.4 A probe), within 4.0 A of a pocket-lining heavy atom, and buriedness >= 0.75. The 0.75 bar is what separates the enclosed cavity from the thin solvent film that hugs the whole cleft surface; these are our definitions, so the volume is not comparable to an fpocket volume.",
+    "buriedness": "fraction of 30 Fibonacci-sphere ray directions that strike a protein heavy atom within 12 A (sampled every 1.0 A)",
+    "component": "cavity points are grouped into grid-connected components and only the component holding the P2Rank pocket centre is kept, so a surface groove elsewhere on the protein cannot inflate the volume or the docking box",
+    "volume_a3": "n_cavity_points * spacing^3",
+    "enclosure": "mean buriedness over cavity points (0-1)",
+    "concavity": "fraction of cavity points lying inside the protein's convex hull (0-1)",
+    "depth_a": "distance from a cavity point to the nearest convex-hull facet, mean and max",
+    "max_sphere_radius_a": "max over cavity points of the distance to the nearest heavy-atom surface"
+  },
+  "geometry": {
+    "n_cavity_points": 832,
+    "n_cavity_components": 12,
+    "volume_a3": 179.71,
+    "enclosure": 0.8619,
+    "concavity": 1.0,
+    "mean_depth_a": 13.758,
+    "max_depth_a": 17.269,
+    "max_sphere_radius_a": 2.44,
+    "cavity_centroid": [
+      -25.434,
+      -3.037,
+      -10.512
+    ],
+    "cavity_bbox_center": [
+      -24.664,
+      -3.774,
+      -9.303
+    ],
+    "cavity_extent_a": [
+      15.6,
+      13.8,
+      13.2
+    ]
+  },
+  "docking_box": {
+    "center": [
+      -24.664,
+      -3.774,
+      -9.303
+    ],
+    "size_a": [
+      23.6,
+      21.8,
+      21.2
+    ],
+    "derived_from": "cavity bounding box + 4 A padding, clipped to [16, 30] A"
+  },
+  "pockets": [
+    {
+      "rank": 1,
+      "score": 13.02,
+      "probability": 0.671,
+      "center": [
+        -22.029,
+        -0.245,
+        -12.811
+      ],
+      "n_surf_atoms": 38,
+      "residue_ids": [
+        840,
+        848,
+        866,
+        868,
+        885,
+        889,
+        899,
+        914,
+        916,
+        918,
+        919,
+        922,
+        923,
+        1035,
+        1045,
+        1046,
+        1047
+      ]
+    },
+    {
+      "rank": 2,
+      "score": 11.39,
+      "probability": 0.608,
+      "center": [
+        -29.335,
+        -3.164,
+        -4.917
+      ],
+      "n_surf_atoms": 41,
+      "residue_ids": [
+        814,
+        817,
+        868,
+        884,
+        885,
+        888,
+        889,
+        892,
+        898,
+        899,
+        1019,
+        1024,
+        1025,
+        1026,
+        1044,
+        1045,
+        1046,
+        1048
+      ]
+    },
+    {
+      "rank": 3,
+      "score": 3.33,
+      "probability": 0.118,
+      "center": [
+        -10.295,
+        -5.648,
+        -4.464
+      ],
+      "n_surf_atoms": 19,
+      "residue_ids": [
+        923,
+        925,
+        926,
+        1032,
+        1051,
+        1056,
+        1057,
+        1058,
+        1102,
+        1104
+      ]
+    },
+    {
+      "rank": 4,
+      "score": 2.27,
+      "probability": 0.057,
+      "center": [
+        -22.406,
+        -11.393,
+        -6.104
+      ],
+      "n_surf_atoms": 16,
+      "residue_ids": [
+        1028,
+        1046,
+        1048,
+        1049,
+        1053,
+        1059,
+        1066,
+        1068
+      ]
+    },
+    {
+      "rank": 5,
+      "score": 2.16,
+      "probability": 0.051,
+      "center": [
+        -12.151,
+        12.783,
+        -8.354
+      ],
+      "n_surf_atoms": 17,
+      "residue_ids": [
+        921,
+        927,
+        931,
+        998,
+        999,
+        1000,
+        1004,
+        1036,
+        1039,
+        1040
+      ]
+    }
+  ],
+  "known_ligand_residue_ids": "NOT SET HERE BY DESIGN - see known_ligand_contacts.json; site detection must not read it (PROJECT_GOAL.md B12)"
+}

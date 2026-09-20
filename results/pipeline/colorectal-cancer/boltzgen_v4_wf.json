@@ -1,0 +1,6 @@
+{
+ "workflow_uuid": "6fa0a492-5bbb-475d-a501-f371fa43ef5f",
+ "num_designs": 24,
+ "max_credits": 220,
+ "spec": "include_proximity r=12 + binding_types (the v3 spec that fixed targeting)"
+}

@@ -1,0 +1,2147 @@
+{
+ "schema_version": "1.0.0",
+ "run_id": "kdr-m2-gate",
+ "data_origin": "computed",
+ "disease": {
+  "id": "EFO:colorectal-carcinoma",
+  "name": "Colorectal cancer"
+ },
+ "target": {
+  "id": "P35968",
+  "name": "KDR / VEGFR2",
+  "structure_id": "3VHE_A",
+  "site_kind": "pocket",
+  "rationale": "selected from Open Targets association for colorectal cancer; approved VEGFR2 inhibitors exist, which is what makes the rediscovery check interpretable"
+ },
+ "design_reference": {
+  "id": "6fa0a492-5bbb-475d-a501-f371fa43ef5f",
+  "name": "BoltzGen protein-anything, 24 designs (85.54 credits, A100-80GB)",
+  "structure_id": "3VHE_A",
+  "protocol": "protein-anything",
+  "source": "BoltzGen via Rowan protein_binder_design; targeting required include_proximity - binding_types alone left designs 28-52 A away"
+ },
+ "signature": {
+  "id": "kdr-boltzgen-consensus-v4",
+  "source": "boltzgen_consensus",
+  "status": "available",
+  "reason": "consensus over 24 BoltzGen designs. UNFILTERED: zero designs reach ipTM 0.5, against the 0.85 the plan suggests. This arm LOSES the M2 gate to pocket geometry by 0.324 Jaccard.",
+  "threshold": 0.6,
+  "n_generated": 24,
+  "n_surviving": 24,
+  "addressability": {
+   "status": "not_evaluated",
+   "reason": "PROJECT_GOAL.md 1.4b sm_addressable was not computed"
+  },
+  "residues": [
+   {
+    "key": "3VHE_A:A:813",
+    "label": "KDR A:813",
+    "frequency": 0.25,
+    "core": false
+   },
+   {
+    "key": "3VHE_A:A:814",
+    "label": "KDR A:814",
+    "frequency": 0.292,
+    "core": false
+   },
+   {
+    "key": "3VHE_A:A:815",
+    "label": "KDR A:815",
+    "frequency": 0.042,
+    "core": false
+   },
+   {
+    "key": "3VHE_A:A:817",
+    "label": "KDR A:817",
+    "frequency": 0.042,
+    "core": false
+   },
+   {
+    "key": "3VHE_A:A:831",
+    "label": "KDR A:831",
+    "frequency": 0.042,
+    "core": false
+   },
+   {
+    "key": "3VHE_A:A:838",
+    "label": "KDR A:838",
+    "frequency": 0.292,
+    "core": false
+   },
+   {
+    "key": "3VHE_A:A:839",
+    "label": "KDR A:839",
+    "frequency": 0.417,
+    "core": false
+   },
+   {
+    "key": "3VHE_A:A:840",
+    "label": "KDR A:840",
+    "frequency": 1.0,
+    "core": true
+   },
+   {
+    "key": "3VHE_A:A:841",
+    "label": "KDR A:841",
+    "frequency": 1.0,
+    "core": true
+   },
+   {
+    "key": "3VHE_A:A:842",
+    "label": "KDR A:842",
+    "frequency": 0.958,
+    "core": true
+   },
+   {
+    "key": "3VHE_A:A:843",
+    "label": "KDR A:843",
+    "frequency": 0.958,
+    "core": true
+   },
+   {
+    "key": "3VHE_A:A:844",
+    "label": "KDR A:844",
+    "frequency": 0.917,
+    "core": true
+   },
+   {
+    "key": "3VHE_A:A:845",
+    "label": "KDR A:845",
+    "frequency": 0.792,
+    "core": true
+   },
+   {
+    "key": "3VHE_A:A:846",
+    "label": "KDR A:846",
+    "frequency": 0.708,
+    "core": true
+   },
+   {
+    "key": "3VHE_A:A:847",
+    "label": "KDR A:847",
+    "frequency": 0.583,
+    "core": false
+   },
+   {
+    "key": "3VHE_A:A:848",
+    "label": "KDR A:848",
+    "frequency": 0.833,
+    "core": true
+   },
+   {
+    "key": "3VHE_A:A:850",
+    "label": "KDR A:850",
+    "frequency": 0.125,
+    "core": false
+   },
+   {
+    "key": "3VHE_A:A:866",
+    "label": "KDR A:866",
+    "frequency": 0.5,
+    "core": false
+   },
+   {
+    "key": "3VHE_A:A:867",
+    "label": "KDR A:867",
+    "frequency": 0.042,
+    "core": false
+   },
+   {
+    "key": "3VHE_A:A:868",
+    "label": "KDR A:868",
+    "frequency": 0.833,
+    "core": true
+   },
+   {
+    "key": "3VHE_A:A:869",
+    "label": "KDR A:869",
+    "frequency": 0.125,
+    "core": false
+   },
+   {
+    "key": "3VHE_A:A:870",
+    "label": "KDR A:870",
+    "frequency": 0.25,
+    "core": false
+   },
+   {
+    "key": "3VHE_A:A:871",
+    "label": "KDR A:871",
+    "frequency": 0.167,
+    "core": false
+   },
+   {
+    "key": "3VHE_A:A:878",
+    "label": "KDR A:878",
+    "frequency": 0.208,
+    "core": false
+   },
+   {
+    "key": "3VHE_A:A:879",
+    "label": "KDR A:879",
+    "frequency": 0.208,
+    "core": false
+   },
+   {
+    "key": "3VHE_A:A:880",
+    "label": "KDR A:880",
+    "frequency": 0.042,
+    "core": false
+   },
+   {
+    "key": "3VHE_A:A:881",
+    "label": "KDR A:881",
+    "frequency": 0.542,
+    "core": false
+   },
+   {
+    "key": "3VHE_A:A:882",
+    "label": "KDR A:882",
+    "frequency": 0.375,
+    "core": false
+   },
+   {
+    "key": "3VHE_A:A:883",
+    "label": "KDR A:883",
+    "frequency": 0.042,
+    "core": false
+   },
+   {
+    "key": "3VHE_A:A:884",
+    "label": "KDR A:884",
+    "frequency": 0.167,
+    "core": false
+   },
+   {
+    "key": "3VHE_A:A:885",
+    "label": "KDR A:885",
+    "frequency": 0.792,
+    "core": true
+   },
+   {
+    "key": "3VHE_A:A:886",
+    "label": "KDR A:886",
+    "frequency": 0.083,
+    "core": false
+   },
+   {
+    "key": "3VHE_A:A:888",
+    "label": "KDR A:888",
+    "frequency": 0.167,
+    "core": false
+   },
+   {
+    "key": "3VHE_A:A:889",
+    "label": "KDR A:889",
+    "frequency": 0.25,
+    "core": false
+   },
+   {
+    "key": "3VHE_A:A:892",
+    "label": "KDR A:892",
+    "frequency": 0.083,
+    "core": false
+   },
+   {
+    "key": "3VHE_A:A:899",
+    "label": "KDR A:899",
+    "frequency": 0.458,
+    "core": false
+   },
+   {
+    "key": "3VHE_A:A:900",
+    "label": "KDR A:900",
+    "frequency": 0.042,
+    "core": false
+   },
+   {
+    "key": "3VHE_A:A:901",
+    "label": "KDR A:901",
+    "frequency": 0.042,
+    "core": false
+   },
+   {
+    "key": "3VHE_A:A:905",
+    "label": "KDR A:905",
+    "frequency": 0.042,
+    "core": false
+   },
+   {
+    "key": "3VHE_A:A:906",
+    "label": "KDR A:906",
+    "frequency": 0.042,
+    "core": false
+   },
+   {
+    "key": "3VHE_A:A:911",
+    "label": "KDR A:911",
+    "frequency": 0.042,
+    "core": false
+   },
+   {
+    "key": "3VHE_A:A:912",
+    "label": "KDR A:912",
+    "frequency": 0.083,
+    "core": false
+   },
+   {
+    "key": "3VHE_A:A:913",
+    "label": "KDR A:913",
+    "frequency": 0.042,
+    "core": false
+   },
+   {
+    "key": "3VHE_A:A:914",
+    "label": "KDR A:914",
+    "frequency": 0.292,
+    "core": false
+   },
+   {
+    "key": "3VHE_A:A:915",
+    "label": "KDR A:915",
+    "frequency": 0.042,
+    "core": false
+   },
+   {
+    "key": "3VHE_A:A:916",
+    "label": "KDR A:916",
+    "frequency": 0.75,
+    "core": true
+   },
+   {
+    "key": "3VHE_A:A:917",
+    "label": "KDR A:917",
+    "frequency": 0.542,
+    "core": false
+   },
+   {
+    "key": "3VHE_A:A:918",
+    "label": "KDR A:918",
+    "frequency": 0.875,
+    "core": true
+   },
+   {
+    "key": "3VHE_A:A:919",
+    "label": "KDR A:919",
+    "frequency": 0.917,
+    "core": true
+   },
+   {
+    "key": "3VHE_A:A:920",
+    "label": "KDR A:920",
+    "frequency": 0.583,
+    "core": false
+   },
+   {
+    "key": "3VHE_A:A:921",
+    "label": "KDR A:921",
+    "frequency": 0.667,
+    "core": true
+   },
+   {
+    "key": "3VHE_A:A:922",
+    "label": "KDR A:922",
+    "frequency": 0.958,
+    "core": true
+   },
+   {
+    "key": "3VHE_A:A:923",
+    "label": "KDR A:923",
+    "frequency": 1.0,
+    "core": true
+   },
+   {
+    "key": "3VHE_A:A:925",
+    "label": "KDR A:925",
+    "frequency": 0.292,
+    "core": false
+   },
+   {
+    "key": "3VHE_A:A:926",
+    "label": "KDR A:926",
+    "frequency": 0.833,
+    "core": true
+   },
+   {
+    "key": "3VHE_A:A:927",
+    "label": "KDR A:927",
+    "frequency": 0.25,
+    "core": false
+   },
+   {
+    "key": "3VHE_A:A:929",
+    "label": "KDR A:929",
+    "frequency": 0.583,
+    "core": false
+   },
+   {
+    "key": "3VHE_A:A:930",
+    "label": "KDR A:930",
+    "frequency": 0.292,
+    "core": false
+   },
+   {
+    "key": "3VHE_A:A:1027",
+    "label": "KDR A:1027",
+    "frequency": 0.167,
+    "core": false
+   },
+   {
+    "key": "3VHE_A:A:1028",
+    "label": "KDR A:1028",
+    "frequency": 0.542,
+    "core": false
+   },
+   {
+    "key": "3VHE_A:A:1032",
+    "label": "KDR A:1032",
+    "frequency": 0.917,
+    "core": true
+   },
+   {
+    "key": "3VHE_A:A:1033",
+    "label": "KDR A:1033",
+    "frequency": 0.667,
+    "core": true
+   },
+   {
+    "key": "3VHE_A:A:1035",
+    "label": "KDR A:1035",
+    "frequency": 0.917,
+    "core": true
+   },
+   {
+    "key": "3VHE_A:A:1045",
+    "label": "KDR A:1045",
+    "frequency": 0.625,
+    "core": true
+   },
+   {
+    "key": "3VHE_A:A:1046",
+    "label": "KDR A:1046",
+    "frequency": 0.917,
+    "core": true
+   },
+   {
+    "key": "3VHE_A:A:1047",
+    "label": "KDR A:1047",
+    "frequency": 0.375,
+    "core": false
+   },
+   {
+    "key": "3VHE_A:A:1048",
+    "label": "KDR A:1048",
+    "frequency": 0.667,
+    "core": true
+   },
+   {
+    "key": "3VHE_A:A:1049",
+    "label": "KDR A:1049",
+    "frequency": 0.542,
+    "core": false
+   },
+   {
+    "key": "3VHE_A:A:1050",
+    "label": "KDR A:1050",
+    "frequency": 0.042,
+    "core": false
+   },
+   {
+    "key": "3VHE_A:A:1051",
+    "label": "KDR A:1051",
+    "frequency": 0.292,
+    "core": false
+   },
+   {
+    "key": "3VHE_A:A:1052",
+    "label": "KDR A:1052",
+    "frequency": 0.042,
+    "core": false
+   },
+   {
+    "key": "3VHE_A:A:1053",
+    "label": "KDR A:1053",
+    "frequency": 0.042,
+    "core": false
+   }
+  ]
+ },
+ "structures": [
+  {
+   "id": "3VHE_A",
+   "path": "structures/3VHE_A_stripped.pdb",
+   "sha256": "27186f1ec8604d16aa1612b3906f509b363f6b1fb3096a590b3d72a793f212e4",
+   "format": "pdb",
+   "origin": "experimental",
+   "frame_id": "3VHE-A",
+   "license": "PDB - free to use",
+   "source": "RCSB PDB 3VHE chain A, all heteroatoms stripped before site detection",
+   "residue_map": {
+    "3VHE_A:A:811": {
+     "chain": "A",
+     "number": 811,
+     "insertion": ""
+    },
+    "3VHE_A:A:812": {
+     "chain": "A",
+     "number": 812,
+     "insertion": ""
+    },
+    "3VHE_A:A:813": {
+     "chain": "A",
+     "number": 813,
+     "insertion": ""
+    },
+    "3VHE_A:A:814": {
+     "chain": "A",
+     "number": 814,
+     "insertion": ""
+    },
+    "3VHE_A:A:815": {
+     "chain": "A",
+     "number": 815,
+     "insertion": ""
+    },
+    "3VHE_A:A:816": {
+     "chain": "A",
+     "number": 816,
+     "insertion": ""
+    },
+    "3VHE_A:A:817": {
+     "chain": "A",
+     "number": 817,
+     "insertion": ""
+    },
+    "3VHE_A:A:818": {
+     "chain": "A",
+     "number": 818,
+     "insertion": ""
+    },
+    "3VHE_A:A:819": {
+     "chain": "A",
+     "number": 819,
+     "insertion": ""
+    },
+    "3VHE_A:A:820": {
+     "chain": "A",
+     "number": 820,
+     "insertion": ""
+    },
+    "3VHE_A:A:821": {
+     "chain": "A",
+     "number": 821,
+     "insertion": ""
+    },
+    "3VHE_A:A:822": {
+     "chain": "A",
+     "number": 822,
+     "insertion": ""
+    },
+    "3VHE_A:A:823": {
+     "chain": "A",
+     "number": 823,
+     "insertion": ""
+    },
+    "3VHE_A:A:824": {
+     "chain": "A",
+     "number": 824,
+     "insertion": ""
+    },
+    "3VHE_A:A:825": {
+     "chain": "A",
+     "number": 825,
+     "insertion": ""
+    },
+    "3VHE_A:A:826": {
+     "chain": "A",
+     "number": 826,
+     "insertion": ""
+    },
+    "3VHE_A:A:827": {
+     "chain": "A",
+     "number": 827,
+     "insertion": ""
+    },
+    "3VHE_A:A:828": {
+     "chain": "A",
+     "number": 828,
+     "insertion": ""
+    },
+    "3VHE_A:A:829": {
+     "chain": "A",
+     "number": 829,
+     "insertion": ""
+    },
+    "3VHE_A:A:830": {
+     "chain": "A",
+     "number": 830,
+     "insertion": ""
+    },
+    "3VHE_A:A:831": {
+     "chain": "A",
+     "number": 831,
+     "insertion": ""
+    },
+    "3VHE_A:A:832": {
+     "chain": "A",
+     "number": 832,
+     "insertion": ""
+    },
+    "3VHE_A:A:833": {
+     "chain": "A",
+     "number": 833,
+     "insertion": ""
+    },
+    "3VHE_A:A:834": {
+     "chain": "A",
+     "number": 834,
+     "insertion": ""
+    },
+    "3VHE_A:A:835": {
+     "chain": "A",
+     "number": 835,
+     "insertion": ""
+    },
+    "3VHE_A:A:836": {
+     "chain": "A",
+     "number": 836,
+     "insertion": ""
+    },
+    "3VHE_A:A:837": {
+     "chain": "A",
+     "number": 837,
+     "insertion": ""
+    },
+    "3VHE_A:A:838": {
+     "chain": "A",
+     "number": 838,
+     "insertion": ""
+    },
+    "3VHE_A:A:839": {
+     "chain": "A",
+     "number": 839,
+     "insertion": ""
+    },
+    "3VHE_A:A:840": {
+     "chain": "A",
+     "number": 840,
+     "insertion": ""
+    },
+    "3VHE_A:A:841": {
+     "chain": "A",
+     "number": 841,
+     "insertion": ""
+    },
+    "3VHE_A:A:842": {
+     "chain": "A",
+     "number": 842,
+     "insertion": ""
+    },
+    "3VHE_A:A:843": {
+     "chain": "A",
+     "number": 843,
+     "insertion": ""
+    },
+    "3VHE_A:A:844": {
+     "chain": "A",
+     "number": 844,
+     "insertion": ""
+    },
+    "3VHE_A:A:845": {
+     "chain": "A",
+     "number": 845,
+     "insertion": ""
+    },
+    "3VHE_A:A:846": {
+     "chain": "A",
+     "number": 846,
+     "insertion": ""
+    },
+    "3VHE_A:A:847": {
+     "chain": "A",
+     "number": 847,
+     "insertion": ""
+    },
+    "3VHE_A:A:848": {
+     "chain": "A",
+     "number": 848,
+     "insertion": ""
+    },
+    "3VHE_A:A:849": {
+     "chain": "A",
+     "number": 849,
+     "insertion": ""
+    },
+    "3VHE_A:A:850": {
+     "chain": "A",
+     "number": 850,
+     "insertion": ""
+    },
+    "3VHE_A:A:851": {
+     "chain": "A",
+     "number": 851,
+     "insertion": ""
+    },
+    "3VHE_A:A:852": {
+     "chain": "A",
+     "number": 852,
+     "insertion": ""
+    },
+    "3VHE_A:A:853": {
+     "chain": "A",
+     "number": 853,
+     "insertion": ""
+    },
+    "3VHE_A:A:854": {
+     "chain": "A",
+     "number": 854,
+     "insertion": ""
+    },
+    "3VHE_A:A:855": {
+     "chain": "A",
+     "number": 855,
+     "insertion": ""
+    },
+    "3VHE_A:A:856": {
+     "chain": "A",
+     "number": 856,
+     "insertion": ""
+    },
+    "3VHE_A:A:857": {
+     "chain": "A",
+     "number": 857,
+     "insertion": ""
+    },
+    "3VHE_A:A:858": {
+     "chain": "A",
+     "number": 858,
+     "insertion": ""
+    },
+    "3VHE_A:A:859": {
+     "chain": "A",
+     "number": 859,
+     "insertion": ""
+    },
+    "3VHE_A:A:860": {
+     "chain": "A",
+     "number": 860,
+     "insertion": ""
+    },
+    "3VHE_A:A:861": {
+     "chain": "A",
+     "number": 861,
+     "insertion": ""
+    },
+    "3VHE_A:A:862": {
+     "chain": "A",
+     "number": 862,
+     "insertion": ""
+    },
+    "3VHE_A:A:863": {
+     "chain": "A",
+     "number": 863,
+     "insertion": ""
+    },
+    "3VHE_A:A:864": {
+     "chain": "A",
+     "number": 864,
+     "insertion": ""
+    },
+    "3VHE_A:A:865": {
+     "chain": "A",
+     "number": 865,
+     "insertion": ""
+    },
+    "3VHE_A:A:866": {
+     "chain": "A",
+     "number": 866,
+     "insertion": ""
+    },
+    "3VHE_A:A:867": {
+     "chain": "A",
+     "number": 867,
+     "insertion": ""
+    },
+    "3VHE_A:A:868": {
+     "chain": "A",
+     "number": 868,
+     "insertion": ""
+    },
+    "3VHE_A:A:869": {
+     "chain": "A",
+     "number": 869,
+     "insertion": ""
+    },
+    "3VHE_A:A:870": {
+     "chain": "A",
+     "number": 870,
+     "insertion": ""
+    },
+    "3VHE_A:A:871": {
+     "chain": "A",
+     "number": 871,
+     "insertion": ""
+    },
+    "3VHE_A:A:872": {
+     "chain": "A",
+     "number": 872,
+     "insertion": ""
+    },
+    "3VHE_A:A:873": {
+     "chain": "A",
+     "number": 873,
+     "insertion": ""
+    },
+    "3VHE_A:A:874": {
+     "chain": "A",
+     "number": 874,
+     "insertion": ""
+    },
+    "3VHE_A:A:875": {
+     "chain": "A",
+     "number": 875,
+     "insertion": ""
+    },
+    "3VHE_A:A:876": {
+     "chain": "A",
+     "number": 876,
+     "insertion": ""
+    },
+    "3VHE_A:A:877": {
+     "chain": "A",
+     "number": 877,
+     "insertion": ""
+    },
+    "3VHE_A:A:878": {
+     "chain": "A",
+     "number": 878,
+     "insertion": ""
+    },
+    "3VHE_A:A:879": {
+     "chain": "A",
+     "number": 879,
+     "insertion": ""
+    },
+    "3VHE_A:A:880": {
+     "chain": "A",
+     "number": 880,
+     "insertion": ""
+    },
+    "3VHE_A:A:881": {
+     "chain": "A",
+     "number": 881,
+     "insertion": ""
+    },
+    "3VHE_A:A:882": {
+     "chain": "A",
+     "number": 882,
+     "insertion": ""
+    },
+    "3VHE_A:A:883": {
+     "chain": "A",
+     "number": 883,
+     "insertion": ""
+    },
+    "3VHE_A:A:884": {
+     "chain": "A",
+     "number": 884,
+     "insertion": ""
+    },
+    "3VHE_A:A:885": {
+     "chain": "A",
+     "number": 885,
+     "insertion": ""
+    },
+    "3VHE_A:A:886": {
+     "chain": "A",
+     "number": 886,
+     "insertion": ""
+    },
+    "3VHE_A:A:887": {
+     "chain": "A",
+     "number": 887,
+     "insertion": ""
+    },
+    "3VHE_A:A:888": {
+     "chain": "A",
+     "number": 888,
+     "insertion": ""
+    },
+    "3VHE_A:A:889": {
+     "chain": "A",
+     "number": 889,
+     "insertion": ""
+    },
+    "3VHE_A:A:890": {
+     "chain": "A",
+     "number": 890,
+     "insertion": ""
+    },
+    "3VHE_A:A:891": {
+     "chain": "A",
+     "number": 891,
+     "insertion": ""
+    },
+    "3VHE_A:A:892": {
+     "chain": "A",
+     "number": 892,
+     "insertion": ""
+    },
+    "3VHE_A:A:893": {
+     "chain": "A",
+     "number": 893,
+     "insertion": ""
+    },
+    "3VHE_A:A:894": {
+     "chain": "A",
+     "number": 894,
+     "insertion": ""
+    },
+    "3VHE_A:A:895": {
+     "chain": "A",
+     "number": 895,
+     "insertion": ""
+    },
+    "3VHE_A:A:896": {
+     "chain": "A",
+     "number": 896,
+     "insertion": ""
+    },
+    "3VHE_A:A:897": {
+     "chain": "A",
+     "number": 897,
+     "insertion": ""
+    },
+    "3VHE_A:A:898": {
+     "chain": "A",
+     "number": 898,
+     "insertion": ""
+    },
+    "3VHE_A:A:899": {
+     "chain": "A",
+     "number": 899,
+     "insertion": ""
+    },
+    "3VHE_A:A:900": {
+     "chain": "A",
+     "number": 900,
+     "insertion": ""
+    },
+    "3VHE_A:A:901": {
+     "chain": "A",
+     "number": 901,
+     "insertion": ""
+    },
+    "3VHE_A:A:902": {
+     "chain": "A",
+     "number": 902,
+     "insertion": ""
+    },
+    "3VHE_A:A:903": {
+     "chain": "A",
+     "number": 903,
+     "insertion": ""
+    },
+    "3VHE_A:A:904": {
+     "chain": "A",
+     "number": 904,
+     "insertion": ""
+    },
+    "3VHE_A:A:905": {
+     "chain": "A",
+     "number": 905,
+     "insertion": ""
+    },
+    "3VHE_A:A:906": {
+     "chain": "A",
+     "number": 906,
+     "insertion": ""
+    },
+    "3VHE_A:A:907": {
+     "chain": "A",
+     "number": 907,
+     "insertion": ""
+    },
+    "3VHE_A:A:908": {
+     "chain": "A",
+     "number": 908,
+     "insertion": ""
+    },
+    "3VHE_A:A:909": {
+     "chain": "A",
+     "number": 909,
+     "insertion": ""
+    },
+    "3VHE_A:A:910": {
+     "chain": "A",
+     "number": 910,
+     "insertion": ""
+    },
+    "3VHE_A:A:911": {
+     "chain": "A",
+     "number": 911,
+     "insertion": ""
+    },
+    "3VHE_A:A:912": {
+     "chain": "A",
+     "number": 912,
+     "insertion": ""
+    },
+    "3VHE_A:A:913": {
+     "chain": "A",
+     "number": 913,
+     "insertion": ""
+    },
+    "3VHE_A:A:914": {
+     "chain": "A",
+     "number": 914,
+     "insertion": ""
+    },
+    "3VHE_A:A:915": {
+     "chain": "A",
+     "number": 915,
+     "insertion": ""
+    },
+    "3VHE_A:A:916": {
+     "chain": "A",
+     "number": 916,
+     "insertion": ""
+    },
+    "3VHE_A:A:917": {
+     "chain": "A",
+     "number": 917,
+     "insertion": ""
+    },
+    "3VHE_A:A:918": {
+     "chain": "A",
+     "number": 918,
+     "insertion": ""
+    },
+    "3VHE_A:A:919": {
+     "chain": "A",
+     "number": 919,
+     "insertion": ""
+    },
+    "3VHE_A:A:920": {
+     "chain": "A",
+     "number": 920,
+     "insertion": ""
+    },
+    "3VHE_A:A:921": {
+     "chain": "A",
+     "number": 921,
+     "insertion": ""
+    },
+    "3VHE_A:A:922": {
+     "chain": "A",
+     "number": 922,
+     "insertion": ""
+    },
+    "3VHE_A:A:923": {
+     "chain": "A",
+     "number": 923,
+     "insertion": ""
+    },
+    "3VHE_A:A:924": {
+     "chain": "A",
+     "number": 924,
+     "insertion": ""
+    },
+    "3VHE_A:A:925": {
+     "chain": "A",
+     "number": 925,
+     "insertion": ""
+    },
+    "3VHE_A:A:926": {
+     "chain": "A",
+     "number": 926,
+     "insertion": ""
+    },
+    "3VHE_A:A:927": {
+     "chain": "A",
+     "number": 927,
+     "insertion": ""
+    },
+    "3VHE_A:A:928": {
+     "chain": "A",
+     "number": 928,
+     "insertion": ""
+    },
+    "3VHE_A:A:929": {
+     "chain": "A",
+     "number": 929,
+     "insertion": ""
+    },
+    "3VHE_A:A:930": {
+     "chain": "A",
+     "number": 930,
+     "insertion": ""
+    },
+    "3VHE_A:A:931": {
+     "chain": "A",
+     "number": 931,
+     "insertion": ""
+    },
+    "3VHE_A:A:932": {
+     "chain": "A",
+     "number": 932,
+     "insertion": ""
+    },
+    "3VHE_A:A:933": {
+     "chain": "A",
+     "number": 933,
+     "insertion": ""
+    },
+    "3VHE_A:A:934": {
+     "chain": "A",
+     "number": 934,
+     "insertion": ""
+    },
+    "3VHE_A:A:935": {
+     "chain": "A",
+     "number": 935,
+     "insertion": ""
+    },
+    "3VHE_A:A:936": {
+     "chain": "A",
+     "number": 936,
+     "insertion": ""
+    },
+    "3VHE_A:A:937": {
+     "chain": "A",
+     "number": 937,
+     "insertion": ""
+    },
+    "3VHE_A:A:938": {
+     "chain": "A",
+     "number": 938,
+     "insertion": ""
+    },
+    "3VHE_A:A:939": {
+     "chain": "A",
+     "number": 939,
+     "insertion": ""
+    },
+    "3VHE_A:A:994": {
+     "chain": "A",
+     "number": 994,
+     "insertion": ""
+    },
+    "3VHE_A:A:995": {
+     "chain": "A",
+     "number": 995,
+     "insertion": ""
+    },
+    "3VHE_A:A:996": {
+     "chain": "A",
+     "number": 996,
+     "insertion": ""
+    },
+    "3VHE_A:A:997": {
+     "chain": "A",
+     "number": 997,
+     "insertion": ""
+    },
+    "3VHE_A:A:998": {
+     "chain": "A",
+     "number": 998,
+     "insertion": ""
+    },
+    "3VHE_A:A:999": {
+     "chain": "A",
+     "number": 999,
+     "insertion": ""
+    },
+    "3VHE_A:A:1000": {
+     "chain": "A",
+     "number": 1000,
+     "insertion": ""
+    },
+    "3VHE_A:A:1001": {
+     "chain": "A",
+     "number": 1001,
+     "insertion": ""
+    },
+    "3VHE_A:A:1002": {
+     "chain": "A",
+     "number": 1002,
+     "insertion": ""
+    },
+    "3VHE_A:A:1003": {
+     "chain": "A",
+     "number": 1003,
+     "insertion": ""
+    },
+    "3VHE_A:A:1004": {
+     "chain": "A",
+     "number": 1004,
+     "insertion": ""
+    },
+    "3VHE_A:A:1005": {
+     "chain": "A",
+     "number": 1005,
+     "insertion": ""
+    },
+    "3VHE_A:A:1006": {
+     "chain": "A",
+     "number": 1006,
+     "insertion": ""
+    },
+    "3VHE_A:A:1007": {
+     "chain": "A",
+     "number": 1007,
+     "insertion": ""
+    },
+    "3VHE_A:A:1008": {
+     "chain": "A",
+     "number": 1008,
+     "insertion": ""
+    },
+    "3VHE_A:A:1009": {
+     "chain": "A",
+     "number": 1009,
+     "insertion": ""
+    },
+    "3VHE_A:A:1010": {
+     "chain": "A",
+     "number": 1010,
+     "insertion": ""
+    },
+    "3VHE_A:A:1011": {
+     "chain": "A",
+     "number": 1011,
+     "insertion": ""
+    },
+    "3VHE_A:A:1012": {
+     "chain": "A",
+     "number": 1012,
+     "insertion": ""
+    },
+    "3VHE_A:A:1013": {
+     "chain": "A",
+     "number": 1013,
+     "insertion": ""
+    },
+    "3VHE_A:A:1014": {
+     "chain": "A",
+     "number": 1014,
+     "insertion": ""
+    },
+    "3VHE_A:A:1015": {
+     "chain": "A",
+     "number": 1015,
+     "insertion": ""
+    },
+    "3VHE_A:A:1016": {
+     "chain": "A",
+     "number": 1016,
+     "insertion": ""
+    },
+    "3VHE_A:A:1017": {
+     "chain": "A",
+     "number": 1017,
+     "insertion": ""
+    },
+    "3VHE_A:A:1018": {
+     "chain": "A",
+     "number": 1018,
+     "insertion": ""
+    },
+    "3VHE_A:A:1019": {
+     "chain": "A",
+     "number": 1019,
+     "insertion": ""
+    },
+    "3VHE_A:A:1020": {
+     "chain": "A",
+     "number": 1020,
+     "insertion": ""
+    },
+    "3VHE_A:A:1021": {
+     "chain": "A",
+     "number": 1021,
+     "insertion": ""
+    },
+    "3VHE_A:A:1022": {
+     "chain": "A",
+     "number": 1022,
+     "insertion": ""
+    },
+    "3VHE_A:A:1023": {
+     "chain": "A",
+     "number": 1023,
+     "insertion": ""
+    },
+    "3VHE_A:A:1024": {
+     "chain": "A",
+     "number": 1024,
+     "insertion": ""
+    },
+    "3VHE_A:A:1025": {
+     "chain": "A",
+     "number": 1025,
+     "insertion": ""
+    },
+    "3VHE_A:A:1026": {
+     "chain": "A",
+     "number": 1026,
+     "insertion": ""
+    },
+    "3VHE_A:A:1027": {
+     "chain": "A",
+     "number": 1027,
+     "insertion": ""
+    },
+    "3VHE_A:A:1028": {
+     "chain": "A",
+     "number": 1028,
+     "insertion": ""
+    },
+    "3VHE_A:A:1029": {
+     "chain": "A",
+     "number": 1029,
+     "insertion": ""
+    },
+    "3VHE_A:A:1030": {
+     "chain": "A",
+     "number": 1030,
+     "insertion": ""
+    },
+    "3VHE_A:A:1031": {
+     "chain": "A",
+     "number": 1031,
+     "insertion": ""
+    },
+    "3VHE_A:A:1032": {
+     "chain": "A",
+     "number": 1032,
+     "insertion": ""
+    },
+    "3VHE_A:A:1033": {
+     "chain": "A",
+     "number": 1033,
+     "insertion": ""
+    },
+    "3VHE_A:A:1034": {
+     "chain": "A",
+     "number": 1034,
+     "insertion": ""
+    },
+    "3VHE_A:A:1035": {
+     "chain": "A",
+     "number": 1035,
+     "insertion": ""
+    },
+    "3VHE_A:A:1036": {
+     "chain": "A",
+     "number": 1036,
+     "insertion": ""
+    },
+    "3VHE_A:A:1037": {
+     "chain": "A",
+     "number": 1037,
+     "insertion": ""
+    },
+    "3VHE_A:A:1038": {
+     "chain": "A",
+     "number": 1038,
+     "insertion": ""
+    },
+    "3VHE_A:A:1039": {
+     "chain": "A",
+     "number": 1039,
+     "insertion": ""
+    },
+    "3VHE_A:A:1040": {
+     "chain": "A",
+     "number": 1040,
+     "insertion": ""
+    },
+    "3VHE_A:A:1041": {
+     "chain": "A",
+     "number": 1041,
+     "insertion": ""
+    },
+    "3VHE_A:A:1042": {
+     "chain": "A",
+     "number": 1042,
+     "insertion": ""
+    },
+    "3VHE_A:A:1043": {
+     "chain": "A",
+     "number": 1043,
+     "insertion": ""
+    },
+    "3VHE_A:A:1044": {
+     "chain": "A",
+     "number": 1044,
+     "insertion": ""
+    },
+    "3VHE_A:A:1045": {
+     "chain": "A",
+     "number": 1045,
+     "insertion": ""
+    },
+    "3VHE_A:A:1046": {
+     "chain": "A",
+     "number": 1046,
+     "insertion": ""
+    },
+    "3VHE_A:A:1047": {
+     "chain": "A",
+     "number": 1047,
+     "insertion": ""
+    },
+    "3VHE_A:A:1048": {
+     "chain": "A",
+     "number": 1048,
+     "insertion": ""
+    },
+    "3VHE_A:A:1049": {
+     "chain": "A",
+     "number": 1049,
+     "insertion": ""
+    },
+    "3VHE_A:A:1050": {
+     "chain": "A",
+     "number": 1050,
+     "insertion": ""
+    },
+    "3VHE_A:A:1051": {
+     "chain": "A",
+     "number": 1051,
+     "insertion": ""
+    },
+    "3VHE_A:A:1052": {
+     "chain": "A",
+     "number": 1052,
+     "insertion": ""
+    },
+    "3VHE_A:A:1053": {
+     "chain": "A",
+     "number": 1053,
+     "insertion": ""
+    },
+    "3VHE_A:A:1054": {
+     "chain": "A",
+     "number": 1054,
+     "insertion": ""
+    },
+    "3VHE_A:A:1055": {
+     "chain": "A",
+     "number": 1055,
+     "insertion": ""
+    },
+    "3VHE_A:A:1056": {
+     "chain": "A",
+     "number": 1056,
+     "insertion": ""
+    },
+    "3VHE_A:A:1057": {
+     "chain": "A",
+     "number": 1057,
+     "insertion": ""
+    },
+    "3VHE_A:A:1058": {
+     "chain": "A",
+     "number": 1058,
+     "insertion": ""
+    },
+    "3VHE_A:A:1059": {
+     "chain": "A",
+     "number": 1059,
+     "insertion": ""
+    },
+    "3VHE_A:A:1060": {
+     "chain": "A",
+     "number": 1060,
+     "insertion": ""
+    },
+    "3VHE_A:A:1061": {
+     "chain": "A",
+     "number": 1061,
+     "insertion": ""
+    },
+    "3VHE_A:A:1062": {
+     "chain": "A",
+     "number": 1062,
+     "insertion": ""
+    },
+    "3VHE_A:A:1065": {
+     "chain": "A",
+     "number": 1065,
+     "insertion": ""
+    },
+    "3VHE_A:A:1066": {
+     "chain": "A",
+     "number": 1066,
+     "insertion": ""
+    },
+    "3VHE_A:A:1067": {
+     "chain": "A",
+     "number": 1067,
+     "insertion": ""
+    },
+    "3VHE_A:A:1068": {
+     "chain": "A",
+     "number": 1068,
+     "insertion": ""
+    },
+    "3VHE_A:A:1069": {
+     "chain": "A",
+     "number": 1069,
+     "insertion": ""
+    },
+    "3VHE_A:A:1070": {
+     "chain": "A",
+     "number": 1070,
+     "insertion": ""
+    },
+    "3VHE_A:A:1071": {
+     "chain": "A",
+     "number": 1071,
+     "insertion": ""
+    },
+    "3VHE_A:A:1072": {
+     "chain": "A",
+     "number": 1072,
+     "insertion": ""
+    },
+    "3VHE_A:A:1073": {
+     "chain": "A",
+     "number": 1073,
+     "insertion": ""
+    },
+    "3VHE_A:A:1074": {
+     "chain": "A",
+     "number": 1074,
+     "insertion": ""
+    },
+    "3VHE_A:A:1075": {
+     "chain": "A",
+     "number": 1075,
+     "insertion": ""
+    },
+    "3VHE_A:A:1076": {
+     "chain": "A",
+     "number": 1076,
+     "insertion": ""
+    },
+    "3VHE_A:A:1077": {
+     "chain": "A",
+     "number": 1077,
+     "insertion": ""
+    },
+    "3VHE_A:A:1078": {
+     "chain": "A",
+     "number": 1078,
+     "insertion": ""
+    },
+    "3VHE_A:A:1079": {
+     "chain": "A",
+     "number": 1079,
+     "insertion": ""
+    },
+    "3VHE_A:A:1080": {
+     "chain": "A",
+     "number": 1080,
+     "insertion": ""
+    },
+    "3VHE_A:A:1081": {
+     "chain": "A",
+     "number": 1081,
+     "insertion": ""
+    },
+    "3VHE_A:A:1082": {
+     "chain": "A",
+     "number": 1082,
+     "insertion": ""
+    },
+    "3VHE_A:A:1083": {
+     "chain": "A",
+     "number": 1083,
+     "insertion": ""
+    },
+    "3VHE_A:A:1084": {
+     "chain": "A",
+     "number": 1084,
+     "insertion": ""
+    },
+    "3VHE_A:A:1085": {
+     "chain": "A",
+     "number": 1085,
+     "insertion": ""
+    },
+    "3VHE_A:A:1086": {
+     "chain": "A",
+     "number": 1086,
+     "insertion": ""
+    },
+    "3VHE_A:A:1087": {
+     "chain": "A",
+     "number": 1087,
+     "insertion": ""
+    },
+    "3VHE_A:A:1088": {
+     "chain": "A",
+     "number": 1088,
+     "insertion": ""
+    },
+    "3VHE_A:A:1089": {
+     "chain": "A",
+     "number": 1089,
+     "insertion": ""
+    },
+    "3VHE_A:A:1090": {
+     "chain": "A",
+     "number": 1090,
+     "insertion": ""
+    },
+    "3VHE_A:A:1091": {
+     "chain": "A",
+     "number": 1091,
+     "insertion": ""
+    },
+    "3VHE_A:A:1092": {
+     "chain": "A",
+     "number": 1092,
+     "insertion": ""
+    },
+    "3VHE_A:A:1093": {
+     "chain": "A",
+     "number": 1093,
+     "insertion": ""
+    },
+    "3VHE_A:A:1094": {
+     "chain": "A",
+     "number": 1094,
+     "insertion": ""
+    },
+    "3VHE_A:A:1095": {
+     "chain": "A",
+     "number": 1095,
+     "insertion": ""
+    },
+    "3VHE_A:A:1096": {
+     "chain": "A",
+     "number": 1096,
+     "insertion": ""
+    },
+    "3VHE_A:A:1097": {
+     "chain": "A",
+     "number": 1097,
+     "insertion": ""
+    },
+    "3VHE_A:A:1098": {
+     "chain": "A",
+     "number": 1098,
+     "insertion": ""
+    },
+    "3VHE_A:A:1099": {
+     "chain": "A",
+     "number": 1099,
+     "insertion": ""
+    },
+    "3VHE_A:A:1100": {
+     "chain": "A",
+     "number": 1100,
+     "insertion": ""
+    },
+    "3VHE_A:A:1101": {
+     "chain": "A",
+     "number": 1101,
+     "insertion": ""
+    },
+    "3VHE_A:A:1102": {
+     "chain": "A",
+     "number": 1102,
+     "insertion": ""
+    },
+    "3VHE_A:A:1103": {
+     "chain": "A",
+     "number": 1103,
+     "insertion": ""
+    },
+    "3VHE_A:A:1104": {
+     "chain": "A",
+     "number": 1104,
+     "insertion": ""
+    },
+    "3VHE_A:A:1105": {
+     "chain": "A",
+     "number": 1105,
+     "insertion": ""
+    },
+    "3VHE_A:A:1106": {
+     "chain": "A",
+     "number": 1106,
+     "insertion": ""
+    },
+    "3VHE_A:A:1107": {
+     "chain": "A",
+     "number": 1107,
+     "insertion": ""
+    },
+    "3VHE_A:A:1108": {
+     "chain": "A",
+     "number": 1108,
+     "insertion": ""
+    },
+    "3VHE_A:A:1109": {
+     "chain": "A",
+     "number": 1109,
+     "insertion": ""
+    },
+    "3VHE_A:A:1110": {
+     "chain": "A",
+     "number": 1110,
+     "insertion": ""
+    },
+    "3VHE_A:A:1111": {
+     "chain": "A",
+     "number": 1111,
+     "insertion": ""
+    },
+    "3VHE_A:A:1112": {
+     "chain": "A",
+     "number": 1112,
+     "insertion": ""
+    },
+    "3VHE_A:A:1113": {
+     "chain": "A",
+     "number": 1113,
+     "insertion": ""
+    },
+    "3VHE_A:A:1114": {
+     "chain": "A",
+     "number": 1114,
+     "insertion": ""
+    },
+    "3VHE_A:A:1115": {
+     "chain": "A",
+     "number": 1115,
+     "insertion": ""
+    },
+    "3VHE_A:A:1116": {
+     "chain": "A",
+     "number": 1116,
+     "insertion": ""
+    },
+    "3VHE_A:A:1117": {
+     "chain": "A",
+     "number": 1117,
+     "insertion": ""
+    },
+    "3VHE_A:A:1118": {
+     "chain": "A",
+     "number": 1118,
+     "insertion": ""
+    },
+    "3VHE_A:A:1119": {
+     "chain": "A",
+     "number": 1119,
+     "insertion": ""
+    },
+    "3VHE_A:A:1120": {
+     "chain": "A",
+     "number": 1120,
+     "insertion": ""
+    },
+    "3VHE_A:A:1121": {
+     "chain": "A",
+     "number": 1121,
+     "insertion": ""
+    },
+    "3VHE_A:A:1122": {
+     "chain": "A",
+     "number": 1122,
+     "insertion": ""
+    },
+    "3VHE_A:A:1123": {
+     "chain": "A",
+     "number": 1123,
+     "insertion": ""
+    },
+    "3VHE_A:A:1124": {
+     "chain": "A",
+     "number": 1124,
+     "insertion": ""
+    },
+    "3VHE_A:A:1125": {
+     "chain": "A",
+     "number": 1125,
+     "insertion": ""
+    },
+    "3VHE_A:A:1126": {
+     "chain": "A",
+     "number": 1126,
+     "insertion": ""
+    },
+    "3VHE_A:A:1127": {
+     "chain": "A",
+     "number": 1127,
+     "insertion": ""
+    },
+    "3VHE_A:A:1128": {
+     "chain": "A",
+     "number": 1128,
+     "insertion": ""
+    },
+    "3VHE_A:A:1129": {
+     "chain": "A",
+     "number": 1129,
+     "insertion": ""
+    },
+    "3VHE_A:A:1130": {
+     "chain": "A",
+     "number": 1130,
+     "insertion": ""
+    },
+    "3VHE_A:A:1131": {
+     "chain": "A",
+     "number": 1131,
+     "insertion": ""
+    },
+    "3VHE_A:A:1132": {
+     "chain": "A",
+     "number": 1132,
+     "insertion": ""
+    },
+    "3VHE_A:A:1133": {
+     "chain": "A",
+     "number": 1133,
+     "insertion": ""
+    },
+    "3VHE_A:A:1134": {
+     "chain": "A",
+     "number": 1134,
+     "insertion": ""
+    },
+    "3VHE_A:A:1135": {
+     "chain": "A",
+     "number": 1135,
+     "insertion": ""
+    },
+    "3VHE_A:A:1136": {
+     "chain": "A",
+     "number": 1136,
+     "insertion": ""
+    },
+    "3VHE_A:A:1137": {
+     "chain": "A",
+     "number": 1137,
+     "insertion": ""
+    },
+    "3VHE_A:A:1138": {
+     "chain": "A",
+     "number": 1138,
+     "insertion": ""
+    },
+    "3VHE_A:A:1139": {
+     "chain": "A",
+     "number": 1139,
+     "insertion": ""
+    },
+    "3VHE_A:A:1140": {
+     "chain": "A",
+     "number": 1140,
+     "insertion": ""
+    },
+    "3VHE_A:A:1141": {
+     "chain": "A",
+     "number": 1141,
+     "insertion": ""
+    },
+    "3VHE_A:A:1142": {
+     "chain": "A",
+     "number": 1142,
+     "insertion": ""
+    },
+    "3VHE_A:A:1143": {
+     "chain": "A",
+     "number": 1143,
+     "insertion": ""
+    },
+    "3VHE_A:A:1144": {
+     "chain": "A",
+     "number": 1144,
+     "insertion": ""
+    },
+    "3VHE_A:A:1145": {
+     "chain": "A",
+     "number": 1145,
+     "insertion": ""
+    },
+    "3VHE_A:A:1146": {
+     "chain": "A",
+     "number": 1146,
+     "insertion": ""
+    },
+    "3VHE_A:A:1147": {
+     "chain": "A",
+     "number": 1147,
+     "insertion": ""
+    },
+    "3VHE_A:A:1148": {
+     "chain": "A",
+     "number": 1148,
+     "insertion": ""
+    },
+    "3VHE_A:A:1149": {
+     "chain": "A",
+     "number": 1149,
+     "insertion": ""
+    },
+    "3VHE_A:A:1150": {
+     "chain": "A",
+     "number": 1150,
+     "insertion": ""
+    },
+    "3VHE_A:A:1151": {
+     "chain": "A",
+     "number": 1151,
+     "insertion": ""
+    },
+    "3VHE_A:A:1152": {
+     "chain": "A",
+     "number": 1152,
+     "insertion": ""
+    },
+    "3VHE_A:A:1153": {
+     "chain": "A",
+     "number": 1153,
+     "insertion": ""
+    },
+    "3VHE_A:A:1154": {
+     "chain": "A",
+     "number": 1154,
+     "insertion": ""
+    },
+    "3VHE_A:A:1155": {
+     "chain": "A",
+     "number": 1155,
+     "insertion": ""
+    },
+    "3VHE_A:A:1156": {
+     "chain": "A",
+     "number": 1156,
+     "insertion": ""
+    },
+    "3VHE_A:A:1157": {
+     "chain": "A",
+     "number": 1157,
+     "insertion": ""
+    },
+    "3VHE_A:A:1158": {
+     "chain": "A",
+     "number": 1158,
+     "insertion": ""
+    },
+    "3VHE_A:A:1159": {
+     "chain": "A",
+     "number": 1159,
+     "insertion": ""
+    },
+    "3VHE_A:A:1160": {
+     "chain": "A",
+     "number": 1160,
+     "insertion": ""
+    },
+    "3VHE_A:A:1161": {
+     "chain": "A",
+     "number": 1161,
+     "insertion": ""
+    },
+    "3VHE_A:A:1162": {
+     "chain": "A",
+     "number": 1162,
+     "insertion": ""
+    },
+    "3VHE_A:A:1163": {
+     "chain": "A",
+     "number": 1163,
+     "insertion": ""
+    },
+    "3VHE_A:A:1164": {
+     "chain": "A",
+     "number": 1164,
+     "insertion": ""
+    },
+    "3VHE_A:A:1165": {
+     "chain": "A",
+     "number": 1165,
+     "insertion": ""
+    },
+    "3VHE_A:A:1166": {
+     "chain": "A",
+     "number": 1166,
+     "insertion": ""
+    },
+    "3VHE_A:A:1167": {
+     "chain": "A",
+     "number": 1167,
+     "insertion": ""
+    },
+    "3VHE_A:A:1168": {
+     "chain": "A",
+     "number": 1168,
+     "insertion": ""
+    },
+    "3VHE_A:A:1169": {
+     "chain": "A",
+     "number": 1169,
+     "insertion": ""
+    }
+   },
+   "ligand_residues": []
+  }
+ ],
+ "candidates": [],
+ "evidence": [
+  {
+   "id": "PMID:42123360",
+   "title": "MMR inhibition was achieved by depleting MSH2.",
+   "claim": "literature evidence linking this target to the disease; every PMID was re-fetched and its title verified",
+   "url": "https://europepmc.org/article/MED/42123360"
+  },
+  {
+   "id": "PMID:42682916",
+   "title": "Immunohistochemically, MLH1 and MSH2 expression was lost in the high-grade adenocarcinoma component, but retained in the",
+   "claim": "literature evidence linking this target to the disease; every PMID was re-fetched and its title verified",
+   "url": "https://europepmc.org/article/MED/42682916"
+  },
+  {
+   "id": "PMID:41773741",
+   "title": "Metachronous CRC was more common in patients with variants in high-risk ( MLH1 , MSH2 ) vs low-risk ( MSH6 , PMS2 ) genes",
+   "claim": "literature evidence linking this target to the disease; every PMID was re-fetched and its title verified",
+   "url": "https://europepmc.org/article/MED/41773741"
+  },
+  {
+   "id": "PMID:42466612",
+   "title": "Background: Previous study showed the PARP inhibitor ABT-888 potentiates the cytotoxicity of 5-fluorouracil (5-FU) by inh",
+   "claim": "literature evidence linking this target to the disease; every PMID was re-fetched and its title verified",
+   "url": "https://europepmc.org/article/MED/42466612"
+  },
+  {
+   "id": "PMID:41773741",
+   "title": "Metachronous CRC was more common in patients with variants in high-risk ( MLH1 , MSH2 ) vs low-risk ( MSH6 , PMS2 ) genes",
+   "claim": "literature evidence linking this target to the disease; every PMID was re-fetched and its title verified",
+   "url": "https://europepmc.org/article/MED/41773741"
+  },
+  {
+   "id": "PMID:40086819",
+   "title": "MMR is the critical DNA repair pathway that maintains genomic integrity by correcting DNA mismatches, which is mediated b",
+   "claim": "literature evidence linking this target to the disease; every PMID was re-fetched and its title verified",
+   "url": "https://europepmc.org/article/MED/40086819"
+  },
+  {
+   "id": "PMID:42191394",
+   "title": "Background/aim: This study aimed to evaluate the anticancer efficacy of 5-Fluorouracil (5-FU) in Caco-2 human colorectal",
+   "claim": "literature evidence linking this target to the disease; every PMID was re-fetched and its title verified",
+   "url": "https://europepmc.org/article/MED/42191394"
+  },
+  {
+   "id": "PMID:41875719",
+   "title": "Methods: We utilized CRISPR/Cas9 to delete the mismatch repair gene Mlh1 in CT26 colorectal cancer cells, generating CT26",
+   "claim": "literature evidence linking this target to the disease; every PMID was re-fetched and its title verified",
+   "url": "https://europepmc.org/article/MED/41875719"
+  }
+ ],
+ "validation": [
+  {
+   "label": "M2 gate (I6.1): BoltzGen consensus vs pocket geometry, Jaccard delta",
+   "status": "available",
+   "reason": "BoltzGen LOSES. delta -0.3240 [-0.3526, -0.2941], Holm p=0.0016, paired over held-out ligands of one target",
+   "value": -0.324,
+   "n": 38,
+   "source": "results/m2_gate.json"
+  },
+  {
+   "label": "Ablation I6.2 at scale: known-ligand consensus vs pocket (precision delta)",
+   "status": "available",
+   "reason": "delta +0.2735, Wilcoxon p=1.91e-112; this is the CEILING ablation, not the M2 gate",
+   "value": 0.2735,
+   "n": 1512,
+   "source": "results/hotspot_recovery.json"
+  },
+  {
+   "label": "Hotspot recovery, BoltzGen consensus (Jaccard)",
+   "status": "available",
+   "reason": "consensus of 24 unfiltered designs against known-ligand contacts",
+   "value": 0.3115,
+   "n": 38,
+   "source": "results/m2_gate.json"
+  },
+  {
+   "label": "Hotspot recovery, P2Rank top-1 pocket (Jaccard)",
+   "status": "available",
+   "reason": "same ground truth, pocket predicted blind on the ligand-stripped structure",
+   "value": 0.6355,
+   "n": 38,
+   "source": "results/m2_gate.json"
+  },
+  {
+   "label": "Known-ligand ceiling (Jaccard)",
+   "status": "available",
+   "reason": "leave-one-out consensus over the other co-crystals; ablation I6.2",
+   "value": 0.663,
+   "n": 38,
+   "source": "results/m2_gate.json"
+  },
+  {
+   "label": "Random floor (Jaccard)",
+   "status": "available",
+   "reason": "size-matched random residues, 100 draws",
+   "value": 0.0405,
+   "n": 38,
+   "source": "results/m2_gate.json"
+  },
+  {
+   "label": "Best retrieval representation (p@1)",
+   "status": "available",
+   "reason": "16 representations benchmarked; nothing beat ECFP4",
+   "value": 0.6597,
+   "n": 2069,
+   "source": "results/benchmark_targets.json"
+  },
+  {
+   "label": "Rediscovery enrichment of known KDR binders",
+   "status": "available",
+   "reason": "top-25 by ECFP4 similarity to the best literature ligand vs base rate; note sunitinib ranks 464 and pazopanib 764",
+   "value": 10.25,
+   "n": 25,
+   "source": "results/pipeline/colorectal-cancer/candidates.json"
+  },
+  {
+   "label": "Interface-coverage-ranked repurposing candidates",
+   "status": "not_evaluated",
+   "reason": "no approved drug was co-folded against this target, so none has a pose or a coverage score. The similarity shortlist in candidates.json is a LIGAND-side ordering and is deliberately not presented as a ranked interface board",
+   "value": null,
+   "n": 0,
+   "source": "none"
+  },
+  {
+   "label": "Predicted binding affinity",
+   "status": "not_evaluated",
+   "reason": "no affinity model is run anywhere in this pipeline; PROJECT_GOAL.md G8 bans affinity language around these numbers",
+   "value": null,
+   "n": 0,
+   "source": "none"
+  },
+  {
+   "label": "Small-molecule addressability of the hotspot",
+   "status": "not_evaluated",
+   "reason": "PROJECT_GOAL.md 1.4b sm_addressable was not computed",
+   "value": null,
+   "n": 0,
+   "source": "none"
+  }
+ ],
+ "provenance": {
+  "producer": "scripts/build_viz_manifest.py",
+  "purpose": "computed results from the drug-similarity-discovery pipeline",
+  "geometry": "RCSB experimental coordinates; contacts at 4.5 A heavy atom",
+  "scientific_status": "M2 gate answered and NEGATIVE: the BoltzGen consensus loses to a 0.47 s pocket finder. All outputs are computational hypotheses requiring experimental validation. No affinity is predicted anywhere."
+ }
+}
