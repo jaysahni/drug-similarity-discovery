@@ -8,7 +8,11 @@ structures.
     load_structure(path)                -> Bio.PDB structure
     het_inventory(structure)            -> every non-polymer residue + keep/drop reason
     drug_like_ligands(structure)        -> the candidates that survive the filter
-    ligand_contacts(structure, resname) -> target-side contacts for one ligand
+    ligand_contacts(structure, resname) -> target-side contacts for one HET ligand
+    candidate_binder_chains(structure)  -> which polymer chains could be a binder
+    chain_contacts(structure, t, b)     -> target-side contacts for a POLYMER binder
+                                           (peptide/protein), same shape and same
+                                           criteria as ligand_contacts
     consensus_signature([contacts])     -> InterfaceSignature (PROJECT_GOAL.md 4.3)
     weighted_jaccard(a, b)              -> signature-to-signature overlap (4.4)
     coverage(sig, observed_residues)    -> core_coverage, the primary score (4.4)
@@ -517,6 +521,70 @@ def _centroid(residue, names):
     return np.mean(pts, axis=0) if len(pts) == len(names) else None
 
 
+def _classify_pair(target_resname, target_atom_name, target_element,
+                   binder_element, binder_charge, distance):
+    """Interaction types geometrically compatible with ONE target/binder atom pair.
+
+    Lifted verbatim out of `ligand_contacts` so the polymer-chain path
+    (`chain_contacts`) applies the SAME criteria at the SAME cutoffs. If the two
+    paths diverged, a small-molecule signature and a peptide signature would no
+    longer be comparable in target-side residues, which is the only reason this
+    module works in target-side residues at all.
+
+    `binder_charge` is the formal charge on the binder atom: from the CCD for a
+    HET ligand, from CATIONIC_N/ANIONIC_O for a polymer binder.
+    """
+    te, le, d = target_element, binder_element, distance
+    types = set()
+    if te == "C" and le == "C" and d <= CUTOFF_HYDROPHOBIC:
+        types.add("hydrophobic")
+    if te in HBOND_ELEMENTS and le in HBOND_ELEMENTS and d <= CUTOFF_HBOND:
+        types.add("hbond")
+    if le in HALOGENS and te in ("N", "O") and d <= CUTOFF_HALOGEN:
+        types.add("halogen")
+    if d <= CUTOFF_SALT_BRIDGE and (
+        ((target_resname, target_atom_name) in CATIONIC_N and binder_charge < 0)
+        or ((target_resname, target_atom_name) in ANIONIC_O and binder_charge > 0)
+    ):
+        types.add("salt_bridge")
+    return types
+
+
+def _numbering_warnings(keys_by_rid, icodes):
+    """(chains_engaged, warnings) for a contact map keyed by author residue id.
+
+    Shared by the ligand and polymer-binder paths so both report the same
+    numbering hazards in the same words.
+    """
+    warnings = []
+    chains_engaged = sorted({ch for ks in keys_by_rid.values() for ch, _ in ks})
+    if len(chains_engaged) > 1:
+        warnings.append(
+            f"contacts span polymer chains {chains_engaged}; residue ids are "
+            "author numbers and are NOT unique across chains here"
+        )
+    chain_clash = sorted(r for r, ks in keys_by_rid.items()
+                         if len({ch for ch, _ in ks}) > 1)
+    if chain_clash:
+        warnings.append(
+            f"residue-id collision across chains for {chain_clash}: the "
+            "per_residue record for each of these ids MERGES contacts from "
+            f"chains {chains_engaged}. Author numbering alone cannot separate "
+            "them; split by chain before comparing such a site across structures"
+        )
+    icode_clash = sorted(r for r, ks in keys_by_rid.items()
+                         if len({ic for _, ic in ks}) > 1)
+    if icode_clash:
+        warnings.append(
+            f"residue-id collision across insertion codes for {icode_clash}: "
+            "the per_residue record for each of these ids MERGES residues that "
+            "differ only by insertion code"
+        )
+    if icodes:
+        warnings.append(f"insertion codes dropped from residue ids: {sorted(icodes)}")
+    return chains_engaged, warnings
+
+
 def ligand_contacts(structure, ligand_resname, chain=None, cutoff=4.5,
                     resseq=None, model=0, with_buried_area=True):
     """Target-side residues within `cutoff` A of any heavy atom of one ligand copy.
@@ -615,18 +683,9 @@ def ligand_contacts(structure, ligand_resname, chain=None, cutoff=4.5,
             rec["n_atom_contacts"] += 1
             rec["min_distance"] = min(rec["min_distance"], d)
 
-            types = rec["interaction_types"]
-            if te == "C" and le == "C" and d <= CUTOFF_HYDROPHOBIC:
-                types.add("hydrophobic")
-            if te in HBOND_ELEMENTS and le in HBOND_ELEMENTS and d <= CUTOFF_HBOND:
-                types.add("hbond")
-            if le in HALOGENS and te in ("N", "O") and d <= CUTOFF_HALOGEN:
-                types.add("halogen")
-            if d <= CUTOFF_SALT_BRIDGE and (
-                ((tresname, tname) in CATIONIC_N and lcharge < 0)
-                or ((tresname, tname) in ANIONIC_O and lcharge > 0)
-            ):
-                types.add("salt_bridge")
+            rec["interaction_types"].update(
+                _classify_pair(tresname, tname, te, le, lcharge, d)
+            )
 
     # aromatic: ring centroid to ring centroid, the one angular-free term that
     # cannot be decided atom-pairwise
@@ -660,31 +719,8 @@ def ligand_contacts(structure, ligand_resname, chain=None, cutoff=4.5,
         rec["interaction_types"] = sorted(rec["interaction_types"])
         rec["min_distance"] = round(rec["min_distance"], 3)
 
-    chains_engaged = sorted({ch for ks in keys_by_rid.values() for ch, _ in ks})
-    if len(chains_engaged) > 1:
-        warnings.append(
-            f"contacts span polymer chains {chains_engaged}; residue ids are "
-            "author numbers and are NOT unique across chains here"
-        )
-    chain_clash = sorted(r for r, ks in keys_by_rid.items()
-                         if len({ch for ch, _ in ks}) > 1)
-    if chain_clash:
-        warnings.append(
-            f"residue-id collision across chains for {chain_clash}: the "
-            "per_residue record for each of these ids MERGES contacts from "
-            f"chains {chains_engaged}. Author numbering alone cannot separate "
-            "them; split by chain before comparing such a site across structures"
-        )
-    icode_clash = sorted(r for r, ks in keys_by_rid.items()
-                         if len({ic for _, ic in ks}) > 1)
-    if icode_clash:
-        warnings.append(
-            f"residue-id collision across insertion codes for {icode_clash}: "
-            "the per_residue record for each of these ids MERGES residues that "
-            "differ only by insertion code"
-        )
-    if icodes:
-        warnings.append(f"insertion codes dropped from residue ids: {sorted(icodes)}")
+    chains_engaged, numbering_warnings = _numbering_warnings(keys_by_rid, icodes)
+    warnings.extend(numbering_warnings)
 
     return {
         "residue_ids": sorted(per_residue),
@@ -750,6 +786,412 @@ def aromatic_centroid_candidates(structure, ligand_resname, chain=None,
                        for lc in lig_centroids):
                     out.add(r.id[1])
     return sorted(out)
+
+
+# --------------------------------------------------------------------------
+# polymer binders: a peptide or protein binder is a CHAIN, not a HET group
+# --------------------------------------------------------------------------
+# `ligand_contacts` finds binders in `het_inventory`, i.e. among the non-polymer
+# residues. A peptide or protein binder is deposited as a polymer chain, so it is
+# invisible there: asking `ligand_contacts` for it raises KeyError, and asking a
+# scorer to score it would silently yield zero contacts. PROJECT_GOAL.md 4.3
+# allows site_kind in {pocket, epitope, interface}; only `pocket` had a contact
+# extractor before this section existed.
+#
+# Everything below produces contacts in the SAME target-side coordinates as
+# `ligand_contacts`: same 4.5 A heavy-atom cutoff, same per-type criteria (via
+# the shared `_classify_pair`), same author numbering, same delta-SASA proxy from
+# the same Shrake-Rupley object, same warning machinery. That identity is what
+# makes a peptide interface and a small-molecule pocket comparable at all.
+#
+# ONE DOCUMENTED ASYMMETRY, in the binder-side chemistry only:
+#   * a HET ligand's formal charges and aromatic rings come from its CCD entry;
+#   * a polymer binder's come from the amino-acid tables already used for the
+#     target side (CATIONIC_N, ANIONIC_O, AROMATIC_RINGS).
+# So a polymer binder's free N/C termini are not treated as charged, and a
+# non-standard residue outside those tables contributes no salt bridge or
+# aromatic term. Both are reported in `warnings` when they can bite.
+
+PEPTIDE_MAX_RESIDUES = 50  # peptide vs protein label only; nothing is computed from it
+
+
+def _polymer_atom_charge(resname, atom_name):
+    """Formal charge on a polymer binder atom, from the same tables as the target side."""
+    if (resname, atom_name) in CATIONIC_N:
+        return 1
+    if (resname, atom_name) in ANIONIC_O:
+        return -1
+    return 0
+
+
+def _chain_sequence(residues):
+    return "".join(AA3_TO_1.get(r.get_resname().strip().upper(), "X") for r in residues)
+
+
+def polymer_chain_summary(structure, model=0):
+    """One record per chain holding polymer residues: id, length, sequence, atoms.
+
+    Chains with no polymer residues at all (a chain that is only waters or only a
+    ligand, as some depositions write them) are reported with n_residues=0 rather
+    than omitted, so a caller can see them.
+    """
+    out = []
+    for chain in structure[model]:
+        res = [r for r in chain if is_polymer_residue(r)]
+        atoms = [a for r in res for a in heavy_atoms(r)]
+        seq = _chain_sequence(res)
+        nonstandard = sorted({r.get_resname().strip().upper() for r in res
+                              if r.get_resname().strip().upper() not in AA3})
+        out.append({
+            "chain_id": chain.id,
+            "n_residues": len(res),
+            "n_heavy_atoms": len(atoms),
+            "sequence": seq,
+            "fraction_standard_aa": (sum(1 for c in seq if c != "X") / len(seq)
+                                     if seq else 0.0),
+            "nonstandard_residues": nonstandard,
+            "n_het_residues": sum(1 for r in chain if not is_polymer_residue(r)),
+        })
+    return out
+
+
+def candidate_binder_chains(structure, model=0, max_residues=PEPTIDE_MAX_RESIDUES,
+                            min_residues=2, cutoff=4.5, chain_ids=None):
+    """Polymer chains that could be the binder in a target/binder pair.
+
+    A chain is a candidate when it is short (<= max_residues, the peptide case)
+    AND touches another polymer chain within `cutoff` -- a short chain that
+    contacts nothing is a crystallographic fragment, not a binder. Passing
+    `chain_ids` overrides the length rule for those chains (the protein-binder
+    case, where the binder is not short) but still reports the contact counts, so
+    a caller who names the wrong chain finds out from `n_contact_residue_pairs`
+    rather than from a silent zero.
+
+    Every chain is returned, with `is_candidate` and `reason`, so absence is
+    something the caller can read rather than assume. Sorted candidates first,
+    then by ascending length.
+    """
+    summary = {c["chain_id"]: c for c in polymer_chain_summary(structure, model)}
+    named = set(chain_ids or [])
+    unknown = sorted(named - set(summary))
+    m = structure[model]
+
+    atoms_by_chain = {
+        cid: [a for r in m[cid] if is_polymer_residue(r) for a in heavy_atoms(r)]
+        for cid in summary
+    }
+    all_atoms = [a for atoms in atoms_by_chain.values() for a in atoms]
+    partners = {cid: defaultdict(set) for cid in summary}
+    if all_atoms:
+        search = NeighborSearch(all_atoms)
+        for a, b in search.search_all(cutoff, level="A"):
+            ra, rb = a.get_parent(), b.get_parent()
+            ca, cb = ra.get_parent().id, rb.get_parent().id
+            if ca == cb:
+                continue
+            partners[ca][cb].add((ra.id, rb.id))
+            partners[cb][ca].add((rb.id, ra.id))
+
+    out = []
+    for cid, rec in summary.items():
+        rec = dict(rec)
+        rec["contacts_by_chain"] = {k: len(v) for k, v in sorted(partners[cid].items())}
+        rec["n_contact_residue_pairs"] = sum(rec["contacts_by_chain"].values())
+        n = rec["n_residues"]
+        if cid in named:
+            rec["is_candidate"] = True
+            rec["reason"] = "named explicitly by the caller (length rule not applied)"
+        elif n < min_residues:
+            rec["is_candidate"] = False
+            rec["reason"] = f"{n} polymer residues < min_residues={min_residues}"
+        elif n > max_residues:
+            rec["is_candidate"] = False
+            rec["reason"] = (f"{n} polymer residues > max_residues={max_residues}: "
+                             "looks like the target, not a short binder "
+                             "(name it in chain_ids to force it)")
+        elif not rec["n_contact_residue_pairs"]:
+            rec["is_candidate"] = False
+            rec["reason"] = (f"short chain but no polymer chain within {cutoff} A: "
+                             "a free fragment, not a binder")
+        else:
+            rec["is_candidate"] = True
+            rec["reason"] = (f"{n} polymer residues <= max_residues={max_residues} and "
+                             f"{rec['n_contact_residue_pairs']} residue pairs within "
+                             f"{cutoff} A of chain(s) "
+                             f"{sorted(rec['contacts_by_chain'])}")
+        rec["modality"] = ("peptide" if n <= PEPTIDE_MAX_RESIDUES else "protein")
+        rec["unknown_chain_ids_requested"] = unknown
+        out.append(rec)
+    return sorted(out, key=lambda r: (not r["is_candidate"], r["n_residues"], r["chain_id"]))
+
+
+def buried_area_by_residue_chains(structure, target_chains, binder_chain, model=0):
+    """Delta-SASA per target residue on binding of a whole polymer CHAIN.
+
+    Same Shrake-Rupley object, probe and point count as `buried_area_by_residue`;
+    the only difference is what is added between the two states (a polymer chain
+    rather than one HET residue). Waters and heteroatoms are absent from both
+    states there and here, and hydrogens are absent from the models, so this is
+    the same proxy with the same caveats.
+    """
+    m = structure[model]
+    tset = set(target_chains)
+    apo = _sasa_by_residue(m, lambda cid, r: is_polymer_residue(r) and cid in tset)
+    holo = _sasa_by_residue(
+        m,
+        lambda cid, r: is_polymer_residue(r) and (cid in tset or cid == binder_chain),
+    )
+    return {k: float(apo[k] - holo.get(k, apo[k])) for k in apo}
+
+
+def chain_contacts(structure, target_chain, binder_chain, cutoff=4.5, model=0,
+                   with_buried_area=True):
+    """Target-side residues within `cutoff` A of a heavy atom of a POLYMER binder.
+
+    The polymer-chain twin of `ligand_contacts`, returning the same keys so the
+    two can be mixed in `consensus_signature`, `weighted_jaccard` and `coverage`:
+
+        residue_ids    sorted author sequence numbers of contacting TARGET residues
+        per_residue    {residue_id: {resname, chain_id, min_distance,
+                        n_atom_contacts, buried_area_proxy, interaction_types}}
+        ligand_info    binder description (alias of `binder_info`; the key is named
+                       `ligand_info` because `consensus_signature` reads that key)
+        warnings       anything the caller must know before trusting the ids
+
+    `target_chain` is one chain id or an iterable of them. Passing None means
+    "every polymer chain except the binder", which is the exact analogue of
+    `ligand_contacts`, where the target is every polymer chain in the model and
+    the ligand is the one thing removed from it -- including for the delta-SASA
+    reference state.
+
+    Binder-side residues engaged are returned too (`binder_residue_ids`,
+    `binder_per_residue`), because on a PPI epitope the hot side may be either
+    one, and because it makes the extraction self-checking: running this function
+    with target and binder swapped must reproduce them (see
+    scripts/test_interfaces_polymer.py).
+    """
+    m = structure[model]
+    chain_ids = [c.id for c in m]
+    if binder_chain not in chain_ids:
+        raise KeyError(f"no chain {binder_chain!r} in model {model}; have {chain_ids}")
+    if target_chain is None:
+        targets = [c for c in chain_ids if c != binder_chain]
+    elif isinstance(target_chain, str):
+        targets = [target_chain]
+    else:
+        targets = list(target_chain)
+    missing = [c for c in targets if c not in chain_ids]
+    if missing:
+        raise KeyError(f"no chain(s) {missing} in model {model}; have {chain_ids}")
+    if binder_chain in targets:
+        raise ValueError(f"chain {binder_chain!r} given as both target and binder")
+
+    binder_res = [r for r in m[binder_chain] if is_polymer_residue(r)]
+    binder_atoms = [a for r in binder_res for a in heavy_atoms(r)]
+    if not binder_atoms:
+        raise ValueError(
+            f"chain {binder_chain!r} has no polymer residues: it is not a polymer "
+            "binder (a HET ligand belongs in ligand_contacts)"
+        )
+    target_atoms = [a for cid in targets for r in m[cid]
+                    if is_polymer_residue(r) for a in heavy_atoms(r)]
+    if not target_atoms:
+        raise ValueError(f"target chain(s) {targets} have no polymer residues")
+
+    warnings = []
+    nonstandard = sorted({r.get_resname().strip().upper() for r in binder_res
+                          if r.get_resname().strip().upper() not in AA3})
+    if nonstandard:
+        warnings.append(
+            f"binder chain {binder_chain} contains non-standard residues "
+            f"{nonstandard}: binder-side formal charges and aromatic rings come "
+            "from the amino-acid tables, so any charged or aromatic group on "
+            "these residues contributes no salt_bridge or aromatic term"
+        )
+    warnings.append(
+        "binder-side chemistry comes from CATIONIC_N/ANIONIC_O/AROMATIC_RINGS, "
+        "not from a CCD entry: free N-/C-termini are not treated as charged, "
+        "unlike a HET ligand whose CCD charges are read directly"
+    )
+
+    search = NeighborSearch(target_atoms)
+    per_residue = {}
+    binder_per_residue = {}
+    binder_sasa_free = {}
+    res_obj = {}
+    binder_res_obj = {}
+    icodes = set()
+    binder_icodes = set()
+    keys_by_rid = defaultdict(set)
+    binder_keys_by_rid = defaultdict(set)
+    aromatic_partners = defaultdict(set)  # target rid -> binder residues in contact
+    n_atom_pairs = 0
+    n_charged_binder_atoms = 0
+
+    for ba in binder_atoms:
+        be = ba.element.upper()
+        bname = ba.get_name().strip()
+        bres = ba.get_parent()
+        bresname = bres.get_resname().strip().upper()
+        bcharge = _polymer_atom_charge(bresname, bname)
+        if bcharge:
+            n_charged_binder_atoms += 1
+        for ta in search.search(ba.coord, cutoff):
+            tres = ta.get_parent()
+            tchain = tres.get_parent().id
+            rid = tres.id[1]
+            if tres.id[2] != " ":
+                icodes.add(f"{tchain}:{rid}{tres.id[2]}")
+            if bres.id[2] != " ":
+                binder_icodes.add(f"{binder_chain}:{bres.id[1]}{bres.id[2]}")
+            d = float(np.linalg.norm(ba.coord - ta.coord))
+            te = ta.element.upper()
+            tname = ta.get_name().strip()
+            tresname = tres.get_resname().strip().upper()
+            n_atom_pairs += 1
+
+            rec = per_residue.setdefault(
+                rid,
+                {"resname": tresname, "chain_id": tchain, "min_distance": d,
+                 "n_atom_contacts": 0, "buried_area_proxy": None,
+                 "interaction_types": set()},
+            )
+            res_obj[rid] = tres
+            keys_by_rid[rid].add((tchain, tres.id[2]))
+            rec["n_atom_contacts"] += 1
+            rec["min_distance"] = min(rec["min_distance"], d)
+            types = _classify_pair(tresname, tname, te, be, bcharge, d)
+            # a salt bridge is symmetric: the binder side carries charges too, and
+            # the ligand path can only ever see it from the target side
+            if d <= CUTOFF_SALT_BRIDGE and (
+                ((bresname, bname) in CATIONIC_N
+                 and _polymer_atom_charge(tresname, tname) < 0)
+                or ((bresname, bname) in ANIONIC_O
+                    and _polymer_atom_charge(tresname, tname) > 0)
+            ):
+                types.add("salt_bridge")
+            rec["interaction_types"].update(types)
+            aromatic_partners[rid].add(bres.id)
+
+            brid = bres.id[1]
+            brec = binder_per_residue.setdefault(
+                brid,
+                {"resname": bresname, "chain_id": binder_chain, "min_distance": d,
+                 "n_atom_contacts": 0, "buried_area_proxy": None,
+                 "interaction_types": set()},
+            )
+            binder_res_obj[brid] = bres
+            binder_keys_by_rid[brid].add((binder_chain, bres.id[2]))
+            brec["n_atom_contacts"] += 1
+            brec["min_distance"] = min(brec["min_distance"], d)
+            brec["interaction_types"].update(types)
+
+    # aromatic: ring centroid to ring centroid, exactly as in ligand_contacts, and
+    # evaluated only for residues that already passed the heavy-atom cutoff there
+    # and here -- the same truncation, so the two paths stay comparable.
+    binder_by_id = {r.id: r for r in binder_res}
+    for rid, rec in per_residue.items():
+        if rec["resname"] not in AROMATIC_RINGS:
+            continue
+        tcen = [c for names in AROMATIC_RINGS[rec["resname"]]
+                if (c := _centroid(res_obj[rid], names)) is not None]
+        if not tcen:
+            continue
+        for bid in aromatic_partners[rid]:
+            bres = binder_by_id[bid]
+            bname3 = bres.get_resname().strip().upper()
+            for names in AROMATIC_RINGS.get(bname3, []):
+                bcen = _centroid(bres, names)
+                if bcen is None:
+                    continue
+                if any(np.linalg.norm(c - bcen) <= CUTOFF_AROMATIC for c in tcen):
+                    rec["interaction_types"].add("aromatic")
+                    binder_per_residue[bres.id[1]]["interaction_types"].add("aromatic")
+
+    if with_buried_area:
+        buried = buried_area_by_residue_chains(structure, targets, binder_chain, model)
+        for rid, rec in per_residue.items():
+            rec["buried_area_proxy"] = round(sum(
+                float(buried.get((ch, rid, ic), 0.0)) for ch, ic in keys_by_rid[rid]
+            ), 3)
+        # binder-side delta-SASA: the mirror state (binder alone -> binder + target)
+        m_apo = _sasa_by_residue(m, lambda cid, r: is_polymer_residue(r) and cid == binder_chain)
+        m_holo = _sasa_by_residue(
+            m, lambda cid, r: is_polymer_residue(r) and (cid == binder_chain or cid in set(targets)))
+        for brid, brec in binder_per_residue.items():
+            brec["buried_area_proxy"] = round(sum(
+                float(m_apo.get((ch, brid, ic), 0.0) - m_holo.get((ch, brid, ic), 0.0))
+                for ch, ic in binder_keys_by_rid[brid]
+            ), 3)
+            binder_sasa_free[brid] = round(sum(
+                float(m_apo.get((ch, brid, ic), 0.0))
+                for ch, ic in binder_keys_by_rid[brid]
+            ), 3)
+
+    for rec in list(per_residue.values()) + list(binder_per_residue.values()):
+        rec["interaction_types"] = sorted(rec["interaction_types"])
+        rec["min_distance"] = round(rec["min_distance"], 3)
+
+    chains_engaged, numbering = _numbering_warnings(keys_by_rid, icodes)
+    warnings.extend(numbering)
+    if binder_icodes:
+        warnings.append(
+            f"insertion codes dropped from BINDER residue ids: {sorted(binder_icodes)}"
+        )
+
+    seq = _chain_sequence(binder_res)
+    n_binder_rings = sum(
+        1 for r in binder_res
+        for names in AROMATIC_RINGS.get(r.get_resname().strip().upper(), [])
+        if _centroid(r, names) is not None
+    )
+    binder_info = {
+        # `resname` is None on purpose: a polymer binder has no single component
+        # id, and inventing one would put a label nobody can look up into results/
+        "resname": None,
+        "binder_kind": "polymer_chain",
+        "modality": "peptide" if len(binder_res) <= PEPTIDE_MAX_RESIDUES else "protein",
+        "modality_threshold_residues": PEPTIDE_MAX_RESIDUES,
+        "chain": binder_chain,
+        "resseq": None,
+        "n_residues": len(binder_res),
+        "sequence": seq,
+        "n_heavy_atoms": len(binder_atoms),
+        "formula": _formula(binder_atoms),
+        "ccd_parsed": None,  # not applicable: no CCD lookup for a polymer chain
+        "chemistry_source": "amino-acid tables (CATIONIC_N/ANIONIC_O/AROMATIC_RINGS)",
+        "n_aromatic_rings": n_binder_rings,
+        "n_charged_atoms": n_charged_binder_atoms,
+        "nonstandard_residues": nonstandard,
+    }
+
+    return {
+        "residue_ids": sorted(per_residue),
+        "per_residue": per_residue,
+        "ligand_info": binder_info,
+        "binder_info": binder_info,
+        "binder_residue_ids": sorted(binder_per_residue),
+        "binder_per_residue": binder_per_residue,
+        # SASA of each engaged binder residue in the reference state the
+        # binder-side delta was measured against (the binder chain ALONE). It is
+        # here because a chain terminus is artificially exposed in that state --
+        # an isolated peptide has no neighbour capping its ends -- so a terminal
+        # residue's absolute delta-SASA is inflated and ranks high without being
+        # a hotspot. buried_area_proxy / binder_sasa_free is the fraction of its
+        # own free surface a residue buries, which does not have that bias.
+        # Empty when with_buried_area=False.
+        "binder_sasa_free": binder_sasa_free,
+        "target_chains": targets,
+        "binder_chain": binder_chain,
+        "n_atom_pairs": n_atom_pairs,
+        "chains_engaged": chains_engaged,
+        "cutoff": cutoff,
+        "buried_area_computed": bool(with_buried_area),
+        "numbering": "author (auth_seq_id); no SIFTS mapping applied",
+        "structure_id": structure.id,
+        "site_kind": "epitope_or_interface",
+        "warnings": warnings,
+    }
 
 
 # --------------------------------------------------------------------------
@@ -956,6 +1398,23 @@ def main():
         for reason, names in sorted(dropped.items()):
             counts = {n: names.count(n) for n in sorted(set(names))}
             print(f"  excluded [{reason}]: {counts}")
+
+        # polymer binders: invisible to het_inventory, so a peptide complex used
+        # to print "0 drug-like" and stop, which reads like "nothing binds here"
+        cands = candidate_binder_chains(st)
+        picked = [c for c in cands if c["is_candidate"]]
+        print(f"{len(cands)} polymer chains, {len(picked)} candidate binder chain(s)")
+        for c in picked:
+            print(f"  chain {c['chain_id']}: {c['n_residues']} residues "
+                  f"({c['modality']}) {c['sequence'][:40]}"
+                  f"{'...' if len(c['sequence']) > 40 else ''}")
+            for tgt in sorted(c["contacts_by_chain"]):
+                t0 = time.perf_counter()
+                cc = chain_contacts(st, tgt, c["chain_id"])
+                dt = time.perf_counter() - t0
+                print(f"    vs chain {tgt} -> {len(cc['residue_ids'])} target "
+                      f"residues in {dt:.2f}s")
+                print(f"      {cc['residue_ids']}")
 
         for lig in kept:
             t0 = time.perf_counter()
