@@ -277,7 +277,7 @@ def build(source, output):
         missing = sorted(keys - set(asset["residue_atoms"]))
         if missing:
             warnings.append(f"{aid}: unmapped signature residues: {', '.join(missing)}")
-    bundle = {"manifest": manifest, "display": display, "scenes": scenes, "colors": COLORS, "warnings": warnings, "disclaimer": DISCLAIMER}
+    bundle = {"manifest": manifest, "display": display, "scenes": scenes, "colors": COLORS, "warnings": warnings, "disclaimer": "Experimental structure reference; no repurposing prediction or ranking." if manifest["data_origin"] == "reference_example" else DISCLAIMER}
     output.mkdir(parents=True)
     (output / "bundle.json").write_text(json.dumps(bundle, indent=2, allow_nan=False))
     (output / "structures").mkdir()
