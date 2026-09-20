@@ -105,7 +105,13 @@ def contacts_between_chains(
     protein, _, _ = parse_pdb(pdb)
     binder_coords = [c for (ch, _), (_, c) in protein.items() if ch == binder]
     if not binder_coords:
-        return {"residues": [], "reason": f"no chain {binder} in {pdb.name}"}
+        # Loud, not empty. An empty contact set silently becomes an empty
+        # signature four steps later, which is how this was missed once already.
+        present = sorted({ch for ch, _ in protein})
+        raise ValueError(
+            f"{pdb.name}: no polymer chain {binder!r}; chains present: {present}. "
+            "Refusing to return an empty contact set."
+        )
     binder_xyz = np.vstack(binder_coords)
 
     engaged = {}
@@ -122,6 +128,118 @@ def contacts_between_chains(
         "n_binder_atoms": int(binder_xyz.shape[0]),
         "cutoff": cutoff,
     }
+
+
+THREE_TO_ONE = {
+    "ALA": "A", "ARG": "R", "ASN": "N", "ASP": "D", "CYS": "C", "GLN": "Q",
+    "GLU": "E", "GLY": "G", "HIS": "H", "ILE": "I", "LEU": "L", "LYS": "K",
+    "MET": "M", "PHE": "F", "PRO": "P", "SER": "S", "THR": "T", "TRP": "W",
+    "TYR": "Y", "VAL": "V",
+}
+
+
+def chain_sequence(pdb: Path, chain: str) -> tuple[list[int], str]:
+    """Residue numbers of `chain`, in file order, and their one-letter sequence."""
+    protein, _, _ = parse_pdb(pdb)
+    items = sorted(
+        ((resseq, resname) for (ch, resseq), (resname, _) in protein.items() if ch == chain)
+    )
+    if not items:
+        raise ValueError(f"{pdb.name}: no polymer chain {chain!r}")
+    numbers = [resseq for resseq, _ in items]
+    sequence = "".join(THREE_TO_ONE.get(resname, "X") for _, resname in items)
+    return numbers, sequence
+
+
+def align_to_reference(pdb: Path, chain: str, reference: str) -> dict[int, int]:
+    """Map this file's residue numbers to author numbering, by alignment.
+
+    Needed because the numbering is not stable across this pipeline and no
+    constant offset recovers it. `Protein.prepare` renumbers a structure
+    contiguously from 1, discarding author numbers, and 6Q4G is missing 16 of
+    CDK2's 298 residues, so the true mapping steps at every gap.
+
+    Global alignment (Needleman-Wunsch, match +1 / mismatch -1 / gap -2) of the
+    observed sequence against the canonical one. Refuses to return a mapping it
+    cannot corroborate.
+
+    Returns {resseq_in_file: author_number}.
+    """
+    numbers, observed = chain_sequence(pdb, chain)
+    n, m = len(observed), len(reference)
+
+    score = np.zeros((n + 1, m + 1), dtype=np.int32)
+    score[:, 0] = np.arange(0, -2 * (n + 1), -2)[: n + 1]
+    score[0, :] = np.arange(0, -2 * (m + 1), -2)[: m + 1]
+    for i in range(1, n + 1):
+        row_prev, row = score[i - 1], score[i]
+        for j in range(1, m + 1):
+            diagonal = row_prev[j - 1] + (1 if observed[i - 1] == reference[j - 1] else -1)
+            row[j] = max(diagonal, row_prev[j] - 2, row[j - 1] - 2)
+
+    mapping: dict[int, int] = {}
+    matches = 0
+    i, j = n, m
+    while i > 0 and j > 0:
+        diagonal = score[i - 1][j - 1] + (1 if observed[i - 1] == reference[j - 1] else -1)
+        if score[i][j] == diagonal:
+            mapping[numbers[i - 1]] = j
+            matches += observed[i - 1] == reference[j - 1]
+            i, j = i - 1, j - 1
+        elif score[i][j] == score[i - 1][j] - 2:
+            i -= 1
+        else:
+            j -= 1
+
+    identity = matches / len(observed)
+    if identity < 0.95:
+        raise ValueError(
+            f"{pdb.name} chain {chain}: alignment to the reference sequence is only "
+            f"{identity:.0%} identical over {len(observed)} residues. Refusing to map "
+            "residues on an alignment this poor."
+        )
+    return mapping
+
+
+def author_offset(pdb: Path, chain: str, reference: str) -> int:
+    """Find the constant offset from this file's residue numbers to author numbering.
+
+    Rowan hands back three different numberings across this pipeline, and guessing
+    wrong produces a signature that is plausible and wrong. So it is measured:
+    the offset is the one that makes the observed residue names agree with the
+    canonical sequence, and it is only accepted if agreement is near total.
+
+    Returns `offset` such that `author = resseq + offset`.
+    """
+    protein, _, _ = parse_pdb(pdb)
+    observed = {
+        resseq: THREE_TO_ONE.get(resname, "X")
+        for (ch, resseq), (resname, _) in protein.items()
+        if ch == chain
+    }
+    if not observed:
+        raise ValueError(f"{pdb.name}: no polymer chain {chain!r}")
+
+    best, best_hits = None, -1
+    span = max(observed) - min(observed) + len(reference)
+    for offset in range(-span, span + 1):
+        hits = sum(
+            1
+            for resseq, aa in observed.items()
+            if 1 <= resseq + offset <= len(reference)
+            and reference[resseq + offset - 1] == aa
+        )
+        if hits > best_hits:
+            best, best_hits = offset, hits
+
+    fraction = best_hits / len(observed)
+    if fraction < 0.95:
+        raise ValueError(
+            f"{pdb.name} chain {chain}: best offset {best:+d} matches only "
+            f"{best_hits}/{len(observed)} residues ({fraction:.0%}) against the "
+            "reference sequence. Refusing to map residues on a guess."
+        )
+    return best
 
 
 def consensus(per_design: list[list[int]], *, core_threshold: float = 0.6) -> dict:

@@ -1,0 +1,27 @@
+{
+ "what": "the first run of this demo, kept because it is a finding",
+ "error": "rowan.create_protein_from_pdb_id(6Q4G) retains non-polymer entities. The ATP pocket still contained its co-crystal ligand HJK (40 atoms, 2 altlocs) and 214 waters when pockets were detected and BoltzGen designs were generated.",
+ "consequence": {
+  "design_iptm_range": [
+   0.134,
+   0.197
+  ],
+  "n_designs_above_iptm_0.85": 0,
+  "consensus_core_residues": [
+   25,
+   26,
+   28
+  ],
+  "mean_pairwise_jaccard_between_designs": 0.1687,
+  "jaccard_core_vs_known_ligand_contacts": 0.0,
+  "reading": "with the pocket occupied, the designs bound elsewhere on the protein and the consensus recovers none of the known ligand contact residues"
+ },
+ "comparison": {
+  "heavy_pipeline_m2_gate_CDK2": {
+   "mean_pairwise_jaccard": 0.397,
+   "boltzgen_jaccard_vs_known": 0.338
+  }
+ },
+ "fix": "demo/pipeline.py:_stripped_protein now calls Protein.prepare(remove_heterogens=True, keep_waters=False) before pocket detection and design - PROJECT_GOAL.md 3 WS-B's strip-ligands step",
+ "credits_spent_on_this_run": 52.0
+}

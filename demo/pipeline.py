@@ -169,14 +169,21 @@ def stage_site() -> dict:
 
     cached_protein = nova.cached("protein_6q4g")
     if cached_protein:
-        protein_uuid = cached_protein["uuid"]
+        raw_uuid = cached_protein["uuid"]
     else:
         protein = rowan.create_protein_from_pdb_id(
             TARGET["pdb_id"], name=f'{TARGET["symbol"]} {TARGET["pdb_id"]} demo'
         )
-        protein_uuid = str(protein.uuid)
-        nova.cache("protein_6q4g", {"uuid": protein_uuid})
-    print(f"  protein {protein_uuid}")
+        raw_uuid = str(protein.uuid)
+        nova.cache("protein_6q4g", {"uuid": raw_uuid})
+
+    # 6Q4G is a HOLO structure, and create_protein_from_pdb_id keeps its ligand
+    # and waters. Detecting pockets on an occupied pocket, then designing into
+    # one, is PROJECT_GOAL.md 3 WS-B's "strip ligands" step skipped -- and it
+    # measurably hurt: the first run of this demo designed against a pocket with
+    # HJK still in it and every design came back at ipTM 0.13-0.20.
+    protein_uuid = _stripped_protein(raw_uuid)
+    print(f"  protein {protein_uuid} (apo, stripped from {raw_uuid})")
 
     index_to_author = _residue_index_map(protein_uuid)
 
@@ -243,26 +250,65 @@ def stage_site() -> dict:
     )
 
 
+def _binder_chain(pdb: Path) -> str:
+    """The designed chain in a BoltzGen complex.
+
+    Not simply "B": Rowan returns the target as chain A, any retained heterogen
+    as its own chain, and the design after that. The design is the polymer chain
+    that is not the target.
+    """
+    protein, _, _ = contacts.parse_pdb(pdb)
+    chains = sorted({ch for ch, _ in protein} - {TARGET["chain"]})
+    if len(chains) != 1:
+        raise ValueError(
+            f"{pdb.name}: expected exactly one designed polymer chain beside "
+            f'{TARGET["chain"]}, found {chains}'
+        )
+    return chains[0]
+
+
+def _stripped_protein(raw_uuid: str) -> str:
+    """A copy of the structure with heterogens and waters removed.
+
+    `Protein.prepare` mutates in place, so the raw holo entry is copied first and
+    the apo one kept under its own uuid -- the holo structure is still needed by
+    the validation path, which reads its ligand.
+    """
+    hit = nova.cached("protein_stripped")
+    if hit:
+        return hit["uuid"]
+
+    rowan = nova.rowan_client()
+    raw = rowan.retrieve_protein(raw_uuid)
+    apo = rowan.create_protein_from_pdb_id(
+        TARGET["pdb_id"], name=f'{TARGET["symbol"]} {TARGET["pdb_id"]} apo'
+    )
+    apo.prepare(
+        remove_heterogens=True,
+        keep_waters=False,
+        find_missing_residues=False,
+        add_missing_atoms=True,
+        add_hydrogens=True,
+        timeout=900.0,
+    )
+    del raw
+    nova.cache("protein_stripped", {"uuid": str(apo.uuid), "from": raw_uuid})
+    return str(apo.uuid)
+
+
 def _residue_index_map(protein_uuid: str) -> dict[int, int]:
     """0-based index over chain-A residues present in the file -> author number.
 
-    Rowan reports pocket residues and BoltzGen indexes designs by position in the
-    file, not by author numbering. scripts/boltzgen_signature.py documents the
-    same trap; this is the lightweight version of that mapping.
+    Rowan reports pocket residues by position in the file, and `Protein.prepare`
+    renumbers the file contiguously from 1, so neither the file's own numbers nor
+    a constant offset gives author numbering. The map is therefore recovered by
+    aligning the structure's sequence to the canonical one.
     """
     pdb = _download_structure(protein_uuid, "target")
-    seen: set[int] = set()
-    order: list[int] = []
-    for line in pdb.read_text().splitlines():
-        if line[:6] != "ATOM  ":
-            continue
-        if (line[21] or "A").strip() != TARGET["chain"]:
-            continue
-        resseq = int(line[22:26])
-        if resseq not in seen:
-            seen.add(resseq)
-            order.append(resseq)
-    return dict(enumerate(order))
+    sequence = read("01_research.json")["uniprot"]["sequence"]
+    numbers, _ = contacts.chain_sequence(pdb, TARGET["chain"])
+    to_author = contacts.align_to_reference(pdb, TARGET["chain"], sequence)
+    return {i: to_author[resseq] for i, resseq in enumerate(numbers) if resseq in to_author}
 
 
 def _download_structure(uuid: str, name: str) -> Path:
@@ -384,7 +430,7 @@ def stage_signature() -> dict:
     print("[4/5] signature")
     designs = read("03_designs.json")
     site = read("02_site.json")
-    index_to_author = _residue_index_map(site["protein_uuid"])
+    sequence = read("01_research.json")["uniprot"]["sequence"]
 
     per_design = []
     failures = []
@@ -395,18 +441,33 @@ def stage_signature() -> dict:
             continue
         try:
             pdb = _download_structure(uuid, f'design_{design["design_id"]}')
+            binder_chain = _binder_chain(pdb)
+            # The design complex renumbers the target by a constant offset, and
+            # it is NOT an index into the prepared structure. Measure it against
+            # the canonical sequence rather than assuming.
+            offset = contacts.author_offset(pdb, TARGET["chain"], sequence)
+            found = contacts.contacts_between_chains(
+                pdb, target=TARGET["chain"], binder=binder_chain
+            )
         except Exception as exc:  # noqa: BLE001
             failures.append({"design_id": design["design_id"], "reason": str(exc)})
             continue
 
-        found = contacts.contacts_between_chains(
-            pdb, target=TARGET["chain"], binder="B"
+        author = sorted(r + offset for r in found["residues"])
+        per_design.append(
+            {
+                "design_id": design["design_id"],
+                "binder_chain": binder_chain,
+                "author_offset": offset,
+                "residues_author": author,
+            }
         )
-        # Design complexes renumber the target 1..N; map back to author numbering.
-        author = sorted(
-            index_to_author[r - 1] for r in found["residues"] if (r - 1) in index_to_author
+
+    if not per_design:
+        raise SystemExit(
+            f"no design yielded contacts. failures: {failures}. "
+            "Refusing to build a signature from nothing."
         )
-        per_design.append({"design_id": design["design_id"], "residues_author": author})
 
     signature = contacts.consensus(
         [d["residues_author"] for d in per_design], core_threshold=CORE_THRESHOLD

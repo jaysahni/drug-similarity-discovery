@@ -1,1 +1,5 @@
-{"uuid": "f5bfd673-7e7e-4438-a7a9-2fda87f3a218", "label": "pocket detection", "submitter": "submit_pocket_detection_workflow"}
+{
+ "uuid": "882da529-52e6-4fcd-ae12-d8d55a0d599c",
+ "label": "pocket detection",
+ "submitter": "submit_pocket_detection_workflow"
+}
