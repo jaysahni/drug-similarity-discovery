@@ -255,8 +255,10 @@ def run_match(out: Path, symbol: str) -> None:
         query_idx = [i for i, q in enumerate(is_query) if q]
         null_idx = [i for i, q in enumerate(is_query) if not q]
         null_note = (
-            f"{len(null_idx)} generated molecules the docking filter did NOT select, "
-            f"scored against the same corpus; queries are the {len(query_idx)} it did"
+            f"{len(null_idx)} generated molecules not in the docked subset, scored "
+            f"against the same corpus. The docked subset was taken by list position "
+            f"rather than by fit, so this null asks whether a query beats a TYPICAL "
+            f"generated molecule -- not whether the pocket chose it. See docking_signal."
         )
 
     null = md.null_distribution(query_fp[null_idx], corpus_fp, "tanimoto")
@@ -279,20 +281,89 @@ def run_match(out: Path, symbol: str) -> None:
         })
     rows.sort(key=lambda r: -r["tanimoto"])
 
+    # Does the POCKET add anything? The docked subset was taken by list position,
+    # not by fit, so "docked vs undocked" is not a pocket-evidence split and the
+    # percentile above only asks whether a molecule beats a typical generated one.
+    # The pocket question is separate and is answered here: among the docked
+    # molecules, does a better Vina score go with greater similarity to the drugs
+    # already known to bind this target? If it does not, docking is selecting for
+    # something unrelated to the known chemistry of this site.
+    docking_signal = {"status": "not_evaluated", "reason": "docking has not run"}
+    if docked and docked.get("scores"):
+        from scipy.stats import spearmanr
+
+        n_gen = docked["n_generated_docked"]
+        by_smiles = {m["smiles"]: i for i, m in enumerate(molecules)}
+        pairs = []
+        for smi, score in list(zip(docked["smiles"], docked["scores"]))[:n_gen]:
+            if score is None or smi not in by_smiles:
+                continue
+            sims = md.tanimoto(query_fp[by_smiles[smi]], corpus_fp)
+            best_known = max(
+                (sims[j] for j, r in enumerate(approved) if r["novelty"] != "novel_pairing"),
+                default=0.0,
+            )
+            pairs.append((float(score), float(best_known)))
+
+        controls_scores = [s for s in docked["scores"][n_gen:] if s is not None]
+        if len(pairs) >= 5:
+            scores, sims_known = zip(*pairs)
+            rho, pval = spearmanr(scores, sims_known)
+            docking_signal = {
+                "status": "evaluated",
+                "question": "does a better Vina score go with similarity to known binders?",
+                "n": len(pairs),
+                "spearman_rho": round(float(rho), 4),
+                "p_value": float(f"{pval:.4g}"),
+                "note": "Vina scores are negative-is-better, so a NEGATIVE rho means "
+                        "better docking goes with greater similarity to known binders",
+                "generated_score_range": [round(min(scores), 3), round(max(scores), 3)],
+                "control_scores": {
+                    name: score for name, score in zip(docked["controls"], controls_scores)
+                },
+                "controls_beat_generated_median": (
+                    bool(np.median(controls_scores) < np.median(scores))
+                    if controls_scores else None
+                ),
+            }
+
     # Positive control: a known binder as the query must retrieve its analogues.
+    # Positive control: where do the OTHER drugs with this target as their
+    # mechanism rank when one of them is the query?
+    #
+    # The top-5 list alone is misleading here and nearly produced a false
+    # negative: argatroban's five nearest approved drugs are all peptidomimetics
+    # (angiotensin II, icatibant, lisinopril ...) and none is a thrombin drug,
+    # which reads as failure. The rank of the co-mechanism drugs is the
+    # informative number, and it says the opposite.
     control = {}
     by_name = {r["name"]: i for i, r in enumerate(approved)}
-    for name in ("argatroban", "ximelagatran", "bivalirudin"):
-        if name not in by_name:
-            continue
-        i = by_name[name]
+    moa_idx = [i for i, r in enumerate(approved) if symbol in r["moa_targets"].split(";")]
+    for i in moa_idx:
         sims = md.tanimoto(corpus_fp[i], corpus_fp)
         sims[i] = -np.inf
-        order = np.argsort(-sims)[:5]
-        control[name] = [
-            {"name": approved[j]["name"], "tanimoto": round(float(sims[j]), 4),
-             "novelty": approved[j]["novelty"]} for j in order
-        ]
+        order = list(np.argsort(-sims))
+        control[approved[i]["name"]] = {
+            "top_5_any": [
+                {"name": approved[j]["name"], "tanimoto": round(float(sims[j]), 4)}
+                for j in order[:5]
+            ],
+            "ranks_of_other_moa_drugs": sorted(
+                (
+                    {
+                        "name": approved[j]["name"],
+                        "rank": order.index(j) + 1,
+                        "of": len(order),
+                        "tanimoto": round(float(sims[j]), 4),
+                    }
+                    for j in moa_idx
+                    if j != i
+                ),
+                key=lambda d: d["rank"],
+            ),
+        }
+    control["_n_moa_drugs"] = len(moa_idx)
+    control["_expected_rank_by_chance"] = round(len(approved) / 2)
 
     payload = {
         "arm": "S (small molecule, direct matching)",
@@ -302,7 +373,7 @@ def run_match(out: Path, symbol: str) -> None:
             "conditioned on the binding site; the pocket enters only as a docking filter"
         ),
         "generator": gen["model"],
-        "n_generated_kept": n_query,
+        "n_generated_kept": len(molecules),
         "corpus": {"file": str(APPROVED.relative_to(REPO)), "n": len(approved),
                    "n_annotated_to_target": n_known,
                    "base_rate": round(n_known / len(approved), 4)},
@@ -310,6 +381,7 @@ def run_match(out: Path, symbol: str) -> None:
         "null": {"construction": null_note, **md.calibration(null)},
         "n_queries": len(query_idx),
         "positive_control": control,
+        "docking_signal": docking_signal,
         "docking": {"ran": docked is not None,
                     "workflow_uuid": (docked or {}).get("workflow_uuid"),
                     "box": (docked or {}).get("box")},
