@@ -5,6 +5,7 @@ pandas==3.0.6
 scikit-learn==1.9.1
 rdkit==2026.03.6
 certifi>=2025.0.0   # python.org 3.14 ships no CA bundle; fetch scripts need this
+biopython==1.88     # PDB parsing and alignment; 8 scripts import Bio
 
 # Added by pipeline tasks (see docs/02-PIPELINE-PLAN.md):
 #   torch + transformers  -> T6 embeddings (platform-specific install)
