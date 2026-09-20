@@ -1,5 +1,5 @@
 {
-  "generated_utc": "2026-09-19T21:21:51+00:00",
+  "generated_utc": "2026-09-20T03:41:43+00:00",
   "environment": {
     "python": "3.14.7",
     "biopython": "1.88",
@@ -192,7 +192,7 @@
       "title": "Crystal Structure of VEGFR2 (Juxtamembrane and Kinase Domains) in Complex with SORAFENIB (BAY 43-9006)",
       "resolution_a": 2.03,
       "method": "X-ray",
-      "parse_seconds": 0.084,
+      "parse_seconds": 0.045,
       "n_polymer_residues": 305,
       "n_het_residues": 354,
       "excluded": {
@@ -210,8 +210,8 @@
           "reason": "drug-like candidate"
         }
       ],
-      "contact_seconds": 2.443,
-      "contact_seconds_no_sasa": 0.006,
+      "contact_seconds": 0.71,
+      "contact_seconds_no_sasa": 0.004,
       "contacts": {
         "ligand_info": {
           "resname": "BAX",
@@ -486,7 +486,7 @@
       "title": "KDR in complex with ligand sorafenib",
       "resolution_a": 1.9,
       "method": "X-ray",
-      "parse_seconds": 0.277,
+      "parse_seconds": 0.066,
       "n_polymer_residues": 298,
       "n_het_residues": 110,
       "excluded": {
@@ -510,8 +510,8 @@
           "reason": "drug-like candidate"
         }
       ],
-      "contact_seconds": 1.532,
-      "contact_seconds_no_sasa": 0.005,
+      "contact_seconds": 0.531,
+      "contact_seconds_no_sasa": 0.004,
       "contacts": {
         "ligand_info": {
           "resname": "BAX",
@@ -778,7 +778,7 @@
       "title": "CRYSTAL STRUCTURE OF THE VEGFR2 KINASE DOMAIN IN COMPLEX WITH AXITINIB (AG-013736) (N-Methyl-2-(3-((E)-2-pyridin-2-yl-vinyl)-1H- indazol-6-ylsulfanyl)-benzamide)",
       "resolution_a": 1.95,
       "method": "X-ray",
-      "parse_seconds": 0.058,
+      "parse_seconds": 0.042,
       "n_polymer_residues": 296,
       "n_het_residues": 327,
       "excluded": {
@@ -796,8 +796,8 @@
           "reason": "drug-like candidate"
         }
       ],
-      "contact_seconds": 2.359,
-      "contact_seconds_no_sasa": 0.005,
+      "contact_seconds": 0.554,
+      "contact_seconds_no_sasa": 0.003,
       "contacts": {
         "ligand_info": {
           "resname": "AXI",
@@ -1032,7 +1032,7 @@
       "title": "Structure of SET7/9",
       "resolution_a": 1.7,
       "method": "X-ray",
-      "parse_seconds": 0.054,
+      "parse_seconds": 0.034,
       "n_polymer_residues": 234,
       "n_het_residues": 213,
       "excluded": {
@@ -1050,7 +1050,7 @@
           "reason": "drug-like candidate"
         }
       ],
-      "contact_seconds": 1.432,
+      "contact_seconds": 0.418,
       "contacts": {
         "ligand_info": {
           "resname": "SAM",
@@ -1253,7 +1253,7 @@
       "title": "Crystal Structure of human TR alpha bound T3 in orthorhombic space group",
       "resolution_a": 1.87,
       "method": "X-ray",
-      "parse_seconds": 0.162,
+      "parse_seconds": 0.07,
       "n_polymer_residues": 267,
       "n_het_residues": 428,
       "excluded": {
@@ -1271,7 +1271,7 @@
           "reason": "drug-like candidate"
         }
       ],
-      "contact_seconds": 1.379,
+      "contact_seconds": 0.527,
       "contacts": {
         "ligand_info": {
           "resname": "T3",
@@ -1537,7 +1537,7 @@
       "title": "HIV-1 PROTEASE DIMER COMPLEXED WITH A-84538",
       "resolution_a": 1.8,
       "method": "X-ray",
-      "parse_seconds": 0.065,
+      "parse_seconds": 0.032,
       "n_polymer_residues": 198,
       "n_het_residues": 101,
       "excluded": {
@@ -1555,7 +1555,7 @@
           "reason": "drug-like candidate"
         }
       ],
-      "contact_seconds": 1.562,
+      "contact_seconds": 0.441,
       "contacts": {
         "ligand_info": {
           "resname": "RIT",
@@ -1747,33 +1747,33 @@
   },
   "timings_seconds": {
     "4ASD": {
-      "parse": 0.084,
-      "contacts_with_sasa": 2.443,
-      "contacts_without_sasa": 0.006
+      "parse": 0.045,
+      "contacts_with_sasa": 0.71,
+      "contacts_without_sasa": 0.004
     },
     "3WZE": {
-      "parse": 0.277,
-      "contacts_with_sasa": 1.532,
-      "contacts_without_sasa": 0.005
+      "parse": 0.066,
+      "contacts_with_sasa": 0.531,
+      "contacts_without_sasa": 0.004
     },
     "4AG8": {
-      "parse": 0.058,
-      "contacts_with_sasa": 2.359,
-      "contacts_without_sasa": 0.005
+      "parse": 0.042,
+      "contacts_with_sasa": 0.554,
+      "contacts_without_sasa": 0.003
     },
     "1N6A": {
-      "parse": 0.054,
-      "contacts_with_sasa": 1.432,
+      "parse": 0.034,
+      "contacts_with_sasa": 0.418,
       "contacts_without_sasa": null
     },
     "2H79": {
-      "parse": 0.162,
-      "contacts_with_sasa": 1.379,
+      "parse": 0.07,
+      "contacts_with_sasa": 0.527,
       "contacts_without_sasa": null
     },
     "1HXW": {
-      "parse": 0.065,
-      "contacts_with_sasa": 1.562,
+      "parse": 0.032,
+      "contacts_with_sasa": 0.441,
       "contacts_without_sasa": null
     }
   },
@@ -2262,12 +2262,12 @@
     {
       "name": "1N6A control loads with SAM",
       "passed": true,
-      "detail": "17 contact residues in 1.432s"
+      "detail": "17 contact residues in 0.418s"
     },
     {
       "name": "2H79 control loads with T3",
       "passed": true,
-      "detail": "24 contact residues in 1.379s"
+      "detail": "24 contact residues in 0.527s"
     },
     {
       "name": "disjoint consensus (4ASD + 1N6A): every frequency == 0.5",
@@ -2337,7 +2337,7 @@
     {
       "name": "1HXW contacts span >1 polymer chain",
       "passed": true,
-      "detail": "chains ['A', 'B'], 15 residue ids in 1.562s"
+      "detail": "chains ['A', 'B'], 15 residue ids in 0.441s"
     },
     {
       "name": "1HXW reports the residue-id collision instead of merging silently",

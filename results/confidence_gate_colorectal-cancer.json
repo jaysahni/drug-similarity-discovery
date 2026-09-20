@@ -1,0 +1,85 @@
+{
+ "what": "co-folding confidence vs interface overlap as a binder discriminator",
+ "pipeline": "colorectal-cancer",
+ "signature": "p2rank_geometry",
+ "metric": "precision_in_core",
+ "n_drugs": 41,
+ "pocket_constrained": false,
+ "results": {
+  "interface overlap (precision_in_core)": {
+   "decoy": {
+    "auc": 0.9131578947368421,
+    "p_two_sided": 0.00034390034865650575,
+    "n_positive": 10,
+    "n_negative": 19
+   },
+   "hard_decoy": {
+    "auc": 0.7166666666666667,
+    "p_two_sided": 0.09203622561004166,
+    "n_positive": 10,
+    "n_negative": 12
+   }
+  },
+  "iptm": {
+   "decoy": {
+    "auc": 0.9947368421052631,
+    "p_two_sided": 1.7818889219325615e-05,
+    "n_positive": 10,
+    "n_negative": 19
+   },
+   "hard_decoy": {
+    "auc": 0.6958333333333333,
+    "p_two_sided": 0.1286162690929035,
+    "n_positive": 10,
+    "n_negative": 12
+   }
+  },
+  "confidence_score": {
+   "decoy": {
+    "auc": 0.8447368421052631,
+    "p_two_sided": 0.00284965494051781,
+    "n_positive": 10,
+    "n_negative": 19
+   },
+   "hard_decoy": {
+    "auc": 0.6083333333333333,
+    "p_two_sided": 0.4094144094517461,
+    "n_positive": 10,
+    "n_negative": 12
+   }
+  },
+  "avg_lddt": {
+   "decoy": {
+    "auc": 0.7684210526315789,
+    "p_two_sided": 0.020389669100382625,
+    "n_positive": 10,
+    "n_negative": 19
+   },
+   "hard_decoy": {
+    "auc": 0.5291666666666667,
+    "p_two_sided": 0.8430154002527591,
+    "n_positive": 10,
+    "n_negative": 12
+   }
+  },
+  "ptm": {
+   "decoy": {
+    "auc": 0.5894736842105263,
+    "p_two_sided": 0.44883913487759053,
+    "n_positive": 10,
+    "n_negative": 19
+   },
+   "hard_decoy": {
+    "auc": 0.6083333333333333,
+    "p_two_sided": 0.40967914877229616,
+    "n_positive": 10,
+    "n_negative": 12
+   }
+  }
+ },
+ "reading": [
+  "On the easy null, ipTM (0.995) BEATS interface overlap (0.913). A free confidence field returned with every pose is the better discriminator there, and the README must not claim otherwise.",
+  "On the hard null NOTHING reaches significance - not our score, not any confidence field. The ceiling is shared with the co-folding backend rather than caused by the scorer.",
+  "What survives for interface overlap is interpretability, not accuracy: it names the residues engaged and missed, so a hit can be inspected. ipTM is a single number with no mechanism attached."
+ ]
+}

@@ -1,0 +1,468 @@
+{
+ "what": "structural vs chemical ranking of the SAME drugs",
+ "why": "the board ranks a shortlist; candidates.json ranks the whole approved corpus. Comparing a rank out of the shortlist against a rank out of the corpus is not like-for-like, so the chemical baseline is recomputed here over exactly the drugs the board contains.",
+ "population": {
+  "n_drugs": 41,
+  "n_excluded_no_smiles": 0,
+  "excluded": [],
+  "roles": {
+   "decoy": 19,
+   "hard_decoy": 12,
+   "known_binder": 10
+  }
+ },
+ "structural": {
+  "signature": "p2rank_geometry",
+  "metric": "precision_in_core"
+ },
+ "chemical": {
+  "representation": "morgan",
+  "reference_ligand": "AXITINIB",
+  "reference_chembl_id": "CHEMBL1289926",
+  "note": "similarity to the reference ligand only; no structure used"
+ },
+ "median_rank_of_a_known_binder": {
+  "structural": 8.0,
+  "chemical": 12.5,
+  "out_of": 41
+ },
+ "separation": {
+  "structural vs decoy": {
+   "auc": 0.9131578947368421,
+   "p_two_sided": 0.00034390034865650575,
+   "n_positive": 10,
+   "n_negative": 19
+  },
+  "structural vs hard_decoy": {
+   "auc": 0.7166666666666667,
+   "p_two_sided": 0.09203622561004166,
+   "n_positive": 10,
+   "n_negative": 12
+  },
+  "chemical vs decoy": {
+   "auc": 0.7947368421052632,
+   "p_two_sided": 0.010870690072783656,
+   "n_positive": 10,
+   "n_negative": 19
+  },
+  "chemical vs hard_decoy": {
+   "auc": 0.6208333333333333,
+   "p_two_sided": 0.3558022310397023,
+   "n_positive": 10,
+   "n_negative": 12
+  }
+ },
+ "per_drug": [
+  {
+   "struct_id": "2322",
+   "name": "proxibarbal",
+   "role": "decoy",
+   "structural_rank": 1,
+   "structural_score": 0.9230769230769231,
+   "chemical_rank": 32,
+   "chemical_score": 0.07999999821186066,
+   "rank_delta": 31
+  },
+  {
+   "struct_id": "1548",
+   "name": "lapatinib",
+   "role": "hard_decoy",
+   "structural_rank": 2,
+   "structural_score": 0.8823529411764706,
+   "chemical_rank": 22,
+   "chemical_score": 0.09649122506380081,
+   "rank_delta": 20
+  },
+  {
+   "struct_id": "3514",
+   "name": "quercetin",
+   "role": "known_binder",
+   "structural_rank": 3,
+   "structural_score": 0.875,
+   "chemical_rank": 34,
+   "chemical_score": 0.07500000298023224,
+   "rank_delta": 31
+  },
+  {
+   "struct_id": "4118",
+   "name": "pazopanib",
+   "role": "known_binder",
+   "structural_rank": 4,
+   "structural_score": 0.85,
+   "chemical_rank": 13,
+   "chemical_score": 0.12371134012937546,
+   "rank_delta": 9
+  },
+  {
+   "struct_id": "2544",
+   "name": "sunitinib",
+   "role": "known_binder",
+   "structural_rank": 5,
+   "structural_score": 0.8125,
+   "chemical_rank": 9,
+   "chemical_score": 0.1354166716337204,
+   "rank_delta": 4
+  },
+  {
+   "struct_id": "5252",
+   "name": "neratinib",
+   "role": "known_binder",
+   "structural_rank": 6,
+   "structural_score": 0.8095238095238095,
+   "chemical_rank": 4,
+   "chemical_score": 0.1607142835855484,
+   "rank_delta": -2
+  },
+  {
+   "struct_id": "785",
+   "name": "dasatinib",
+   "role": "known_binder",
+   "structural_rank": 7,
+   "structural_score": 0.8,
+   "chemical_rank": 8,
+   "chemical_score": 0.13592232763767242,
+   "rank_delta": 1
+  },
+  {
+   "struct_id": "5390",
+   "name": "pemigatinib",
+   "role": "hard_decoy",
+   "structural_rank": 8,
+   "structural_score": 0.8,
+   "chemical_rank": 18,
+   "chemical_score": 0.10679611563682556,
+   "rank_delta": 10
+  },
+  {
+   "struct_id": "4903",
+   "name": "nintedanib",
+   "role": "known_binder",
+   "structural_rank": 9,
+   "structural_score": 0.7619047619047619,
+   "chemical_rank": 12,
+   "chemical_score": 0.125,
+   "rank_delta": 3
+  },
+  {
+   "struct_id": "4178",
+   "name": "vandetanib",
+   "role": "known_binder",
+   "structural_rank": 10,
+   "structural_score": 0.7619047619047619,
+   "chemical_rank": 20,
+   "chemical_score": 0.10101009905338287,
+   "rank_delta": 10
+  },
+  {
+   "struct_id": "4359",
+   "name": "bosutinib",
+   "role": "hard_decoy",
+   "structural_rank": 11,
+   "structural_score": 0.75,
+   "chemical_rank": 30,
+   "chemical_score": 0.08737864345312119,
+   "rank_delta": 19
+  },
+  {
+   "struct_id": "1414",
+   "name": "idarubicin",
+   "role": "decoy",
+   "structural_rank": 12,
+   "structural_score": 0.7142857142857143,
+   "chemical_rank": 11,
+   "chemical_score": 0.13131313025951385,
+   "rank_delta": -1
+  },
+  {
+   "struct_id": "5290",
+   "name": "binimetinib",
+   "role": "hard_decoy",
+   "structural_rank": 13,
+   "structural_score": 0.7142857142857143,
+   "chemical_rank": 6,
+   "chemical_score": 0.1473684161901474,
+   "rank_delta": -7
+  },
+  {
+   "struct_id": "5306",
+   "name": "gilteritinib",
+   "role": "hard_decoy",
+   "structural_rank": 14,
+   "structural_score": 0.7058823529411765,
+   "chemical_rank": 28,
+   "chemical_score": 0.0892857164144516,
+   "rank_delta": 14
+  },
+  {
+   "struct_id": "5046",
+   "name": "cobimetinib",
+   "role": "hard_decoy",
+   "structural_rank": 15,
+   "structural_score": 0.7058823529411765,
+   "chemical_rank": 21,
+   "chemical_score": 0.10101009905338287,
+   "rank_delta": 6
+  },
+  {
+   "struct_id": "5062",
+   "name": "osimertinib",
+   "role": "hard_decoy",
+   "structural_rank": 16,
+   "structural_score": 0.7058823529411765,
+   "chemical_rank": 5,
+   "chemical_score": 0.15094339847564697,
+   "rank_delta": -11
+  },
+  {
+   "struct_id": "1932",
+   "name": "nilotinib",
+   "role": "hard_decoy",
+   "structural_rank": 17,
+   "structural_score": 0.6956521739130435,
+   "chemical_rank": 7,
+   "chemical_score": 0.14018692076206207,
+   "rank_delta": -10
+  },
+  {
+   "struct_id": "5347",
+   "name": "fedratinib",
+   "role": "known_binder",
+   "structural_rank": 18,
+   "structural_score": 0.6875,
+   "chemical_rank": 23,
+   "chemical_score": 0.095238097012043,
+   "rank_delta": 5
+  },
+  {
+   "struct_id": "4672",
+   "name": "morniflumate",
+   "role": "decoy",
+   "structural_rank": 19,
+   "structural_score": 0.6818181818181818,
+   "chemical_rank": 2,
+   "chemical_score": 0.18681319057941437,
+   "rank_delta": -17
+  },
+  {
+   "struct_id": "5231",
+   "name": "midostaurin",
+   "role": "known_binder",
+   "structural_rank": 20,
+   "structural_score": 0.6666666666666666,
+   "chemical_rank": 15,
+   "chemical_score": 0.11926605552434921,
+   "rank_delta": -5
+  },
+  {
+   "struct_id": "202",
+   "name": "amrubicin",
+   "role": "decoy",
+   "structural_rank": 21,
+   "structural_score": 0.6666666666666666,
+   "chemical_rank": 19,
+   "chemical_score": 0.10309278219938278,
+   "rank_delta": -2
+  },
+  {
+   "struct_id": "2459",
+   "name": "sorafenib",
+   "role": "known_binder",
+   "structural_rank": 22,
+   "structural_score": 0.6521739130434783,
+   "chemical_rank": 1,
+   "chemical_score": 0.19767442345619202,
+   "rank_delta": -21
+  },
+  {
+   "struct_id": "5389",
+   "name": "tucatinib",
+   "role": "hard_decoy",
+   "structural_rank": 23,
+   "structural_score": 0.6521739130434783,
+   "chemical_rank": 24,
+   "chemical_score": 0.09433962404727936,
+   "rank_delta": 1
+  },
+  {
+   "struct_id": "5345",
+   "name": "entrectinib",
+   "role": "hard_decoy",
+   "structural_rank": 24,
+   "structural_score": 0.6470588235294118,
+   "chemical_rank": 3,
+   "chemical_score": 0.18446601927280426,
+   "rank_delta": -21
+  },
+  {
+   "struct_id": "4187",
+   "name": "crizotinib",
+   "role": "hard_decoy",
+   "structural_rank": 25,
+   "structural_score": 0.6363636363636364,
+   "chemical_rank": 33,
+   "chemical_score": 0.07692307978868484,
+   "rank_delta": 8
+  },
+  {
+   "struct_id": "809",
+   "name": "desalkylflurazepam",
+   "role": "decoy",
+   "structural_rank": 26,
+   "structural_score": 0.6153846153846154,
+   "chemical_rank": 14,
+   "chemical_score": 0.12345679104328156,
+   "rank_delta": -12
+  },
+  {
+   "struct_id": "3565",
+   "name": "xyloylsulfamine",
+   "role": "decoy",
+   "structural_rank": 27,
+   "structural_score": 0.5882352941176471,
+   "chemical_rank": 10,
+   "chemical_score": 0.1315789520740509,
+   "rank_delta": -17
+  },
+  {
+   "struct_id": "1705",
+   "name": "meproscillarin",
+   "role": "decoy",
+   "structural_rank": 28,
+   "structural_score": 0.5454545454545454,
+   "chemical_rank": 31,
+   "chemical_score": 0.0810810774564743,
+   "rank_delta": 3
+  },
+  {
+   "struct_id": "93",
+   "name": "adinazolam",
+   "role": "decoy",
+   "structural_rank": 29,
+   "structural_score": 0.5,
+   "chemical_rank": 29,
+   "chemical_score": 0.08888889104127884,
+   "rank_delta": 0
+  },
+  {
+   "struct_id": "5419",
+   "name": "filgotinib",
+   "role": "hard_decoy",
+   "structural_rank": 30,
+   "structural_score": 0.5,
+   "chemical_rank": 25,
+   "chemical_score": 0.09375,
+   "rank_delta": -5
+  },
+  {
+   "struct_id": "3129",
+   "name": "dihydroemetine",
+   "role": "decoy",
+   "structural_rank": 31,
+   "structural_score": 0.47058823529411764,
+   "chemical_rank": 37,
+   "chemical_score": 0.06382978707551956,
+   "rank_delta": 6
+  },
+  {
+   "struct_id": "1832",
+   "name": "mometasone furoate",
+   "role": "decoy",
+   "structural_rank": 32,
+   "structural_score": 0.45,
+   "chemical_rank": 35,
+   "chemical_score": 0.0714285746216774,
+   "rank_delta": 3
+  },
+  {
+   "struct_id": "1228",
+   "name": "flutropium",
+   "role": "decoy",
+   "structural_rank": 33,
+   "structural_score": 0.42105263157894735,
+   "chemical_rank": 16,
+   "chemical_score": 0.11764705926179886,
+   "rank_delta": -17
+  },
+  {
+   "struct_id": "3999",
+   "name": "perflubutane",
+   "role": "decoy",
+   "structural_rank": 34,
+   "structural_score": 0.4166666666666667,
+   "chemical_rank": 40,
+   "chemical_score": 0.0,
+   "rank_delta": 6
+  },
+  {
+   "struct_id": "2960",
+   "name": "mifamurtide",
+   "role": "decoy",
+   "structural_rank": 35,
+   "structural_score": 0.41025641025641024,
+   "chemical_rank": 38,
+   "chemical_score": 0.05882352963089943,
+   "rank_delta": 3
+  },
+  {
+   "struct_id": "2103",
+   "name": "perflunafene",
+   "role": "decoy",
+   "structural_rank": 36,
+   "structural_score": 0.4,
+   "chemical_rank": 41,
+   "chemical_score": 0.0,
+   "rank_delta": 5
+  },
+  {
+   "struct_id": "362",
+   "name": "bezafibrate",
+   "role": "decoy",
+   "structural_rank": 37,
+   "structural_score": 0.36363636363636365,
+   "chemical_rank": 17,
+   "chemical_score": 0.1071428582072258,
+   "rank_delta": -20
+  },
+  {
+   "struct_id": "2811",
+   "name": "vecuronium",
+   "role": "decoy",
+   "structural_rank": 38,
+   "structural_score": 0.3333333333333333,
+   "chemical_rank": 39,
+   "chemical_score": 0.04716981202363968,
+   "rank_delta": 1
+  },
+  {
+   "struct_id": "3959",
+   "name": "hydrocortisone butyrate",
+   "role": "decoy",
+   "structural_rank": 39,
+   "structural_score": 0.3157894736842105,
+   "chemical_rank": 36,
+   "chemical_score": 0.06730769574642181,
+   "rank_delta": -3
+  },
+  {
+   "struct_id": "1245",
+   "name": "fosinopril",
+   "role": "decoy",
+   "structural_rank": 40,
+   "structural_score": 0.29411764705882354,
+   "chemical_rank": 26,
+   "chemical_score": 0.09345794469118118,
+   "rank_delta": -14
+  },
+  {
+   "struct_id": "1067",
+   "name": "estriol succinate",
+   "role": "decoy",
+   "structural_rank": 41,
+   "structural_score": 0.25,
+   "chemical_rank": 27,
+   "chemical_score": 0.09183673560619354,
+   "rank_delta": -14
+  }
+ ],
+ "caveat": "site engagement is a structural prioritisation signal. It is not evidence of binding, efficacy or clinical suitability."
+}

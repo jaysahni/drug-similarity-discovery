@@ -1,0 +1,151 @@
+{
+ "what": "the measurement behind departing from PROJECT_GOAL.md F3",
+ "question": "does a pocket constraint help or hurt discrimination?",
+ "finding": "constraining forces every ligand into the site: the negative control (aspirin) scores nearly as well as the true binder. Unconstrained, the control separates and the run is cheaper.",
+ "cutoff_a": 4.5,
+ "numbering": "author (auth_seq_id)",
+ "probes": [
+  {
+   "probe": "axitinib_constrained",
+   "workflow_uuid": "99a6db37-a5c4-4129-b75b-0e4a2a251ba1",
+   "status": "Status.COMPLETED_OK",
+   "credits_charged": 13.09,
+   "elapsed_s": 261.8,
+   "pocket_constrained": true,
+   "scores": {
+    "ptm": 0.915,
+    "iptm": 0.992,
+    "avg_lddt": 0.886,
+    "confidence_score": 0.908
+   },
+   "n_engaged": 20,
+   "n_on_pocket": 16,
+   "pocket_size": 17,
+   "engaged_auth": [
+    840,
+    848,
+    866,
+    867,
+    868,
+    885,
+    889,
+    899,
+    914,
+    916,
+    917,
+    918,
+    919,
+    920,
+    921,
+    922,
+    1035,
+    1045,
+    1046,
+    1047
+   ]
+  },
+  {
+   "probe": "aspirin_constrained",
+   "workflow_uuid": "6ba472a2-aeb6-429c-8d76-02599c691090",
+   "status": "Status.COMPLETED_OK",
+   "credits_charged": 11.11,
+   "elapsed_s": 222.1,
+   "pocket_constrained": true,
+   "scores": {
+    "ptm": 0.874,
+    "iptm": 0.965,
+    "avg_lddt": 0.855,
+    "confidence_score": 0.877
+   },
+   "n_engaged": 14,
+   "n_on_pocket": 11,
+   "pocket_size": 17,
+   "engaged_auth": [
+    840,
+    841,
+    848,
+    866,
+    868,
+    885,
+    899,
+    916,
+    917,
+    1035,
+    1045,
+    1046,
+    1047,
+    1050
+   ]
+  },
+  {
+   "probe": "axitinib_free",
+   "workflow_uuid": "5cba030d-cf98-4100-8616-fdbcea2607bd",
+   "status": "Status.COMPLETED_OK",
+   "credits_charged": 5.1,
+   "elapsed_s": 102.0,
+   "pocket_constrained": false,
+   "scores": {
+    "ptm": 0.901,
+    "iptm": 0.991,
+    "avg_lddt": 0.866,
+    "confidence_score": 0.891
+   },
+   "n_engaged": 20,
+   "n_on_pocket": 16,
+   "pocket_size": 17,
+   "engaged_auth": [
+    840,
+    848,
+    866,
+    867,
+    868,
+    885,
+    889,
+    899,
+    914,
+    916,
+    917,
+    918,
+    919,
+    920,
+    921,
+    922,
+    1035,
+    1045,
+    1046,
+    1047
+   ]
+  },
+  {
+   "probe": "aspirin_free",
+   "workflow_uuid": "49f61e86-64b2-4609-a4b5-405212e07367",
+   "status": "Status.COMPLETED_OK",
+   "credits_charged": 5.73,
+   "elapsed_s": 114.6,
+   "pocket_constrained": false,
+   "scores": {
+    "ptm": 0.931,
+    "iptm": 0.847,
+    "avg_lddt": 0.833,
+    "confidence_score": 0.836
+   },
+   "n_engaged": 12,
+   "n_on_pocket": 6,
+   "pocket_size": 17,
+   "engaged_auth": [
+    868,
+    885,
+    888,
+    889,
+    892,
+    898,
+    899,
+    1019,
+    1026,
+    1044,
+    1045,
+    1046
+   ]
+  }
+ ]
+}

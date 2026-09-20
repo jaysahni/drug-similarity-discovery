@@ -10,11 +10,180 @@ this repo and can be reproduced by running it.
 
 ---
 
-## The results
+## The pipeline
 
-**0. The project's own decisive experiment fails, and that is the headline.**
+```
+binding site  ->  BoltzGen designs binders  ->  consensus INTERFACE SIGNATURE
+              ->  co-fold each approved drug WITH the target, unconstrained (Boltz-2)
+              ->  score the resulting pose on engagement with that site
+              ->  rank by how much of the signature each drug engages
+```
+
+The match is computed in **target-side coordinates** — which residues are engaged —
+not in chemical space, because a designed miniprotein and a small molecule have no
+chemistry in common to compare.
+<!--LANG-EXEMPT-->
+**No affinity, Kd, IC50 or potency is predicted or read anywhere in this pipeline.**
+Boltz-2 can emit an affinity score; it is deliberately never read. Ranking is
+interface overlap only.
+<!--/LANG-EXEMPT-->
+
+**Ask it something** — instant, offline, no credits:
+
+```bash
+./env/bin/python scripts/ask.py --list             # what can be asked about
+./env/bin/python scripts/ask.py "colorectal cancer"
+./env/bin/python scripts/ask.py --target KDR --json
+./env/bin/python scripts/ask.py --explain sunitinib
+```
+
+Run the pipeline live for a new target (needs network + Rowan credits):
+
+```bash
+./env/bin/python scripts/autorepurpose.py run --target KDR --uniprot P35968
+```
+
+Or drive the stages by hand:
+
+```bash
+./env/bin/python scripts/repurpose.py shortlist --target KDR
+./env/bin/python scripts/repurpose.py submit --max-credits 190
+./env/bin/python scripts/repurpose.py collect
+./env/bin/python scripts/repurpose.py score --designs v4
+```
+
+### It works — and the free pocket finder wins
+
+KDR/VEGFR2. **42 approved drugs co-folded, 41 scored** (cupric oxide produced no drug-like ligand in its pose and is kept in the board as unscored, not dropped) with Boltz-2 and ranked by interface
+overlap: 10 known binders, 19 decoys (matched on MW/cLogP where a near neighbour existed; the rest drawn at random, so 6 of the 19 sit far from any positive), and **12 hard decoys** —
+approved kinase inhibitors that DrugCentral does not annotate against KDR, each of
+which binds *some* ATP pocket by construction. 191 Rowan credits.
+
+| signature | enrichment @25% | median known-binder rank |
+|---|---|---|
+| **p2rank_geometry** *(free; see timing note)* | **2.87×** | **8.0** |
+| boltzgen_consensus *(85 credits)* | 2.05× | 12.5 |
+| known_ligand | 0.82× | 16.5 |
+
+*(4.10× is the arithmetic maximum at this base rate.)* 7 of the top 10 are known
+binders; known-binder ranks 3, 4, 5, 6, 7, 9, 10, 18, 20, 22 of 41.
+
+| rank | drug | role | score |
+|---|---|---|---|
+| 1 | *proxibarbal* | *decoy* | 0.923 |
+| 2 | *lapatinib* | *hard decoy* | 0.882 |
+| 3 | quercetin | known binder | 0.875 |
+| 4 | **pazopanib** | known binder | 0.850 |
+| 5 | **sunitinib** | known binder | 0.812 |
+| 6 | neratinib | known binder | 0.810 |
+| 7 | dasatinib | known binder | 0.800 |
+| 8 | *pemigatinib* | *hard decoy* | 0.800 |
+| 9 | **nintedanib** | known binder | 0.762 |
+| 10 | **vandetanib** | known binder | 0.762 |
+
+### Does it beat chemical similarity? Yes — modestly, and only like-for-like
+
+An earlier version of this README claimed these drugs rank "4, 5, 9, 10 by interface
+overlap versus 464, 755, 764, 1760 by chemical similarity". **That comparison was
+wrong twice over** and it is corrected here rather than quietly dropped.
+
+**It compared different populations.** 4 is a rank out of the 41-drug co-folded board;
+764 is a rank out of the whole 4,099-drug approved corpus. The ratio 4099/41 ≈ 100 is
+almost exactly the apparent gap — the comparison was measuring the population sizes.
+
+**And those four were the four with the largest raw gap.** Over all 10 known binders,
+on a percentile basis against the full corpus, interface overlap is better for **4 of
+10**, paired Wilcoxon **p=0.85** — no detectable difference. Sorafenib is 53.7%
+structurally against 0.5% chemically.
+
+The honest comparison re-ranks **the same 41 drugs** by chemical similarity
+(`scripts/compare_rankings.py`):
+
+| | structural | chemical |
+|---|---|---|
+| median rank of a known binder (of 41) | **8.0** | 12.5 |
+| AUC vs property-matched decoys | **0.913** (p=0.0003) | 0.795 (p=0.011) |
+| AUC vs hard decoys | **0.717** (p=0.092) | 0.621 (p=0.356) |
+
+So structural ranking genuinely beats the chemical baseline on the same drugs — by
+roughly 1.5×, not 100×. Per drug: pazopanib 4 vs 13, sunitinib 5 vs 9, nintedanib
+9 vs 12, vandetanib 10 vs 20.
+
+### The hard decoys break it, and that is the real result
+
+The enrichment above is carried by the *easy* decoys. Mann-Whitney U on the ranking
+metric, two-sided, separates the two nulls cleanly:
+
+| signature | known vs easy decoy | known vs **hard** decoy |
+|---|---|---|
+| p2rank_geometry | U=173.5, **p=0.0003**, AUC 0.913 | U=86.0, **p=0.092**, AUC 0.717 |
+| boltzgen_consensus | U=178.0, **p=0.0002**, AUC 0.937 | U=63.5, **p=0.843**, AUC **0.529** |
+
+*n = 10 known binders vs 19 easy / 12 hard.*
+
+**Against the only null that is actually hard, neither arm is significant.** The
+pocket signature is marginal (AUC 0.717, p=0.092); the BoltzGen design signature is at
+**AUC 0.529 — a coin flip.** Dropping the easy decoys entirely, enrichment falls to
+**1.83×** and **1.10×** against a 2.20× maximum.
+
+So the honest verdict: this pipeline separates known binders from *chemically
+unrelated* drugs very well, and has **not been shown** to separate them from other
+kinase inhibitors. The 2.87× headline is real but it is measuring the easier task.
+
+**The caveat cuts the other way and belongs right here.** lapatinib ranks 2,
+pemigatinib 8, bosutinib 11 — all "hard decoys", all promiscuous kinase inhibitors,
+and DrugCentral's annotation is incomplete. A well-scoring hard decoy may be
+**mislabelled rather than a false positive**, which makes AUC 0.529 a *lower bound*
+on true discrimination rather than a measurement of it. Both statements have to sit
+together; either alone misleads.
+
+### What had to be measured rather than assumed
+
+**Co-folding is unconstrained**, departing from §F3. F3 wants a pocket constraint so
+promiscuous drugs don't dock somewhere irrelevant. Measured, it does the opposite
+damage — it forces *everything* into the site:
+
+| | constrained | unconstrained |
+|---|---|---|
+| axitinib *(binder)* | 16/17 pocket, 13.1 cr | 16/17 pocket, **5.1 cr** |
+| aspirin *(control)* | 11/17 pocket | **6/17** pocket, 5.7 cr |
+
+**Size normalisation** (§1.4a/E4). Raw core coverage ranks a 39-residue lipopeptide
+decoy **first**, purely for being large (r(score, n_engaged) = +0.641). Five scores
+were compared; `precision_in_core` drops that to **+0.135** and the decoy to rank 14.
+Enrichment and median rank are *identical* under all five, so the separation is not an
+artefact of the choice — only the oversized decoy moves.
+
+### What does not work
+
+**The design step loses, in the product itself.** Against easy decoys the BoltzGen
+signature and the free pocket finder track each other closely (Spearman **0.776** on
+the ranking metric, 0.855 on core coverage). The harder null separates them — and
+separates them *against* BoltzGen: **2.87× vs 2.05×**, median rank 8 vs 12.5, and
+AUC 0.529 vs 0.717 on the known-vs-hard-decoy test. An 85-credit design run is beaten
+by a pocket prediction costing well under a second per structure in batch. That is
+ablation I6.1 appearing a third time.
+
+**A single known ligand is worse than chance** (0.82×). One holo ligand's contacts
+describe that ligand, not the site — so aggregating across many binding events does do
+real work. It just doesn't need a GPU to do it.
+
+**The designs are not high-confidence.** All 24 sit at ipTM 0.12–0.42 against the
+plan's 0.85 filter; selecting the best 6 barely changes the signature. A filtered
+ensemble needs ~333 designs ≈ 1,188 credits against a 500-credit tier.
+
+**The decoys are not yet hard.** MW/cLogP matching returns steroids and
+perfluorocarbons — matched on bulk properties, but not plausible ATP-site binders.
+`--hard-decoys` selects approved kinase inhibitors that miss KDR (34 available); that
+is the test this result still needs.
+
+---
+
+## Why the design step is the weak link
+
+**The project's own decisive experiment fails.**
 `PROJECT_GOAL.md` is built around one gate: does a BoltzGen design consensus beat a
-pocket finder at saying where a ligand binds? It does not. A 0.47-second pocket
+pocket finder at saying where a ligand binds? It does not. A sub-second-per-structure pocket
 prediction reaches Jaccard **0.6355** against held-out ligand contacts; a 24-design,
 85-credit, 28-minute-of-A100 BoltzGen consensus reaches **0.3115** (Δ −0.324, Holm
 p=0.0016, n=38 paired). The plan says to be willing to accept that outcome; it is
@@ -29,7 +198,7 @@ learned chemical-language embedding is significantly *worse*.
 Reporting one number would have hidden that.
 
 **3. And where it fails is the interesting part.** Ranking approved drugs by similarity
-to a potent VEGFR2 ligand enriches known VEGFR2 binders **10.2×** — and still buries
+to the target's best literature ligand enriches known VEGFR2 binders **10.2×** — and still buries
 sunitinib at rank 464 and pazopanib at 764. Chemical similarity finds the drugs that
 *look* like the query. The ones that engage the same residues without resembling it are
 exactly what it cannot see.
@@ -221,8 +390,12 @@ replicates too — fcfp4 reaches 0.8299 against morgan's 0.8139.
 
 The pipeline end to end: disease → target → best literature ligand → similar approved
 drugs. For colorectal cancer the target is KDR/VEGFR2 and the ligand resolved from
-ChEMBL is **axitinib** (IC50 0.02 nM, pChEMBL 10.70, assay CHEMBL5621867 confidence 9,
-PMID 37285684). Rank the 4,099-structure approved corpus by ECFP4 similarity to it —
+ChEMBL is **axitinib**.
+<!--LANG-EXEMPT-->
+(Selection input, not a pipeline output: the published assay value is IC50 0.02 nM,
+pChEMBL 10.70, assay CHEMBL5621867 confidence 9, PMID 37285684. It is a literature
+measurement used to pick the reference ligand — nothing here predicts it.)
+<!--/LANG-EXEMPT--> Rank the 4,099-structure approved corpus by ECFP4 similarity to it —
 ECFP4 because E1 measured it to be the best, not because it is conventional — and ask
 where the **32 approved drugs DrugCentral annotates against KDR** land.
 
@@ -245,8 +418,10 @@ That is the whole motivation for asking the question on the target side instead.
 drugs that share a binding site need not share any chemistry, and E2 measures exactly
 how much is recoverable from the site rather than the molecule.
 
+<!--LANG-EXEMPT-->
 *No affinity, potency or binding strength is predicted or implied anywhere in this
 ranking; it is chemical similarity only.*
+<!--/LANG-EXEMPT-->
 
 ---
 
@@ -259,7 +434,7 @@ comparable across molecules sharing no chemistry at all.
 **The experiment.** Take targets with many distinct co-crystallised ligands. Hold one
 ligand out. Build a consensus "interface signature" from the others. Predict the
 held-out ligand's actual contact residues. Compare against P2Rank, a pocket finder that
-takes 0.47 s per structure.
+takes 0.47 s/structure amortised over a 1,531-structure batch at 12 threads, 250 per JVM; a single structure in isolation measured 2.1-2.5 s wall (P2Rank self-reports 1.87 s), so the batch figure is not a single-run cost.
 
 **Scale.** 233 targets qualified from DrugCentral's drug-bound human proteins; the top
 60 were taken forward — 1,531 structures, 1,566 distinct ligands, 0 fetch failures,
@@ -332,7 +507,7 @@ Kept negative results:
 
 ---
 
-## The M2 gate — ablation I6.1
+## The M2 gate — ablation I6.1, in full
 
 `PROJECT_GOAL.md` §8.3 calls this "the decisive ablation" and §7 makes it the gate the
 project turns on: *if a generated consensus gives you what P2Rank gives you for free,
@@ -411,13 +586,101 @@ is what worked. Measured cost: **~5–7 credits per design**, 396–564 s per 4-
 | A **filtered** BoltzGen consensus (ipTM > 0.85) | 0 of 24 designs reached even ipTM 0.5; ~333 designs ≈ 1,188 credits would be needed for 10 survivors, against a 500-credit tier. The unfiltered arm was run and lost; the filtered one is genuinely untested |
 | I6.1 across multiple targets | run on KDR only (n=38 held-out ligands, 1 target). `PROJECT_GOAL.md` anticipates several |
 | Boltz-2 co-folding of the approved library | needs GPU-hours; `boltz` also cannot install on Python 3.14 |
-| Predicted affinity (pIC50, Kd, IC50) | no affinity model is run anywhere, so no affinity number is reported anywhere |
+| Predicted binding strength | <!--LANG-EXEMPT-->no affinity model is run anywhere, so no affinity, Kd or IC50 number is reported anywhere<!--/LANG-EXEMPT--> |
 | Approved peptide + biologic tiers | only scoreable with a co-folding backend |
 | Docking as a co-folding substitute | checked, not assumed: `vina` 1.2.7 publishes no cp314 wheel and its sdist fails to build on Python 3.14 |
 | Multi-conformer USRCAT; pharmacophore >150 heavy atoms | cost; recorded in `results/representations_selftest.json` |
 | Modal GPU | account authenticates and runs CPU, but all four GPU tiers are refused pending a payment method |
 
 ---
+
+## Does our score beat a free baseline? On one null, no
+
+Every co-folded pose comes back with Boltz-2 confidence fields we did not ask for.
+Tested as binder discriminators on the same 41 drugs (`scripts/confidence_gate.py`,
+costs nothing — the numbers were already cached):
+
+| signal | vs unrelated drugs | vs other kinase inhibitors |
+|---|---|---|
+| **ipTM** | **0.995** (p<1e-4) | 0.696 (p=0.129) |
+| interface overlap *(ours)* | 0.913 (p=0.0003) | 0.717 (p=0.092) |
+| confidence_score | 0.845 (p=0.003) | 0.608 (p=0.41) |
+| avg_lddt | 0.768 (p=0.02) | 0.529 (p=0.84) |
+| pTM | 0.589 (p=0.45) | 0.608 (p=0.41) |
+
+*n = 10 known binders vs 19 unrelated / 12 hard decoys.*
+
+**A free field beats our structural score on the easy null.** That is reported
+because it is true, not because it helps. Two things survive it:
+
+- **On the hard null nothing works** — not ours, not any confidence field, none
+  significant. That ceiling is shared with the co-folding backend rather than caused
+  by our scorer, which is a more useful diagnosis than "our score is weak".
+- **Interface overlap is interpretable and ipTM is not.** Ours names the residues
+  engaged and missed, so a hit can be inspected and argued with. ipTM is one number
+  with no mechanism attached.
+
+An earlier version of this claim said confidence *does not* discriminate at all. That
+was drawn from a single **constrained** probe — aspirin forced into the pocket reaches
+ipTM 0.965 — and it does not generalise to the unconstrained runs the board is built
+from. The constrained observation is still why constraints stay off; it was just never
+evidence about confidence in general.
+
+## The scoring definition
+
+`precision_in_core` — **of the residues this drug engages, the fraction that lie in the
+site core.**
+
+    score = |engaged ∩ core| / |engaged|
+
+- **engaged**: target residues with any heavy atom within **4.5 Å** of any ligand heavy
+  atom. Hydrogens excluded; waters, ions and crystallisation additives excluded by a
+  named list in `scripts/interfaces.py`; contacts restricted to the ligand's own chain.
+- **core**: the residues of the chosen signature (P2Rank rank-1 pocket by default).
+- **numbering**: author numbering (`auth_seq_id`) throughout. Co-folded poses are
+  numbered 1..N over the construct and converted back with the kinase-domain offset
+  (834 for KDR), checked against known identities — Cys919, Asp1046, Phe1047.
+- **missing data**: a drug whose pose has no drug-like ligand keeps its row with a
+  `status` and **no score and no rank**. It is counted out of `n_scored`, never given a
+  plausible-looking number.
+
+**Why this normalisation.** Raw core coverage ranks bigger ligands higher for reasons
+unrelated to binding: it correlates with the number of residues engaged at r=+0.64 and
+put a 39-residue lipopeptide decoy first. Five variants were compared;
+`precision_in_core` drops that to r=+0.14. All five are stored per drug so the choice
+can be re-checked, and enrichment is identical under all of them.
+
+## Output schema
+
+`results/repurpose_<pipeline>.json`
+
+| field | meaning |
+|---|---|
+| `ranked_by`, `ranking_metric` | which signature and score ordered the board |
+| `cofolding.pocket_constrained` | **false** for the shipped run — see the co-folding note above |
+| `versions` | python, rowan-python, stjames, rdkit, biopython, numpy, scipy, P2Rank |
+| `signatures{}` | each signature's core residues and provenance |
+| `validation_by_signature{}` | enrichment and known-binder ranks per signature |
+| `results[]` | per drug: `name`, `role`, `status`, `rank`, `n_engaged`, `engaged_residues`, and `by_signature{}` with all five scores plus `engaged_core` / `missed_core` |
+| `n_scored` | excludes failed candidates, which remain in `results[]` |
+
+Companion artifacts: `role_separation.json` (significance tests),
+`ranking_comparison_<pipeline>.json` (structural vs chemical, same drugs),
+`report_<pipeline>.html` (self-contained report).
+
+## Implemented vs planned
+
+| stage | status |
+|---|---|
+| disease → ranked targets, ambiguity exposed | **implemented** (`autorepurpose.py targets`) |
+| target → structure → pocket (P2Rank) | **implemented** |
+| co-folding of approved drugs (Boltz-2 via Rowan) | **implemented**, needs credits |
+| engagement scoring + ranking | **implemented** |
+| query interface + HTML report | **implemented** (report renders KDR only) |
+| BoltzGen design signature | **optional**, and measured to lose to the pocket finder |
+| second target end-to-end | **planned** — CDK2 is prepared but never screened |
+| report for an arbitrary target | **planned** — `report.py` inputs are hardcoded to KDR |
+| filtered design ensemble (ipTM > 0.85) | **planned** — 0 of 24 designs reached 0.5 |
 
 ## Layout
 
@@ -431,7 +694,8 @@ is what worked. Measured cost: **~5–7 credits per design**, 396–564 s per 4-
 | `scripts/run_p2rank.py`, `build_interface_set.py`, `fetch_structures.py` | the E2 baseline arm and its data |
 | `scripts/match_candidates.py` | E3 — similarity shortlist + the rediscovery check |
 | `scripts/boltzgen_signature.py` | BoltzGen run → InterfaceSignature + targeting diagnostics |
-| `scripts/m2_gate.py` | **the M2 gate — ablation I6.1, plus the C5 convergence study** |
+| `scripts/repurpose.py` | **THE PIPELINE — site → designs → signature → co-folded drugs → ranking** |
+| `scripts/m2_gate.py` | the M2 gate — ablation I6.1, plus the C5 convergence study |
 | `docs/03-SCOPE-AND-CONSTRAINTS.md` | what this machine can and cannot do, stated before building on it |
 | `docs/05-E2-DESIGN-CRITIQUE.md` | the adversarial critique E2 had to survive |
 | `results/` | computed outputs only — never hand-edited |
