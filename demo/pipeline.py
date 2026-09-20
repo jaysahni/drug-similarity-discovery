@@ -18,26 +18,59 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 from pathlib import Path
 
 from demo import contacts, library, nova
 
 REPO = Path(__file__).resolve().parent.parent
-OUT = REPO / "results" / "demo" / "cdk2"
-STRUCTURES = OUT / "structures"
 
 # ---------------------------------------------------------------------------
 # target configuration
 # ---------------------------------------------------------------------------
 
-TARGET = {
-    "symbol": "CDK2",
-    "uniprot": "P24941",
-    "pdb_id": "6Q4G",
-    "chain": "A",
+TARGETS = {
     # Same design structure the heavy pipeline used (results/m2_gate_CDK2.json),
     # so the demo's signature is comparable to the one it reports.
+    "cdk2": {
+        "symbol": "CDK2",
+        "uniprot": "P24941",
+        "pdb_id": "6Q4G",
+        "chain": "A",
+        "out": "cdk2",
+    },
+    # Thrombin, for the direct-matching arms. Chosen because it is the one
+    # target where BOTH arms have a real approved positive control: bivalirudin
+    # (20 aa, data/approved_biologics.csv) for the peptide arm, and argatroban /
+    # ximelagatran / dabigatran etexilate (moa_targets = F2) for the small
+    # molecule arm.
+    #
+    # 1PPB is the canonical Bode structure: chains H (catalytic heavy chain, 259
+    # residues = UniProt 364-622) and L (light chain), with PPACK in the active
+    # site as a HETATM that stage 2 strips. Structures like 4UD9/4UE7/5AFY were
+    # rejected: they carry a hirudin fragment as a POLYMER chain, which
+    # remove_heterogens does not remove, so designing against them would repeat
+    # the occupied-pocket mistake with a peptide instead of a ligand.
+    "thrombin": {
+        "symbol": "F2",
+        "uniprot": "P00734",
+        "pdb_id": "1PPB",
+        "chain": "H",
+        "out": "thrombin",
+    },
 }
+
+
+def _select_target() -> dict:
+    name = os.environ.get("DEMO_TARGET", "cdk2").lower()
+    if name not in TARGETS:
+        raise SystemExit(f"DEMO_TARGET={name!r} unknown; choose from {sorted(TARGETS)}")
+    return TARGETS[name]
+
+
+TARGET = _select_target()
+OUT = REPO / "results" / "demo" / TARGET["out"]
+STRUCTURES = OUT / "structures"
 
 N_DESIGNS = 12          # heavy run used 24 at 55.14 credits; half that here
 DESIGN_BUDGET = 12
@@ -167,7 +200,7 @@ def stage_site() -> dict:
     annotated = set(research["annotated_site"]["residue_ids_author"])
     rowan = nova.rowan_client()
 
-    cached_protein = nova.cached("protein_6q4g")
+    cached_protein = nova.cached(f'protein_{TARGET["pdb_id"]}')
     if cached_protein:
         raw_uuid = cached_protein["uuid"]
     else:
@@ -175,7 +208,7 @@ def stage_site() -> dict:
             TARGET["pdb_id"], name=f'{TARGET["symbol"]} {TARGET["pdb_id"]} demo'
         )
         raw_uuid = str(protein.uuid)
-        nova.cache("protein_6q4g", {"uuid": raw_uuid})
+        nova.cache(f'protein_{TARGET["pdb_id"]}', {"uuid": raw_uuid})
 
     # 6Q4G is a HOLO structure, and create_protein_from_pdb_id keeps its ligand
     # and waters. Detecting pockets on an occupied pocket, then designing into
@@ -188,7 +221,7 @@ def stage_site() -> dict:
     index_to_author = _residue_index_map(protein_uuid)
 
     record = nova.run_workflow(
-        "pockets",
+        f'pockets_{TARGET["out"]}',
         "submit_pocket_detection_workflow",
         label="pocket detection",
         max_credits=5,
@@ -274,7 +307,7 @@ def _stripped_protein(raw_uuid: str) -> str:
     the apo one kept under its own uuid -- the holo structure is still needed by
     the validation path, which reads its ligand.
     """
-    hit = nova.cached("protein_stripped")
+    hit = nova.cached(f'protein_stripped_{TARGET["out"]}')
     if hit:
         return hit["uuid"]
 
@@ -292,7 +325,7 @@ def _stripped_protein(raw_uuid: str) -> str:
         timeout=900.0,
     )
     del raw
-    nova.cache("protein_stripped", {"uuid": str(apo.uuid), "from": raw_uuid})
+    nova.cache(f'protein_stripped_{TARGET["out"]}', {"uuid": str(apo.uuid), "from": raw_uuid})
     return str(apo.uuid)
 
 
@@ -304,7 +337,7 @@ def _residue_index_map(protein_uuid: str) -> dict[int, int]:
     a constant offset gives author numbering. The map is therefore recovered by
     aligning the structure's sequence to the canonical one.
     """
-    pdb = _download_structure(protein_uuid, "target")
+    pdb = _download_structure(protein_uuid, f'target_{TARGET["out"]}')
     sequence = read("01_research.json")["uniprot"]["sequence"]
     numbers, _ = contacts.chain_sequence(pdb, TARGET["chain"])
     to_author = contacts.align_to_reference(pdb, TARGET["chain"], sequence)
