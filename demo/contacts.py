@@ -37,6 +37,11 @@ def parse_pdb(path: Path) -> tuple[dict, np.ndarray, list]:
         element = line[76:78].strip()
         if element == "H":
             continue
+        # Keep one alternate conformation. 6Q4G's ligand is modelled at two
+        # altlocs; counting both double-counts its atoms and lets a conformer
+        # the crystallographer ranked second contribute contacts.
+        if line[16] not in (" ", "A"):
+            continue
         xyz = [float(line[30:38]), float(line[38:46]), float(line[46:54])]
         resname = line[17:20].strip()
         chain = line[21].strip() or "A"
