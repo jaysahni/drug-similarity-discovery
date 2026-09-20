@@ -2,17 +2,25 @@ import {initialState, percentage, reconcile, rows, suppressed} from "./state.js"
 import {MolecularStage} from "./viewer.js";
 import {renderPipeline} from "./pipeline.js";
 import {newChat, addFolder, updateChat, removeChat, removeFolder, findSavedResult, saveResult, removeSavedResult, readWorkspace, writeWorkspace} from "./chats.js";
+import {exampleSteps, exampleStepTitles, findExample, matchExample, moleculeIn, renderExampleChips, renderExampleDetails, renderExampleStep, renderStructurePanel, structureBundle, structuresFor, validateExamples, validateStructures} from "./examples.js";
 
 const $ = selector => document.querySelector(selector);
 const escape = value => String(value ?? "").replace(/[&<>"']/g, c => ({"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"}[c]));
 const title = value => value.replaceAll("_", " ");
 const shortSource = {boltzgen_consensus: "BoltzGen consensus", p2rank_geometry: "Pocket geometry", known_ligand: "Known-ligand reference", hybrid: "Hybrid signature"};
-let bundle, manifest, state, stage, activeStep = "candidates", opened = false;
+// A saved analysis (bundle.json) is optional; the recorded worked examples (examples.json) always load.
+let bundle = null, manifest = null, examples = [], state, stage, activeStep = "candidates", opened = false;
+let exampleOpen = null, exampleStep = "disease";
+// Co-folded poses for the worked examples: optional, fetched once each, displayed only.
+let structures = null, exampleStage = null, exampleMolecule = null, exampleView = "binding_site";
+const poseCache = new Map();
 let workspace, storage, storageKey, storageWritable = true, organizerTarget = null;
 const currentChat = () => workspace.chats.find(c => c.id === workspace.activeId);
-const candidate = () => manifest.candidates.find(c => c.id === state.candidate);
-const isDemo = () => manifest.data_origin === "synthetic_fixture";
-const isReference = () => manifest.data_origin === "reference_example";
+const candidate = () => manifest?.candidates.find(c => c.id === state.candidate);
+const isDemo = () => manifest?.data_origin === "synthetic_fixture";
+const isReference = () => manifest?.data_origin === "reference_example";
+const openExampleRecord = () => exampleOpen ? findExample(examples, exampleOpen) : null;
+const POSE_COLORS = {target: "#cbd5e1", engaged: "#007f73", missed: "#b45309", ligand: "#2563eb", selected: "#7c3aed"};
 
 function shell() {
   $("#app").innerHTML = `
@@ -21,13 +29,14 @@ function shell() {
       <button class="new-chat" id="new-chat"><span>＋</span> New chat</button>
       <div class="chat-section-heading"><span>Chats</span><button id="new-folder" aria-label="New folder" title="New folder">＋ Folder</button></div>
       <div id="chat-list" class="chat-list" role="tablist" aria-label="Chats" aria-orientation="vertical"></div>
+      <section class="examples-section" aria-labelledby="examples-heading"><h2 id="examples-heading">Worked examples</h2><div id="example-list"></div></section>
       <section class="saved-results-section" aria-labelledby="saved-results-heading"><h2 id="saved-results-heading">Saved results</h2><div id="saved-results-list"></div></section>
       <div class="sidebar-bottom"><span class="avatar">R</span><div>Research workspace<small id="storage-status" role="status">Saved in this browser</small></div><span class="online-dot"></span></div>
     </aside>
     <div class="main-wrap"><header class="topbar"><span>Research <span class="slash">/</span> <span class="muted" id="thread-title">New chat</span></span><span class="preview-pill"><span></span> Preview</span></header>
     <dialog id="organizer" aria-labelledby="organizer-title"><form id="organizer-form"><h2 id="organizer-title"></h2><label for="organizer-name">Name</label><input id="organizer-name" maxlength="80" required autocomplete="off"><label id="folder-field" for="organizer-folder">Folder<select id="organizer-folder"></select></label><p id="organizer-note"></p><p id="organizer-error" role="alert"></p><div class="organizer-actions"><button type="button" id="organizer-delete" class="delete-action">Delete</button><button type="button" id="organizer-cancel">Cancel</button><button type="submit" class="primary">Save</button></div></form></dialog>
     <main id="main" class="content" tabindex="-1"><div id="chat-panel" role="tabpanel">
-      <section class="welcome" id="welcome"><h1>Disease Research</h1><p>Enter a disease to get started.</p></section>
+      <section class="welcome" id="welcome"><h1>Disease Research</h1><p>Enter a disease to get started, or open a recorded run.</p><div class="suggestions" id="example-chips">${renderExampleChips(examples)}</div></section>
       <section id="conversation" class="conversation" aria-label="Research conversation" aria-live="polite"></section>
       <section id="result" class="result" hidden>
         <div class="assistant-heading"><span class="assistant-avatar">r</span><b>Rebind</b><span id="origin-banner" class="tag"></span></div>
@@ -38,14 +47,20 @@ function shell() {
         </div>
         <details class="detail-disclosure" id="validation"><summary>Validation & run details</summary><div id="validation-content"></div></details><div class="result-actions"><a href="report.html" target="_blank" rel="noopener">Full report</a><a href="bundle.json" download>Download results</a></div>
       </section>
-      <div class="composer-wrap" id="composer-wrap"><form class="composer" id="chat-form"><label class="screen-reader" for="prompt">Disease or research question</label><textarea id="prompt" rows="2" maxlength="2000" placeholder="Enter a disease or question" required></textarea><div class="composer-bottom"><button type="submit" class="send" aria-label="Send research question">↑</button></div></form><p class="composer-note">Preview only. Live search and analysis are not connected.</p></div>
-
-
+      <section id="example-result" class="result" hidden>
+        <div class="assistant-heading"><span class="assistant-avatar">r</span><b>Rebind</b><span class="tag">Worked example · recorded run</span></div>
+        <div class="response-intro"><div class="result-heading"><h2 id="example-title"></h2><button id="save-example" type="button" aria-pressed="false">Save result</button></div><p id="example-headline"></p></div>
+        <div id="example-pipeline"></div>
+        <div id="example-panel" role="tabpanel" aria-labelledby="step-disease"></div>
+        <details class="detail-disclosure" id="example-details"><summary>Limits &amp; where the numbers live</summary><div id="example-details-content"></div></details>
+      </section>
+      <div class="composer-wrap" id="composer-wrap"><form class="composer" id="chat-form"><label class="screen-reader" for="prompt">Disease or research question</label><textarea id="prompt" rows="2" maxlength="2000" placeholder="Enter a disease or question" required></textarea><div class="composer-bottom"><button type="submit" class="send" aria-label="Send research question">↑</button></div></form><p class="composer-note">Preview only. Worked examples are recorded runs; live search and analysis are not connected.</p></div>
     </div></main></div>`;
   $("#chat-form").addEventListener("submit", submitPrompt);
   $("#prompt").addEventListener("keydown", event => {if (event.key === "Enter" && !event.shiftKey && !event.isComposing) {event.preventDefault(); $("#chat-form").requestSubmit();}});
   $("#new-chat").addEventListener("click", () => startChat());
   $("#save-result").addEventListener("click", toggleSavedResult);
+  $("#save-example").addEventListener("click", toggleSavedExample);
   $("#new-folder").addEventListener("click", () => openOrganizer('new-folder'));
   $("#organizer-form").addEventListener("submit", saveOrganizer);
   $("#organizer-cancel").onclick = () => $("#organizer").close();
@@ -78,9 +93,12 @@ function shell() {
       folder.collapsed = !folder.collapsed; persistChats(); renderChatList();
     }
     if (button.hasAttribute("data-open")) openSnapshot();
+    if (button.dataset.runExample) runExample(button.dataset.runExample);
+    if (button.dataset.openExample) openExample(button.dataset.openExample);
     if (button.dataset.candidate) {state.candidate = button.dataset.candidate; state.view = "candidate"; renderResults();}
     if (button.dataset.residue) {state.view = "binding_site"; state.residue = state.residue === button.dataset.residue ? null : button.dataset.residue; activeStep = "signature"; renderResults();}
     if (button.dataset.view) {state.view = button.dataset.view; renderResults();}
+    if (button.dataset.exampleView) {exampleView = button.dataset.exampleView; renderExample();}
   });
 
 }
@@ -98,7 +116,9 @@ function rememberChat() {
   chat.draft = $("#prompt").value;
   chat.snapshotOpen = opened;
   chat.activeStep = activeStep;
-  chat.viewState = {...state};
+  chat.viewState = state ? {...state} : null;
+  chat.exampleId = exampleOpen;
+  chat.exampleStep = exampleStep;
   persistChats();
 }
 function renderChatList() {
@@ -108,17 +128,28 @@ function renderChatList() {
     return `<section class="chat-folder"><div class="folder-heading"><button data-toggle-folder="${folder.id}" aria-expanded="${!folder.collapsed}" aria-controls="folder-${folder.id}"><span aria-hidden="true">${folder.collapsed ? '▸' : '▾'}</span><span class="folder-name">${escape(folder.name)}</span><small>${chats.length}</small></button><button data-new-in-folder="${folder.id}" aria-label="New chat in ${escape(folder.name)}" title="New chat in folder">＋</button><button data-edit-folder="${folder.id}" aria-label="Manage folder ${escape(folder.name)}">⋯</button></div><div id="folder-${folder.id}" ${folder.collapsed ? 'hidden' : ''}>${chats.map(row).join('') || '<p class="folder-empty">No chats yet</p>'}</div></section>`;
   }).join('') + `<div class="unfiled-chats">${workspace.folders.length ? '<div class="unfiled-label">Unfiled</div>' : ''}${workspace.chats.filter(c => !c.folderId).map(row).join('')}</div>`;
   $("#chat-panel").setAttribute('aria-labelledby', `chat-${workspace.activeId}`);
+  renderExampleList();
   renderSavedResults();
+}
+function renderExampleList() {
+  $("#example-list").innerHTML = examples.map(example => `<button type="button" class="example-row ${example.id === exampleOpen ? 'active' : ''}" data-run-example="${escape(example.id)}" title="${escape(example.disease)}"><span>${escape(example.disease)}</span><small>${escape(example.blurb ?? example.target.name)}</small></button>`).join('');
 }
 function renderSavedResults() {
   $("#saved-results-list").innerHTML = workspace.savedResults.map(result => `<div class="saved-result-row"><button class="saved-result-open" data-saved-result="${result.id}" title="${escape(result.name)}"><span>${escape(result.name)}</span><small>${escape(result.subtitle)}</small></button><button class="saved-result-remove" data-remove-saved="${result.id}" aria-label="Remove ${escape(result.name)} from saved results" title="Remove from saved results">×</button></div>`).join('') || '<p class="saved-results-empty">No saved results yet.</p>';
-  const saved = findSavedResult(workspace, manifest.run_id, candidate()?.id ?? null);
-  $("#save-result").textContent = saved ? 'Saved' : 'Save result';
-  $("#save-result").setAttribute('aria-pressed', String(Boolean(saved)));
-  $("#save-result").title = saved ? 'Remove from saved results' : 'Save this result and its current view';
+  if (manifest) {
+    const saved = findSavedResult(workspace, manifest.run_id, candidate()?.id ?? null);
+    $("#save-result").textContent = saved ? 'Saved' : 'Save result';
+    $("#save-result").setAttribute('aria-pressed', String(Boolean(saved)));
+    $("#save-result").title = saved ? 'Remove from saved results' : 'Save this result and its current view';
+  }
+  const example = openExampleRecord();
+  const savedExample = example ? findSavedResult(workspace, `example:${example.id}`, null) : null;
+  $("#save-example").textContent = savedExample ? 'Saved' : 'Save result';
+  $("#save-example").setAttribute('aria-pressed', String(Boolean(savedExample)));
+  $("#save-example").title = savedExample ? 'Remove from saved results' : 'Save this worked example and its current step';
 }
 function toggleSavedResult() {
-  if (!opened) return;
+  if (!opened || !manifest) return;
   const c = candidate();
   const saved = findSavedResult(workspace, manifest.run_id, c?.id ?? null);
   if (saved) removeSavedResult(workspace, saved.id);
@@ -130,9 +161,23 @@ function toggleSavedResult() {
   });
   persistChats(); renderSavedResults();
 }
+function toggleSavedExample() {
+  const example = openExampleRecord();
+  if (!example) return;
+  const saved = findSavedResult(workspace, `example:${example.id}`, null);
+  if (saved) removeSavedResult(workspace, saved.id);
+  else saveResult(workspace, {
+    runId: `example:${example.id}`, candidateId: null,
+    name: example.disease, subtitle: `${example.target.name} · ${exampleStepTitles[exampleStep]}`,
+    chatId: workspace.activeId, viewState: {step: exampleStep}, activeStep: exampleStep,
+  });
+  persistChats(); renderSavedResults();
+}
 function openSavedResult(resultId) {
   const result = workspace.savedResults.find(item => item.id === resultId);
-  if (!result || result.runId !== manifest.run_id) return;
+  if (!result) return;
+  const exampleId = result.runId.startsWith('example:') ? result.runId.slice('example:'.length) : null;
+  if (exampleId ? !findExample(examples, exampleId) : (!manifest || result.runId !== manifest.run_id)) return;
   rememberChat();
   let chat = workspace.chats.find(item => item.id === result.chatId);
   if (!chat) {
@@ -141,14 +186,22 @@ function openSavedResult(resultId) {
     result.chatId = chat.id;
   }
   workspace.activeId = chat.id;
-  chat.snapshotOpen = true;
-  chat.viewState = structuredClone(result.viewState);
-  chat.activeStep = result.activeStep;
-  if (!chat.messages.some(message => message.kind === 'snapshot')) chat.messages.push({kind:'snapshot', text:`Open ${result.name}.`});
+  if (exampleId) {
+    chat.snapshotOpen = false;
+    chat.exampleId = exampleId;
+    chat.exampleStep = result.activeStep;
+    if (!chat.messages.some(message => message.kind === 'example' && message.exampleId === exampleId)) chat.messages.push({kind:'example', text:`Open ${result.name}.`, exampleId});
+  } else {
+    chat.exampleId = null;
+    chat.snapshotOpen = true;
+    chat.viewState = structuredClone(result.viewState);
+    chat.activeStep = result.activeStep;
+    if (!chat.messages.some(message => message.kind === 'snapshot')) chat.messages.push({kind:'snapshot', text:`Open ${result.name}.`});
+  }
   const folder = workspace.folders.find(item => item.id === chat.folderId);
   if (folder) folder.collapsed = false;
   restoreChat(); persistChats();
-  $("#result").scrollIntoView({block:'start', behavior:'smooth'});
+  $(exampleId ? "#example-result" : "#result").scrollIntoView({block:'start', behavior:'smooth'});
 }
 function startChat(folderId = null) {
   rememberChat();
@@ -168,43 +221,128 @@ function switchChat(chatId) {
 }
 function messageHTML(message) {
   if (message.kind === 'snapshot') return `<div class="snapshot-message"><div class="user-message">${escape(message.text)}</div><button class="inline-action" data-open>Open saved results</button></div>`;
-  return `<div class="exchange"><div class="user-message">${escape(message.text)}</div><div class="assistant-heading"><span class="assistant-avatar">r</span><b>Rebind</b></div><p class="assistant-message">New disease analysis isn’t connected yet. ${isDemo() ? "Example results use synthetic data." : `A saved analysis for <strong>${escape(manifest.disease.name)}</strong> is available.`}</p><button class="inline-action" data-open>${isDemo() ? "Open example results" : "Open saved analysis"}</button></div>`;
+  if (message.kind === 'example') {
+    const example = findExample(examples, message.exampleId);
+    return `<div class="exchange"><div class="user-message">${escape(message.text)}</div><div class="assistant-heading"><span class="assistant-avatar">r</span><b>Rebind</b><span class="tag">Worked example</span></div><p class="assistant-message">${escape(example?.reply ?? 'This worked example is no longer available.')}</p>${example ? `<button class="inline-action" data-open-example="${escape(example.id)}">Show the run</button>` : ''}</div>`;
+  }
+  const saved = manifest ? (isDemo() ? "Example results use synthetic data." : `A saved analysis for <strong>${escape(manifest.disease.name)}</strong> is available.`) : "";
+  const offer = examples.length ? `<p class="assistant-message">No recorded run matches that. Recorded runs you can open:</p><div class="assistant-examples">${renderExampleChips(examples)}</div>` : "";
+  return `<div class="exchange"><div class="user-message">${escape(message.text)}</div><div class="assistant-heading"><span class="assistant-avatar">r</span><b>Rebind</b></div><p class="assistant-message">New disease analysis isn’t connected yet. ${saved}</p>${offer}${manifest ? `<button class="inline-action" data-open>${isDemo() ? "Open example results" : "Open saved analysis"}</button>` : ''}</div>`;
 }
 function renderConversation() {
   $("#conversation").innerHTML = currentChat().messages.map(messageHTML).join('');
 }
 function restoreChat() {
   const chat = currentChat();
-  const defaults = initialState(manifest);
-  state = {...defaults, ...chat.viewState};
-  if (!['candidate','binding_site'].includes(state.view)) state.view = defaults.view;
-  if (!['small_molecule','peptide','biologic'].includes(state.modality)) state.modality = defaults.modality;
-  if (!['all','known','novel'].includes(state.novelty)) state.novelty = 'all';
+  if (manifest) {
+    const defaults = initialState(manifest);
+    state = {...defaults, ...chat.viewState};
+    if (!['candidate','binding_site'].includes(state.view)) state.view = defaults.view;
+    if (!['small_molecule','peptide','biologic'].includes(state.modality)) state.modality = defaults.modality;
+    if (!['all','known','novel'].includes(state.novelty)) state.novelty = 'all';
+  }
   activeStep = chat.activeStep;
-  opened = chat.snapshotOpen;
+  exampleOpen = chat.exampleId && findExample(examples, chat.exampleId) ? chat.exampleId : null;
+  exampleStep = exampleStepTitles[chat.exampleStep] ? chat.exampleStep : 'disease';
+  opened = Boolean(manifest) && chat.snapshotOpen && !exampleOpen;
   $("#prompt").value = chat.draft;
   $("#thread-title").textContent = chat.name;
   renderConversation();
-  const started = chat.messages.length > 0 || opened;
+  const started = chat.messages.length > 0 || opened || Boolean(exampleOpen);
   $("#welcome").hidden = started;
   $("#main").classList.toggle('has-conversation', started);
   $("#result").hidden = !opened;
+  $("#example-result").hidden = !exampleOpen;
   renderChatList();
   if (opened) {setResultHeading(); renderResults();}
+  if (exampleOpen) renderExample();
 }
 function submitPrompt(event) {
   event.preventDefault();
-  const prompt = $("#prompt").value.trim();
+  runPrompt($("#prompt").value);
+}
+// A prompt naming a recorded disease or target opens that worked example, rendered as the run produced it.
+function runPrompt(text) {
+  const prompt = String(text).trim();
   if (!prompt) return;
   const chat = currentChat();
   if (!chat.named) {chat.name = prompt.slice(0, 80); chat.named = true;}
-  chat.messages.push({kind: 'prompt', text: prompt});
+  const match = matchExample(examples, prompt);
+  if (match) {
+    chat.messages.push({kind: 'example', text: prompt, exampleId: match.id});
+    chat.exampleId = match.id;
+    chat.exampleStep = 'disease';
+  } else {
+    chat.messages.push({kind: 'prompt', text: prompt});
+    chat.exampleId = null;
+  }
   chat.draft = '';
   chat.snapshotOpen = false;
   opened = false;
   restoreChat();
   persistChats();
-  $("#conversation").lastElementChild?.scrollIntoView({block:'start', behavior:'smooth'});
+  (match ? $("#example-result") : $("#conversation").lastElementChild)?.scrollIntoView({block:'start', behavior:'smooth'});
+}
+function runExample(id) {
+  const example = findExample(examples, id);
+  if (example) runPrompt(example.disease);
+}
+function openExample(id) {
+  const example = findExample(examples, id);
+  if (!example) return;
+  const chat = currentChat();
+  if (chat.exampleId !== id) {chat.exampleStep = 'disease'; exampleMolecule = null;}
+  chat.exampleId = id;
+  chat.snapshotOpen = false;
+  opened = false;
+  exampleOpen = id;
+  exampleStep = exampleStepTitles[chat.exampleStep] ? chat.exampleStep : 'disease';
+  if (!chat.named) {chat.name = example.disease; chat.named = true;}
+  begin();
+  renderConversation();
+  renderChatList();
+  $("#thread-title").textContent = chat.name;
+  $("#result").hidden = true;
+  $("#example-result").hidden = false;
+  renderExample();
+  $("#example-result").scrollIntoView({block:'start', behavior:'smooth'});
+}
+function renderExample() {
+  const example = openExampleRecord();
+  if (!example) return;
+  $("#example-title").textContent = example.disease;
+  $("#example-headline").textContent = example.headline;
+  renderPipeline($("#example-pipeline"), null, exampleStep, step => {exampleStep = step; renderExample();}, {steps: exampleSteps(example), panelId: 'example-panel'});
+  $("#example-panel").setAttribute("aria-labelledby", `step-${exampleStep}`);
+  const entry = exampleStep === "check" ? structuresFor(structures, example.id) : null;
+  $("#example-panel").innerHTML = renderExampleStep(example, exampleStep) + renderStructurePanel(entry, exampleMolecule, exampleView);
+  $("#example-details-content").innerHTML = renderExampleDetails(example);
+  if (entry) drawExampleStructure(entry);
+  else if (exampleStage) {exampleStage = null;}
+  rememberChat();
+  renderSavedResults();
+}
+function drawExampleStructure(entry) {
+  const molecule = moleculeIn(entry, exampleMolecule);
+  exampleMolecule = molecule.id;
+  $("#example-molecule").onchange = event => {exampleMolecule = event.target.value; renderExample();};
+  const status = $("#example-viewer-status");
+  // A fresh stage per mount: the panel's markup is replaced on every step change.
+  exampleStage = new MolecularStage($("#example-viewer"), status, () => {});
+  const cached = poseCache.get(molecule.file);
+  // The stage writes a caption meant for the saved analysis; this pose has its own provenance.
+  const caption = exampleView === "binding_site"
+    ? `Residues within 4.5 \u00C5 of ${molecule.name}, extracted from the recorded run.`
+    : `${molecule.name} as it was co-folded, protein hidden.`;
+  const show = pdb => exampleStage.draw(structureBundle(molecule, pdb, bundle?.colors ?? POSE_COLORS), {candidate: molecule.id, view: exampleView, residue: null})
+    .then(() => {status.textContent = caption;})
+    .catch(() => {status.textContent = "Structure unavailable. The recorded numbers above are unaffected.";});
+  if (cached) {show(cached); return;}
+  status.textContent = "Loading the co-folded structure…";
+  fetch(molecule.file)
+    .then(response => {if (!response.ok) throw new Error("missing pose"); return response.text();})
+    .then(pdb => {poseCache.set(molecule.file, pdb); if (exampleStep === "check" && exampleMolecule === molecule.id) show(pdb);})
+    .catch(() => {status.textContent = "This pose file is not part of this export.";});
 }
 function setResultHeading() {
   $("#origin-banner").textContent = isDemo() ? "Synthetic example" : manifest.data_origin === "computed" ? "Saved analysis" : "Reference example";
@@ -213,6 +351,7 @@ function setResultHeading() {
   $("#result-description").hidden = !isDemo();
 }
 function openSnapshot() {
+  if (!manifest) return;
   const chat = currentChat();
   if (!opened) {
     chat.messages.push({kind:'snapshot', text: isDemo() ? 'Show me the example results.' : `Open the saved ${manifest.disease.name} analysis.`});
@@ -221,10 +360,13 @@ function openSnapshot() {
     activeStep = isReference() ? 'signature' : 'candidates';
   }
   opened = true;
+  exampleOpen = null;
+  chat.exampleId = null;
   begin();
   renderConversation();
   renderChatList();
   $("#thread-title").textContent = chat.name;
+  $("#example-result").hidden = true;
   $("#result").hidden = false;
   setResultHeading();
   renderResults();
@@ -265,6 +407,7 @@ function deleteOrganizedItem() {
   $("#organizer").close(); restoreChat(); persistChats();
 }
 function renderResults() {
+  if (!manifest) return;
   reconcile(manifest,state);
   state.chapter = 3;
   renderPipeline($("#pipeline-root"), manifest, activeStep, step => {activeStep = step; renderResults();});
@@ -335,22 +478,35 @@ function validation() {
   return `<div class="cards">${manifest.validation.map(v => `<article class="card"><h3>${escape(v.label)}</h3><small>${escape(title(v.status))} · n = ${v.n}</small>${v.value !== null ? `<div class="stat">${escape(v.value)}</div>` : ""}<p>${escape(v.reason)}</p><small>${escape(v.source)}</small></article>`).join("")}</div>${bundle.warnings.map(w=>`<p>${escape(w)}</p>`).join("")}`;
 }
 
+async function loadJSON(url, required) {
+  const response = await fetch(url).catch(() => null);
+  if (!response?.ok) {
+    if (required) throw new Error(`Could not load ${url}.`);
+    return null;
+  }
+  return response.json();
+}
 
 try {
-  const response = await fetch("bundle.json");
-  if (!response.ok) throw new Error("Could not load the saved analysis.");
-  bundle = await response.json();
-  manifest = bundle.manifest;
-  if (manifest?.schema_version !== "1.0.0" || !Array.isArray(manifest.candidates) || !bundle.display) throw new Error("This saved analysis needs to be rebuilt.");
-  storageKey = `autorepurpose.chats.v1:${manifest.run_id}`;
+  const [exampleData, bundleData, structureData] = await Promise.all([
+    loadJSON("examples.json", true), loadJSON("bundle.json", false), loadJSON("example-structures.json", false),
+  ]);
+  examples = validateExamples(exampleData);
+  try {structures = structureData ? validateStructures(structureData) : null;} catch {structures = null;}
+  if (bundleData) {
+    bundle = bundleData;
+    manifest = bundle.manifest;
+    if (manifest?.schema_version !== "1.0.0" || !Array.isArray(manifest.candidates) || !bundle.display) throw new Error("This saved analysis needs to be rebuilt.");
+  }
+  storageKey = `autorepurpose.chats.v1:${manifest?.run_id ?? "worked-examples"}`;
   try {storage = window.localStorage;} catch {storage = null;}
   const saved = readWorkspace(storage, storageKey);
   workspace = saved.workspace;
   storageWritable = saved.writable;
-  state = initialState(manifest);
+  state = manifest ? initialState(manifest) : null;
   shell();
   restoreChat();
   persistChats();
 } catch (error) {
-  $("#app").innerHTML = `<main class="loading"><h1>Preview unavailable</h1><p>${escape(error.message)}</p><p>Build a visualization export and open it through the local server.</p></main>`;
+  $("#app").innerHTML = `<main class="loading"><h1>Preview unavailable</h1><p>${escape(error.message)}</p><p>Open the portal through a local HTTP server, not a file:// URL.</p></main>`;
 }

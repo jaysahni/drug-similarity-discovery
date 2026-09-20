@@ -118,3 +118,33 @@ test('invalid saved-result navigation is rejected without overwriting stored dat
   assert.equal(readWorkspace(storage,'test').writable,false);
   assert.equal(storage.getItem('test'),raw);
 });
+test('worked-example messages and open examples survive reload; invalid example fields are rejected', () => {
+  const workspace = createWorkspace();
+  const chat = workspace.chats[0];
+  chat.messages.push({kind:'example', text:'Colorectal cancer', exampleId:'kdr'});
+  chat.exampleId = 'kdr'; chat.exampleStep = 'search';
+  saveResult(workspace, {runId:'example:kdr', candidateId:null, name:'Colorectal cancer', subtitle:'VEGFR2 · Candidate search', chatId: chat.id, viewState:{step:'search'}, activeStep:'search'});
+  const storage = memoryStorage();
+  assert.equal(writeWorkspace(storage, 'k', workspace), true);
+  const restored = readWorkspace(storage, 'k');
+  assert.equal(restored.writable, true);
+  assert.deepEqual(restored.workspace, workspace);
+  const patches = [
+    w => {w.chats[0].exampleId = 'not valid!';},
+    w => {w.chats[0].exampleStep = 'nowhere';},
+    w => {w.chats[0].messages[0].exampleId = 42;},
+    w => {w.chats[0].messages[0].kind = 'mystery';},
+    w => {w.savedResults[0].activeStep = 'nowhere';},
+  ];
+  for (const patch of patches) {
+    const broken = structuredClone(workspace); patch(broken);
+    storage.setItem('broken', JSON.stringify(broken));
+    assert.equal(readWorkspace(storage, 'broken').writable, false);
+  }
+  // Workspaces saved before worked examples existed still load.
+  const legacy = structuredClone(workspace);
+  delete legacy.chats[0].exampleId; delete legacy.chats[0].exampleStep;
+  legacy.chats[0].messages = [{kind:'prompt', text:'Diabetes'}]; legacy.savedResults = [];
+  storage.setItem('legacy', JSON.stringify(legacy));
+  assert.equal(readWorkspace(storage, 'legacy').writable, true);
+});

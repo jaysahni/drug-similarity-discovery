@@ -211,3 +211,44 @@ th { font-size: 11px; font-weight: 500; }
   .result-heading { flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
   .result-heading h2 { margin-bottom: 0; }
 }
+
+/* Worked examples recorded in SUCCESSES.md */
+.examples-section { flex-shrink: 0; border-top: 1px solid #dfe5d7; margin-top: 16px; padding-top: 14px; }
+.examples-section h2 { margin: 0 8px 8px; font-size: 11px; font-weight: 500; letter-spacing: 0; color: #76856b; }
+.example-row { display: block; width: 100%; border: 0; border-radius: 6px; padding: 8px; background: none; color: #55694a; text-align: left; font-size: 11px; }
+.example-row:hover { background: #e9eee2; }
+.example-row.active { background: #e3e9df; color: #364f2d; }
+.example-row span, .example-row small { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.example-row small { color: #87957a; font-size: 10px; margin-top: 3px; }
+.suggestions { margin: 22px 0 0; }
+button.example-chip { display: flex; align-items: center; gap: 10px; border: 1px solid #dfe4d9; border-radius: 8px; background: #fff; padding: 8px 12px; font-size: 12px; color: #456938; }
+button.example-chip > span { color: #8a9680; font-size: 10px; }
+.assistant-examples { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 15px; }
+.example-intro { max-width: 640px; margin: 0 0 18px; font-size: 12px; color: #74806b; }
+.example-note { max-width: 640px; margin: 12px 0 0; font-size: 12px; color: #64725c; }
+td.wrap { white-space: normal; min-width: 200px; }
+.tag.role-hit { background: #e3efe3; color: #2f6b3f; }
+.tag.role-known, .tag.role-reference { background: #e9eef5; color: #3f5878; }
+.tag.role-control, .tag.role-candidate { background: #eef0ea; color: #6e7a66; }
+.tag.role-boundary, .tag.role-artifact { background: #fbf3e6; color: #8b6a3a; }
+#example-details h3 { font-size: 12px; font-weight: 500; margin: 12px 0 6px; color: #495346; }
+#example-details ul { margin: 0 0 14px; padding-left: 18px; font-size: 12px; color: #64725c; }
+#example-details li { margin-bottom: 5px; }
+#save-example { flex-shrink: 0; border: 1px solid #dbe3d2; border-radius: 6px; background: white; padding: 6px 10px; font-size: 11px; color: #5c764c; }
+#save-example[aria-pressed="true"] { background: #eef3e8; border-color: #c6d6b9; }
+.result .section { margin-top: 18px; }
+@media (max-width: 760px) {
+  .examples-section { grid-column: 1 / -1; margin-top: 3px; padding-top: 10px; }
+  button.example-chip { font-size: 11px; padding: 7px 10px; }
+}
+
+/* Co-folded pose panel inside a worked example */
+.pose-panel { margin-top: 20px; }
+.pose-panel .molecular-label { display: flex; align-items: center; gap: 9px; padding: 14px 18px 10px; }
+#example-molecule { min-width: 0; max-width: 320px; border: 1px solid #e0e6d9; border-radius: 5px; background: white; color: #4f6344; padding: 5px 8px; font-size: 11px; }
+#example-viewer { height: 330px; }
+.pose-stats { display: flex; flex-wrap: wrap; gap: 26px; padding: 14px 18px 0; border-top: 1px solid #edf1f3; }
+.pose-stat span { display: block; font-size: 10px; color: #8a9680; }
+.pose-stat b { font-size: 15px; font-weight: 500; color: #46583d; font-variant-numeric: tabular-nums; }
+@media (max-width: 760px) { #example-viewer { height: 260px; } .pose-stats { gap: 16px; } }
+.pose-caveat { margin: 0; padding: 10px 18px 0; font-size: 11px; color: #8a8f80; }

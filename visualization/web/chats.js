@@ -1,9 +1,11 @@
 const id = () => crypto.randomUUID();
 const cleanName = value => String(value).trim().slice(0, 80);
+export const stepIds = ['literature', 'target', 'signature', 'candidates', 'disease', 'protein', 'search', 'check'];
+const exampleIdValid = value => value === null || value === undefined || (typeof value === 'string' && /^[a-z0-9-]{1,40}$/.test(value));
 
 export function newChat(workspace, folderId = null) {
   if (folderId !== null && !workspace.folders.some(f => f.id === folderId)) throw new Error('Folder not found');
-  const chat = {id: id(), name: 'New chat', named: false, folderId, messages: [], draft: '', snapshotOpen: false, viewState: null, activeStep: 'candidates'};
+  const chat = {id: id(), name: 'New chat', named: false, folderId, messages: [], draft: '', snapshotOpen: false, viewState: null, activeStep: 'candidates', exampleId: null, exampleStep: 'disease'};
   workspace.chats.push(chat);
   workspace.activeId = chat.id;
   return chat;
@@ -74,9 +76,11 @@ export function readWorkspace(storage, key) {
     const folders = new Set(ids);
     for (const c of data.chats) {
       if (!validId(c.id) || ids.has(c.id) || !nameValid(c.name) || typeof c.named !== 'boolean' || (c.folderId !== null && !folders.has(c.folderId)) || typeof c.draft !== 'string' || c.draft.length > 2000 || typeof c.snapshotOpen !== 'boolean' || !Array.isArray(c.messages)) throw new Error('Invalid chat');
-      if (!['literature','target','signature','candidates'].includes(c.activeStep)) throw new Error('Invalid stage');
+      if (!stepIds.includes(c.activeStep)) throw new Error('Invalid stage');
+      if (!exampleIdValid(c.exampleId) || (c.exampleStep !== undefined && c.exampleStep !== null && !stepIds.includes(c.exampleStep))) throw new Error('Invalid example view');
       if (c.viewState !== null && (typeof c.viewState !== 'object' || Array.isArray(c.viewState))) throw new Error('Invalid view');
-      if (c.messages.some(m => !m || !['prompt','snapshot'].includes(m.kind) || typeof m.text !== 'string' || m.text.length > 2000)) throw new Error('Invalid message');
+      if (c.messages.some(m => !m || !['prompt','snapshot','example'].includes(m.kind) || typeof m.text !== 'string' || m.text.length > 2000)) throw new Error('Invalid message');
+      if (c.messages.some(m => m.kind === 'example' && (typeof m.exampleId !== 'string' || !exampleIdValid(m.exampleId)))) throw new Error('Invalid example message');
       ids.add(c.id);
     }
     // Existing chat workspaces predate the saved-results library.
@@ -90,7 +94,7 @@ export function readWorkspace(storage, key) {
           || (result.candidateId !== null && typeof result.candidateId !== 'string')
           || typeof result.subtitle !== 'string' || result.subtitle.length > 160
           || !validId(result.chatId) || resultKeys.has(key)
-          || !['literature','target','signature','candidates'].includes(result.activeStep)
+          || !stepIds.includes(result.activeStep)
           || !result.viewState || typeof result.viewState !== 'object' || Array.isArray(result.viewState)) throw new Error('Invalid saved result');
       ids.add(result.id); resultKeys.add(key);
     }

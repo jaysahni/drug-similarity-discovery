@@ -289,6 +289,10 @@ def build(source, output):
     vendor = ROOT / "vendor"
     if vendor.exists():
         shutil.copytree(vendor, output / "vendor")
+    # Co-folded poses for the recorded worked examples travel with every export.
+    poses = ROOT / "web" / "poses"
+    if poses.exists():
+        shutil.copytree(poses, output / "poses")
     from .report import render_report
     (output / "report.html").write_text(render_report(bundle))
     shutil.copy2(ROOT / "pymol_render.py", output / "pymol_render.py")

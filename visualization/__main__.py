@@ -51,8 +51,9 @@ def main():
             print(args.out)
         elif args.command == "serve":
             directory = args.bundle_dir.resolve()
-            if not (directory / "bundle.json").is_file() or not (directory / "index.html").is_file():
-                raise BundleError("Serve only a built visualization directory, never the repository root")
+            # A built export carries bundle.json; the source web/ directory carries only the recorded worked examples.
+            if not (directory / "index.html").is_file() or not ((directory / "bundle.json").is_file() or (directory / "examples.json").is_file()):
+                raise BundleError("Serve only a built visualization directory or visualization/web, never the repository root")
             handler = functools.partial(http.server.SimpleHTTPRequestHandler, directory=str(directory))
             with http.server.ThreadingHTTPServer(("127.0.0.1", args.port), handler) as server:
                 print(f"Visualization: http://127.0.0.1:{args.port}", flush=True)

@@ -1,0 +1,477 @@
+{
+  "version": 1,
+  "source": "SUCCESSES.md",
+  "note": "Worked examples transcribed from SUCCESSES.md. Every number was computed by a script in this repository and is shown here exactly as recorded. The portal recomputes nothing.",
+  "examples": [
+    {
+      "id": "kdr",
+      "disease": "Colorectal cancer",
+      "aliases": [
+        "colorectal cancer",
+        "colorectal",
+        "colon cancer",
+        "bowel cancer",
+        "crc",
+        "kdr",
+        "vegfr2",
+        "vegfr-2",
+        "vegfr 2",
+        "mebendazole"
+      ],
+      "target": {
+        "name": "VEGFR2",
+        "gene": "KDR"
+      },
+      "blurb": "VEGFR2 \u00b7 mebendazole at rank 24 of 2,382",
+      "headline": "A 1974 deworming pill sitting in the binding site of a modern cancer drug target, starting from a disease name, with the answer hidden.",
+      "reply": "Recorded run for colorectal cancer. Target VEGFR2 (KDR). 2,382 approved drugs searched blind; mebendazole came back at rank 24, and its co-folded pose overlaps the approved drug's by 0.950.",
+      "steps": {
+        "disease": {
+          "status": "recorded",
+          "intro": "Given a disease name, the pipeline queries Open Targets, a public database linking diseases to the proteins driving them, and ranks candidate targets by how strong the evidence is. It then checks each target has approved drugs that already hit it. Without those there is no way to tell whether the method is working.",
+          "stats": [
+            {
+              "label": "Proteins examined",
+              "value": "16,299",
+              "note": "Open Targets associations for colorectal cancer."
+            },
+            {
+              "label": "Usable targets",
+              "value": "10",
+              "note": "Targets with approved drugs that already hit them."
+            },
+            {
+              "label": "Structures screened",
+              "value": "1,092",
+              "note": "Protein Data Bank entries examined for a suitable 3D structure."
+            }
+          ],
+          "selected": "A cancer target with approved drugs already hitting it, so the method can be marked against known answers.",
+          "rejected": {
+            "heading": "Reported as unusable",
+            "items": [
+              "MSH2",
+              "MSH6",
+              "MLH1",
+              "PMS2",
+              "APC"
+            ],
+            "reason": "Real cancer biology with zero approved drugs.",
+            "note": "The top five proteins by raw evidence. The pipeline reports them as unusable rather than silently moving on."
+          },
+          "structure": {
+            "examined": "1,092",
+            "rejected": "121",
+            "reason": "Every rejection for the same reason: the structure already had another molecule wedged in the binding site, which would have corrupted everything downstream."
+          },
+          "notes": [
+            "The same step on venous thromboembolism examined 967 associated proteins and returned 5 usable targets."
+          ]
+        },
+        "protein": {
+          "status": "recorded",
+          "intro": "The pipeline pulls the target's amino-acid sequence from UniProt, the standard protein reference, through the novakit toolkit.",
+          "name": "VEGFR2",
+          "gene": "KDR",
+          "sequence": {
+            "length": "329 residues",
+            "region": "the kinase domain",
+            "note": "The business end of the protein, where drugs bind."
+          },
+          "source": "UniProt, via novakit"
+        },
+        "search": {
+          "status": "recorded",
+          "intro": "This is the core. The pipeline takes a molecule known to fit the target, converts every approved drug into a mathematical fingerprint of its chemical structure, and ranks all of them by similarity. The search is blind: it compares shapes only, and never looks at what a drug is approved for or which proteins it is known to hit. Those labels are used afterwards, purely to mark the exam.",
+          "library": "2,382 approved drugs",
+          "query": "a molecule known to fit VEGFR2",
+          "stats": [
+            {
+              "label": "Library searched",
+              "value": "2,382",
+              "note": "Approved drugs, fingerprinted and ranked blind."
+            },
+            {
+              "label": "Enrichment",
+              "value": "7.4\u00d7",
+              "note": "Known VEGFR2 drugs in the top 50, relative to chance."
+            },
+            {
+              "label": "Mebendazole",
+              "value": "24",
+              "note": "Rank of 2,382. A 1974 deworming pill in the top 1%."
+            }
+          ],
+          "rows": [
+            {
+              "rank": "3, 6, 17, 22",
+              "drug": "Known VEGFR2 cancer drugs",
+              "approved_for": "Cancer",
+              "role": "known",
+              "note": "The control. The known answers come back near the top."
+            },
+            {
+              "rank": "24",
+              "drug": "mebendazole",
+              "approved_for": "Intestinal worms, since 1974",
+              "role": "hit",
+              "note": "No cancer indication. Top 1% of 2,382, found blind."
+            }
+          ],
+          "notes": [
+            "That is exactly the shape of a repurposing hit: a drug approved for something completely unrelated, surfacing for the right target, found blind."
+          ]
+        },
+        "check": {
+          "status": "recorded",
+          "intro": "A similar shape is a hypothesis. The pipeline then runs co-folding on Rowan's infrastructure: Boltz-2 predicts the 3D structure of the drug and protein locked together and reports how confident it is. Four unrelated approved drugs were run through the same step as a control.",
+          "reference": "axitinib",
+          "rows": [
+            {
+              "molecule": "axitinib",
+              "detail": "approved VEGFR2 cancer drug",
+              "role": "reference",
+              "confidence": "0.992",
+              "contacts": "20",
+              "shared": "\u2014",
+              "overlap": null
+            },
+            {
+              "molecule": "mebendazole",
+              "detail": "deworming pill",
+              "role": "hit",
+              "confidence": "0.990",
+              "contacts": "19",
+              "shared": "19 of 19",
+              "overlap": 0.95
+            },
+            {
+              "molecule": "niclosamide",
+              "detail": "",
+              "role": "candidate",
+              "confidence": "0.978",
+              "contacts": "17",
+              "shared": "11",
+              "overlap": 0.423
+            },
+            {
+              "molecule": "paracetamol",
+              "detail": "painkiller",
+              "role": "control",
+              "confidence": "0.970",
+              "contacts": "11",
+              "shared": "9",
+              "overlap": 0.409
+            },
+            {
+              "molecule": "warfarin",
+              "detail": "blood thinner",
+              "role": "control",
+              "confidence": "0.953",
+              "contacts": "17",
+              "shared": "11",
+              "overlap": 0.423
+            },
+            {
+              "molecule": "furosemide",
+              "detail": "diuretic",
+              "role": "control",
+              "confidence": "0.883",
+              "contacts": "16",
+              "shared": "14",
+              "overlap": 0.636
+            }
+          ],
+          "notes": [
+            "The control is what makes this readable, and it points at the right number. The confidence score does not separate anything: paracetamol scores 0.970 against mebendazole's 0.990, because the model will happily place almost any small molecule somewhere in a large pocket.",
+            "What separates them is where they land. Mebendazole reproduces the cancer drug's pose almost exactly: 0.950 overlap, and every residue it touches the cancer drug touches too. The nearest control manages 0.636, and the rest sit around 0.41.",
+            "A deworming pill, in the same slot as a cancer drug, in the same pose, and four unrelated drugs demonstrably failing to do that.",
+            "The structures below are the actual co-folded complexes from that run. Switch molecules to compare which residues each one touches."
+          ]
+        }
+      },
+      "strengths": [
+        "It found something real, blind. Mebendazole's anti-cancer potential is a documented line of research, in human trials for brain and colorectal cancer. The pipeline had no access to that.",
+        "Rediscovery is the right test. Hide an answer you already know and see if it comes back. It did, and the known VEGFR2 drugs came back with it.",
+        "It runs end-to-end on a laptop and a credit card: under 400 compute credits and a few hours. No wet lab, no cluster.",
+        "The output is testable: a predicted 3D structure showing exactly which amino acids the drug touches.",
+        "The pipeline says when it cannot help. It refuses targets with no approved binders and structures with the binding site already occupied."
+      ],
+      "limits": [
+        "Mebendazole binding VEGFR2 is already known. That is what made it a valid test of the machinery, and it means this run confirmed a method rather than discovering a drug.",
+        "Confidence scores measure how sure the model is about the pose, not how tightly the molecule actually binds.",
+        "Everything here is a computational hypothesis: a starting point for laboratory work, not a substitute for it."
+      ],
+      "sources": [
+        {
+          "label": "Target selection from a disease",
+          "path": "results/demo/autoresearch/"
+        },
+        {
+          "label": "The blind ranking",
+          "path": "results/demo/rediscover/KDR_rediscovery.json"
+        },
+        {
+          "label": "Co-folding structures and scores",
+          "path": "docs/11-FINDINGS.md"
+        },
+        {
+          "label": "Full methodology",
+          "path": "docs/15-AUTORESEARCH.md, docs/10-DIRECT-MATCHING.md"
+        }
+      ]
+    },
+    {
+      "id": "egfr",
+      "disease": "Lung cancer",
+      "aliases": [
+        "lung cancer",
+        "lung",
+        "nsclc",
+        "non-small cell lung cancer",
+        "egfr",
+        "erlotinib"
+      ],
+      "target": {
+        "name": "EGFR",
+        "gene": "EGFR"
+      },
+      "blurb": "EGFR \u00b7 7 known drugs in the top 12",
+      "headline": "The clearest demonstration that the method works: hand it one EGFR drug and it returns the rest of EGFR's pharmacology at the top of a 2,382-item list, blind.",
+      "reply": "Recorded run for lung cancer. Target EGFR, query erlotinib. The other approved EGFR drugs came back at ranks 1, 2, 3, 4, 5, 7 and 12 of 2,382.",
+      "steps": {
+        "disease": {
+          "status": "partial",
+          "intro": "Given a disease name, the pipeline queries Open Targets, ranks candidate targets by evidence, and keeps only targets with approved drugs that already hit them, so the method can be marked against known answers.",
+          "stats": [
+            {
+              "label": "Approved drugs on target",
+              "value": "12",
+              "note": "Twelve approved drugs hit EGFR, so the approved-drug check passes."
+            }
+          ],
+          "selected": "EGFR is the lung-cancer target. With twelve approved drugs hitting it, there is a known answer to mark the search against.",
+          "unrecorded": "Open Targets counts and structure screening were not recorded for this example."
+        },
+        "protein": {
+          "status": "partial",
+          "intro": "The pipeline pulls the target's amino-acid sequence from UniProt through the novakit toolkit.",
+          "name": "EGFR",
+          "gene": "EGFR",
+          "unrecorded": "Sequence retrieval was not recorded for this example."
+        },
+        "search": {
+          "status": "recorded",
+          "intro": "Using one approved EGFR drug, erlotinib, as the query, the pipeline fingerprints the same 2,382 approved drugs and ranks them by shape similarity. The search is blind: approval labels are used afterwards, purely to mark the exam.",
+          "library": "2,382 approved drugs",
+          "query": "erlotinib, an approved EGFR drug",
+          "stats": [
+            {
+              "label": "Library searched",
+              "value": "2,382",
+              "note": "The same approved-drug corpus."
+            },
+            {
+              "label": "Enrichment",
+              "value": "10.8\u00d7",
+              "note": "EGFR-linked drugs in the top 50, relative to chance."
+            },
+            {
+              "label": "Known EGFR drugs",
+              "value": "7 of top 12",
+              "note": "Ranks 1, 2, 3, 4, 5, 7 and 12."
+            }
+          ],
+          "rows": [
+            {
+              "rank": "1",
+              "drug": "icotinib",
+              "approved_for": "Approved EGFR drug",
+              "role": "known",
+              "note": ""
+            },
+            {
+              "rank": "2",
+              "drug": "gefitinib",
+              "approved_for": "Approved EGFR drug",
+              "role": "known",
+              "note": ""
+            },
+            {
+              "rank": "3",
+              "drug": "vandetanib",
+              "approved_for": "Approved EGFR drug",
+              "role": "known",
+              "note": ""
+            },
+            {
+              "rank": "4",
+              "drug": "dacomitinib",
+              "approved_for": "Approved EGFR drug",
+              "role": "known",
+              "note": ""
+            },
+            {
+              "rank": "5",
+              "drug": "lapatinib",
+              "approved_for": "Approved EGFR drug",
+              "role": "known",
+              "note": ""
+            },
+            {
+              "rank": "7",
+              "drug": "afatinib",
+              "approved_for": "Approved EGFR drug",
+              "role": "known",
+              "note": ""
+            },
+            {
+              "rank": "12",
+              "drug": "neratinib",
+              "approved_for": "Approved EGFR drug",
+              "role": "known",
+              "note": ""
+            },
+            {
+              "rank": "1,013",
+              "drug": "chlorpromazine",
+              "approved_for": "Antipsychotic",
+              "role": "boundary",
+              "note": "Known to touch EGFR, but built on completely different chemistry. Invisible to a shape search."
+            }
+          ],
+          "notes": [
+            "This is what a working retrieval method looks like: hand it one drug for a target and it returns the rest of that target's pharmacology at the very top of a 2,382-item list, blind.",
+            "It also shows the method's honest boundary. Chemical similarity finds what looks like the query. A molecule that hits the same target without resembling it is invisible to this step, which is precisely why the co-folding stage exists."
+          ]
+        },
+        "check": {
+          "status": "not_run",
+          "intro": "Co-folding predicts the drug and protein locked together and compares the pose against a known binder.",
+          "unrecorded": "Co-folding was not run for this example. The shape search alone is the demonstration here."
+        }
+      },
+      "limits": [
+        "Chemical similarity finds what looks like the query. A molecule that hits the same target without resembling it, such as chlorpromazine at rank 1,013, is invisible to this step."
+      ],
+      "sources": [
+        {
+          "label": "Full methodology",
+          "path": "docs/10-DIRECT-MATCHING.md"
+        },
+        {
+          "label": "Written up in",
+          "path": "SUCCESSES.md"
+        }
+      ]
+    },
+    {
+      "id": "padi4",
+      "disease": "Rheumatoid arthritis",
+      "aliases": [
+        "rheumatoid arthritis",
+        "rheumatoid",
+        "arthritis",
+        "ra",
+        "padi4",
+        "pad4",
+        "benzamidine"
+      ],
+      "target": {
+        "name": "PADI4",
+        "gene": "PADI4"
+      },
+      "blurb": "PADI4 \u00b7 an undrugged target",
+      "headline": "What the output looks like when nothing is known: no approved drug targets PADI4, so the search starts from the chemistry the target recognises.",
+      "reply": "Recorded run for rheumatoid arthritis. Target PADI4, which no approved drug hits. Query benzamidine; pentamidine came back at rank 1 and hydroxystilbamidine at rank 4, both bis-amidines. There is no known answer to grade the list against.",
+      "steps": {
+        "disease": {
+          "status": "partial",
+          "intro": "Given a disease name, the pipeline queries Open Targets, ranks candidate targets by evidence, and checks each one for approved drugs that already hit it.",
+          "stats": [
+            {
+              "label": "Approved drugs on target",
+              "value": "0",
+              "note": "No approved drug targets PADI4."
+            }
+          ],
+          "selected": "PADI4 drives rheumatoid arthritis: it chemically modifies proteins in a way that triggers the autoimmune attack.",
+          "flag": "No approved drug targets PADI4. This is the case repurposing is hardest for, and the honest demonstration of the method's edge.",
+          "unrecorded": "Open Targets counts and structure screening were not recorded for this example."
+        },
+        "protein": {
+          "status": "partial",
+          "intro": "The pipeline pulls the target's amino-acid sequence from UniProt through the novakit toolkit.",
+          "name": "PADI4",
+          "gene": "PADI4",
+          "note": "PADI4 processes the amino acid arginine, which is what the search below starts from.",
+          "unrecorded": "Sequence retrieval was not recorded for this example."
+        },
+        "search": {
+          "status": "recorded",
+          "intro": "With no drug to query with, the search uses the chemistry the target recognises. PADI4 processes arginine, and benzamidine is the standard chemical mimic of arginine that published PAD4 inhibitor programmes are built around.",
+          "library": "the approved-drug corpus",
+          "query": "benzamidine, an arginine mimic",
+          "stats": [
+            {
+              "label": "Query",
+              "value": "benzamidine",
+              "note": "The arginine mimic PAD4 inhibitor programmes are built around."
+            },
+            {
+              "label": "Bis-amidine hits",
+              "value": "2",
+              "note": "Ranks 1 and 4: the exact chemical class those programmes use."
+            },
+            {
+              "label": "Enrichment",
+              "value": "n/a",
+              "note": "Zero approved PADI4 drugs, so there is no known answer to measure against."
+            }
+          ],
+          "rows": [
+            {
+              "rank": "1",
+              "drug": "pentamidine",
+              "approved_for": "Pneumocystis pneumonia, leishmaniasis",
+              "role": "hit",
+              "note": "Bis-amidine."
+            },
+            {
+              "rank": "4",
+              "drug": "hydroxystilbamidine",
+              "approved_for": "Fungal infection",
+              "role": "hit",
+              "note": "Bis-amidine."
+            },
+            {
+              "rank": "rest of top 10",
+              "drug": "benzoic acid, phenol, benzyl alcohol",
+              "approved_for": "",
+              "role": "artifact",
+              "note": "Small fragments that resemble a small query simply by being small."
+            }
+          ],
+          "notes": [
+            "The method proposes two approved anti-infectives as structural starting points for a rheumatoid arthritis target, a chemically coherent suggestion nobody put there by hand.",
+            "And this is where the method stops being able to check itself. With zero approved PADI4 drugs there is no known answer to measure against, so nothing in this run can separate the chemically meaningful hit from the artifact."
+          ]
+        },
+        "check": {
+          "status": "not_run",
+          "intro": "Co-folding predicts the drug and protein locked together and compares the pose against a known binder.",
+          "unrecorded": "Co-folding was not run for this example. With no approved binder there is no known pose to compare against."
+        }
+      },
+      "limits": [
+        "That is the honest output for an undrugged target: a plausible, testable hypothesis, and no way to grade it without going to the bench."
+      ],
+      "sources": [
+        {
+          "label": "Written up in",
+          "path": "SUCCESSES.md"
+        }
+      ]
+    }
+  ]
+}

@@ -2,7 +2,8 @@
 
 `Pipeline.jsx` is the React component mounted in the saved-results conversation.
 It reads the manifest and calls the existing result navigation when a user opens
-a stage. It does not start analysis jobs or infer completion from missing data.
+a stage, or renders explicit steps when the portal shows a recorded worked example
+from `web/examples.json`. It does not start analysis jobs or infer completion from missing data.
 
 To edit and rebuild, run from `visualization/`:
 

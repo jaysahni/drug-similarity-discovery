@@ -47,8 +47,9 @@ export function pipelineSteps(manifest) {
   ];
 }
 
-export function Pipeline({manifest, activeStep, onNavigate}) {
-  const steps = pipelineSteps(manifest);
+// Steps come from the manifest for a saved analysis, or are passed in for a recorded worked example.
+export function Pipeline({manifest, steps: givenSteps, activeStep, onNavigate, panelId = 'result-panel'}) {
+  const steps = givenSteps ?? pipelineSteps(manifest);
   function navigateWithKeys(event, index) {
     if (!['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Home', 'End'].includes(event.key)) return;
     event.preventDefault();
@@ -64,7 +65,7 @@ export function Pipeline({manifest, activeStep, onNavigate}) {
           <li className={`pipeline-step${step.available ? "" : " unavailable"}`} key={step.id} role="presentation">
             <button type="button" id={`step-${step.id}`} data-step={step.id}
               className={`pipeline-node${activeStep === step.id ? ' selected' : ''}`}
-              role="tab" aria-selected={activeStep === step.id} aria-controls="result-panel"
+              role="tab" aria-selected={activeStep === step.id} aria-controls={panelId}
               tabIndex={activeStep === step.id ? 0 : -1}
               onKeyDown={event => navigateWithKeys(event, index)} onClick={() => onNavigate(step.id)}>
               <span className="pipeline-marker" aria-hidden="true">{index + 1}</span>
@@ -79,8 +80,8 @@ export function Pipeline({manifest, activeStep, onNavigate}) {
 }
 
 const roots = new WeakMap();
-export function renderPipeline(element, manifest, activeStep, onNavigate) {
+export function renderPipeline(element, manifest, activeStep, onNavigate, options = {}) {
   let root = roots.get(element);
   if (!root) {root = createRoot(element); roots.set(element, root);}
-  root.render(<Pipeline manifest={manifest} activeStep={activeStep} onNavigate={onNavigate}/>);
+  root.render(<Pipeline manifest={manifest} steps={options.steps} panelId={options.panelId} activeStep={activeStep} onNavigate={onNavigate}/>);
 }
