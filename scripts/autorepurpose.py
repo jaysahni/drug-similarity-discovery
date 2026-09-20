@@ -62,13 +62,92 @@ def stage_done(path):
     return Path(path).exists()
 
 
+def choose_target(args, root):
+    """Resolve a disease to ranked targets and make the caller choose.
+
+    Returns the chosen target dict, or None if the caller must still decide (in
+    which case the ranked list has been printed). Never picks silently.
+    """
+    slug = args.slug or args.disease.lower().replace(" ", "-")
+    tpath = root / "results" / "pipeline" / slug / "targets.json"
+    if not tpath.exists():
+        cmd = [PY, root / "scripts/disease_targets.py", "--disease", args.disease]
+        print(f"resolving \"{args.disease}\" to targets (Open Targets)...")
+        if args.dry_run:
+            print(f"  (dry run) $ {' '.join(str(c) for c in cmd)}")
+            return None
+        if run(cmd):
+            print(f"could not resolve \"{args.disease}\"", file=sys.stderr)
+            return None
+    if not tpath.exists():
+        print(f"no targets.json at {tpath} after resolution", file=sys.stderr)
+        return None
+
+    data = json.loads(tpath.read_text())
+    targets = [t for t in data.get("targets", []) if t.get("uniprot")]
+    if not targets:
+        print(f"{tpath} lists no target with a UniProt accession", file=sys.stderr)
+        return None
+
+    if args.target:                       # caller named one; honour it
+        for t in targets:
+            if (t.get("approved_symbol") or "").upper() == args.target.upper():
+                return {"symbol": t["approved_symbol"], "uniprot": t["uniprot"],
+                        "slug": slug, "rank": t.get("rank"),
+                        "score": t.get("overall_association_score"),
+                        "chosen_by": "--target", "n_candidates": len(targets)}
+        print(f"--target {args.target} is not among the {len(targets)} targets "
+              f"resolved for \"{args.disease}\"", file=sys.stderr)
+        return None
+
+    show = targets[:max(1, args.show_targets)]
+    print(f"\n\"{args.disease}\" resolves to {len(targets)} targets "
+          f"(EFO {data.get('meta', {}).get('efo_id', '?')}). "
+          f"This is a real choice and it is yours:\n")
+    print(f"  {'#':>2}  {'symbol':<10}{'uniprot':<10}{'assoc':>7}  known drug?  name")
+    for t in show:
+        print(f"  {t.get('rank', '?'):>2}  {(t.get('approved_symbol') or '?'):<10}"
+              f"{(t.get('uniprot') or '?'):<10}"
+              f"{(t.get('overall_association_score') or 0):>7.3f}  "
+              f"{'yes' if t.get('has_known_drug_evidence') else 'no ':<11}  "
+              f"{(t.get('approved_name') or '')[:38]}")
+    if len(targets) > len(show):
+        print(f"      ... {len(targets) - len(show)} more in {tpath}")
+
+    if args.accept_top_target:
+        t = targets[0]
+        print(f"\n--accept-top-target: proceeding with {t['approved_symbol']} "
+              f"({t['uniprot']}), rank 1 of {len(targets)}. Recorded in the manifest.")
+        return {"symbol": t["approved_symbol"], "uniprot": t["uniprot"], "slug": slug,
+                "rank": t.get("rank"), "score": t.get("overall_association_score"),
+                "chosen_by": "--accept-top-target", "n_candidates": len(targets)}
+
+    print(f"\nNo target chosen. Pick one and rerun, e.g.:\n"
+          f"    ./env/bin/python scripts/autorepurpose.py run --disease "
+          f"\"{args.disease}\" --target {show[0].get('approved_symbol')}\n"
+          f"  or add --accept-top-target to take rank 1 deliberately.\n"
+          f"Association score is evidence that the target relates to the disease. It is "
+          f"not evidence that the target is druggable or that this pipeline will work "
+          f"on it.")
+    return None
+
+
 def main():
     ap = argparse.ArgumentParser(
         description=__doc__.split("\n")[0],
         formatter_class=argparse.RawDescriptionHelpFormatter, epilog=__doc__)
-    ap.add_argument("cmd", choices=["run"])
-    ap.add_argument("--target", required=True, help="gene symbol, e.g. KDR")
-    ap.add_argument("--uniprot", required=True, help="e.g. P35968")
+    ap.add_argument("cmd", choices=["run", "targets"],
+                    help="run = the pipeline; targets = resolve a disease and stop")
+    ap.add_argument("--disease", default=None,
+                    help="disease name, e.g. \"colorectal cancer\". Resolves to ranked "
+                         "targets and SHOWS them; it will not pick one for you")
+    ap.add_argument("--target", default=None, help="gene symbol, e.g. KDR")
+    ap.add_argument("--uniprot", default=None, help="e.g. P35968")
+    ap.add_argument("--accept-top-target", action="store_true",
+                    help="with --disease, proceed with the top-ranked target instead of "
+                         "stopping. An explicit choice, recorded in the manifest")
+    ap.add_argument("--show-targets", type=int, default=10,
+                    help="how many ranked targets to display for a disease")
     ap.add_argument("--slug", default=None,
                     help="results/pipeline/<slug>/ (default: lowercased target)")
     ap.add_argument("--n-positives", type=int, default=10)
@@ -85,11 +164,38 @@ def main():
     ap.add_argument("--dry-run", action="store_true")
     args = ap.parse_args()
 
+    # ---- step 1-2: accept a disease, resolve targets, EXPOSE the ambiguity ----
+    # A disease does not map to one target. Open Targets returns 25 for colorectal
+    # cancer, several of them druggable. Picking the top one silently would hide a
+    # scientific choice inside a default, so this prints the ranked list and stops
+    # unless the caller names a target or explicitly accepts the top one.
+    resolution = None
+    if args.disease:
+        picked = choose_target(args, ROOT)
+        if picked is None:
+            return 1
+        resolution = picked
+        args.target = args.target or picked["symbol"]
+        args.uniprot = args.uniprot or picked["uniprot"]
+        args.slug = args.slug or picked["slug"]
+
+    if args.cmd == "targets":
+        return 0 if args.disease else (
+            print("`targets` needs --disease") or 1)
+
+    if not args.target or not args.uniprot:
+        print("need a target: pass --target SYMBOL --uniprot ACCESSION, or --disease "
+              "NAME to resolve one.\n"
+              "  ./env/bin/python scripts/autorepurpose.py targets "
+              "--disease \"colorectal cancer\"", file=sys.stderr)
+        return 1
+
     slug = args.slug or args.target.lower()
     pipe = ROOT / "results" / "pipeline" / slug
     manifest = {"target": args.target, "uniprot": args.uniprot, "slug": slug,
                 "signature": args.signature, "metric": args.metric,
-                "stages": {}, "budget_credits": args.budget_credits}
+                "stages": {}, "budget_credits": args.budget_credits,
+                "disease": args.disease, "target_resolution": resolution}
 
     n_drugs = args.n_positives + args.n_decoys
     est = n_drugs * COST_PER_COFOLD + args.designs * COST_PER_DESIGN
@@ -178,4 +284,7 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    # sys.exit(main()), not main(): the target-resolution paths signal refusal by
+    # returning 1, and without this every refusal would exit 0 and a caller or CI
+    # would read "no target chosen" as success.
+    sys.exit(main())
