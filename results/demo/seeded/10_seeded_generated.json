@@ -1,0 +1,3623 @@
+{
+ "generator": "RDKit BRICS recombination of the F2-mechanism approved drugs",
+ "seeds": [
+  {
+   "name": "argatroban",
+   "smiles": "CC1CNc2c(cccc2S(=O)(=O)N[C@@H](CCCNC(=N)N)C(=O)N2CC[C@@H](C)C[C@@H]2C(=O)O)C1"
+  },
+  {
+   "name": "bivalirudin",
+   "smiles": "CC[C@H](C)[C@H](NC(=O)[C@H](CCC(=O)O)NC(=O)[C@H](CCC(=O)O)NC(=O)[C@H](Cc1ccccc1)NC(=O)[C@H](CC(=O)O)NC(=O)CNC(=O)[C@H](CC(N)=O)NC(=O)CNC(=O)CNC(=O)CNC(=O)CNC(=O)[C@@H]1CCCN1C(=O)[C@H](CCCNC(=N)N)NC(=O)[C@@H]1CCCN1C(=O)[C@H](N)Cc1ccccc1)C(=O)N1CCC[C@H]1C(=O)N[C@@H](CCC(=O)O)C(=O)N[C@@H](CCC(=O)O)C(=O)N[C@@H](Cc1ccc(O)cc1)C(=O)N[C@@H](CC(C)C)C(=O)O"
+  },
+  {
+   "name": "dabigatran etexilate",
+   "smiles": "CCCCCCOC(=O)NC(=N)c1ccc(NCc2nc3cc(C(=O)N(CCC(=O)OCC)c4ccccn4)ccc3n2C)cc1"
+  },
+  {
+   "name": "ximelagatran",
+   "smiles": "CCOC(=O)CN[C@@H](C(=O)N1CC[C@H]1C(=O)NCc1ccc(C(=N)NO)cc1)C1CCCCC1"
+  }
+ ],
+ "fragment_pool": {
+  "n": 32,
+  "fragments": {
+   "[1*]C(=O)CC[4*]": [
+    "dabigatran etexilate"
+   ],
+   "[1*]C(=O)C[4*]": [
+    "bivalirudin",
+    "ximelagatran"
+   ],
+   "[1*]C(=O)[C@@H]([4*])CC(=O)O": [
+    "bivalirudin"
+   ],
+   "[1*]C(=O)[C@@H]([4*])CC(N)=O": [
+    "bivalirudin"
+   ],
+   "[1*]C(=O)[C@@H]([4*])CCC(=O)O": [
+    "bivalirudin"
+   ],
+   "[1*]C(=O)[C@@H]([4*])CCC[4*]": [
+    "argatroban",
+    "bivalirudin"
+   ],
+   "[1*]C(=O)[C@@H]([4*])C[8*]": [
+    "bivalirudin"
+   ],
+   "[1*]C(=O)[C@@H]([4*])[C@@H](C)CC": [
+    "bivalirudin"
+   ],
+   "[1*]C(=O)[C@H](N)C[8*]": [
+    "bivalirudin"
+   ],
+   "[1*]C(=O)[C@H]([4*])[8*]": [
+    "ximelagatran"
+   ],
+   "[1*]C([1*])=O": [
+    "dabigatran etexilate"
+   ],
+   "[1*]C([6*])=O": [
+    "bivalirudin",
+    "dabigatran etexilate",
+    "ximelagatran"
+   ],
+   "[12*]S(=O)(=O)c1cccc2c1NCC(C)C2": [
+    "argatroban"
+   ],
+   "[14*]c1ccccn1": [
+    "dabigatran etexilate"
+   ],
+   "[14*]c1nc2cc([16*])ccc2n1C": [
+    "dabigatran etexilate"
+   ],
+   "[15*]C1CCCCC1": [
+    "ximelagatran"
+   ],
+   "[16*]c1ccc(C(=N)NO)cc1": [
+    "ximelagatran"
+   ],
+   "[16*]c1ccc(O)cc1": [
+    "bivalirudin"
+   ],
+   "[16*]c1ccccc1": [
+    "bivalirudin"
+   ],
+   "[3*]O[3*]": [
+    "dabigatran etexilate",
+    "ximelagatran"
+   ],
+   "[4*]CC": [
+    "dabigatran etexilate",
+    "ximelagatran"
+   ],
+   "[4*]CCCCCC": [
+    "dabigatran etexilate"
+   ],
+   "[4*]C[8*]": [
+    "dabigatran etexilate",
+    "ximelagatran"
+   ],
+   "[4*][C@@H](CC(C)C)C(=O)O": [
+    "bivalirudin"
+   ],
+   "[5*]N([5*])[5*]": [
+    "dabigatran etexilate"
+   ],
+   "[5*]N1CCC[C@H]1[13*]": [
+    "bivalirudin"
+   ],
+   "[5*]N1CC[C@@H](C)C[C@@H]1[13*]": [
+    "argatroban"
+   ],
+   "[5*]N1CC[C@H]1[13*]": [
+    "ximelagatran"
+   ],
+   "[5*]NC(=N)N": [
+    "argatroban",
+    "bivalirudin"
+   ],
+   "[5*]NC(=N)c1ccc([16*])cc1": [
+    "dabigatran etexilate"
+   ],
+   "[5*]N[5*]": [
+    "argatroban",
+    "bivalirudin",
+    "dabigatran etexilate",
+    "ximelagatran"
+   ],
+   "[6*]C(=O)O": [
+    "argatroban"
+   ]
+  }
+ },
+ "build": {
+  "stop_reason": "quota",
+  "n_raw": 600,
+  "seconds": 24.5,
+  "n_fragments": 32,
+  "n_fragments_available": 32,
+  "max_fragments": 40,
+  "max_depth": 3
+ },
+ "filters": {
+  "mw_range": [
+   200.0,
+   600.0
+  ],
+  "min_qed": 0.4,
+  "source": "demo/generate.py drug_like(), imported not reimplemented"
+ },
+ "dropped": {
+  "invalid": 0,
+  "duplicate": 0,
+  "mw": 20,
+  "qed": 202,
+  "already_approved": 0
+ },
+ "n_kept": 378,
+ "molecules": [
+  {
+   "smiles": "CC1CNc2c(cccc2S(=O)(=O)N(C(=O)CNC(=N)N)c2ccccc2)C1",
+   "mw": 401.5,
+   "qed": 0.444,
+   "inchikey": "TUZWQICHIWEYQL-UHFFFAOYSA-N",
+   "motifs": [
+    "amidine",
+    "guanidine"
+   ],
+   "seed_atom_fraction": 0.7143
+  },
+  {
+   "smiles": "CCN(C(=O)CNC(=N)N)S(=O)(=O)c1cccc2c1NCC(C)C2",
+   "mw": 353.4,
+   "qed": 0.445,
+   "inchikey": "IKJMXJHATNGQIS-UHFFFAOYSA-N",
+   "motifs": [
+    "amidine",
+    "guanidine"
+   ],
+   "seed_atom_fraction": 0.5833
+  },
+  {
+   "smiles": "CC1CNc2c(cccc2S(=O)(=O)N(C(=O)CNC(=N)N)C2CCCCC2)C1",
+   "mw": 407.5,
+   "qed": 0.434,
+   "inchikey": "XARYGWDBWJBGRT-UHFFFAOYSA-N",
+   "motifs": [
+    "amidine",
+    "guanidine"
+   ],
+   "seed_atom_fraction": 0.7143
+  },
+  {
+   "smiles": "CC1CNc2c(cccc2S(=O)(=O)N(C(=O)CNC(=N)N)c2ccccn2)C1",
+   "mw": 402.5,
+   "qed": 0.43,
+   "inchikey": "LRCMVNNNGLRDSV-UHFFFAOYSA-N",
+   "motifs": [
+    "amidine",
+    "guanidine"
+   ],
+   "seed_atom_fraction": 0.7143
+  },
+  {
+   "smiles": "CC(C)C[C@@H](C(=O)O)N(C(=O)CNC(=N)N)C1CCCCC1",
+   "mw": 312.4,
+   "qed": 0.415,
+   "inchikey": "NAYIOTIAHRIKHQ-LBPRGKRZSA-N",
+   "motifs": [
+    "amidine",
+    "guanidine"
+   ],
+   "seed_atom_fraction": 0.5
+  },
+  {
+   "smiles": "CC(C)C[C@@H](C(=O)O)N(C(=O)CNC(=N)N)c1ccccc1",
+   "mw": 306.4,
+   "qed": 0.442,
+   "inchikey": "SDZWXSIUANOYAR-LBPRGKRZSA-N",
+   "motifs": [
+    "amidine",
+    "guanidine"
+   ],
+   "seed_atom_fraction": 0.5
+  },
+  {
+   "smiles": "CC(C)C[C@@H](C(=O)O)N(C(=O)CNC(=N)N)c1ccccn1",
+   "mw": 307.4,
+   "qed": 0.425,
+   "inchikey": "QXWWOFWAJFHKMG-JTQLQIEISA-N",
+   "motifs": [
+    "amidine",
+    "guanidine"
+   ],
+   "seed_atom_fraction": 0.5
+  },
+  {
+   "smiles": "CCN(C(=O)CNC(=N)N)c1ccc(O)cc1",
+   "mw": 236.3,
+   "qed": 0.444,
+   "inchikey": "MIPVJXXYOSVSAG-UHFFFAOYSA-N",
+   "motifs": [
+    "amidine",
+    "guanidine"
+   ],
+   "seed_atom_fraction": 0.4118
+  },
+  {
+   "smiles": "N=C(N)NCC(=O)N(c1ccc(O)cc1)c1ccccn1",
+   "mw": 285.3,
+   "qed": 0.493,
+   "inchikey": "ZUKKWLXZOPVCJH-UHFFFAOYSA-N",
+   "motifs": [
+    "amidine",
+    "guanidine"
+   ],
+   "seed_atom_fraction": 0.619
+  },
+  {
+   "smiles": "N=C(N)NCC(=O)N(c1ccc(O)cc1)C1CCCCC1",
+   "mw": 290.4,
+   "qed": 0.499,
+   "inchikey": "ZOJUAPMSYFJZDZ-UHFFFAOYSA-N",
+   "motifs": [
+    "amidine",
+    "guanidine"
+   ],
+   "seed_atom_fraction": 0.619
+  },
+  {
+   "smiles": "N=C(N)NCC(=O)N(c1ccc(O)cc1)c1ccc(O)cc1",
+   "mw": 300.3,
+   "qed": 0.429,
+   "inchikey": "ZXFKZIGYGHXORM-UHFFFAOYSA-N",
+   "motifs": [
+    "amidine",
+    "guanidine"
+   ],
+   "seed_atom_fraction": 0.6364
+  },
+  {
+   "smiles": "N=C(N)NCC(=O)N(c1ccccc1)c1ccc(O)cc1",
+   "mw": 284.3,
+   "qed": 0.505,
+   "inchikey": "UZWGWMQBXXONNC-UHFFFAOYSA-N",
+   "motifs": [
+    "amidine",
+    "guanidine"
+   ],
+   "seed_atom_fraction": 0.619
+  },
+  {
+   "smiles": "N=C(N)NCC(=O)N(c1ccccc1)C1CCCCC1",
+   "mw": 274.4,
+   "qed": 0.578,
+   "inchikey": "NSDDZEDWCINDDN-UHFFFAOYSA-N",
+   "motifs": [
+    "amidine",
+    "guanidine"
+   ],
+   "seed_atom_fraction": 0.6
+  },
+  {
+   "smiles": "N=C(N)NCC(=O)N(C1CCCCC1)C1CCCCC1",
+   "mw": 280.4,
+   "qed": 0.544,
+   "inchikey": "VHSUENJYAFKDBT-UHFFFAOYSA-N",
+   "motifs": [
+    "amidine",
+    "guanidine"
+   ],
+   "seed_atom_fraction": 0.6
+  },
+  {
+   "smiles": "CCN(C(=O)CNC(=N)N)C1CCCCC1",
+   "mw": 226.3,
+   "qed": 0.486,
+   "inchikey": "DKHXLNBGJIJAOS-UHFFFAOYSA-N",
+   "motifs": [
+    "amidine",
+    "guanidine"
+   ],
+   "seed_atom_fraction": 0.375
+  },
+  {
+   "smiles": "N=C(N)NCC(=O)N(c1ccccn1)C1CCCCC1",
+   "mw": 275.4,
+   "qed": 0.569,
+   "inchikey": "IZTYAIPUPQPVBH-UHFFFAOYSA-N",
+   "motifs": [
+    "amidine",
+    "guanidine"
+   ],
+   "seed_atom_fraction": 0.6
+  },
+  {
+   "smiles": "CCN(C(=O)CNC(=N)N)c1ccccn1",
+   "mw": 221.3,
+   "qed": 0.489,
+   "inchikey": "KXDDCGGBZHYQHG-UHFFFAOYSA-N",
+   "motifs": [
+    "amidine",
+    "guanidine"
+   ],
+   "seed_atom_fraction": 0.375
+  },
+  {
+   "smiles": "CCN(C(=O)CNC(=N)N)c1ccccc1",
+   "mw": 220.3,
+   "qed": 0.511,
+   "inchikey": "CLRNOCCNCGFWRI-UHFFFAOYSA-N",
+   "motifs": [
+    "amidine",
+    "guanidine"
+   ],
+   "seed_atom_fraction": 0.375
+  },
+  {
+   "smiles": "N=C(N)NCC(=O)N(c1ccccc1)c1ccccn1",
+   "mw": 269.3,
+   "qed": 0.574,
+   "inchikey": "MHFLRISZGNEDSE-UHFFFAOYSA-N",
+   "motifs": [
+    "amidine",
+    "guanidine"
+   ],
+   "seed_atom_fraction": 0.6
+  },
+  {
+   "smiles": "N=C(N)NCC(=O)N(c1ccccn1)c1ccccn1",
+   "mw": 270.3,
+   "qed": 0.557,
+   "inchikey": "IZMCCNWQKSRHBJ-UHFFFAOYSA-N",
+   "motifs": [
+    "amidine",
+    "guanidine"
+   ],
+   "seed_atom_fraction": 0.6
+  },
+  {
+   "smiles": "N=C(N)NCC(=O)N(c1ccccc1)c1ccccc1",
+   "mw": 268.3,
+   "qed": 0.584,
+   "inchikey": "LKHYXAYPWSYQEC-UHFFFAOYSA-N",
+   "motifs": [
+    "amidine",
+    "guanidine"
+   ],
+   "seed_atom_fraction": 0.6
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CN2CC[C@H]2C2CCCCC2)[C@@H](C2CCCCC2)C1",
+   "mw": 360.6,
+   "qed": 0.715,
+   "inchikey": "TWTZTAVZSPUUMI-BVYCBKJFSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.8077
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CN2CC[C@H]2C2CCCCC2)[C@@H](c2ccccn2)C1",
+   "mw": 355.5,
+   "qed": 0.818,
+   "inchikey": "QOFYPYYFWCYKTE-JRGCBEDISA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.7692
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CN2CC[C@H]2C2CCCCC2)[C@@H](NC(=N)N)C1",
+   "mw": 335.5,
+   "qed": 0.539,
+   "inchikey": "OTYRUFQELWHLPA-VNQPRFMTSA-N",
+   "motifs": [
+    "amidine",
+    "guanidine"
+   ],
+   "seed_atom_fraction": 0.375
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CN2CC[C@H]2C2CCCCC2)[C@@H](c2ccc(O)cc2)C1",
+   "mw": 370.5,
+   "qed": 0.857,
+   "inchikey": "HMXULYZUHOJSEV-VOQZNFBZSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.7778
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CN2CC[C@H]2C2CCCCC2)[C@@H](c2ccccc2)C1",
+   "mw": 354.5,
+   "qed": 0.786,
+   "inchikey": "OYOHCRDMZVHIDV-BVYCBKJFSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.7692
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CN2CC[C@H]2C2CCCCC2)[C@@H](C(=O)O)C1",
+   "mw": 322.4,
+   "qed": 0.863,
+   "inchikey": "NARDTPUNEBCAAA-VNQPRFMTSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.7391
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CN2CC[C@H]2c2ccccc2)[C@@H](C2CCCCC2)C1",
+   "mw": 354.5,
+   "qed": 0.786,
+   "inchikey": "UOFRSUKSVNKFSW-BVYCBKJFSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.6923
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CN2CC[C@H]2c2ccccc2)[C@@H](c2ccccn2)C1",
+   "mw": 349.5,
+   "qed": 0.842,
+   "inchikey": "HOYCGTXIMLIGMW-JRGCBEDISA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.6538
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CN2CC[C@H]2c2ccccc2)[C@@H](NC(=N)N)C1",
+   "mw": 329.4,
+   "qed": 0.577,
+   "inchikey": "LSNUSNFMBNAKJI-VNQPRFMTSA-N",
+   "motifs": [
+    "amidine",
+    "guanidine"
+   ],
+   "seed_atom_fraction": 0.25
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CN2CC[C@H]2c2ccccc2)[C@@H](c2ccc(C(=N)NO)cc2)C1",
+   "mw": 406.5,
+   "qed": 0.402,
+   "inchikey": "JWKHOOSNVYZYET-VOQZNFBZSA-N",
+   "motifs": [
+    "amidine",
+    "benzamidine"
+   ],
+   "seed_atom_fraction": 0.7
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CN2CC[C@H]2c2ccccc2)[C@@H](c2ccc(O)cc2)C1",
+   "mw": 364.5,
+   "qed": 0.887,
+   "inchikey": "CDXWVLOTLDPWNB-VOQZNFBZSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.6667
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CN2CC[C@H]2c2ccccc2)[C@@H](c2ccccc2)C1",
+   "mw": 348.5,
+   "qed": 0.816,
+   "inchikey": "MKOMINBSIMTWPO-BVYCBKJFSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.6538
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CN2CC[C@H]2c2ccccc2)[C@@H](C(=O)O)C1",
+   "mw": 316.4,
+   "qed": 0.924,
+   "inchikey": "OLUFQUPQKGFCQY-VNQPRFMTSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.6087
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CN2CC[C@H]2c2ccccn2)[C@@H](C2CCCCC2)C1",
+   "mw": 355.5,
+   "qed": 0.818,
+   "inchikey": "SQSGYOIRFVSAEP-JRGCBEDISA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.6923
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CN2CC[C@H]2NC(=N)N)[C@@H](C2CCCCC2)C1",
+   "mw": 335.5,
+   "qed": 0.539,
+   "inchikey": "ANBLWXIOVNJVLD-BMFZPTHFSA-N",
+   "motifs": [
+    "amidine",
+    "guanidine"
+   ],
+   "seed_atom_fraction": 0.5
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CN2CC[C@H]2c2ccc(O)cc2)[C@@H](C2CCCCC2)C1",
+   "mw": 370.5,
+   "qed": 0.857,
+   "inchikey": "NITPPLFOPZEFIO-VOQZNFBZSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.7037
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CN2CC[C@H]2C(=O)O)[C@@H](C2CCCCC2)C1",
+   "mw": 322.4,
+   "qed": 0.863,
+   "inchikey": "IAESQHVONFJEAH-VNQPRFMTSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.7391
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CN2CC[C@H]2c2ccccn2)[C@@H](c2ccccn2)C1",
+   "mw": 350.5,
+   "qed": 0.849,
+   "inchikey": "ZCNBCOXCVOAFSX-LSTHTHJFSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.6538
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CN2CC[C@H]2c2ccccn2)[C@@H](NC(=N)N)C1",
+   "mw": 330.4,
+   "qed": 0.563,
+   "inchikey": "OUMSUHDXILOGLT-VHDGCEQUSA-N",
+   "motifs": [
+    "amidine",
+    "guanidine"
+   ],
+   "seed_atom_fraction": 0.25
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CN2CC[C@H]2c2ccccn2)[C@@H](c2ccc(C(=N)NO)cc2)C1",
+   "mw": 407.5,
+   "qed": 0.402,
+   "inchikey": "SIPNLVJNBSMKCL-TYCQWZJGSA-N",
+   "motifs": [
+    "amidine",
+    "benzamidine"
+   ],
+   "seed_atom_fraction": 0.7
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CN2CC[C@H]2c2ccccn2)[C@@H](c2ccc(O)cc2)C1",
+   "mw": 365.5,
+   "qed": 0.9,
+   "inchikey": "UIZRHXHKPYWMCY-TYCQWZJGSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.6667
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CN2CC[C@H]2c2ccccn2)[C@@H](c2ccccc2)C1",
+   "mw": 349.5,
+   "qed": 0.842,
+   "inchikey": "RLRCSZGVGJUSEB-JRGCBEDISA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.6538
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CN2CC[C@H]2c2ccccn2)[C@@H](C(=O)O)C1",
+   "mw": 317.4,
+   "qed": 0.912,
+   "inchikey": "SRXHEUKEFZWBHH-VHDGCEQUSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.6087
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CN2CC[C@H]2NC(=N)N)[C@@H](c2ccccc2)C1",
+   "mw": 329.4,
+   "qed": 0.577,
+   "inchikey": "PZIKGCBBAHCWRM-BMFZPTHFSA-N",
+   "motifs": [
+    "amidine",
+    "guanidine"
+   ],
+   "seed_atom_fraction": 0.4583
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CN2CC[C@H]2c2ccc(C(=N)NO)cc2)[C@@H](c2ccccc2)C1",
+   "mw": 406.5,
+   "qed": 0.402,
+   "inchikey": "RSRTTXIVNHRUBB-VOQZNFBZSA-N",
+   "motifs": [
+    "amidine",
+    "benzamidine"
+   ],
+   "seed_atom_fraction": 0.7
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CN2CC[C@H]2c2ccc(O)cc2)[C@@H](c2ccccc2)C1",
+   "mw": 364.5,
+   "qed": 0.887,
+   "inchikey": "FUXOQSUNTOUDRD-VOQZNFBZSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.6667
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CN2CC[C@H]2C(=O)O)[C@@H](c2ccccc2)C1",
+   "mw": 316.4,
+   "qed": 0.924,
+   "inchikey": "QDYPEMORUHGSMS-VNQPRFMTSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.6957
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CN2CC[C@H]2c2ccc(O)cc2)[C@@H](C(=O)O)C1",
+   "mw": 332.4,
+   "qed": 0.879,
+   "inchikey": "NHRSKVSXEHMXKF-UHOFOFEASA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.625
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CN2CC[C@H]2C(=O)O)[C@@H](C(=O)O)C1",
+   "mw": 284.3,
+   "qed": 0.745,
+   "inchikey": "NNDHTJUJBPIHLH-KXUCPTDWSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.65
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CN2CC[C@H]2c2ccc(O)cc2)[C@@H](c2ccccn2)C1",
+   "mw": 365.5,
+   "qed": 0.9,
+   "inchikey": "ZLWHTIHZQNNIRT-TYCQWZJGSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.6667
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CN2CC[C@H]2c2ccc(O)cc2)[C@@H](NC(=N)N)C1",
+   "mw": 345.4,
+   "qed": 0.485,
+   "inchikey": "NYLBUHTWSROHAW-UHOFOFEASA-N",
+   "motifs": [
+    "amidine",
+    "guanidine"
+   ],
+   "seed_atom_fraction": 0.28
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CN2CC[C@H]2c2ccc(O)cc2)[C@@H](c2ccc(O)cc2)C1",
+   "mw": 380.5,
+   "qed": 0.846,
+   "inchikey": "HAIJRKWDIWFGGG-URZJWIJPSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.6786
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CN2CC[C@H]2NC(=N)N)[C@@H](c2ccccn2)C1",
+   "mw": 330.4,
+   "qed": 0.563,
+   "inchikey": "DJONPASFBXPHDP-YUELXQCFSA-N",
+   "motifs": [
+    "amidine",
+    "guanidine"
+   ],
+   "seed_atom_fraction": 0.4583
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CN2CC[C@H]2NC(=N)N)[C@@H](c2ccc(O)cc2)C1",
+   "mw": 345.4,
+   "qed": 0.485,
+   "inchikey": "LTBNMADADWZKGG-WQVCFCJDSA-N",
+   "motifs": [
+    "amidine",
+    "guanidine"
+   ],
+   "seed_atom_fraction": 0.48
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CN2CC[C@H]2c2ccc(C(=N)NO)cc2)[C@@H](c2ccccn2)C1",
+   "mw": 407.5,
+   "qed": 0.402,
+   "inchikey": "FKXVQMHZCPKHAB-TYCQWZJGSA-N",
+   "motifs": [
+    "amidine",
+    "benzamidine"
+   ],
+   "seed_atom_fraction": 0.7
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CN2CC[C@H]2C(=O)O)[C@@H](c2ccccn2)C1",
+   "mw": 317.4,
+   "qed": 0.912,
+   "inchikey": "NFCRVYHHUVUGTI-VHDGCEQUSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.6957
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CN2CC[C@H]2C(=O)O)[C@@H](c2ccc(O)cc2)C1",
+   "mw": 332.4,
+   "qed": 0.879,
+   "inchikey": "SADCBIOTJBHKPC-UHOFOFEASA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.7083
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CNC(=N)N)[C@@H](Oc2ccc(O)cc2)C1",
+   "mw": 306.4,
+   "qed": 0.486,
+   "inchikey": "AUCGPCUADPMEKA-YGRLFVJLSA-N",
+   "motifs": [
+    "amidine",
+    "guanidine"
+   ],
+   "seed_atom_fraction": 0.3636
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CNC(=N)N)[C@@H](OC2CCCCC2)C1",
+   "mw": 296.4,
+   "qed": 0.54,
+   "inchikey": "PDVHCQAZVCPVMK-RISCZKNCSA-N",
+   "motifs": [
+    "amidine",
+    "guanidine"
+   ],
+   "seed_atom_fraction": 0.2857
+  },
+  {
+   "smiles": "CCO[C@H]1C[C@H](C)CCN1C(=O)CNC(=N)N",
+   "mw": 242.3,
+   "qed": 0.481,
+   "inchikey": "UWXZHZWOZSEFAD-SCZZXKLOSA-N",
+   "motifs": [
+    "amidine",
+    "guanidine"
+   ],
+   "seed_atom_fraction": 0.0
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CNC(=N)N)[C@@H](Oc2ccccc2)C1",
+   "mw": 290.4,
+   "qed": 0.572,
+   "inchikey": "BMVHHLUWSWMPHU-RISCZKNCSA-N",
+   "motifs": [
+    "amidine",
+    "guanidine"
+   ],
+   "seed_atom_fraction": 0.3333
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CNC(=N)N)[C@@H](Oc2ccccn2)C1",
+   "mw": 291.4,
+   "qed": 0.554,
+   "inchikey": "ZESVKRKWYDJYNJ-MFKMUULPSA-N",
+   "motifs": [
+    "amidine",
+    "guanidine"
+   ],
+   "seed_atom_fraction": 0.2857
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CNC(=N)N)[C@@H](c2ccc3c(c2)nc(C2CCCCC2)n3C)C1",
+   "mw": 410.6,
+   "qed": 0.531,
+   "inchikey": "WPMSWBIDYKLGDW-FOIQADDNSA-N",
+   "motifs": [
+    "amidine",
+    "guanidine"
+   ],
+   "seed_atom_fraction": 0.7
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CNC(=N)N)[C@@H](c2ccc3c(c2)nc(-c2ccccc2)n3C)C1",
+   "mw": 404.5,
+   "qed": 0.46,
+   "inchikey": "WUYUXLSTLPJBHN-FOIQADDNSA-N",
+   "motifs": [
+    "amidine",
+    "guanidine"
+   ],
+   "seed_atom_fraction": 0.7
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CNC(=N)N)[C@@H](c2ccc3c(c2)nc(-c2ccccn2)n3C)C1",
+   "mw": 405.5,
+   "qed": 0.456,
+   "inchikey": "UJVMFYJWRFXVMH-AUUYWEPGSA-N",
+   "motifs": [
+    "amidine",
+    "guanidine"
+   ],
+   "seed_atom_fraction": 0.7
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CNC(=N)N)[C@@H](c2ccc3c(c2)nc(C(=O)O)n3C)C1",
+   "mw": 372.4,
+   "qed": 0.468,
+   "inchikey": "RHGSCMRFFXHZNH-QMTHXVAHSA-N",
+   "motifs": [
+    "amidine",
+    "guanidine"
+   ],
+   "seed_atom_fraction": 0.5556
+  },
+  {
+   "smiles": "CCNC(=N)c1ccc([C@H]2C[C@H](C)CCN2C(=O)CNC(=N)N)cc1",
+   "mw": 344.5,
+   "qed": 0.41,
+   "inchikey": "MJHDXYGIAZVQFA-IUODEOHRSA-N",
+   "motifs": [
+    "amidine",
+    "guanidine",
+    "benzamidine"
+   ],
+   "seed_atom_fraction": 0.56
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CNC(=N)N)[C@@H](N2CC[C@H]2C2CCCCC2)C1",
+   "mw": 335.5,
+   "qed": 0.539,
+   "inchikey": "KHLGLJZHKZFDDS-VNQPRFMTSA-N",
+   "motifs": [
+    "amidine",
+    "guanidine"
+   ],
+   "seed_atom_fraction": 0.375
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CNC(=N)N)[C@@H](N2CC[C@H]2c2ccc(O)cc2)C1",
+   "mw": 345.4,
+   "qed": 0.485,
+   "inchikey": "IURLLFHDJYRRMY-UHOFOFEASA-N",
+   "motifs": [
+    "amidine",
+    "guanidine"
+   ],
+   "seed_atom_fraction": 0.28
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CNC(=N)N)[C@@H](N2CC[C@H]2c2ccccn2)C1",
+   "mw": 330.4,
+   "qed": 0.563,
+   "inchikey": "MRFSQECHUBPDFS-VHDGCEQUSA-N",
+   "motifs": [
+    "amidine",
+    "guanidine"
+   ],
+   "seed_atom_fraction": 0.25
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CNC(=N)N)[C@@H](N2CC[C@H]2c2ccccc2)C1",
+   "mw": 329.4,
+   "qed": 0.577,
+   "inchikey": "UVUGLPRSGFHKJS-VNQPRFMTSA-N",
+   "motifs": [
+    "amidine",
+    "guanidine"
+   ],
+   "seed_atom_fraction": 0.25
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CNC(=N)N)[C@@H](NC2CCCCC2)C1",
+   "mw": 295.4,
+   "qed": 0.459,
+   "inchikey": "ZGNZKYVWGMCMCS-DGCLKSJQSA-N",
+   "motifs": [
+    "amidine",
+    "guanidine"
+   ],
+   "seed_atom_fraction": 0.2857
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CNC(=N)N)[C@@H](Nc2ccccn2)C1",
+   "mw": 290.4,
+   "qed": 0.479,
+   "inchikey": "MMHOESOUBRRXNZ-ZYHUDNBSSA-N",
+   "motifs": [
+    "amidine",
+    "guanidine"
+   ],
+   "seed_atom_fraction": 0.2857
+  },
+  {
+   "smiles": "CCN[C@H]1C[C@H](C)CCN1C(=O)CNC(=N)N",
+   "mw": 241.3,
+   "qed": 0.4,
+   "inchikey": "UBIBDVAJNIUZPP-RKDXNWHRSA-N",
+   "motifs": [
+    "amidine",
+    "guanidine"
+   ],
+   "seed_atom_fraction": 0.0
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CNC(=N)N)[C@@H](Nc2ccccc2)C1",
+   "mw": 289.4,
+   "qed": 0.494,
+   "inchikey": "XZQROMHFMCQQDF-DGCLKSJQSA-N",
+   "motifs": [
+    "amidine",
+    "guanidine"
+   ],
+   "seed_atom_fraction": 0.2857
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)COc2ccccn2)[C@@H](c2ccc(C(=N)NO)cc2)C1",
+   "mw": 368.4,
+   "qed": 0.428,
+   "inchikey": "BNUKYXBOLCIVNA-RHSMWYFYSA-N",
+   "motifs": [
+    "amidine",
+    "benzamidine"
+   ],
+   "seed_atom_fraction": 0.7778
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)COC2CCCCC2)[C@@H](c2ccc(C(=N)NO)cc2)C1",
+   "mw": 373.5,
+   "qed": 0.418,
+   "inchikey": "QVGBWENXQJJACL-DNVCBOLYSA-N",
+   "motifs": [
+    "amidine",
+    "benzamidine"
+   ],
+   "seed_atom_fraction": 0.7778
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)COc2ccccc2)[C@@H](c2ccc(C(=N)NO)cc2)C1",
+   "mw": 367.4,
+   "qed": 0.43,
+   "inchikey": "QNYQTOQFQARUCC-DNVCBOLYSA-N",
+   "motifs": [
+    "amidine",
+    "benzamidine"
+   ],
+   "seed_atom_fraction": 0.8148
+  },
+  {
+   "smiles": "CCOCC(=O)N1CC[C@@H](C)C[C@@H]1c1ccc(C(=N)NO)cc1",
+   "mw": 319.4,
+   "qed": 0.442,
+   "inchikey": "IIMOOLAHQWRFPU-IUODEOHRSA-N",
+   "motifs": [
+    "amidine",
+    "benzamidine"
+   ],
+   "seed_atom_fraction": 0.6522
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CNC(=N)N)[C@@H](C2CCCCC2)C1",
+   "mw": 280.4,
+   "qed": 0.543,
+   "inchikey": "JBEKHDAUYGADKZ-DGCLKSJQSA-N",
+   "motifs": [
+    "amidine",
+    "guanidine"
+   ],
+   "seed_atom_fraction": 0.6
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CNC2CCCCC2)[C@@H](C2CCCCC2)C1",
+   "mw": 320.5,
+   "qed": 0.845,
+   "inchikey": "QZOOZCMWCFLFKC-VQIMIIECSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.7826
+  },
+  {
+   "smiles": "CCNCC(=O)N1CC[C@@H](C)C[C@@H]1C1CCCCC1",
+   "mw": 266.4,
+   "qed": 0.848,
+   "inchikey": "ISDGJPKQHUWWCT-UKRRQHHQSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.6316
+  },
+  {
+   "smiles": "CCCCCCNCC(=O)N1CC[C@@H](C)C[C@@H]1C1CCCCC1",
+   "mw": 322.5,
+   "qed": 0.673,
+   "inchikey": "CWZSVDVMQGXCAV-IEBWSBKVSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.7826
+  },
+  {
+   "smiles": "CC(C)C[C@H](NCC(=O)N1CC[C@@H](C)C[C@@H]1C1CCCCC1)C(=O)O",
+   "mw": 352.5,
+   "qed": 0.738,
+   "inchikey": "XHNQOYSVNLZJDI-BPQIPLTHSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.68
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CNc2ccccn2)[C@@H](C2CCCCC2)C1",
+   "mw": 315.5,
+   "qed": 0.921,
+   "inchikey": "AJCSCDXUNYPKED-NVXWUHKLSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.7826
+  },
+  {
+   "smiles": "CC1CNc2c(cccc2S(=O)(=O)NCC(=O)N2CC[C@@H](C)C[C@@H]2C2CCCCC2)C1",
+   "mw": 447.6,
+   "qed": 0.72,
+   "inchikey": "MERVEKRYOYAPLR-IIAQOEISSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.8387
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CNc2ccc(O)cc2)[C@@H](C2CCCCC2)C1",
+   "mw": 330.5,
+   "qed": 0.82,
+   "inchikey": "XZGTYXJACYTRIA-DNVCBOLYSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.7917
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CNc2ccccc2)[C@@H](C2CCCCC2)C1",
+   "mw": 314.5,
+   "qed": 0.898,
+   "inchikey": "DBNOXYJGEGIMIW-VQIMIIECSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.7826
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CN2CCC[C@H]2c2ccc(O)cc2)[C@@H](C2CCCCC2)C1",
+   "mw": 384.6,
+   "qed": 0.816,
+   "inchikey": "WDVPPUISOHBWDW-YFXJRYMSSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.6786
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CN2CCC[C@H]2c2ccccc2)[C@@H](C2CCCCC2)C1",
+   "mw": 368.6,
+   "qed": 0.744,
+   "inchikey": "LQCLJMHNAZHZRI-WTIAFYNJSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.6667
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CN2CCC[C@H]2NC(=N)N)[C@@H](C2CCCCC2)C1",
+   "mw": 349.5,
+   "qed": 0.536,
+   "inchikey": "HAPGJVIWRMIMEB-OIISXLGYSA-N",
+   "motifs": [
+    "amidine",
+    "guanidine"
+   ],
+   "seed_atom_fraction": 0.48
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CN2CCC[C@H]2c2ccccn2)[C@@H](C2CCCCC2)C1",
+   "mw": 369.6,
+   "qed": 0.788,
+   "inchikey": "YDMDCOKDJJOESP-BVYCBKJFSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.6667
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CN2CCC[C@H]2C2CCCCC2)[C@@H](C2CCCCC2)C1",
+   "mw": 374.6,
+   "qed": 0.672,
+   "inchikey": "NVGNWVXYIICMJQ-WTIAFYNJSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.8148
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CN2CCC[C@H]2C(=O)O)[C@@H](C2CCCCC2)C1",
+   "mw": 336.5,
+   "qed": 0.857,
+   "inchikey": "ALZZQCWVRPFBJE-HYVNUMGLSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.7083
+  },
+  {
+   "smiles": "CCOCC(=O)N1CC[C@@H](C)C[C@@H]1C1CCCCC1",
+   "mw": 267.4,
+   "qed": 0.782,
+   "inchikey": "LLOUTNKODRZWQE-UKRRQHHQSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.6316
+  },
+  {
+   "smiles": "CCCCCCOCC(=O)N1CC[C@@H](C)C[C@@H]1C1CCCCC1",
+   "mw": 323.5,
+   "qed": 0.601,
+   "inchikey": "JBZXOIBQWSPUGG-IEBWSBKVSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.7826
+  },
+  {
+   "smiles": "CC(C)C[C@H](OCC(=O)N1CC[C@@H](C)C[C@@H]1C1CCCCC1)C(=O)O",
+   "mw": 353.5,
+   "qed": 0.758,
+   "inchikey": "TVXAAZYMCQAVPD-NXHRZFHOSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.48
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)COC2CCCCC2)[C@@H](C2CCCCC2)C1",
+   "mw": 321.5,
+   "qed": 0.76,
+   "inchikey": "XIZKBPPJYDKJON-VQIMIIECSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.7826
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)COc2ccccn2)[C@@H](C2CCCCC2)C1",
+   "mw": 316.4,
+   "qed": 0.851,
+   "inchikey": "FFSMJQISNCVZMF-NVXWUHKLSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.7826
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)COc2ccc(C(=N)NO)cc2)[C@@H](C2CCCCC2)C1",
+   "mw": 373.5,
+   "qed": 0.418,
+   "inchikey": "UIAKVZSZELZFRQ-DNVCBOLYSA-N",
+   "motifs": [
+    "amidine",
+    "benzamidine"
+   ],
+   "seed_atom_fraction": 0.8519
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)COc2ccc(O)cc2)[C@@H](C2CCCCC2)C1",
+   "mw": 331.5,
+   "qed": 0.908,
+   "inchikey": "IYJNOVWAPDJFMF-DNVCBOLYSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.8333
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)COc2ccccc2)[C@@H](C2CCCCC2)C1",
+   "mw": 315.5,
+   "qed": 0.83,
+   "inchikey": "HZWHTWTVCYTETK-VQIMIIECSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.8261
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CNC(=N)c2ccc(C3CCCCC3)cc2)[C@@H](C2CCCCC2)C1",
+   "mw": 423.6,
+   "qed": 0.46,
+   "inchikey": "XXRAGDMNGTWCKT-CJFMBICVSA-N",
+   "motifs": [
+    "amidine",
+    "benzamidine"
+   ],
+   "seed_atom_fraction": 0.871
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CNC(=N)c2ccc(-c3ccccn3)cc2)[C@@H](C2CCCCC2)C1",
+   "mw": 418.6,
+   "qed": 0.538,
+   "inchikey": "KBGVQRJTZWKTRW-NTKDMRAZSA-N",
+   "motifs": [
+    "amidine",
+    "benzamidine"
+   ],
+   "seed_atom_fraction": 0.871
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CNC(=N)c2ccc(C(=O)O)cc2)[C@@H](C2CCCCC2)C1",
+   "mw": 385.5,
+   "qed": 0.534,
+   "inchikey": "BYNRPRHFYXDLEE-DNVCBOLYSA-N",
+   "motifs": [
+    "amidine",
+    "benzamidine"
+   ],
+   "seed_atom_fraction": 0.75
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CNC(=N)c2ccc(-c3ccc(O)cc3)cc2)[C@@H](C2CCCCC2)C1",
+   "mw": 433.6,
+   "qed": 0.449,
+   "inchikey": "WBYFZKOJFFNOON-KBMIEXCESA-N",
+   "motifs": [
+    "amidine",
+    "benzamidine"
+   ],
+   "seed_atom_fraction": 0.875
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CNC(=N)c2ccc(-c3ccccc3)cc2)[C@@H](C2CCCCC2)C1",
+   "mw": 417.6,
+   "qed": 0.5,
+   "inchikey": "ZCCRXUFDWVTRIZ-CJFMBICVSA-N",
+   "motifs": [
+    "amidine",
+    "benzamidine"
+   ],
+   "seed_atom_fraction": 0.871
+  },
+  {
+   "smiles": "C[C@@H]1CCN(CC(=O)N2CC[C@@H](C)C[C@@H]2C2CCCCC2)[C@@H](c2ccc(O)cc2)C1",
+   "mw": 412.6,
+   "qed": 0.723,
+   "inchikey": "POWAMEATNXPILZ-GQUJEBGOSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.8
+  },
+  {
+   "smiles": "C[C@@H]1CCN(CC(=O)N2CC[C@@H](C)C[C@@H]2C2CCCCC2)[C@@H](c2ccccc2)C1",
+   "mw": 396.6,
+   "qed": 0.655,
+   "inchikey": "XYIPFXNYFZLLRB-OVSMBABESA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.7931
+  },
+  {
+   "smiles": "C[C@@H]1CCN(CC(=O)N2CC[C@@H](C)C[C@@H]2C2CCCCC2)[C@@H](NC(=N)N)C1",
+   "mw": 377.6,
+   "qed": 0.519,
+   "inchikey": "BQPNVUGKRXNECT-PSBWJHGTSA-N",
+   "motifs": [
+    "amidine",
+    "guanidine"
+   ],
+   "seed_atom_fraction": 0.4444
+  },
+  {
+   "smiles": "C[C@@H]1CCN(CC(=O)N2CC[C@@H](C)C[C@@H]2C2CCCCC2)[C@@H](c2ccccn2)C1",
+   "mw": 397.6,
+   "qed": 0.712,
+   "inchikey": "MURWLXVHVROVBO-FAYOUJPWSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.7931
+  },
+  {
+   "smiles": "C[C@@H]1CCN(CC(=O)N2CC[C@@H](C)C[C@@H]2C2CCCCC2)[C@@H](C2CCCCC2)C1",
+   "mw": 402.7,
+   "qed": 0.587,
+   "inchikey": "IEBQNUMVFUGTFJ-OVSMBABESA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.8276
+  },
+  {
+   "smiles": "C[C@@H]1CCN(CC(=O)N2CC[C@@H](C)C[C@@H]2C2CCCCC2)[C@@H](C(=O)O)C1",
+   "mw": 364.5,
+   "qed": 0.831,
+   "inchikey": "PMKIMEDFMWNJNV-PSBWJHGTSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.7692
+  },
+  {
+   "smiles": "C[C@@H]1CCN(CC(=O)N2CC[C@@H](C)C[C@@H]2c2ccccn2)[C@@H](C(=O)O)C1",
+   "mw": 359.5,
+   "qed": 0.894,
+   "inchikey": "NFVUOMVEXRURTN-JOCBIADPSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.7308
+  },
+  {
+   "smiles": "C[C@@H]1CCN(CC(=O)N2CC[C@@H](C)C[C@@H]2c2ccc(O)cc2)[C@@H](C(=O)O)C1",
+   "mw": 374.5,
+   "qed": 0.847,
+   "inchikey": "BNTSECCTRLWLFR-OHDICMOHSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.7407
+  },
+  {
+   "smiles": "C[C@@H]1CCN(CC(=O)N2CC[C@@H](C)C[C@@H]2c2ccccc2)[C@@H](C(=O)O)C1",
+   "mw": 358.5,
+   "qed": 0.898,
+   "inchikey": "WOLUTZMMFDVCPM-PSBWJHGTSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.7308
+  },
+  {
+   "smiles": "C[C@@H]1CCN(CC(=O)N2CC[C@@H](C)C[C@@H]2C(=O)O)[C@@H](C(=O)O)C1",
+   "mw": 326.4,
+   "qed": 0.796,
+   "inchikey": "ZOGFLSVGCXRTKR-FDYHWXHSSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.6957
+  },
+  {
+   "smiles": "C[C@@H]1CCN(CC(=O)N2CC[C@@H](C)C[C@@H]2NC(=N)N)[C@@H](C(=O)O)C1",
+   "mw": 339.4,
+   "qed": 0.43,
+   "inchikey": "NOANWGOFQRMPOP-FDYHWXHSSA-N",
+   "motifs": [
+    "amidine",
+    "guanidine"
+   ],
+   "seed_atom_fraction": 0.3333
+  },
+  {
+   "smiles": "C[C@@H]1CCN(CC(=O)N2CC[C@@H](C)C[C@@H]2c2ccccc2)[C@@H](c2ccccn2)C1",
+   "mw": 391.6,
+   "qed": 0.747,
+   "inchikey": "DHQZVDFWJNMUHW-FAYOUJPWSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.7586
+  },
+  {
+   "smiles": "C[C@@H]1CCN(CC(=O)N2CC[C@@H](C)C[C@@H]2c2ccccc2)[C@@H](c2ccc(O)cc2)C1",
+   "mw": 406.6,
+   "qed": 0.762,
+   "inchikey": "YYDBZEJIRPOVEC-GQUJEBGOSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.7667
+  },
+  {
+   "smiles": "C[C@@H]1CCN(CC(=O)N2CC[C@@H](C)C[C@@H]2c2ccccc2)[C@@H](c2ccccc2)C1",
+   "mw": 390.6,
+   "qed": 0.692,
+   "inchikey": "WTBOOWIXQSVANB-OVSMBABESA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.7586
+  },
+  {
+   "smiles": "C[C@@H]1CCN(CC(=O)N2CC[C@@H](C)C[C@@H]2c2ccccc2)[C@@H](C2CCCCC2)C1",
+   "mw": 396.6,
+   "qed": 0.655,
+   "inchikey": "MQLQHHKQGQZBAZ-OVSMBABESA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.7931
+  },
+  {
+   "smiles": "C[C@@H]1CCN(CC(=O)N2CC[C@@H](C)C[C@@H]2c2ccccc2)[C@@H](NC(=N)N)C1",
+   "mw": 371.5,
+   "qed": 0.561,
+   "inchikey": "DVNLTMTVVBXMHJ-PSBWJHGTSA-N",
+   "motifs": [
+    "amidine",
+    "guanidine"
+   ],
+   "seed_atom_fraction": 0.4074
+  },
+  {
+   "smiles": "C[C@@H]1CCN(CC(=O)N2CC[C@@H](C)C[C@@H]2C(=O)O)[C@@H](c2ccccn2)C1",
+   "mw": 359.5,
+   "qed": 0.894,
+   "inchikey": "ZMGMTCUSVXXVBL-JOCBIADPSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.7308
+  },
+  {
+   "smiles": "C[C@@H]1CCN(CC(=O)N2CC[C@@H](C)C[C@@H]2C(=O)O)[C@@H](c2ccc(O)cc2)C1",
+   "mw": 374.5,
+   "qed": 0.847,
+   "inchikey": "ZKJUPLRKWLPYAG-OHDICMOHSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.7407
+  },
+  {
+   "smiles": "C[C@@H]1CCN(CC(=O)N2CC[C@@H](C)C[C@@H]2C(=O)O)[C@@H](c2ccccc2)C1",
+   "mw": 358.5,
+   "qed": 0.898,
+   "inchikey": "IPNNAPVUJNYHQK-PSBWJHGTSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.7308
+  },
+  {
+   "smiles": "C[C@@H]1CCN(CC(=O)N2CC[C@@H](C)C[C@@H]2C(=O)O)[C@@H](C2CCCCC2)C1",
+   "mw": 364.5,
+   "qed": 0.831,
+   "inchikey": "HDBAEZBBYPTHRW-PSBWJHGTSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.7692
+  },
+  {
+   "smiles": "C[C@@H]1CCN(CC(=O)N2CC[C@@H](C)C[C@@H]2C(=O)O)[C@@H](NC(=N)N)C1",
+   "mw": 339.4,
+   "qed": 0.43,
+   "inchikey": "KJBJXYIYTRJOLI-FDYHWXHSSA-N",
+   "motifs": [
+    "amidine",
+    "guanidine"
+   ],
+   "seed_atom_fraction": 0.3333
+  },
+  {
+   "smiles": "C[C@@H]1CCN(CC(=O)N2CC[C@@H](C)C[C@@H]2c2ccccn2)[C@@H](c2ccc(O)cc2)C1",
+   "mw": 407.6,
+   "qed": 0.807,
+   "inchikey": "UGFKVSUBQHBXNK-DJEYIWCMSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.7667
+  },
+  {
+   "smiles": "C[C@@H]1CCN(CC(=O)N2CC[C@@H](C)C[C@@H]2c2ccc(O)cc2)[C@@H](c2ccc(O)cc2)C1",
+   "mw": 422.6,
+   "qed": 0.738,
+   "inchikey": "ZAYNHPQZHQPWDA-PIYXRGFCSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.7742
+  },
+  {
+   "smiles": "C[C@@H]1CCN(CC(=O)N2CC[C@@H](C)C[C@@H]2NC(=N)N)[C@@H](c2ccc(O)cc2)C1",
+   "mw": 387.5,
+   "qed": 0.468,
+   "inchikey": "ZACPGJHQHJXWHJ-OHDICMOHSA-N",
+   "motifs": [
+    "amidine",
+    "guanidine"
+   ],
+   "seed_atom_fraction": 0.4286
+  },
+  {
+   "smiles": "C[C@@H]1CCN(CC(=O)N2CC[C@@H](C)C[C@@H]2c2ccccn2)[C@@H](c2ccccn2)C1",
+   "mw": 392.5,
+   "qed": 0.78,
+   "inchikey": "TWTZEFABEZUYRA-DAVBRLECSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.7586
+  },
+  {
+   "smiles": "C[C@@H]1CCN(CC(=O)N2CC[C@@H](C)C[C@@H]2c2ccccn2)[C@@H](c2ccccc2)C1",
+   "mw": 391.6,
+   "qed": 0.747,
+   "inchikey": "NCQPFWPTBDEUOK-FAYOUJPWSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.7586
+  },
+  {
+   "smiles": "C[C@@H]1CCN(CC(=O)N2CC[C@@H](C)C[C@@H]2c2ccccn2)[C@@H](C2CCCCC2)C1",
+   "mw": 397.6,
+   "qed": 0.712,
+   "inchikey": "OFKVSMVHJSXWDX-FAYOUJPWSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.7931
+  },
+  {
+   "smiles": "C[C@@H]1CCN(CC(=O)N2CC[C@@H](C)C[C@@H]2c2ccccn2)[C@@H](NC(=N)N)C1",
+   "mw": 372.5,
+   "qed": 0.554,
+   "inchikey": "RPTSVRYMAKPHDU-JOCBIADPSA-N",
+   "motifs": [
+    "amidine",
+    "guanidine"
+   ],
+   "seed_atom_fraction": 0.4074
+  },
+  {
+   "smiles": "C[C@@H]1CCN(CC(=O)N2CC[C@@H](C)C[C@@H]2c2ccc(O)cc2)[C@@H](c2ccccc2)C1",
+   "mw": 406.6,
+   "qed": 0.762,
+   "inchikey": "GQKYYBARPLXCLH-GQUJEBGOSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.7667
+  },
+  {
+   "smiles": "C[C@@H]1CCN(CC(=O)N2CC[C@@H](C)C[C@@H]2NC(=N)N)[C@@H](c2ccccc2)C1",
+   "mw": 371.5,
+   "qed": 0.561,
+   "inchikey": "PXSAQJAKNBCLIO-PSBWJHGTSA-N",
+   "motifs": [
+    "amidine",
+    "guanidine"
+   ],
+   "seed_atom_fraction": 0.4074
+  },
+  {
+   "smiles": "C[C@@H]1CCN(CC(=O)N2CC[C@@H](C)C[C@@H]2c2ccc(O)cc2)[C@@H](C2CCCCC2)C1",
+   "mw": 412.6,
+   "qed": 0.723,
+   "inchikey": "YUPMQCBIQGCVLY-GQUJEBGOSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.8
+  },
+  {
+   "smiles": "C[C@@H]1CCN(CC(=O)N2CC[C@@H](C)C[C@@H]2NC(=N)N)[C@@H](C2CCCCC2)C1",
+   "mw": 377.6,
+   "qed": 0.519,
+   "inchikey": "OVTJGOFXTHWPLZ-PSBWJHGTSA-N",
+   "motifs": [
+    "amidine",
+    "guanidine"
+   ],
+   "seed_atom_fraction": 0.4444
+  },
+  {
+   "smiles": "C[C@@H]1CCN(CC(=O)N2CC[C@@H](C)C[C@@H]2c2ccc(O)cc2)[C@@H](c2ccccn2)C1",
+   "mw": 407.6,
+   "qed": 0.807,
+   "inchikey": "YYYLGOZOSLQPLG-DJEYIWCMSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.7667
+  },
+  {
+   "smiles": "C[C@@H]1CCN(CC(=O)N2CC[C@@H](C)C[C@@H]2c2ccc(O)cc2)[C@@H](NC(=N)N)C1",
+   "mw": 387.5,
+   "qed": 0.468,
+   "inchikey": "NZKLLWKRDVTUEU-OHDICMOHSA-N",
+   "motifs": [
+    "amidine",
+    "guanidine"
+   ],
+   "seed_atom_fraction": 0.4286
+  },
+  {
+   "smiles": "C[C@@H]1CCN(CC(=O)N2CC[C@@H](C)C[C@@H]2NC(=N)N)[C@@H](c2ccccn2)C1",
+   "mw": 372.5,
+   "qed": 0.554,
+   "inchikey": "SLIYKXOPNHYQMB-JOCBIADPSA-N",
+   "motifs": [
+    "amidine",
+    "guanidine"
+   ],
+   "seed_atom_fraction": 0.4074
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CN2CCC[C@H]2c2ccccc2)[C@@H](c2ccccn2)C1",
+   "mw": 363.5,
+   "qed": 0.816,
+   "inchikey": "MUNPGKFBOZKUNQ-BVYCBKJFSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.6296
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CN2CCC[C@H]2c2ccccc2)[C@@H](C(=O)O)C1",
+   "mw": 330.4,
+   "qed": 0.921,
+   "inchikey": "UJYQWFFGILBUOD-HYVNUMGLSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.5833
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CN2CCC[C@H]2c2ccccc2)[C@@H](NC(=N)N)C1",
+   "mw": 343.5,
+   "qed": 0.576,
+   "inchikey": "HXFLKKDDAYZAQB-HYVNUMGLSA-N",
+   "motifs": [
+    "amidine",
+    "guanidine"
+   ],
+   "seed_atom_fraction": 0.24
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CN2CCC[C@H]2c2ccccc2)[C@@H](c2ccc(O)cc2)C1",
+   "mw": 378.5,
+   "qed": 0.85,
+   "inchikey": "CCVKTMASDRLPHS-YFXJRYMSSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.6429
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CN2CCC[C@H]2c2ccccc2)[C@@H](c2ccccc2)C1",
+   "mw": 362.5,
+   "qed": 0.778,
+   "inchikey": "LJLKCYISVFQZGB-WTIAFYNJSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.6296
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CN2CCC[C@H]2c2ccc(O)cc2)[C@@H](c2ccccn2)C1",
+   "mw": 379.5,
+   "qed": 0.875,
+   "inchikey": "VJJIYAQSSPGABD-VOQZNFBZSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.6429
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CN2CCC[C@H]2c2ccc(O)cc2)[C@@H](C(=O)O)C1",
+   "mw": 346.4,
+   "qed": 0.874,
+   "inchikey": "NUBKBXJYLRYWPI-XOKHGSTOSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.6
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CN2CCC[C@H]2c2ccc(O)cc2)[C@@H](NC(=N)N)C1",
+   "mw": 359.5,
+   "qed": 0.483,
+   "inchikey": "QVLCZGCGANXVNE-XOKHGSTOSA-N",
+   "motifs": [
+    "amidine",
+    "guanidine"
+   ],
+   "seed_atom_fraction": 0.2692
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CN2CCC[C@H]2c2ccc(O)cc2)[C@@H](c2ccc(O)cc2)C1",
+   "mw": 394.5,
+   "qed": 0.814,
+   "inchikey": "MHYQNQIECBRTPI-MQNAVGNWSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.6552
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CN2CCC[C@H]2c2ccc(O)cc2)[C@@H](c2ccccc2)C1",
+   "mw": 378.5,
+   "qed": 0.85,
+   "inchikey": "RAIOWOHNYVPNEI-YFXJRYMSSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.6429
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CN2CCC[C@H]2c2ccccn2)[C@@H](NC(=N)N)C1",
+   "mw": 344.5,
+   "qed": 0.565,
+   "inchikey": "HPCDEUNBUAVSFW-VNQPRFMTSA-N",
+   "motifs": [
+    "amidine",
+    "guanidine"
+   ],
+   "seed_atom_fraction": 0.24
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CN2CCC[C@H]2C(=O)O)[C@@H](NC(=N)N)C1",
+   "mw": 311.4,
+   "qed": 0.414,
+   "inchikey": "VCLNBYVAGBGSOU-OUAUKWLOSA-N",
+   "motifs": [
+    "amidine",
+    "guanidine"
+   ],
+   "seed_atom_fraction": 0.2273
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CN2CCC[C@H]2C2CCCCC2)[C@@H](NC(=N)N)C1",
+   "mw": 349.5,
+   "qed": 0.536,
+   "inchikey": "YIDOBALYYRCBOC-HYVNUMGLSA-N",
+   "motifs": [
+    "amidine",
+    "guanidine"
+   ],
+   "seed_atom_fraction": 0.4
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CN2CCC[C@H]2c2ccccn2)[C@@H](c2ccccn2)C1",
+   "mw": 364.5,
+   "qed": 0.831,
+   "inchikey": "VOLPDHZLKFJHKU-JRGCBEDISA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.6296
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CN2CCC[C@H]2C(=O)O)[C@@H](c2ccccn2)C1",
+   "mw": 331.4,
+   "qed": 0.912,
+   "inchikey": "OWCOAAXAZAXCDS-VNQPRFMTSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.6667
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CN2CCC[C@H]2NC(=N)N)[C@@H](c2ccccn2)C1",
+   "mw": 344.5,
+   "qed": 0.565,
+   "inchikey": "RQYJADLNEZLBMC-BMFZPTHFSA-N",
+   "motifs": [
+    "amidine",
+    "guanidine"
+   ],
+   "seed_atom_fraction": 0.44
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CN2CCC[C@H]2C2CCCCC2)[C@@H](c2ccccn2)C1",
+   "mw": 369.6,
+   "qed": 0.788,
+   "inchikey": "SMRKISNKQPKNEW-BVYCBKJFSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.7778
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CN2CCC[C@H]2C(=O)O)[C@@H](C(=O)O)C1",
+   "mw": 298.3,
+   "qed": 0.772,
+   "inchikey": "WDOBNRHKTXNMKV-OUAUKWLOSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.619
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CN2CCC[C@H]2C(=O)O)[C@@H](c2ccc(O)cc2)C1",
+   "mw": 346.4,
+   "qed": 0.874,
+   "inchikey": "MHXMADWJTRQWHV-XOKHGSTOSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.68
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CN2CCC[C@H]2C(=O)O)[C@@H](c2ccccc2)C1",
+   "mw": 330.4,
+   "qed": 0.921,
+   "inchikey": "CWUUNNQTWVCJSY-HYVNUMGLSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.6667
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CN2CCC[C@H]2c2ccccn2)[C@@H](c2ccccc2)C1",
+   "mw": 363.5,
+   "qed": 0.816,
+   "inchikey": "ZUTWRPKSOAQCKF-BVYCBKJFSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.6296
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CN2CCC[C@H]2NC(=N)N)[C@@H](c2ccccc2)C1",
+   "mw": 343.5,
+   "qed": 0.576,
+   "inchikey": "OPHDLZUHJKIAOV-OIISXLGYSA-N",
+   "motifs": [
+    "amidine",
+    "guanidine"
+   ],
+   "seed_atom_fraction": 0.44
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CN2CCC[C@H]2C2CCCCC2)[C@@H](c2ccccc2)C1",
+   "mw": 368.6,
+   "qed": 0.744,
+   "inchikey": "OJSGPYLCCZWKBS-WTIAFYNJSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.7778
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CN2CCC[C@H]2c2ccccn2)[C@@H](c2ccc(O)cc2)C1",
+   "mw": 379.5,
+   "qed": 0.875,
+   "inchikey": "DUMFLDQODZQAHM-VOQZNFBZSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.6429
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CN2CCC[C@H]2NC(=N)N)[C@@H](c2ccc(O)cc2)C1",
+   "mw": 359.5,
+   "qed": 0.483,
+   "inchikey": "AYRPLLNRINMBEJ-XYPHTWIQSA-N",
+   "motifs": [
+    "amidine",
+    "guanidine"
+   ],
+   "seed_atom_fraction": 0.4615
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CN2CCC[C@H]2C2CCCCC2)[C@@H](c2ccc(O)cc2)C1",
+   "mw": 384.6,
+   "qed": 0.816,
+   "inchikey": "NQSJXYZPEJHIHX-YFXJRYMSSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.7857
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CN2CCC[C@H]2NC(=N)N)[C@@H](C(=O)O)C1",
+   "mw": 311.4,
+   "qed": 0.414,
+   "inchikey": "RHACQUQMSLZVAN-MXWKQRLJSA-N",
+   "motifs": [
+    "amidine",
+    "guanidine"
+   ],
+   "seed_atom_fraction": 0.3636
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CN2CCC[C@H]2c2ccccn2)[C@@H](C(=O)O)C1",
+   "mw": 331.4,
+   "qed": 0.912,
+   "inchikey": "CTTZVURZPFEBOP-VNQPRFMTSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.5833
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CN2CCC[C@H]2C2CCCCC2)[C@@H](C(=O)O)C1",
+   "mw": 336.5,
+   "qed": 0.857,
+   "inchikey": "RILOQSHNEYLLAU-HYVNUMGLSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.75
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CNC(=N)N)[C@@H](N2CCC[C@H]2c2ccccn2)C1",
+   "mw": 344.5,
+   "qed": 0.565,
+   "inchikey": "FQDSEPUNJGMKOB-VNQPRFMTSA-N",
+   "motifs": [
+    "amidine",
+    "guanidine"
+   ],
+   "seed_atom_fraction": 0.24
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CNC(=N)N)[C@@H](N2CCC[C@H]2C(=O)O)C1",
+   "mw": 311.4,
+   "qed": 0.414,
+   "inchikey": "ZNCXRCIUPFZBNK-OUAUKWLOSA-N",
+   "motifs": [
+    "amidine",
+    "guanidine"
+   ],
+   "seed_atom_fraction": 0.2273
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CNC(=N)N)[C@@H](N2CCC[C@H]2C2CCCCC2)C1",
+   "mw": 349.5,
+   "qed": 0.536,
+   "inchikey": "BMQYXLZSAZGEPM-HYVNUMGLSA-N",
+   "motifs": [
+    "amidine",
+    "guanidine"
+   ],
+   "seed_atom_fraction": 0.4
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CNC(=N)N)[C@@H](N2CCC[C@H]2c2ccc(O)cc2)C1",
+   "mw": 359.5,
+   "qed": 0.483,
+   "inchikey": "AJZZJGKVUZUZGN-XOKHGSTOSA-N",
+   "motifs": [
+    "amidine",
+    "guanidine"
+   ],
+   "seed_atom_fraction": 0.2692
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CNC(=N)N)[C@@H](N2CCC[C@H]2c2ccccc2)C1",
+   "mw": 343.5,
+   "qed": 0.576,
+   "inchikey": "GRUCODPFKQPOCX-HYVNUMGLSA-N",
+   "motifs": [
+    "amidine",
+    "guanidine"
+   ],
+   "seed_atom_fraction": 0.24
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)COC2CCCCC2)[C@@H](C(=O)O)C1",
+   "mw": 283.4,
+   "qed": 0.857,
+   "inchikey": "GQWDNVVFKAHAHO-DGCLKSJQSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.7
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)COc2ccccn2)[C@@H](C(=O)O)C1",
+   "mw": 278.3,
+   "qed": 0.894,
+   "inchikey": "FZHNOAXBQAOFGM-GHMZBOCLSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.7
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)COc2ccc(O)cc2)[C@@H](C(=O)O)C1",
+   "mw": 293.3,
+   "qed": 0.878,
+   "inchikey": "ZAYXVJPQYMGFII-ZWNOBZJWSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.7619
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)COc2ccccc2)[C@@H](C(=O)O)C1",
+   "mw": 277.3,
+   "qed": 0.911,
+   "inchikey": "PHZQBNGATURKPL-DGCLKSJQSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.75
+  },
+  {
+   "smiles": "CCOCC(=O)N1CC[C@@H](C)C[C@@H]1C(=O)O",
+   "mw": 229.3,
+   "qed": 0.772,
+   "inchikey": "ADTRULDVHONNCU-RKDXNWHRSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.5
+  },
+  {
+   "smiles": "CCCCCCOCC(=O)N1CC[C@@H](C)C[C@@H]1C(=O)O",
+   "mw": 285.4,
+   "qed": 0.695,
+   "inchikey": "XNMPCHKZETUBML-CHWSQXEVSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.7
+  },
+  {
+   "smiles": "CC(C)C[C@H](OCC(=O)N1CC[C@@H](C)C[C@@H]1C(=O)O)C(=O)O",
+   "mw": 315.4,
+   "qed": 0.732,
+   "inchikey": "QSXJTYMTJJAGGZ-UTUOFQBUSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.3636
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)COc2ccccn2)[C@@H](c2ccccn2)C1",
+   "mw": 311.4,
+   "qed": 0.871,
+   "inchikey": "BUVYIAFQYGCJRG-GDBMZVCRSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.7391
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)COc2ccccn2)[C@@H](c2ccc(O)cc2)C1",
+   "mw": 326.4,
+   "qed": 0.937,
+   "inchikey": "VKBKVDQYUZIFLJ-RHSMWYFYSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.75
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)COc2ccccn2)[C@@H](c2ccccc2)C1",
+   "mw": 310.4,
+   "qed": 0.868,
+   "inchikey": "CDEBOOYBFFSACJ-NVXWUHKLSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.7391
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)COc2ccccn2)[C@@H](NC(=N)N)C1",
+   "mw": 291.4,
+   "qed": 0.554,
+   "inchikey": "KBGNMCUCGVFNKJ-GHMZBOCLSA-N",
+   "motifs": [
+    "amidine",
+    "guanidine"
+   ],
+   "seed_atom_fraction": 0.2857
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)COc2ccc(O)cc2)[C@@H](c2ccccn2)C1",
+   "mw": 326.4,
+   "qed": 0.937,
+   "inchikey": "JKAHQDWNCSFZJT-RDTXWAMCSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.7917
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)COc2ccc(O)cc2)[C@@H](c2ccc(O)cc2)C1",
+   "mw": 341.4,
+   "qed": 0.893,
+   "inchikey": "DHLMZCIFQPTNPA-AUUYWEPGSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.8
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)COc2ccc(O)cc2)[C@@H](c2ccccc2)C1",
+   "mw": 325.4,
+   "qed": 0.931,
+   "inchikey": "SRRWIFQQGBPPNX-DNVCBOLYSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.7917
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)COc2ccc(O)cc2)[C@@H](NC(=N)N)C1",
+   "mw": 306.4,
+   "qed": 0.486,
+   "inchikey": "LKXQISZUEJBCTC-ZWNOBZJWSA-N",
+   "motifs": [
+    "amidine",
+    "guanidine"
+   ],
+   "seed_atom_fraction": 0.3636
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)COC2CCCCC2)[C@@H](c2ccccn2)C1",
+   "mw": 316.4,
+   "qed": 0.85,
+   "inchikey": "OOHJLZIWGBPXJG-CRAIPNDOSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.7391
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)COC2CCCCC2)[C@@H](c2ccc(O)cc2)C1",
+   "mw": 331.5,
+   "qed": 0.906,
+   "inchikey": "MBQWNPFONCAGRT-DNVCBOLYSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.75
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)COC2CCCCC2)[C@@H](c2ccccc2)C1",
+   "mw": 315.5,
+   "qed": 0.827,
+   "inchikey": "IQCFSUGCOOSKSL-VQIMIIECSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.7391
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)COC2CCCCC2)[C@@H](NC(=N)N)C1",
+   "mw": 296.4,
+   "qed": 0.54,
+   "inchikey": "GELXCMQAALWDEI-DGCLKSJQSA-N",
+   "motifs": [
+    "amidine",
+    "guanidine"
+   ],
+   "seed_atom_fraction": 0.2857
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)COc2ccc(C(=N)NO)cc2)[C@@H](c2ccccn2)C1",
+   "mw": 368.4,
+   "qed": 0.428,
+   "inchikey": "DSLWPKAJXIVRIJ-RDTXWAMCSA-N",
+   "motifs": [
+    "amidine",
+    "benzamidine"
+   ],
+   "seed_atom_fraction": 0.8148
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)COc2ccccc2)[C@@H](c2ccccn2)C1",
+   "mw": 310.4,
+   "qed": 0.868,
+   "inchikey": "YZBRARCVFDJSNM-CRAIPNDOSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.7826
+  },
+  {
+   "smiles": "CCOCC(=O)N1CC[C@@H](C)C[C@@H]1c1ccccn1",
+   "mw": 262.4,
+   "qed": 0.837,
+   "inchikey": "FLYCONAQBRILOU-TZMCWYRMSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.5789
+  },
+  {
+   "smiles": "CCCCCCOCC(=O)N1CC[C@@H](C)C[C@@H]1c1ccccn1",
+   "mw": 318.5,
+   "qed": 0.681,
+   "inchikey": "GMIMGAWKRNSUOR-SJLPKXTDSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.7391
+  },
+  {
+   "smiles": "CC(C)C[C@H](OCC(=O)N1CC[C@@H](C)C[C@@H]1c1ccccn1)C(=O)O",
+   "mw": 348.4,
+   "qed": 0.819,
+   "inchikey": "YDHCOTWZIDULKJ-OIISXLGYSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.44
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)COc2ccccc2)[C@@H](c2ccc(O)cc2)C1",
+   "mw": 325.4,
+   "qed": 0.931,
+   "inchikey": "LUXWIWDUQYOCQZ-DNVCBOLYSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.7917
+  },
+  {
+   "smiles": "CCOCC(=O)N1CC[C@@H](C)C[C@@H]1c1ccc(O)cc1",
+   "mw": 277.4,
+   "qed": 0.92,
+   "inchikey": "RWCRHCFYBAIUJF-IUODEOHRSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.6
+  },
+  {
+   "smiles": "CCCCCCOCC(=O)N1CC[C@@H](C)C[C@@H]1c1ccc(O)cc1",
+   "mw": 333.5,
+   "qed": 0.722,
+   "inchikey": "UKGVGDRDFMMXRR-VQIMIIECSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.75
+  },
+  {
+   "smiles": "CC(C)C[C@H](OCC(=O)N1CC[C@@H](C)C[C@@H]1c1ccc(O)cc1)C(=O)O",
+   "mw": 363.5,
+   "qed": 0.777,
+   "inchikey": "NNZDOZPOTGZZRY-OLMNPRSZSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.4615
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)COc2ccccc2)[C@@H](NC(=N)N)C1",
+   "mw": 290.4,
+   "qed": 0.572,
+   "inchikey": "CASTYWWOLGJLGG-DGCLKSJQSA-N",
+   "motifs": [
+    "amidine",
+    "guanidine"
+   ],
+   "seed_atom_fraction": 0.3333
+  },
+  {
+   "smiles": "CCOCC(=O)N1CC[C@@H](C)C[C@@H]1NC(=N)N",
+   "mw": 242.3,
+   "qed": 0.481,
+   "inchikey": "GULAQGSTRVZQLF-RKDXNWHRSA-N",
+   "motifs": [
+    "amidine",
+    "guanidine"
+   ],
+   "seed_atom_fraction": 0.0
+  },
+  {
+   "smiles": "CCCCCCOCC(=O)N1CC[C@@H](C)C[C@@H]1c1ccccc1",
+   "mw": 317.5,
+   "qed": 0.657,
+   "inchikey": "SUSHROGFXLFANU-IEBWSBKVSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.7391
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)COc2ccc(C(=N)NO)cc2)[C@@H](c2ccccc2)C1",
+   "mw": 367.4,
+   "qed": 0.43,
+   "inchikey": "QSFUCVUCSTWJLB-DNVCBOLYSA-N",
+   "motifs": [
+    "amidine",
+    "benzamidine"
+   ],
+   "seed_atom_fraction": 0.8148
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)COc2ccccc2)[C@@H](c2ccccc2)C1",
+   "mw": 309.4,
+   "qed": 0.852,
+   "inchikey": "METCZDNJVWMBMO-VQIMIIECSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.7826
+  },
+  {
+   "smiles": "CCOCC(=O)N1CC[C@@H](C)C[C@@H]1c1ccccc1",
+   "mw": 261.4,
+   "qed": 0.833,
+   "inchikey": "LCBLNLHKNDAPGT-UKRRQHHQSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.5789
+  },
+  {
+   "smiles": "CC(C)C[C@H](OCC(=O)N1CC[C@@H](C)C[C@@H]1c1ccccc1)C(=O)O",
+   "mw": 347.5,
+   "qed": 0.82,
+   "inchikey": "PQUTXNOQMNFTPO-NXHRZFHOSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.44
+  },
+  {
+   "smiles": "CCNCC(=O)N1CC[C@@H](C)C[C@@H]1NC(=N)N",
+   "mw": 241.3,
+   "qed": 0.4,
+   "inchikey": "PCXMSVDPOVASQX-RKDXNWHRSA-N",
+   "motifs": [
+    "amidine",
+    "guanidine"
+   ],
+   "seed_atom_fraction": 0.0
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CNc2ccccc2)[C@@H](NC(=N)N)C1",
+   "mw": 289.4,
+   "qed": 0.494,
+   "inchikey": "DFKZIWJLBCBHSY-DGCLKSJQSA-N",
+   "motifs": [
+    "amidine",
+    "guanidine"
+   ],
+   "seed_atom_fraction": 0.2857
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CNC2CCCCC2)[C@@H](NC(=N)N)C1",
+   "mw": 295.4,
+   "qed": 0.459,
+   "inchikey": "HYEZFYMARGVWAN-DGCLKSJQSA-N",
+   "motifs": [
+    "amidine",
+    "guanidine"
+   ],
+   "seed_atom_fraction": 0.2857
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CNc2ccccn2)[C@@H](NC(=N)N)C1",
+   "mw": 290.4,
+   "qed": 0.479,
+   "inchikey": "POMIVIYJPBLWMO-ZYHUDNBSSA-N",
+   "motifs": [
+    "amidine",
+    "guanidine"
+   ],
+   "seed_atom_fraction": 0.2857
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CNC(=N)N)[C@@H](c2ccccn2)C1",
+   "mw": 275.4,
+   "qed": 0.563,
+   "inchikey": "JTEVGPQTYXOPKA-ZYHUDNBSSA-N",
+   "motifs": [
+    "amidine",
+    "guanidine"
+   ],
+   "seed_atom_fraction": 0.55
+  },
+  {
+   "smiles": "CCNCC(=O)N1CC[C@@H](C)C[C@@H]1c1ccccn1",
+   "mw": 261.4,
+   "qed": 0.901,
+   "inchikey": "HWOFNNDWZAHAFP-TZMCWYRMSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.5789
+  },
+  {
+   "smiles": "CCCCCCNCC(=O)N1CC[C@@H](C)C[C@@H]1c1ccccn1",
+   "mw": 317.5,
+   "qed": 0.746,
+   "inchikey": "MHJPIDNOIRNYAU-SJLPKXTDSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.7391
+  },
+  {
+   "smiles": "CC(C)C[C@H](NCC(=O)N1CC[C@@H](C)C[C@@H]1c1ccccn1)C(=O)O",
+   "mw": 347.5,
+   "qed": 0.792,
+   "inchikey": "DXRRPSBIPQSUJB-HYVNUMGLSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.64
+  },
+  {
+   "smiles": "CC1CNc2c(cccc2S(=O)(=O)NCC(=O)N2CC[C@@H](C)C[C@@H]2c2ccccn2)C1",
+   "mw": 442.6,
+   "qed": 0.743,
+   "inchikey": "WVXDVXFSOBAAFV-RMRANGLJSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.8065
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CNc2ccccn2)[C@@H](c2ccccn2)C1",
+   "mw": 310.4,
+   "qed": 0.943,
+   "inchikey": "XKHPZNPKMKJRDH-GDBMZVCRSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.7391
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CNC2CCCCC2)[C@@H](c2ccccn2)C1",
+   "mw": 315.5,
+   "qed": 0.927,
+   "inchikey": "ILLPIILSPRBQSZ-CRAIPNDOSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.7391
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CNc2ccc(O)cc2)[C@@H](c2ccccn2)C1",
+   "mw": 325.4,
+   "qed": 0.847,
+   "inchikey": "AJSJRFJTKOTSQP-RDTXWAMCSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.75
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CNc2ccccc2)[C@@H](c2ccccn2)C1",
+   "mw": 309.4,
+   "qed": 0.94,
+   "inchikey": "UTZFZYJNSFLQCG-CRAIPNDOSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.7391
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CNC(=N)c2ccc(C(=O)O)cc2)[C@@H](c2ccccn2)C1",
+   "mw": 380.4,
+   "qed": 0.546,
+   "inchikey": "VUSFIXRCFGUMIN-RDTXWAMCSA-N",
+   "motifs": [
+    "amidine",
+    "benzamidine"
+   ],
+   "seed_atom_fraction": 0.7143
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CNC(=N)c2ccc(C3CCCCC3)cc2)[C@@H](c2ccccn2)C1",
+   "mw": 418.6,
+   "qed": 0.528,
+   "inchikey": "YJUDJDRFLDSEMI-NTKDMRAZSA-N",
+   "motifs": [
+    "amidine",
+    "benzamidine"
+   ],
+   "seed_atom_fraction": 0.8387
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CNC(=N)c2ccc(-c3ccc(O)cc3)cc2)[C@@H](c2ccccn2)C1",
+   "mw": 428.5,
+   "qed": 0.416,
+   "inchikey": "FARNMOWTOOPBOY-HOYKHHGWSA-N",
+   "motifs": [
+    "amidine",
+    "benzamidine"
+   ],
+   "seed_atom_fraction": 0.8438
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CNC(=N)c2ccc(-c3ccccc3)cc2)[C@@H](c2ccccn2)C1",
+   "mw": 412.5,
+   "qed": 0.473,
+   "inchikey": "OLOMIESAOUJUSJ-NTKDMRAZSA-N",
+   "motifs": [
+    "amidine",
+    "benzamidine"
+   ],
+   "seed_atom_fraction": 0.8387
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CNC(=N)c2ccc(-c3ccccn3)cc2)[C@@H](c2ccccn2)C1",
+   "mw": 413.5,
+   "qed": 0.488,
+   "inchikey": "FOQXCIZJUJGDTA-WZONZLPQSA-N",
+   "motifs": [
+    "amidine",
+    "benzamidine"
+   ],
+   "seed_atom_fraction": 0.8387
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CNC2CCCCC2)[C@@H](C(=O)O)C1",
+   "mw": 282.4,
+   "qed": 0.822,
+   "inchikey": "PWVGOEDENVCLRT-DGCLKSJQSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.7
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CNC2CCCCC2)[C@@H](c2ccc(O)cc2)C1",
+   "mw": 330.5,
+   "qed": 0.886,
+   "inchikey": "QVTRNFKUSVXQDI-DNVCBOLYSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.75
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CNC2CCCCC2)[C@@H](c2ccccc2)C1",
+   "mw": 314.5,
+   "qed": 0.914,
+   "inchikey": "YGCBWNSOFVALPI-VQIMIIECSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.7391
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CNc2ccc(O)cc2)[C@@H](C(=O)O)C1",
+   "mw": 292.3,
+   "qed": 0.732,
+   "inchikey": "CHKIZWBYQWEFBJ-ZWNOBZJWSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.7143
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CNc2ccc(O)cc2)[C@@H](c2ccc(O)cc2)C1",
+   "mw": 340.4,
+   "qed": 0.745,
+   "inchikey": "DDGSRJLOZQLBJP-AUUYWEPGSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.76
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CNc2ccc(O)cc2)[C@@H](c2ccccc2)C1",
+   "mw": 324.4,
+   "qed": 0.841,
+   "inchikey": "PBIUPMWOEYJPPG-DNVCBOLYSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.75
+  },
+  {
+   "smiles": "CC1CNc2c(cccc2S(=O)(=O)NCC(=O)N2CC[C@@H](C)C[C@@H]2C(=O)O)C1",
+   "mw": 409.5,
+   "qed": 0.675,
+   "inchikey": "WSYMEJJIJWINJC-ILWWEHDPSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.7857
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CNc2ccccn2)[C@@H](C(=O)O)C1",
+   "mw": 277.3,
+   "qed": 0.864,
+   "inchikey": "PLPXYGYZSDVCAM-GHMZBOCLSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.7
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CNc2ccccc2)[C@@H](C(=O)O)C1",
+   "mw": 276.3,
+   "qed": 0.88,
+   "inchikey": "GGOXYRHJDLFSBB-DGCLKSJQSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.7
+  },
+  {
+   "smiles": "CCNCC(=O)N1CC[C@@H](C)C[C@@H]1C(=O)O",
+   "mw": 228.3,
+   "qed": 0.726,
+   "inchikey": "QCXIRUAWIHKTBG-RKDXNWHRSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.5
+  },
+  {
+   "smiles": "CCCCCCNCC(=O)N1CC[C@@H](C)C[C@@H]1C(=O)O",
+   "mw": 284.4,
+   "qed": 0.668,
+   "inchikey": "NBHGIEUCLRBARH-CHWSQXEVSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.7
+  },
+  {
+   "smiles": "CC(C)C[C@H](NCC(=O)N1CC[C@@H](C)C[C@@H]1C(=O)O)C(=O)O",
+   "mw": 314.4,
+   "qed": 0.641,
+   "inchikey": "DTSAUMMOABZQBL-GRYCIOLGSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.5909
+  },
+  {
+   "smiles": "CCCCCCNCC(=O)N1CC[C@@H](C)C[C@@H]1c1ccc(O)cc1",
+   "mw": 332.5,
+   "qed": 0.711,
+   "inchikey": "BXBIBJFPDUTPKB-VQIMIIECSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.75
+  },
+  {
+   "smiles": "CCCCCCNCC(=O)N1CC[C@@H](C)C[C@@H]1c1ccccc1",
+   "mw": 316.5,
+   "qed": 0.731,
+   "inchikey": "GOPNUMQIQGYVFP-IEBWSBKVSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.7391
+  },
+  {
+   "smiles": "CC1CNc2c(cccc2S(=O)(=O)NCC(=O)N2CC[C@@H](C)C[C@@H]2c2ccc(O)cc2)C1",
+   "mw": 457.6,
+   "qed": 0.64,
+   "inchikey": "DEHJTZGCEKDGPC-RZSJKOKISA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.8125
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CNc2ccccn2)[C@@H](c2ccc(O)cc2)C1",
+   "mw": 325.4,
+   "qed": 0.906,
+   "inchikey": "IEQJVEPIMIMOGW-RHSMWYFYSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.75
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CNc2ccccc2)[C@@H](c2ccc(O)cc2)C1",
+   "mw": 324.4,
+   "qed": 0.899,
+   "inchikey": "RHMBXVJBGOXXKW-DNVCBOLYSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.75
+  },
+  {
+   "smiles": "CCNCC(=O)N1CC[C@@H](C)C[C@@H]1c1ccc(O)cc1",
+   "mw": 276.4,
+   "qed": 0.887,
+   "inchikey": "AYTBXUWBLLRFFT-IUODEOHRSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.6
+  },
+  {
+   "smiles": "CC(C)C[C@H](NCC(=O)N1CC[C@@H](C)C[C@@H]1c1ccc(O)cc1)C(=O)O",
+   "mw": 362.5,
+   "qed": 0.694,
+   "inchikey": "ATMTUESQYBVHLD-FHLIZLRMSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.6538
+  },
+  {
+   "smiles": "CCNCC(=O)N1CC[C@@H](C)C[C@@H]1c1ccccc1",
+   "mw": 260.4,
+   "qed": 0.902,
+   "inchikey": "RJXHZTFVKKWEGG-UKRRQHHQSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.5789
+  },
+  {
+   "smiles": "CC1CNc2c(cccc2S(=O)(=O)NCC(=O)N2CC[C@@H](C)C[C@@H]2c2ccccc2)C1",
+   "mw": 441.6,
+   "qed": 0.744,
+   "inchikey": "QBSJJHASIDKKGD-IIAQOEISSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.8065
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CNc2ccccn2)[C@@H](c2ccccc2)C1",
+   "mw": 309.4,
+   "qed": 0.94,
+   "inchikey": "ATNSGHQSDCKWRW-NVXWUHKLSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.7391
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CNc2ccccc2)[C@@H](c2ccccc2)C1",
+   "mw": 308.4,
+   "qed": 0.922,
+   "inchikey": "WLNIZZYMSOIDIQ-VQIMIIECSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.7391
+  },
+  {
+   "smiles": "CC(C)C[C@H](NCC(=O)N1CC[C@@H](C)C[C@@H]1c1ccccc1)C(=O)O",
+   "mw": 346.5,
+   "qed": 0.796,
+   "inchikey": "LVNYKYGMZZEWIW-BPQIPLTHSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.64
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CNC(=N)N)[C@@H](c2nc3cc(C(=O)O)ccc3n2C)C1",
+   "mw": 372.4,
+   "qed": 0.468,
+   "inchikey": "AYBMOQBEMRREDT-QMTHXVAHSA-N",
+   "motifs": [
+    "amidine",
+    "guanidine"
+   ],
+   "seed_atom_fraction": 0.5556
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CNC(=N)N)[C@@H](c2nc3cc(C4CCCCC4)ccc3n2C)C1",
+   "mw": 410.6,
+   "qed": 0.531,
+   "inchikey": "RAVNRWGCDDDFNW-FOIQADDNSA-N",
+   "motifs": [
+    "amidine",
+    "guanidine"
+   ],
+   "seed_atom_fraction": 0.7
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CNC(=N)N)[C@@H](c2nc3cc(-c4ccccc4)ccc3n2C)C1",
+   "mw": 404.5,
+   "qed": 0.46,
+   "inchikey": "RGWCWSFUWKYRNB-FOIQADDNSA-N",
+   "motifs": [
+    "amidine",
+    "guanidine"
+   ],
+   "seed_atom_fraction": 0.7
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CNC(=N)N)[C@@H](c2nc3cc(-c4ccccn4)ccc3n2C)C1",
+   "mw": 405.5,
+   "qed": 0.456,
+   "inchikey": "ZJYPRXZASIQVGT-AUUYWEPGSA-N",
+   "motifs": [
+    "amidine",
+    "guanidine"
+   ],
+   "seed_atom_fraction": 0.7
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CNC(=N)c2ccc(-c3ccc(O)cc3)cc2)[C@@H](C(=O)O)C1",
+   "mw": 395.5,
+   "qed": 0.459,
+   "inchikey": "NCLSJKLEBKOZHZ-AUUYWEPGSA-N",
+   "motifs": [
+    "amidine",
+    "benzamidine"
+   ],
+   "seed_atom_fraction": 0.8276
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CNC(=N)c2ccc(-c3ccccc3)cc2)[C@@H](c2ccccc2)C1",
+   "mw": 411.5,
+   "qed": 0.444,
+   "inchikey": "QLFATWDZHNVKTQ-CJFMBICVSA-N",
+   "motifs": [
+    "amidine",
+    "benzamidine"
+   ],
+   "seed_atom_fraction": 0.8387
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CNC(=N)c2ccc(-c3ccccc3)cc2)[C@@H](C(=O)O)C1",
+   "mw": 379.5,
+   "qed": 0.55,
+   "inchikey": "UZUNAHAYADHFQP-DNVCBOLYSA-N",
+   "motifs": [
+    "amidine",
+    "benzamidine"
+   ],
+   "seed_atom_fraction": 0.8214
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CNC(=N)c2ccc(C(=O)O)cc2)[C@@H](c2ccc(O)cc2)C1",
+   "mw": 395.5,
+   "qed": 0.459,
+   "inchikey": "LNOILOZMFVMPTK-AUUYWEPGSA-N",
+   "motifs": [
+    "amidine",
+    "benzamidine"
+   ],
+   "seed_atom_fraction": 0.7241
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CNC(=N)c2ccc(C3CCCCC3)cc2)[C@@H](c2ccc(O)cc2)C1",
+   "mw": 433.6,
+   "qed": 0.439,
+   "inchikey": "XJZSXDMEFZONRW-KBMIEXCESA-N",
+   "motifs": [
+    "amidine",
+    "benzamidine"
+   ],
+   "seed_atom_fraction": 0.8438
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CNC(=N)c2ccc(-c3ccccn3)cc2)[C@@H](c2ccc(O)cc2)C1",
+   "mw": 428.5,
+   "qed": 0.416,
+   "inchikey": "FRKPRHRBONSDEE-HOYKHHGWSA-N",
+   "motifs": [
+    "amidine",
+    "benzamidine"
+   ],
+   "seed_atom_fraction": 0.8438
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CNC(=N)c2ccc(-c3ccccn3)cc2)[C@@H](c2ccccc2)C1",
+   "mw": 412.5,
+   "qed": 0.473,
+   "inchikey": "FNLAPQGCUWWFOH-NTKDMRAZSA-N",
+   "motifs": [
+    "amidine",
+    "benzamidine"
+   ],
+   "seed_atom_fraction": 0.8387
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CNC(=N)c2ccc(-c3ccccn3)cc2)[C@@H](C(=O)O)C1",
+   "mw": 380.4,
+   "qed": 0.545,
+   "inchikey": "YAKVRFLNQMTJON-RDTXWAMCSA-N",
+   "motifs": [
+    "amidine",
+    "benzamidine"
+   ],
+   "seed_atom_fraction": 0.8214
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CNC(=N)c2ccc(C(=O)O)cc2)[C@@H](c2ccccc2)C1",
+   "mw": 379.5,
+   "qed": 0.549,
+   "inchikey": "RTRWIRSTAYPRFR-DNVCBOLYSA-N",
+   "motifs": [
+    "amidine",
+    "benzamidine"
+   ],
+   "seed_atom_fraction": 0.7143
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CNC(=N)c2ccc(C3CCCCC3)cc2)[C@@H](c2ccccc2)C1",
+   "mw": 417.6,
+   "qed": 0.488,
+   "inchikey": "KCFJQPPEENQVFP-CJFMBICVSA-N",
+   "motifs": [
+    "amidine",
+    "benzamidine"
+   ],
+   "seed_atom_fraction": 0.8387
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CNC(=N)c2ccc(C3CCCCC3)cc2)[C@@H](C(=O)O)C1",
+   "mw": 385.5,
+   "qed": 0.535,
+   "inchikey": "ZSPBVLBECXOOOK-DNVCBOLYSA-N",
+   "motifs": [
+    "amidine",
+    "benzamidine"
+   ],
+   "seed_atom_fraction": 0.8214
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CNC(=N)c2ccc(C(=O)O)cc2)[C@@H](C(=O)O)C1",
+   "mw": 347.4,
+   "qed": 0.464,
+   "inchikey": "AWDMHDDTHOMXJN-ZWNOBZJWSA-N",
+   "motifs": [
+    "amidine",
+    "benzamidine"
+   ],
+   "seed_atom_fraction": 0.68
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CNC(=N)N)[C@@H](c2ccc(O)cc2)C1",
+   "mw": 290.4,
+   "qed": 0.496,
+   "inchikey": "BQSZOMROLQZYDD-ZWNOBZJWSA-N",
+   "motifs": [
+    "amidine",
+    "guanidine"
+   ],
+   "seed_atom_fraction": 0.5714
+  },
+  {
+   "smiles": "C[C@@H]1CCN(C(=O)CNC(=N)N)[C@@H](c2ccccc2)C1",
+   "mw": 274.4,
+   "qed": 0.576,
+   "inchikey": "BAYCNOIEZKYNSA-DGCLKSJQSA-N",
+   "motifs": [
+    "amidine",
+    "guanidine"
+   ],
+   "seed_atom_fraction": 0.55
+  },
+  {
+   "smiles": "C[C@@H]1CCN([C@H]2C[C@H](C)CCN2C(=O)CNC(=N)N)[C@@H](C(=O)O)C1",
+   "mw": 339.4,
+   "qed": 0.43,
+   "inchikey": "BNACVHPOLUSMQL-FDYHWXHSSA-N",
+   "motifs": [
+    "amidine",
+    "guanidine"
+   ],
+   "seed_atom_fraction": 0.3333
+  },
+  {
+   "smiles": "C[C@@H]1CCN([C@H]2C[C@H](C)CCN2C(=O)CNC(=N)N)[C@@H](c2ccccn2)C1",
+   "mw": 372.5,
+   "qed": 0.554,
+   "inchikey": "VIMUMUYNSIYNKU-JOCBIADPSA-N",
+   "motifs": [
+    "amidine",
+    "guanidine"
+   ],
+   "seed_atom_fraction": 0.4074
+  },
+  {
+   "smiles": "C[C@@H]1CCN([C@H]2C[C@H](C)CCN2C(=O)CNC(=N)N)[C@@H](C2CCCCC2)C1",
+   "mw": 377.6,
+   "qed": 0.519,
+   "inchikey": "SSMPUGOISXRJQK-PSBWJHGTSA-N",
+   "motifs": [
+    "amidine",
+    "guanidine"
+   ],
+   "seed_atom_fraction": 0.4444
+  },
+  {
+   "smiles": "C[C@@H]1CCN([C@H]2C[C@H](C)CCN2C(=O)CNC(=N)N)[C@@H](c2ccc(O)cc2)C1",
+   "mw": 387.5,
+   "qed": 0.468,
+   "inchikey": "KYLLMIBDDFVWEH-OHDICMOHSA-N",
+   "motifs": [
+    "amidine",
+    "guanidine"
+   ],
+   "seed_atom_fraction": 0.4286
+  },
+  {
+   "smiles": "C[C@@H]1CCN([C@H]2C[C@H](C)CCN2C(=O)CNC(=N)N)[C@@H](c2ccccc2)C1",
+   "mw": 371.5,
+   "qed": 0.561,
+   "inchikey": "WOYXZTVQOOTGMV-PSBWJHGTSA-N",
+   "motifs": [
+    "amidine",
+    "guanidine"
+   ],
+   "seed_atom_fraction": 0.4074
+  },
+  {
+   "smiles": "N=C(N)NCC(=O)N[C@@H]1CCCN1C1CCCCC1",
+   "mw": 267.4,
+   "qed": 0.436,
+   "inchikey": "MYDXNCPSLVSVJI-NSHDSACASA-N",
+   "motifs": [
+    "amidine",
+    "guanidine"
+   ],
+   "seed_atom_fraction": 0.3158
+  },
+  {
+   "smiles": "N=C(N)NCC(=O)N[C@@H]1CCCN1c1ccccn1",
+   "mw": 262.3,
+   "qed": 0.436,
+   "inchikey": "RSJYILCCAHUUHC-JTQLQIEISA-N",
+   "motifs": [
+    "amidine",
+    "guanidine"
+   ],
+   "seed_atom_fraction": 0.3158
+  },
+  {
+   "smiles": "N=C(N)NCC(=O)N[C@@H]1CCCN1c1ccccc1",
+   "mw": 261.3,
+   "qed": 0.46,
+   "inchikey": "XNPOXXJLKOBALX-NSHDSACASA-N",
+   "motifs": [
+    "amidine",
+    "guanidine"
+   ],
+   "seed_atom_fraction": 0.3158
+  },
+  {
+   "smiles": "CC1CNc2c(cccc2S(=O)(=O)NC(=O)CN2CC[C@@H](C)C[C@@H]2C(=O)O)C1",
+   "mw": 409.5,
+   "qed": 0.671,
+   "inchikey": "JBCQTJANZNWKMP-ILWWEHDPSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.7857
+  },
+  {
+   "smiles": "CC1CNc2c(cccc2S(=O)(=O)NC(=O)CN2CC[C@@H](C)C[C@@H]2c2ccccn2)C1",
+   "mw": 442.6,
+   "qed": 0.74,
+   "inchikey": "DSWHECHKQZQIBS-RMRANGLJSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.8065
+  },
+  {
+   "smiles": "CC1CNc2c(cccc2S(=O)(=O)NC(=O)CN2CC[C@@H](C)C[C@@H]2c2ccc(O)cc2)C1",
+   "mw": 457.6,
+   "qed": 0.637,
+   "inchikey": "KCXYBHGAORLXBQ-RZSJKOKISA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.8125
+  },
+  {
+   "smiles": "CC1CNc2c(cccc2S(=O)(=O)NC(=O)CN2CC[C@@H](C)C[C@@H]2c2ccccc2)C1",
+   "mw": 441.6,
+   "qed": 0.742,
+   "inchikey": "WWNHYPJFCRLFNJ-IIAQOEISSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.8065
+  },
+  {
+   "smiles": "CC1CNc2c(cccc2S(=O)(=O)NC(=O)CN2CC[C@@H](C)C[C@@H]2C2CCCCC2)C1",
+   "mw": 447.6,
+   "qed": 0.718,
+   "inchikey": "YTXKYBAEXZNEGX-IIAQOEISSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.8387
+  },
+  {
+   "smiles": "C[C@@H]1CCN(CC(=O)Nc2ccc(O)cc2)[C@@H](C(=O)O)C1",
+   "mw": 292.3,
+   "qed": 0.732,
+   "inchikey": "UMVXGXQEKUQUFC-ZWNOBZJWSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.7143
+  },
+  {
+   "smiles": "C[C@@H]1CCN(CC(=O)Nc2ccc(O)cc2)[C@@H](c2ccccn2)C1",
+   "mw": 325.4,
+   "qed": 0.847,
+   "inchikey": "LFDFIDYNQVFHGD-RDTXWAMCSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.75
+  },
+  {
+   "smiles": "C[C@@H]1CCN(CC(=O)Nc2ccc(O)cc2)[C@@H](c2ccc(O)cc2)C1",
+   "mw": 340.4,
+   "qed": 0.745,
+   "inchikey": "UTHFEDPYLSRFNI-AUUYWEPGSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.76
+  },
+  {
+   "smiles": "C[C@@H]1CCN(CC(=O)Nc2ccc(O)cc2)[C@@H](c2ccccc2)C1",
+   "mw": 324.4,
+   "qed": 0.841,
+   "inchikey": "WDTVIVUHESYILS-DNVCBOLYSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.75
+  },
+  {
+   "smiles": "C[C@@H]1CCN(CC(=O)Nc2ccc(O)cc2)[C@@H](C2CCCCC2)C1",
+   "mw": 330.5,
+   "qed": 0.82,
+   "inchikey": "CDOJSHWRCZZULM-DNVCBOLYSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.7917
+  },
+  {
+   "smiles": "CCNC(=O)CN1CC[C@@H](C)C[C@@H]1C(=O)O",
+   "mw": 228.3,
+   "qed": 0.726,
+   "inchikey": "HFWHWRKDKGKJJY-RKDXNWHRSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.5
+  },
+  {
+   "smiles": "CCNC(=O)CN1CC[C@@H](C)C[C@@H]1NC(=N)N",
+   "mw": 241.3,
+   "qed": 0.4,
+   "inchikey": "QDFBGHMKBAZQAA-RKDXNWHRSA-N",
+   "motifs": [
+    "amidine",
+    "guanidine"
+   ],
+   "seed_atom_fraction": 0.0
+  },
+  {
+   "smiles": "CCNC(=O)CN1CC[C@@H](C)C[C@@H]1c1ccccn1",
+   "mw": 261.4,
+   "qed": 0.901,
+   "inchikey": "PSTLEJWVBJQGJJ-TZMCWYRMSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.5789
+  },
+  {
+   "smiles": "CCNC(=O)CN1CC[C@@H](C)C[C@@H]1c1ccc(O)cc1",
+   "mw": 276.4,
+   "qed": 0.887,
+   "inchikey": "PSGRUMBJOQIFSU-IUODEOHRSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.6
+  },
+  {
+   "smiles": "CCNC(=O)CN1CC[C@@H](C)C[C@@H]1c1ccccc1",
+   "mw": 260.4,
+   "qed": 0.902,
+   "inchikey": "YPUOURRJQJDVPM-UKRRQHHQSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.5789
+  },
+  {
+   "smiles": "CCNC(=O)CN1CC[C@@H](C)C[C@@H]1C1CCCCC1",
+   "mw": 266.4,
+   "qed": 0.848,
+   "inchikey": "MSPHQFWOISAGNL-UKRRQHHQSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.6316
+  },
+  {
+   "smiles": "C[C@@H]1CCN(CC(=O)Nc2ccccc2)[C@@H](NC(=N)N)C1",
+   "mw": 289.4,
+   "qed": 0.494,
+   "inchikey": "MQQZDCUIGPMTCH-DGCLKSJQSA-N",
+   "motifs": [
+    "amidine",
+    "guanidine"
+   ],
+   "seed_atom_fraction": 0.2857
+  },
+  {
+   "smiles": "C[C@@H]1CCN(CC(=O)NC2CCCCC2)[C@@H](NC(=N)N)C1",
+   "mw": 295.4,
+   "qed": 0.459,
+   "inchikey": "SCTYYKCJSJNGDS-DGCLKSJQSA-N",
+   "motifs": [
+    "amidine",
+    "guanidine"
+   ],
+   "seed_atom_fraction": 0.2857
+  },
+  {
+   "smiles": "C[C@@H]1CCN(CC(=O)Nc2ccccn2)[C@@H](NC(=N)N)C1",
+   "mw": 290.4,
+   "qed": 0.479,
+   "inchikey": "HQOUUUZBEONOKK-ZYHUDNBSSA-N",
+   "motifs": [
+    "amidine",
+    "guanidine"
+   ],
+   "seed_atom_fraction": 0.2857
+  },
+  {
+   "smiles": "C[C@@H]1CCN(CC(=O)Nc2ccccc2)[C@@H](C(=O)O)C1",
+   "mw": 276.3,
+   "qed": 0.88,
+   "inchikey": "ZHIMRWXTSWWRLS-DGCLKSJQSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.7
+  },
+  {
+   "smiles": "C[C@@H]1CCN(CC(=O)Nc2ccccc2)[C@@H](c2ccccn2)C1",
+   "mw": 309.4,
+   "qed": 0.94,
+   "inchikey": "JSGWYWGCNIWDMK-CRAIPNDOSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.7391
+  },
+  {
+   "smiles": "C[C@@H]1CCN(CC(=O)Nc2ccccc2)[C@@H](c2ccc(O)cc2)C1",
+   "mw": 324.4,
+   "qed": 0.899,
+   "inchikey": "ZWBHPUSGQZKPKU-DNVCBOLYSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.75
+  },
+  {
+   "smiles": "C[C@@H]1CCN(CC(=O)Nc2ccccc2)[C@@H](c2ccccc2)C1",
+   "mw": 308.4,
+   "qed": 0.922,
+   "inchikey": "SGNYTNJVVPNMCM-VQIMIIECSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.7391
+  },
+  {
+   "smiles": "C[C@@H]1CCN(CC(=O)Nc2ccccc2)[C@@H](C2CCCCC2)C1",
+   "mw": 314.5,
+   "qed": 0.898,
+   "inchikey": "NUUYIVAROUAFFC-VQIMIIECSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.7826
+  },
+  {
+   "smiles": "CCCCCCNC(=O)CN1CC[C@@H](C)C[C@@H]1C(=O)O",
+   "mw": 284.4,
+   "qed": 0.668,
+   "inchikey": "VOXRWOVSCHJCIJ-CHWSQXEVSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.7
+  },
+  {
+   "smiles": "CC(C)C[C@H](NC(=O)CN1CC[C@@H](C)C[C@@H]1C(=O)O)C(=O)O",
+   "mw": 314.4,
+   "qed": 0.641,
+   "inchikey": "KDSJQJRTJRSWRJ-GRYCIOLGSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.5909
+  },
+  {
+   "smiles": "C[C@@H]1CCN(CC(=O)NC2CCCCC2)[C@@H](C(=O)O)C1",
+   "mw": 282.4,
+   "qed": 0.822,
+   "inchikey": "QXQVAWQLUMHXJR-DGCLKSJQSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.7
+  },
+  {
+   "smiles": "C[C@@H]1CCN(CC(=O)Nc2ccccn2)[C@@H](C(=O)O)C1",
+   "mw": 277.3,
+   "qed": 0.864,
+   "inchikey": "ONUCHUYMNUUWNH-GHMZBOCLSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.7
+  },
+  {
+   "smiles": "CCCCCCNC(=O)CN1CC[C@@H](C)C[C@@H]1c1ccc(O)cc1",
+   "mw": 332.5,
+   "qed": 0.711,
+   "inchikey": "AFTNSYRJBUEVPI-VQIMIIECSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.75
+  },
+  {
+   "smiles": "CC(C)C[C@H](NC(=O)CN1CC[C@@H](C)C[C@@H]1c1ccc(O)cc1)C(=O)O",
+   "mw": 362.5,
+   "qed": 0.694,
+   "inchikey": "GZFJRXXRBUKGKK-FHLIZLRMSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.6538
+  },
+  {
+   "smiles": "C[C@@H]1CCN(CC(=O)NC2CCCCC2)[C@@H](c2ccc(O)cc2)C1",
+   "mw": 330.5,
+   "qed": 0.886,
+   "inchikey": "ZKTAETYJFKVYBO-DNVCBOLYSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.75
+  },
+  {
+   "smiles": "C[C@@H]1CCN(CC(=O)Nc2ccccn2)[C@@H](c2ccc(O)cc2)C1",
+   "mw": 325.4,
+   "qed": 0.906,
+   "inchikey": "KHYRTAAAPJUXMW-RHSMWYFYSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.75
+  },
+  {
+   "smiles": "CC(C)C[C@H](NC(=O)CN1CC[C@@H](C)C[C@@H]1c1ccccn1)C(=O)O",
+   "mw": 347.5,
+   "qed": 0.792,
+   "inchikey": "ZBSXDEXVIDRFNZ-HYVNUMGLSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.64
+  },
+  {
+   "smiles": "CC(C)C[C@H](NC(=O)CN1CC[C@@H](C)C[C@@H]1c1ccccc1)C(=O)O",
+   "mw": 346.5,
+   "qed": 0.796,
+   "inchikey": "MNLOUIDMQKSPPS-BPQIPLTHSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.64
+  },
+  {
+   "smiles": "CC(C)C[C@H](NC(=O)CN1CC[C@@H](C)C[C@@H]1C1CCCCC1)C(=O)O",
+   "mw": 352.5,
+   "qed": 0.738,
+   "inchikey": "NCSSWUBNGBUPON-BPQIPLTHSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.68
+  },
+  {
+   "smiles": "CCCCCCNC(=O)CN1CC[C@@H](C)C[C@@H]1C1CCCCC1",
+   "mw": 322.5,
+   "qed": 0.673,
+   "inchikey": "IYQFNRPIPOQGSM-IEBWSBKVSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.7826
+  },
+  {
+   "smiles": "C[C@@H]1CCN(CC(=O)NC2CCCCC2)[C@@H](C2CCCCC2)C1",
+   "mw": 320.5,
+   "qed": 0.845,
+   "inchikey": "IMIDJQSVCDDARP-VQIMIIECSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.7826
+  },
+  {
+   "smiles": "C[C@@H]1CCN(CC(=O)Nc2ccccn2)[C@@H](C2CCCCC2)C1",
+   "mw": 315.5,
+   "qed": 0.921,
+   "inchikey": "YEBIMPXAILNYSB-NVXWUHKLSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.7826
+  },
+  {
+   "smiles": "CCCCCCNC(=O)CN1CC[C@@H](C)C[C@@H]1c1ccccc1",
+   "mw": 316.5,
+   "qed": 0.731,
+   "inchikey": "CROLIFYSPLQQTQ-IEBWSBKVSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.7391
+  },
+  {
+   "smiles": "C[C@@H]1CCN(CC(=O)NC2CCCCC2)[C@@H](c2ccccc2)C1",
+   "mw": 314.5,
+   "qed": 0.914,
+   "inchikey": "CUIRGVUYESMGIH-VQIMIIECSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.7391
+  },
+  {
+   "smiles": "C[C@@H]1CCN(CC(=O)Nc2ccccn2)[C@@H](c2ccccc2)C1",
+   "mw": 309.4,
+   "qed": 0.94,
+   "inchikey": "DOENNJNGCLNYSU-NVXWUHKLSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.7391
+  },
+  {
+   "smiles": "CCCCCCNC(=O)CN1CC[C@@H](C)C[C@@H]1c1ccccn1",
+   "mw": 317.5,
+   "qed": 0.746,
+   "inchikey": "UPXYMBMZQUYXDE-SJLPKXTDSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.7391
+  },
+  {
+   "smiles": "C[C@@H]1CCN(CC(=O)NC2CCCCC2)[C@@H](c2ccccn2)C1",
+   "mw": 315.5,
+   "qed": 0.927,
+   "inchikey": "RPSVWYBBEAIAKG-CRAIPNDOSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.7391
+  },
+  {
+   "smiles": "C[C@@H]1CCN(CC(=O)Nc2ccccn2)[C@@H](c2ccccn2)C1",
+   "mw": 310.4,
+   "qed": 0.943,
+   "inchikey": "SPAMLEKRBUJQOY-GDBMZVCRSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.7391
+  },
+  {
+   "smiles": "CCNC(=O)CN1CCC[C@H]1c1ccccn1",
+   "mw": 233.3,
+   "qed": 0.854,
+   "inchikey": "ZWLGOYMWRIEDMP-LBPRGKRZSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.3529
+  },
+  {
+   "smiles": "CCNC(=O)CN1CCC[C@H]1c1ccc(O)cc1",
+   "mw": 248.3,
+   "qed": 0.852,
+   "inchikey": "XRQPZSNTESGBLV-ZDUSSCGKSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.3889
+  },
+  {
+   "smiles": "CCNC(=O)CN1CCC[C@H]1c1ccccc1",
+   "mw": 232.3,
+   "qed": 0.86,
+   "inchikey": "FEFSBKZFKDVUIU-ZDUSSCGKSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.3529
+  },
+  {
+   "smiles": "CCNC(=O)CN1CCC[C@H]1C(=O)O",
+   "mw": 200.2,
+   "qed": 0.652,
+   "inchikey": "KASRTNNPWVAGQE-ZETCQYMHSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.3571
+  },
+  {
+   "smiles": "CCNC(=O)CN1CCC[C@H]1C1CCCCC1",
+   "mw": 238.4,
+   "qed": 0.814,
+   "inchikey": "UIUDLLLXSMWQHX-ZDUSSCGKSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.5882
+  },
+  {
+   "smiles": "CCNC(=O)CN1CC[C@H]1c1ccccn1",
+   "mw": 219.3,
+   "qed": 0.82,
+   "inchikey": "GVNMWWKMIIRUIX-NSHDSACASA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.375
+  },
+  {
+   "smiles": "CCNC(=O)CN1CC[C@H]1c1ccc(O)cc1",
+   "mw": 234.3,
+   "qed": 0.825,
+   "inchikey": "JZAHJRIOUMLRMO-LBPRGKRZSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.4118
+  },
+  {
+   "smiles": "CCNC(=O)CN1CC[C@H]1c1ccccc1",
+   "mw": 218.3,
+   "qed": 0.832,
+   "inchikey": "IFXJFPVJWBXHLK-LBPRGKRZSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.375
+  },
+  {
+   "smiles": "CCNC(=O)CN1CC[C@H]1C1CCCCC1",
+   "mw": 224.3,
+   "qed": 0.789,
+   "inchikey": "MRPDVHGCIWJPDC-LBPRGKRZSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.5625
+  },
+  {
+   "smiles": "CCNC(=O)CNC(=N)c1ccc(-c2ccc(O)cc2)cc1",
+   "mw": 297.4,
+   "qed": 0.504,
+   "inchikey": "MICIIWOQKYALDV-UHFFFAOYSA-N",
+   "motifs": [
+    "amidine",
+    "benzamidine"
+   ],
+   "seed_atom_fraction": 0.7273
+  },
+  {
+   "smiles": "CCNC(=O)CNC(=N)c1ccc(-c2ccccc2)cc1",
+   "mw": 281.4,
+   "qed": 0.582,
+   "inchikey": "ABHDHGZYDBUJAI-UHFFFAOYSA-N",
+   "motifs": [
+    "amidine",
+    "benzamidine"
+   ],
+   "seed_atom_fraction": 0.7143
+  },
+  {
+   "smiles": "CCNC(=O)CNC(=N)c1ccc(C(=O)O)cc1",
+   "mw": 249.3,
+   "qed": 0.449,
+   "inchikey": "FNPXSGHSPNBPKI-UHFFFAOYSA-N",
+   "motifs": [
+    "amidine",
+    "benzamidine"
+   ],
+   "seed_atom_fraction": 0.5
+  },
+  {
+   "smiles": "CCNC(=O)CNC(=N)c1ccc(-c2ccccn2)cc1",
+   "mw": 282.3,
+   "qed": 0.578,
+   "inchikey": "FFXMVKGCOYWSIE-UHFFFAOYSA-N",
+   "motifs": [
+    "amidine",
+    "benzamidine"
+   ],
+   "seed_atom_fraction": 0.7143
+  },
+  {
+   "smiles": "CCNC(=O)CNC(=N)c1ccc(C2CCCCC2)cc1",
+   "mw": 287.4,
+   "qed": 0.576,
+   "inchikey": "UVJKMKGTWRSFIN-UHFFFAOYSA-N",
+   "motifs": [
+    "amidine",
+    "benzamidine"
+   ],
+   "seed_atom_fraction": 0.7143
+  },
+  {
+   "smiles": "CCNC(=O)CO[C@@H](CC(C)C)C(=O)O",
+   "mw": 217.3,
+   "qed": 0.656,
+   "inchikey": "MTEFJFVSYKFBDU-QMMMGPOBSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.0
+  },
+  {
+   "smiles": "CCNC(=O)CN[C@@H](CC(C)C)C(=O)O",
+   "mw": 216.3,
+   "qed": 0.568,
+   "inchikey": "AOTODSPQIVLLJG-QMMMGPOBSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.3333
+  },
+  {
+   "smiles": "CCNC(=O)CNS(=O)(=O)c1cccc2c1NCC(C)C2",
+   "mw": 311.4,
+   "qed": 0.747,
+   "inchikey": "QDCRVFVRIHZWQM-UHFFFAOYSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.6667
+  },
+  {
+   "smiles": "CC1CNc2c(cccc2S(=O)(=O)NCC(=O)NC2CCCCC2)C1",
+   "mw": 365.5,
+   "qed": 0.745,
+   "inchikey": "JHDVFYMQGMXBLC-UHFFFAOYSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.8
+  },
+  {
+   "smiles": "O=C(CNC1CCCCC1)NC1CCCCC1",
+   "mw": 238.4,
+   "qed": 0.789,
+   "inchikey": "QDZDMLIMJVTASF-UHFFFAOYSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.7059
+  },
+  {
+   "smiles": "CCCCCCNCC(=O)NC1CCCCC1",
+   "mw": 240.4,
+   "qed": 0.64,
+   "inchikey": "ZLJNPPBCCFVYBP-UHFFFAOYSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.7059
+  },
+  {
+   "smiles": "CC(C)C[C@H](NCC(=O)NC1CCCCC1)C(=O)O",
+   "mw": 270.4,
+   "qed": 0.655,
+   "inchikey": "MFKXJNWAZCEVHT-LBPRGKRZSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.5789
+  },
+  {
+   "smiles": "O=C(CNc1ccc(O)cc1)NC1CCCCC1",
+   "mw": 248.3,
+   "qed": 0.716,
+   "inchikey": "FCPWIXRVLMPXNA-UHFFFAOYSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.7222
+  },
+  {
+   "smiles": "O=C(CNc1ccccc1)NC1CCCCC1",
+   "mw": 232.3,
+   "qed": 0.837,
+   "inchikey": "PXFSLUDARFHWME-UHFFFAOYSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.7059
+  },
+  {
+   "smiles": "O=C(CNc1ccccn1)NC1CCCCC1",
+   "mw": 233.3,
+   "qed": 0.835,
+   "inchikey": "XVCIEJAMYMBRIX-UHFFFAOYSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.7059
+  },
+  {
+   "smiles": "O=C(CN1CC[C@H]1c1ccc(O)cc1)NC1CCCCC1",
+   "mw": 288.4,
+   "qed": 0.895,
+   "inchikey": "NDKNTOOGSRHFMK-INIZCTEOSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.619
+  },
+  {
+   "smiles": "O=C(CN1CC[C@H]1c1ccccc1)NC1CCCCC1",
+   "mw": 272.4,
+   "qed": 0.914,
+   "inchikey": "LGCJUNUPRNXBBS-INIZCTEOSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.6
+  },
+  {
+   "smiles": "N=C(N)N[C@@H]1CCN1CC(=O)NC1CCCCC1",
+   "mw": 253.3,
+   "qed": 0.417,
+   "inchikey": "IQLMNEPMUUSURM-JTQLQIEISA-N",
+   "motifs": [
+    "amidine",
+    "guanidine"
+   ],
+   "seed_atom_fraction": 0.3333
+  },
+  {
+   "smiles": "O=C(CN1CC[C@H]1c1ccccn1)NC1CCCCC1",
+   "mw": 273.4,
+   "qed": 0.915,
+   "inchikey": "XNUAZHQXGKSVHJ-HNNXBMFYSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.6
+  },
+  {
+   "smiles": "O=C(CN1CC[C@H]1C1CCCCC1)NC1CCCCC1",
+   "mw": 278.4,
+   "qed": 0.857,
+   "inchikey": "LVHSESCRBDHUHX-INIZCTEOSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.75
+  },
+  {
+   "smiles": "O=C(CN1CC[C@H]1C(=O)O)NC1CCCCC1",
+   "mw": 240.3,
+   "qed": 0.754,
+   "inchikey": "ILMPFMYGIKJTFW-JTQLQIEISA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.6471
+  },
+  {
+   "smiles": "O=C(COC1CCCCC1)NC1CCCCC1",
+   "mw": 239.4,
+   "qed": 0.819,
+   "inchikey": "PNSMJMUBVSCFQS-UHFFFAOYSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.7059
+  },
+  {
+   "smiles": "CCCCCCOCC(=O)NC1CCCCC1",
+   "mw": 241.4,
+   "qed": 0.663,
+   "inchikey": "JAJZBPRYLWHPKC-UHFFFAOYSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.7059
+  },
+  {
+   "smiles": "CC(C)C[C@H](OCC(=O)NC1CCCCC1)C(=O)O",
+   "mw": 271.4,
+   "qed": 0.742,
+   "inchikey": "VXQMTKVTOPSQGN-LBPRGKRZSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.3158
+  },
+  {
+   "smiles": "O=C(COc1ccc(O)cc1)NC1CCCCC1",
+   "mw": 249.3,
+   "qed": 0.86,
+   "inchikey": "ZNVVSZJTNGGAMJ-UHFFFAOYSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.7778
+  },
+  {
+   "smiles": "O=C(COc1ccccc1)NC1CCCCC1",
+   "mw": 233.3,
+   "qed": 0.867,
+   "inchikey": "CQWWLWGATIFQLU-UHFFFAOYSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.7647
+  },
+  {
+   "smiles": "O=C(COc1ccccn1)NC1CCCCC1",
+   "mw": 234.3,
+   "qed": 0.865,
+   "inchikey": "SDDJLNDRHKUEGG-UHFFFAOYSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.7059
+  },
+  {
+   "smiles": "O=C(CN1CCC[C@H]1c1ccc(O)cc1)NC1CCCCC1",
+   "mw": 302.4,
+   "qed": 0.899,
+   "inchikey": "FCWHVZUIVGWYAP-KRWDZBQOSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.5909
+  },
+  {
+   "smiles": "O=C(CN1CCC[C@H]1c1ccccc1)NC1CCCCC1",
+   "mw": 286.4,
+   "qed": 0.921,
+   "inchikey": "MNNOCDQOPHBYTD-KRWDZBQOSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.5714
+  },
+  {
+   "smiles": "N=C(N)N[C@@H]1CCCN1CC(=O)NC1CCCCC1",
+   "mw": 267.4,
+   "qed": 0.436,
+   "inchikey": "OKSVHHYYTMKGFY-NSHDSACASA-N",
+   "motifs": [
+    "amidine",
+    "guanidine"
+   ],
+   "seed_atom_fraction": 0.3158
+  },
+  {
+   "smiles": "O=C(CN1CCC[C@H]1c1ccccn1)NC1CCCCC1",
+   "mw": 287.4,
+   "qed": 0.926,
+   "inchikey": "CMQKKDQFQBJXLZ-INIZCTEOSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.5714
+  },
+  {
+   "smiles": "O=C(CN1CCC[C@H]1C1CCCCC1)NC1CCCCC1",
+   "mw": 292.5,
+   "qed": 0.86,
+   "inchikey": "LKRZNYDGMVBTTA-KRWDZBQOSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.7619
+  },
+  {
+   "smiles": "O=C(CN1CCC[C@H]1C(=O)O)NC1CCCCC1",
+   "mw": 254.3,
+   "qed": 0.785,
+   "inchikey": "ULLXUWRGFLFSCV-NSHDSACASA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.6111
+  },
+  {
+   "smiles": "N=C(NCC(=O)NC1CCCCC1)c1ccc(C2CCCCC2)cc1",
+   "mw": 341.5,
+   "qed": 0.558,
+   "inchikey": "MHRNWGOPGXDDLX-UHFFFAOYSA-N",
+   "motifs": [
+    "amidine",
+    "benzamidine"
+   ],
+   "seed_atom_fraction": 0.84
+  },
+  {
+   "smiles": "N=C(NCC(=O)NC1CCCCC1)c1ccc(-c2ccccn2)cc1",
+   "mw": 336.4,
+   "qed": 0.58,
+   "inchikey": "FKAYTMLBMKNHCR-UHFFFAOYSA-N",
+   "motifs": [
+    "amidine",
+    "benzamidine"
+   ],
+   "seed_atom_fraction": 0.84
+  },
+  {
+   "smiles": "N=C(NCC(=O)NC1CCCCC1)c1ccc(-c2ccc(O)cc2)cc1",
+   "mw": 351.4,
+   "qed": 0.492,
+   "inchikey": "BZHIHMJTHMRJRI-UHFFFAOYSA-N",
+   "motifs": [
+    "amidine",
+    "benzamidine"
+   ],
+   "seed_atom_fraction": 0.8462
+  },
+  {
+   "smiles": "N=C(NCC(=O)NC1CCCCC1)c1ccc(-c2ccccc2)cc1",
+   "mw": 335.5,
+   "qed": 0.576,
+   "inchikey": "GTKVQNUSXDBQID-UHFFFAOYSA-N",
+   "motifs": [
+    "amidine",
+    "benzamidine"
+   ],
+   "seed_atom_fraction": 0.84
+  },
+  {
+   "smiles": "N=C(NCC(=O)NC1CCCCC1)c1ccc(C(=O)O)cc1",
+   "mw": 303.4,
+   "qed": 0.491,
+   "inchikey": "VMCMTPAUVKWVFM-UHFFFAOYSA-N",
+   "motifs": [
+    "amidine",
+    "benzamidine"
+   ],
+   "seed_atom_fraction": 0.6818
+  },
+  {
+   "smiles": "CCCCCCNC(=O)CNS(=O)(=O)c1cccc2c1NCC(C)C2",
+   "mw": 367.5,
+   "qed": 0.584,
+   "inchikey": "PAAFMRISBGIWBC-UHFFFAOYSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.8
+  },
+  {
+   "smiles": "CCCCCCNC(=O)CNc1ccc(O)cc1",
+   "mw": 250.3,
+   "qed": 0.49,
+   "inchikey": "PXIGZDJKSFAMEI-UHFFFAOYSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.7222
+  },
+  {
+   "smiles": "CCCCCCNC(=O)CNc1ccccc1",
+   "mw": 234.3,
+   "qed": 0.679,
+   "inchikey": "SJMUHDMDGCAKKZ-UHFFFAOYSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.7059
+  },
+  {
+   "smiles": "CCCCCCNCC(=O)NCCCCCC",
+   "mw": 242.4,
+   "qed": 0.517,
+   "inchikey": "PKJLBKJYPIOUFX-UHFFFAOYSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.7059
+  },
+  {
+   "smiles": "CCCCCCNC(=O)CN[C@@H](CC(C)C)C(=O)O",
+   "mw": 272.4,
+   "qed": 0.501,
+   "inchikey": "INNZEAGWKCBOQE-LBPRGKRZSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.5789
+  },
+  {
+   "smiles": "CCCCCCNC(=O)CNc1ccccn1",
+   "mw": 235.3,
+   "qed": 0.679,
+   "inchikey": "IVHZEHIOODBGTN-UHFFFAOYSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.7059
+  },
+  {
+   "smiles": "CCCCCCNC(=O)CNC1CCCCC1",
+   "mw": 240.4,
+   "qed": 0.64,
+   "inchikey": "SRTRWRRTBNUCKV-UHFFFAOYSA-N",
+   "motifs": [],
+   "seed_atom_fraction": 0.7059
+  }
+ ]
+}
