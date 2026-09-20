@@ -193,6 +193,12 @@ MAB_STEM = re.compile(r"(mab|tug|bart|ment)$")  # 2022 INN revision split -mab
 FRAGMENT_HINT = re.compile(r"\b(fab|f\(ab|scfv|vhh|nanobody|fragment|single.domain)\b", re.I)
 
 
+def is_antibody_like(name: str, mol_type: str) -> bool:
+    """True if the INN stem or ChEMBL molecule_type says 'antibody-derived'."""
+    n = name.lower().replace(" pegol", "").replace(" ", "")
+    return bool(MAB_STEM.search(n)) or mol_type in ("Antibody", "Antibody drug conjugate")
+
+
 def classify(name: str, mol_type: str, chains: list[tuple[str, str]], descs: list[str]) -> str:
     """Assign one of: mab, antibody_fragment, fusion_protein, enzyme,
     hormone_cytokine, peptide, other.
@@ -206,11 +212,7 @@ def classify(name: str, mol_type: str, chains: list[tuple[str, str]], descs: lis
     heavy = max((len(s) for cid, s in chains if cid.startswith("H")), default=0)
 
     # 1. Antibody-derived, by INN stem or ChEMBL molecule_type.
-    is_ab = bool(MAB_STEM.search(n.replace(" pegol", "").replace(" ", ""))) or mol_type in (
-        "Antibody",
-        "Antibody drug conjugate",
-    )
-    if is_ab:
+    if is_antibody_like(name, mol_type):
         if FRAGMENT_HINT.search(blob) or FRAGMENT_HINT.search(n):
             return "antibody_fragment"
         # A full IgG heavy chain is ~440-460 aa (VH+CH1+hinge+CH2+CH3).
@@ -316,7 +318,12 @@ def clean_sequence(seq: str | None) -> str:
 
 
 def load_agency_map() -> dict[str, str]:
-    """name -> approval_agencies, from the already-committed DrugCentral CSV."""
+    """name -> approval_agencies, from the already-committed DrugCentral CSV.
+
+    Kept as a cross-reference only. That file is SMILES-derived and contains
+    essentially no biologics, which is the whole reason this script exists; the
+    overlap is reported by --report rather than assumed.
+    """
     if not SMALL_MOL_CSV.exists():
         return {}
     out = {}
@@ -327,6 +334,255 @@ def load_agency_map() -> dict[str, str]:
             if nm and ag:
                 out[nm] = ag
     return out
+
+
+def agencies_from_chembl(mol: dict, mechs: list[dict]) -> str:
+    """Regulator evidence carried by ChEMBL itself.
+
+    ChEMBL has no regulatory-agency column. What it does have is provenance:
+    a DailyMed cross-reference or an FDA/DailyMed mechanism reference means a US
+    label was the source; an EMA cross-reference or EMA mechanism reference
+    means a European one was. This column therefore reads "which regulator's
+    record ChEMBL cites for this drug", NOT "the complete set of approvals".
+    Documented in docs/08-BIOLOGICS-CORPUS.md; do not treat it as a regulatory
+    ground truth.
+    """
+    srcs = {(x.get("xref_src") or "") for x in (mol.get("cross_references") or [])}
+    refs = {(r.get("ref_type") or "") for m in mechs for r in (m.get("mechanism_refs") or [])}
+    out = []
+    if {"DailyMed"} & srcs or {"FDA", "DailyMed"} & refs:
+        out.append("FDA")
+    if "EMA" in srcs or "EMA" in refs:
+        out.append("EMA")
+    return ";".join(out)
+
+
+# --- RCSB PDB (CC0; used to close ChEMBL's antibody-sequence gaps) ----------
+
+RCSB_SEARCH = "https://search.rcsb.org/rcsbsearch/v2/query"
+RCSB_ENTITY = "https://data.rcsb.org/rest/v1/core/polymer_entity"
+
+# Tokens in a PDB entity description that mean "this is not the plain
+# therapeutic chain": engineered constructs, chimeras, other formats. Any hit
+# disqualifies the entity, because a silently wrong sequence is worse than a
+# missing one.
+PDB_DISQUALIFY = re.compile(
+    r"\b(scfv|single.chain|bispecific|diabody|chimeric antigen|fusion|"
+    r"mutant|variant|engineered|grafted|efab|nanobody|vhh|crossmab|"
+    r"minibody|conjugate|linker|tandem)\b|"
+    r"\b(?:vl|vh)-",
+    re.I,
+)
+PDB_HEAVY = re.compile(r"\bheavy\b", re.I)
+PDB_LIGHT = re.compile(r"\blight\b", re.I)
+# Kappa and lambda constant-domain C-termini. A real therapeutic light chain
+# ends in one of these; an antigen or a scaffold does not.
+LIGHT_CTERM = ("NRGEC", "APTECS", "APTVCS", "VAPTECS")
+
+
+def rcsb_search(term: str, cache_dir: Path | None, rows: int = 25) -> list[str]:
+    q = {
+        "query": {"type": "terminal", "service": "full_text", "parameters": {"value": f'"{term}"'}},
+        "return_type": "polymer_entity",
+        "request_options": {"paginate": {"start": 0, "rows": rows}},
+    }
+    url = f"{RCSB_SEARCH}?json=" + urllib.parse.quote(json.dumps(q))
+    d = http_json(url, cache_dir, retries=2, timeout=60)
+    if not d:
+        return []
+    return [r["identifier"] for r in d.get("result_set", [])]
+
+
+def rcsb_entity(identifier: str, cache_dir: Path | None) -> tuple[str, str]:
+    """(description, canonical one-letter sequence) for e.g. '3WD5_2'."""
+    pdb, _, ent = identifier.partition("_")
+    d = http_json(f"{RCSB_ENTITY}/{pdb}/{ent}", cache_dir, retries=2, timeout=60)
+    if not d:
+        return "", ""
+    desc = ((d.get("rcsb_polymer_entity") or {}).get("pdbx_description") or "")
+    seq = ((d.get("entity_poly") or {}).get("pdbx_seq_one_letter_code_can") or "")
+    return desc, clean_sequence(seq)
+
+
+def pdb_antibody_chains(name: str, cache_dir: Path | None):
+    """Find a heavy/light pair for an approved antibody in the PDB.
+
+    Returns (pdb_id, heavy, light) or None. Selection is deliberately strict:
+
+      * the entity description must contain the INN and the word heavy/light;
+      * no engineered-construct token may appear (PDB_DISQUALIFY);
+      * heavy and light must come from the SAME PDB entry;
+      * the light chain must end in a kappa or lambda constant C-terminus;
+      * chain lengths must be in Fab/IgG range.
+
+    Anything that fails is returned as None and the drug stays in the
+    "not included" table. We would rather have a hole than a wrong sequence.
+    """
+    ids = rcsb_search(name, cache_dir)
+    if not ids:
+        return None
+    by_entry: dict[str, dict[str, tuple[str, str]]] = defaultdict(dict)
+    for ident in ids:
+        desc, seq = rcsb_entity(ident, cache_dir)
+        if not seq or name.split()[0] not in desc.lower():
+            continue
+        if PDB_DISQUALIFY.search(desc):
+            continue
+        pdb = ident.split("_")[0]
+        if PDB_HEAVY.search(desc) and "H" not in by_entry[pdb]:
+            by_entry[pdb]["H"] = (desc, seq)
+        elif PDB_LIGHT.search(desc) and "L" not in by_entry[pdb]:
+            by_entry[pdb]["L"] = (desc, seq)
+
+    for pdb in sorted(by_entry):
+        pair = by_entry[pdb]
+        if "H" not in pair or "L" not in pair:
+            continue
+        h, l = pair["H"][1], pair["L"][1]
+        if not any(l.endswith(c) for c in LIGHT_CTERM):
+            continue
+        if not (200 <= len(l) <= 240):
+            continue
+        if not (200 <= len(h) <= 260 or 400 <= len(h) <= 500):
+            continue
+        if len(h) <= len(l):
+            continue
+        return pdb, h, l
+    return None
+
+
+def pdb_stage(rows, excluded, mols, cache_dir):
+    """Fill approved antibodies that ChEMBL has no sequence for, from the PDB.
+
+    PDB data carries no copyright restriction (RCSB releases it CC0 1.0), so
+    unlike Thera-SAbDab these sequences CAN be committed to a public repo.
+    """
+    have = {r["name"] for r in rows}
+    gaps = [
+        (cid, name, mt)
+        for cid, name, mt, _ in excluded
+        if name and name not in have and (mt in ("Antibody", "Antibody drug conjugate") or is_antibody_like(name, mt))
+    ]
+    filled, unfilled = [], []
+    still_excluded = []
+    for cid, name, mt in gaps:
+        hit = pdb_antibody_chains(name, cache_dir)
+        if not hit:
+            unfilled.append(name)
+            continue
+        pdb, h, l = hit
+        chains = [("H1", h), ("L1", l)]
+        m = mols.get(cid, {})
+        mlist_agency = agencies_from_chembl(m, [])
+        rows.append(
+            {
+                "name": name,
+                "chembl_id": cid,
+                "modality": "mab" if len(h) >= 400 else "antibody_fragment",
+                "molecule_type_chembl": mt,
+                "chains": f"H1:{h}|L1:{l}",
+                "n_chains": 2,
+                "length_aa": len(h) + len(l),
+                "sequence": "",
+                "heavy_chain_sequence": h,
+                "light_chain_sequence": l,
+                "target_gene_symbol": "",
+                "target_uniprot": "",
+                "target_name": "",
+                "target_action_type": "",
+                "n_mechanisms": 0,
+                "first_approval": m.get("first_approval") or "",
+                "approval_agencies": mlist_agency,
+                "approval_agencies_source": "ChEMBL-provenance" if mlist_agency else "",
+                "withdrawn": int(m.get("withdrawn_flag") or 0),
+                "dropped_components": 0,
+                "sequence_source_db": "RCSB PDB",
+                "source_db": "ChEMBL+RCSB PDB",
+                "source_url": f"https://www.rcsb.org/structure/{pdb}",
+            }
+        )
+        filled.append((name, pdb, len(h), len(l)))
+    return {"n_gaps": len(gaps), "filled": filled, "unfilled": sorted(unfilled)}
+
+
+def attach_pdb_targets(rows, mechs, target_fields, upmap):
+    """PDB-filled rows still get their target from ChEMBL's mechanism table."""
+    for r in rows:
+        if r["target_uniprot"] or not r["chembl_id"]:
+            continue
+        for mech in mechs.get(r["chembl_id"], []):
+            g, a, tn = target_fields(mech.get("target_chembl_id") or "")
+            if a:
+                a_parts = a.split(";")
+                g_parts = g.split(";")
+                g = ";".join(
+                    (upmap.get(ap, ("", ""))[0] or (g_parts[i] if i < len(g_parts) else ""))
+                    for i, ap in enumerate(a_parts)
+                )
+                r["target_gene_symbol"] = g
+                r["target_uniprot"] = a
+                r["target_name"] = tn
+                r["target_action_type"] = mech.get("action_type") or ""
+                r["n_mechanisms"] = len(mechs.get(r["chembl_id"], []))
+                break
+
+
+# --- Thera-SAbDab (opt-in; see docs/08 for why it is not committed) ---------
+
+THERASABDAB_URL = (
+    "https://opig.stats.ox.ac.uk/webapps/sabdab-sabpred/static/downloads/"
+    "TheraSAbDab_SeqStruc_OnlineDownload.csv"
+)
+
+
+def fetch_therasabdab(cache_dir: Path | None) -> list[dict]:
+    """Download the Thera-SAbDab bulk CSV. Returns [] if unreachable."""
+    cached = None
+    if cache_dir is not None:
+        cached = cache_dir / "therasabdab.csv"
+        if cached.exists():
+            return list(csv.DictReader(io_lines(cached.read_text(encoding="utf-8-sig"))))
+    try:
+        req = urllib.request.Request(THERASABDAB_URL, headers={"User-Agent": UA})
+        with urllib.request.urlopen(req, timeout=120, context=_SSL) as r:
+            text = r.read().decode("utf-8-sig")
+    except Exception as e:
+        print(f"  ! Thera-SAbDab unreachable ({e}); continuing without it", file=sys.stderr)
+        return []
+    if cached is not None:
+        cache_dir.mkdir(parents=True, exist_ok=True)
+        cached.write_text(text, encoding="utf-8")
+    return list(csv.DictReader(io_lines(text)))
+
+
+def io_lines(text: str):
+    return text.splitlines()
+
+
+def therasabdab_index(rows: list[dict]) -> dict[str, dict]:
+    """INN (lowercase) -> row, including the alternative-name aliases."""
+    idx = {}
+    for r in rows:
+        keys = [(r.get("Therapeutic") or "").strip().lower()]
+        keys += [a.strip().lower() for a in (r.get("Alternative Therapeutic Names") or "").split(";")]
+        for k in keys:
+            if k and k not in idx:
+                idx[k] = r
+    return idx
+
+
+def therasabdab_lookup(idx: dict[str, dict], name: str) -> dict | None:
+    """ChEMBL names carry conjugate/salt suffixes that Thera-SAbDab drops."""
+    n = name.strip().lower()
+    if n in idx:
+        return idx[n]
+    for suffix in (" pegol", " ozogamicin", " pendetide", " vedotin", " deruxtecan",
+                   " emtansine", " tiuxetan", " govitecan", " mafodotin", " tirumotecan"):
+        if n.endswith(suffix):
+            base = n[: -len(suffix)].strip()
+            if base in idx:
+                return idx[base]
+    return idx.get(n.split()[0]) if " " in n else None
 
 
 def uniprot_gene(accession: str, cache_dir: Path | None) -> tuple[str, str]:
@@ -343,7 +599,7 @@ def uniprot_gene(accession: str, cache_dir: Path | None) -> tuple[str, str]:
     return gene, pname
 
 
-def build(cache_dir: Path | None, skip_uniprot: bool = False):
+def build(cache_dir: Path | None, skip_uniprot: bool = False, use_pdb: bool = True):
     # --- 1. candidate molecules -------------------------------------------
     print("[1/5] ChEMBL molecules (max_phase=4)...", file=sys.stderr)
     mols: dict[str, dict] = {}
@@ -435,26 +691,29 @@ def build(cache_dir: Path | None, skip_uniprot: bool = False):
             excluded.append((cid, name, mol_type, f"no PROTEIN biocomponent (only {kinds})"))
             continue
 
-        seen = Counter()
-        chains: list[tuple[str, str]] = []
         descs: list[str] = [b.get("description") or ""]
+        pairs: list[tuple[str | None, str]] = []
         bad = 0
-        for i, c in enumerate(prot):
+        for c in prot:
             s = clean_sequence(c.get("sequence"))
             descs.append(c.get("description") or "")
             if not s:
                 bad += 1
                 continue
-            chains.append((chain_id(c.get("description"), i, seen), s))
-        if not chains:
+            pairs.append((c.get("description"), s))
+        if not pairs:
             excluded.append((cid, name, mol_type, f"all {len(prot)} PROTEIN components had empty/invalid sequence"))
             continue
 
+        chains = assign_chain_ids(pairs, is_antibody_like(name, mol_type))
         modality = classify(name, mol_type, chains, descs)
         heavy = [s for k, s in chains if k.startswith("H")]
         light = [s for k, s in chains if k.startswith("L")]
 
         mlist = mechs.get(cid, [])
+        dc_ag = agencies.get(name, "")
+        ag = dc_ag or agencies_from_chembl(m, mlist)
+        ag_src = "DrugCentral" if dc_ag else ("ChEMBL-provenance" if ag else "")
         genes, accs, tnames, actions = [], [], [], []
         for mech in mlist:
             g, a, tn = target_fields(mech.get("target_chembl_id") or "")
@@ -497,15 +756,108 @@ def build(cache_dir: Path | None, skip_uniprot: bool = False):
                 "target_action_type": uniq(actions),
                 "n_mechanisms": len(mlist),
                 "first_approval": m.get("first_approval") or "",
-                "approval_agencies": agencies.get(name, ""),
+                "approval_agencies": ag,
+                "approval_agencies_source": ag_src,
                 "withdrawn": int(m.get("withdrawn_flag") or 0),
                 "dropped_components": bad,
+                "sequence_source_db": "ChEMBL",
                 "source_db": "ChEMBL",
                 "source_url": f"https://www.ebi.ac.uk/chembl/compound_report_card/{cid}/",
             }
         )
 
-    return rows, excluded, mols
+    pdb_info = {"n_gaps": 0, "filled": [], "unfilled": [], "used": False}
+    if use_pdb:
+        n_ab = sum(
+            1
+            for cid, name, mt, _ in excluded
+            if name and (mt in ("Antibody", "Antibody drug conjugate") or is_antibody_like(name, mt))
+        )
+        print(f"[6/6] RCSB PDB fill for {n_ab} sequence-less approved antibodies...", file=sys.stderr)
+        pdb_info = pdb_stage(rows, excluded, mols, cache_dir)
+        pdb_info["used"] = True
+        attach_pdb_targets(rows, mechs, target_fields, upmap)
+        print(f"      filled {len(pdb_info['filled'])}/{pdb_info['n_gaps']}", file=sys.stderr)
+        filled_names = {n for n, _, _, _ in pdb_info["filled"]}
+        excluded = [e for e in excluded if e[1] not in filled_names]
+
+    return rows, excluded, mols, pdb_info
+
+
+def therasabdab_stage(rows, excluded, mols, cache_dir, merge: bool):
+    """Audit (and optionally merge) Thera-SAbDab against the ChEMBL gaps.
+
+    Default is audit-only: it reports how many sequence-less approved
+    antibodies Thera-SAbDab could fill WITHOUT putting its sequences in the
+    output, because Thera-SAbDab publishes no licence (see docs/08). `merge`
+    is opt-in and makes the output no longer safe to commit.
+    """
+    tsab = fetch_therasabdab(cache_dir)
+    if not tsab:
+        return {"available": False}
+    idx = therasabdab_index(tsab)
+
+    # the gaps that matter: approved ANTIBODY-type molecules ChEMBL has no
+    # sequence for.
+    gaps = [
+        (cid, name, mt, reason)
+        for cid, name, mt, reason in excluded
+        if name and (mt in ("Antibody", "Antibody drug conjugate") or is_antibody_like(name, mt))
+    ]
+    fillable, unfillable = [], []
+    for cid, name, mt, reason in gaps:
+        r = therasabdab_lookup(idx, name)
+        h = ((r or {}).get("HeavySequence") or "").strip()
+        if r is not None and h and h.lower() not in ("na", "none", "n/a"):
+            fillable.append((cid, name, mt, r))
+        else:
+            unfillable.append(name)
+
+    if merge:
+        by_name = {x["name"] for x in rows}
+        for cid, name, mt, r in fillable:
+            if name in by_name:
+                continue
+            h = clean_sequence(r.get("HeavySequence"))
+            l = clean_sequence(r.get("LightSequence"))
+            chains = [("H1", h)] + ([("L1", l)] if l else [])
+            m = mols.get(cid, {})
+            rows.append(
+                {
+                    "name": name,
+                    "chembl_id": cid,
+                    "modality": classify(name, mt, chains, [r.get("Format") or ""]),
+                    "molecule_type_chembl": mt,
+                    "chains": "|".join(f"{k}:{s}" for k, s in chains),
+                    "n_chains": len(chains),
+                    "length_aa": sum(len(s) for _, s in chains),
+                    "sequence": chains[0][1] if len(chains) == 1 else "",
+                    "heavy_chain_sequence": h,
+                    "light_chain_sequence": l,
+                    "target_gene_symbol": "",
+                    "target_uniprot": "",
+                    "target_name": (r.get("Target") or "").strip(),
+                    "target_action_type": "",
+                    "n_mechanisms": 0,
+                    "first_approval": m.get("first_approval") or "",
+                    "approval_agencies": "",
+                    "approval_agencies_source": "",
+                    "withdrawn": int(m.get("withdrawn_flag") or 0),
+                    "dropped_components": 0,
+                    "sequence_source_db": "Thera-SAbDab",
+                    "source_db": "Thera-SAbDab",
+                    "source_url": "https://opig.stats.ox.ac.uk/webapps/sabdab-sabpred/therasabdab/",
+                }
+            )
+    return {
+        "available": True,
+        "n_rows": len(tsab),
+        "n_gaps": len(gaps),
+        "n_fillable": len(fillable),
+        "fillable": sorted(n for _, n, _, _ in fillable),
+        "unfillable": sorted(unfillable),
+        "merged": merge,
+    }
 
 
 FIELDS = [
@@ -513,8 +865,8 @@ FIELDS = [
     "chains", "n_chains", "length_aa", "sequence",
     "heavy_chain_sequence", "light_chain_sequence",
     "target_gene_symbol", "target_uniprot", "target_name", "target_action_type",
-    "n_mechanisms", "first_approval", "approval_agencies", "withdrawn",
-    "dropped_components", "source_db", "source_url",
+    "n_mechanisms", "first_approval", "approval_agencies", "approval_agencies_source",
+    "withdrawn", "dropped_components", "sequence_source_db", "source_db", "source_url",
 ]
 
 
@@ -535,12 +887,6 @@ def write_csv(rows, path: Path):
 # The sequences below were taken from the WHO INN Recommended List entry for the
 # drug, as reproduced in the cited public record -- NOT from ChEMBL. They are
 # used only to test ChEMBL's copy; they are not redistributed as data.
-VERIFY_UNIPROT = {
-    # single-chain biologics that ARE in UniProt, so we can compare to a second
-    # database directly and programmatically.
-    "aflibercept": None,          # no UniProt entry; checked by motif instead
-}
-
 # Motif checks: short, unambiguous subsequences that must appear in the named
 # chain if the sequence is the right molecule. Sources are given in docs/08.
 MOTIF_CHECKS = [
@@ -553,7 +899,14 @@ MOTIF_CHECKS = [
     ("etanercept", "C1", "LPAQVAFTPYAPEPGSTCRLREYYDQTAQMCCSKCSPGQHAKVFC", "TNFRSF1B ectodomain N-term (P20333 res 23-67)"),
     ("aflibercept", "C1", "SDTGRPFVEMYSEIPEIIHMTEGRELVIPCRVTSPNITVTLKKFP", "FLT1 Ig-like D2 N-term (P17948)"),
     ("ranibizumab", "H1", "EVQLVESGGGLVQPGGSLRLSCAASGYDFTHYGMN", "INN 8558 Fab heavy-chain N-term"),
+    ("atezolizumab", "H1", "EVQLVESGGGLVQPGGSLRLSCAASGFTFSDSWIH", "INN 10510 heavy-chain N-term"),
+    ("ramucirumab", "H1", "EVQLVQSGGGLVKPGGSLRLSCAASGFTFSSYSMN", "INN 9432 heavy-chain N-term"),
+    ("caplacizumab", "C1", "EVQLVESGGGLVQPGGSLRLSCAASGRTFSYNPMG", "INN 10670 VHH N-term"),
 ]
+
+# Chains that must carry the canonical human IgG1 CH3 C-terminal motif. Any
+# full-length IgG1/IgG4 heavy chain ends ...SLSLSPGK (or SLSLSLGK for IgG4).
+IGG_CTERM = ("SLSLSPGK", "SLSLSLGK", "SLSLSPG", "SLSLSLG")
 
 # Chains that must be findable as an exact substring of a UniProt entry, because
 # the drug IS (a fragment of) a natural human protein. This is a genuinely
@@ -635,7 +988,34 @@ def verify(rows, cache_dir: Path | None):
                 b_fail += 1
             print(f"| {name} | {key} | {acc} | {prot} | {verdict} |")
     print(f"\nB: {b_pass} pass/partial, {b_fail} fail, {b_miss} not checkable (n={len(UNIPROT_SUBSTRING_CHECKS)}).")
-    return a_fail + b_fail
+
+    # --- C: whole-corpus self-consistency, not a spot check ----------------
+    print("\n### Verification C - whole-corpus consistency checks\n")
+    mabs = [r for r in rows if r["modality"] == "mab"]
+    hl = [r for r in mabs if r["heavy_chain_sequence"] and r["light_chain_sequence"]]
+    bad_order = [r["name"] for r in hl if len(r["heavy_chain_sequence"]) <= len(r["light_chain_sequence"])]
+    kappa = [r for r in hl if r["light_chain_sequence"].endswith("NRGEC")]
+    lam = [r for r in hl if r["light_chain_sequence"].endswith("APTECS")]
+    cterm = [r for r in hl if any(r["heavy_chain_sequence"].endswith(m) for m in IGG_CTERM)]
+    c_fail = len(bad_order)
+    print("| check | result |")
+    print("|---|---|")
+    print(f"| `mab` rows with both H and L chains | {len(hl)}/{len(mabs)} |")
+    print(f"| heavy chain longer than light chain | {len(hl) - len(bad_order)}/{len(hl)}"
+          + (f" -- **violations: {', '.join(bad_order)}**" if bad_order else "") + " |")
+    print(f"| light chain ends in the kappa constant C-term `...NRGEC` | {len(kappa)}/{len(hl)} |")
+    print(f"| light chain ends in the lambda constant C-term `...APTECS` | {len(lam)}/{len(hl)} |")
+    print(f"| kappa or lambda C-term recognised | {len(kappa)+len(lam)}/{len(hl)} |")
+    print(f"| heavy chain ends in an IgG CH3 C-term `...SLSLSPGK`/`...SLSLSLGK` | {len(cterm)}/{len(hl)} |")
+    aa_bad = [r["name"] for r in rows if any(set(s) - EXTENDED_AA for _, s in
+              [(k, v) for part in r["chains"].split("|") for k, _, v in [part.partition(":")]])]
+    print(f"| every residue is a valid amino-acid letter | {len(rows)-len(aa_bad)}/{len(rows)} |")
+    dupes = [n for n, c in Counter(r["name"] for r in rows).items() if c > 1]
+    print(f"| `name` is unique | {'yes' if not dupes else 'NO: ' + ', '.join(dupes)} |")
+    c_fail += len(aa_bad) + len(dupes)
+    print(f"\nC: {c_fail} violation(s) over n={len(rows)} rows.")
+
+    return a_fail + b_fail + c_fail
 
 
 # ---------------------------------------------------------------------------
@@ -651,7 +1031,7 @@ PRIORITY = {
 }
 
 
-def report(rows, excluded, mols):
+def report(rows, excluded, mols, tsab_info=None, pdb_info=None):
     n = len(rows)
     print(f"\n## Corpus summary (n = {n})\n")
 
@@ -685,6 +1065,30 @@ def report(rows, excluded, mols):
     tot_aa = sum(r["length_aa"] for r in rows)
     print(f"- total residues in corpus: **{tot_aa:,}**")
 
+    print("\n### Provenance of the committed sequences\n")
+    print("| sequence_source_db | n | licence |")
+    print("|---|---|---|")
+    lic = {"ChEMBL": "CC BY-SA 3.0", "RCSB PDB": "CC0 1.0 (public domain)", "Thera-SAbDab": "no published licence"}
+    for src, c in Counter(r["sequence_source_db"] for r in rows).most_common():
+        print(f"| {src} | {c} | {lic.get(src, '?')} |")
+
+    if pdb_info and pdb_info.get("used"):
+        print("\n### RCSB PDB fill\n")
+        print(
+            f"ChEMBL had no sequence for **{pdb_info['n_gaps']}** approved antibody-type "
+            f"molecules. The PDB stage recovered **{len(pdb_info['filled'])}** of them."
+        )
+        if pdb_info["filled"]:
+            print("\n| drug | PDB entry | heavy aa | light aa |")
+            print("|---|---|---|---|")
+            for nm, pdb, lh, ll in sorted(pdb_info["filled"]):
+                print(f"| {nm} | [{pdb}](https://www.rcsb.org/structure/{pdb}) | {lh} | {ll} |")
+        if pdb_info["unfilled"]:
+            print(
+                f"\nStill without a sequence after the PDB stage (n={len(pdb_info['unfilled'])}): "
+                "`" + "`, `".join(pdb_info["unfilled"]) + "`"
+            )
+
     print("\n## Priority-target coverage\n")
     print("| target | UniProt | expected | in corpus | target annotated in corpus | missing |")
     print("|---|---|---|---|---|---|")
@@ -714,6 +1118,28 @@ def report(rows, excluded, mols):
     for cid, name, mt, reason in sorted(named, key=lambda e: e[1])[:40]:
         print(f"| {name} | {mt or '(none)'} | {reason} |")
 
+    ab_gaps = [e for e in excluded if e[1] and (e[2] in ("Antibody", "Antibody drug conjugate") or is_antibody_like(e[1], e[2]))]
+    print(
+        f"\nOf the {len(excluded)} excluded, **{len(ab_gaps)}** are antibody-type "
+        "molecules -- ChEMBL knows the drug but carries no sequence for it:\n"
+    )
+    print("`" + "`, `".join(sorted(e[1] for e in ab_gaps)) + "`")
+
+    if tsab_info:
+        print("\n## Thera-SAbDab audit (not committed)\n")
+        if not tsab_info.get("available"):
+            print("Thera-SAbDab was unreachable at run time; no audit numbers.")
+        else:
+            print(f"- Thera-SAbDab rows fetched: **{tsab_info['n_rows']}**")
+            print(f"- antibody-type ChEMBL gaps: **{tsab_info['n_gaps']}**")
+            print(
+                f"- of those, Thera-SAbDab has a heavy-chain sequence for "
+                f"**{tsab_info['n_fillable']}/{tsab_info['n_gaps']}**"
+            )
+            if tsab_info["unfillable"]:
+                print(f"- still missing in both: `" + "`, `".join(tsab_info["unfillable"]) + "`")
+            print(f"- merged into the output: **{tsab_info['merged']}**")
+
     print(f"\n### Fetch stats\n\n```\n{dict(_stats)}\n```")
 
 
@@ -723,8 +1149,18 @@ def main():
     ap.add_argument("--cache-dir", type=Path, default=Path(tempfile.gettempdir()) / "chembl_biologics_cache")
     ap.add_argument("--no-cache", action="store_true", help="bypass the HTTP cache entirely")
     ap.add_argument("--no-uniprot", action="store_true", help="skip UniProt gene-symbol enrichment")
+    ap.add_argument("--no-pdb", action="store_true", help="skip the RCSB PDB fill for ChEMBL's antibody gaps")
     ap.add_argument("--report", action="store_true", help="print markdown tables for docs/08")
     ap.add_argument("--verify", action="store_true", help="run the independent sequence spot-check")
+    ap.add_argument(
+        "--therasabdab",
+        choices=["off", "audit", "merge"],
+        default="off",
+        help="Thera-SAbDab (OPIG). 'audit' fetches it and reports how many ChEMBL "
+        "antibody gaps it COULD fill without writing its sequences. 'merge' writes "
+        "them in -- opt-in only: Thera-SAbDab publishes no licence, so a merged CSV "
+        "must NOT be committed to this public repo. See docs/08-BIOLOGICS-CORPUS.md.",
+    )
     args = ap.parse_args()
 
     cache_dir = None
@@ -732,12 +1168,25 @@ def main():
         cache_dir = args.cache_dir
         cache_dir.mkdir(parents=True, exist_ok=True)
 
-    rows, excluded, mols = build(cache_dir, skip_uniprot=args.no_uniprot)
+    rows, excluded, mols, pdb_info = build(cache_dir, skip_uniprot=args.no_uniprot, use_pdb=not args.no_pdb)
+
+    tsab_info = None
+    if args.therasabdab != "off":
+        merge = args.therasabdab == "merge"
+        if merge and args.out == OUT_CSV:
+            print(
+                "REFUSING to merge Thera-SAbDab into the committed path "
+                f"{OUT_CSV}. Pass --out <other path>.",
+                file=sys.stderr,
+            )
+            return 2
+        tsab_info = therasabdab_stage(rows, excluded, mols, cache_dir, merge=merge)
+
     write_csv(rows, args.out)
     print(f"\nwrote {len(rows)} rows -> {args.out}", file=sys.stderr)
 
     if args.report:
-        report(rows, excluded, mols)
+        report(rows, excluded, mols, tsab_info, pdb_info)
     if args.verify:
         fails = verify(rows, cache_dir)
         if fails:
