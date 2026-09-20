@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {createRoot} from 'react-dom/client';
 
 const sourceNames = {
@@ -47,38 +47,40 @@ export function pipelineSteps(manifest) {
   ];
 }
 
-export function Pipeline({manifest, onNavigate}) {
-  const [selected, setSelected] = useState(null);
+export function Pipeline({manifest, activeStep, onNavigate}) {
   const steps = pipelineSteps(manifest);
-  const current = steps.find(step => step.id === selected);
-  const origin = manifest.data_origin === 'reference_example' ? 'Reference example' : manifest.data_origin === 'synthetic_fixture' ? 'Synthetic example' : 'Saved analysis';
+  function navigateWithKeys(event, index) {
+    if (!['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Home', 'End'].includes(event.key)) return;
+    event.preventDefault();
+    const next = event.key === 'Home' ? 0 : event.key === 'End' ? steps.length - 1
+      : (index + (['ArrowLeft', 'ArrowUp'].includes(event.key) ? -1 : 1) + steps.length) % steps.length;
+    onNavigate(steps[next].id);
+    event.currentTarget.closest('ol').querySelectorAll('[role="tab"]')[next].focus();
+  }
   return (
-    <section className="pipeline" aria-label="Analysis pipeline">
-      <header className="pipeline-heading"><h3>Pipeline</h3><span>{origin}</span></header>
-      <ol className="pipeline-flow">
+    <nav className="pipeline" aria-label="Analysis pipeline">
+      <ol className="pipeline-flow" role="tablist" aria-label="Analysis stages">
         {steps.map((step, index) => (
-          <li className={`pipeline-step${step.available ? "" : " unavailable"}`} key={step.id}>
-            <button type="button" className={`pipeline-node${selected === step.id ? ' selected' : ''}`}
-              aria-expanded={selected === step.id} aria-controls="pipeline-detail"
-              onClick={() => setSelected(selected === step.id ? null : step.id)}>
+          <li className={`pipeline-step${step.available ? "" : " unavailable"}`} key={step.id} role="presentation">
+            <button type="button" id={`step-${step.id}`} data-step={step.id}
+              className={`pipeline-node${activeStep === step.id ? ' selected' : ''}`}
+              role="tab" aria-selected={activeStep === step.id} aria-controls="result-panel"
+              tabIndex={activeStep === step.id ? 0 : -1}
+              onKeyDown={event => navigateWithKeys(event, index)} onClick={() => onNavigate(step.id)}>
               <span className="pipeline-marker" aria-hidden="true">{index + 1}</span>
               <span className="pipeline-title">{step.title}</span>
-              <span className="pipeline-value">{step.value}</span>
             </button>
             {index < steps.length - 1 && <span className="pipeline-edge" aria-hidden="true"><i/></span>}
           </li>
         ))}
       </ol>
-      <div id="pipeline-detail" className="pipeline-detail" hidden={!current}>
-        {current && <><div><div className="pipeline-detail-heading"><strong>{current.title}</strong><span>{current.status}</span></div><p>{current.detail}</p></div><button type="button" onClick={() => onNavigate(current.tab, current.view)}>{current.action} <span aria-hidden="true">→</span></button></>}
-      </div>
-    </section>
+    </nav>
   );
 }
 
 const roots = new WeakMap();
-export function renderPipeline(element, manifest, onNavigate) {
+export function renderPipeline(element, manifest, activeStep, onNavigate) {
   let root = roots.get(element);
   if (!root) {root = createRoot(element); roots.set(element, root);}
-  root.render(<Pipeline manifest={manifest} onNavigate={onNavigate}/>);
+  root.render(<Pipeline manifest={manifest} activeStep={activeStep} onNavigate={onNavigate}/>);
 }
