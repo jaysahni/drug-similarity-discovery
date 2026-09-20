@@ -46,6 +46,9 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 PY = str(ROOT / "env" / "bin" / "python")
 
+# report.py's inputs are hardcoded to this pipeline; see the report stage below.
+REPORT_PIPELINE = "colorectal-cancer"
+
 COST_PER_COFOLD = 5.4      # measured, 30 drugs / 137.8 credits + probes
 COST_PER_DESIGN = 3.6      # measured, 24 designs / 85.5 credits
 
@@ -160,6 +163,9 @@ def main():
     ap.add_argument("--signature", default="p2rank_geometry",
                     choices=["p2rank_geometry", "boltzgen_consensus", "known_ligand"])
     ap.add_argument("--metric", default="precision_in_core")
+    ap.add_argument("--designs-tag", default=None,
+                    help="tag of an existing BoltzGen design run for THIS target "
+                         "(scripts/boltzgen_signature.py names outputs by --tag)")
     ap.add_argument("--budget-credits", type=float, default=200.0)
     ap.add_argument("--dry-run", action="store_true")
     args = ap.parse_args()
@@ -236,14 +242,20 @@ def main():
         manifest["stages"]["design"] = "skipped (default; p2rank_geometry used instead)"
 
     # 3-5. shortlist / cofold / score ---------------------------------------
+    # --append ALWAYS. Without it, cmd_shortlist REPLACES the shortlist, and
+    # re-running a completed pipeline silently dropped the 12 hard-decoy rows that
+    # the reported AUC 0.717 rests on (42 rows -> 30), orphaning their job records.
+    # Appending is idempotent: cmd_shortlist de-duplicates on struct_id.
     sl = [PY, ROOT / "scripts/repurpose.py", "--pipeline", slug, "shortlist",
           "--target", args.target, "--n-positives", args.n_positives,
-          "--n-decoys", args.n_decoys]
+          "--n-decoys", args.n_decoys, "--append"]
     if args.hard_decoys:
         sl.append("--hard-decoys")
     if run(sl, args.dry_run):
         sys.exit("shortlist failed")
     manifest["stages"]["shortlist"] = "ok"
+
+    board = ROOT / "results" / f"repurpose_{slug}.json"
 
     if run([PY, ROOT / "scripts/repurpose.py", "--pipeline", slug, "submit",
             "--max-credits", args.budget_credits], args.dry_run):
@@ -257,19 +269,39 @@ def main():
 
     score = [PY, ROOT / "scripts/repurpose.py", "--pipeline", slug, "score",
              "--rank-by", args.signature, "--metric", args.metric]
-    if (ROOT / f"results/boltzgen_signature_{slug}.json").exists():
-        score += ["--designs", slug]
+    # boltzgen_signature.py names its output by --tag, not by slug, so the old
+    # test on boltzgen_signature_<slug>.json never matched for ANY target and the
+    # --designs flag was never appended. Accept either spelling, and never fall
+    # back to another target's designs.
+    for tag in (slug, args.designs_tag):
+        if tag and (ROOT / f"results/boltzgen_signature_{tag}.json").exists():
+            score += ["--designs", tag]
+            break
     if run(score, args.dry_run):
         sys.exit("score failed")
     manifest["stages"]["score"] = "ok"
 
     # 6. report -------------------------------------------------------------
+    # report.py renders ONE target: its inputs are hardcoded to the KDR run. Calling
+    # it for another slug used to pass an argument it does not accept (it exited 2)
+    # while the manifest recorded "ok" for a stage that never ran. Until it is
+    # generalised, only invoke it for the pipeline it actually knows, and record
+    # honestly otherwise.
     rep = ROOT / "scripts/report.py"
-    if rep.exists():
-        run([PY, rep, "--pipeline", slug], args.dry_run)
-        manifest["stages"]["report"] = "ok"
-    else:
+    if not rep.exists():
         manifest["stages"]["report"] = "skipped (scripts/report.py not present)"
+    elif slug != REPORT_PIPELINE:
+        manifest["stages"]["report"] = (
+            f"not run: scripts/report.py currently renders only {REPORT_PIPELINE!r} "
+            f"(its inputs are hardcoded). The ranked board for {slug!r} is still in "
+            f"results/repurpose_{slug}.json and readable with scripts/ask.py")
+        print(f"\n[report] skipped: report.py renders only {REPORT_PIPELINE}; "
+              f"use scripts/ask.py --target {args.target} for this run")
+    else:
+        rc = run([PY, rep], args.dry_run)
+        manifest["stages"]["report"] = "ok" if rc == 0 else f"FAILED (exit {rc})"
+        if rc:
+            print(f"[report] FAILED with exit {rc}", file=sys.stderr)
 
     manifest["wall_seconds"] = round(time.time() - t0, 1)
     manifest["git_sha"] = subprocess.run(

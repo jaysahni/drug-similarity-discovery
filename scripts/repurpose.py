@@ -326,27 +326,49 @@ def cmd_score(args):
     # WORSE than the P2Rank pocket at locating a real ligand's contacts, so ranking
     # drugs only against the design signature would hide the cheaper, better option.
     # PROJECT_GOAL.md 4.3 makes `source` a discriminator precisely so these are swappable.
-    sig_file = ROOT / "results" / f"boltzgen_signature_{args.designs}.json"
-    sig = json.loads(sig_file.read_text())
-    design_sets = [set(d["contacts_auth"]) for d in sig["per_design"]]
-    freq = Counter(r for s in design_sets for r in s)
-    n_des = len(design_sets)
-    signatures = {
-        "boltzgen_consensus": {
+    # The BoltzGen signature is OPTIONAL. It used to be loaded unconditionally with
+    # a default tag of "v4", which is KDR's design run - so scoring any other target
+    # silently ranked it against KDR's designs. A signature is only offered when a
+    # design run exists FOR THIS PIPELINE (or is named explicitly), and asking to
+    # rank by one that does not exist is an error rather than a silent substitution.
+    sig = None
+    sig_file = None
+    if args.designs:
+        sig_file = ROOT / "results" / f"boltzgen_signature_{args.designs}.json"
+        if not sig_file.exists():
+            sys.exit(f"--designs {args.designs!r} but {sig_file} does not exist.\n"
+                     f"Run a design run for this target, or drop --designs to use the "
+                     f"pocket signature (which measured at least as good).")
+        sig = json.loads(sig_file.read_text())
+
+    signatures = {}
+    if sig is not None:
+        design_sets = [set(d["contacts_auth"]) for d in sig["per_design"]]
+        freq = Counter(r for s in design_sets for r in s)
+        n_des = len(design_sets)
+        signatures["boltzgen_consensus"] = {
             "core": {r for r, k in freq.items() if k / n_des >= args.core_threshold},
             "weights": {r: k / n_des for r, k in freq.items()},
-            "provenance": f"{n_des} BoltzGen designs, ipTM "
+            "provenance": f"{n_des} BoltzGen designs from {sig_file.name}, ipTM "
                           f"{min(d['iptm'] or 0 for d in sig['per_design']):.3f}-"
                           f"{max(d['iptm'] or 0 for d in sig['per_design']):.3f} "
                           f"(all below the 0.85 the plan suggests filtering at)",
-        },
+            "workflow_uuid": sig.get("workflow_uuid"),
+        }
+    signatures.update({
         "p2rank_geometry": {
             "core": set(info["pocket"]["residue_ids"]),
             "weights": {r: 1.0 for r in info["pocket"]["residue_ids"]},
             "provenance": ("P2Rank 2.5 rank-1 pocket on the ligand-stripped "
-                           "structure; 0.47 s/structure amortised over a 1,531-structure batch at 12 threads, 250 per JVM; a single structure in isolation measured 2.1-2.5 s wall (P2Rank self-reports 1.87 s), so the batch figure is not a single-run cost"),
+                           "structure. Timing, measured: 2.1-2.5 s wall for a single "
+                           "structure in isolation (P2Rank self-reports 1.87 s); "
+                           "0.47 s/structure amortised over a 1,531-structure batch at "
+                           "12 threads, 250 per JVM. The batch figure is not a "
+                           "single-run cost."),
+            "site_id": info["pocket"].get("site_id"),
+            "structure_id": info["pocket"].get("structure_id"),
         },
-    }
+    })
     klc = paths(args.pipeline)["target"] / "known_ligand_contacts.json"
     if klc.exists():
         k = json.loads(klc.read_text())
@@ -361,8 +383,13 @@ def cmd_score(args):
     for name, sg in signatures.items():
         print(f"signature {name:<20} {len(sg['core']):3d} residues  ({sg['provenance']})")
     print()
-    core = signatures["boltzgen_consensus"]["core"]
-    weights = signatures["boltzgen_consensus"]["weights"]
+    if args.rank_by not in signatures:
+        sys.exit(f"--rank-by {args.rank_by} is not available for this run "
+                 f"(have: {', '.join(sorted(signatures))}). "
+                 f"A BoltzGen signature needs --designs <tag> pointing at a design run "
+                 f"for THIS target.")
+    core = signatures[args.rank_by]["core"]
+    weights = signatures[args.rank_by]["weights"]
 
     rows = []
     for sid, j in jobs.items():
@@ -417,8 +444,10 @@ def cmd_score(args):
                                          if (engaged | c) else 0.0),
                 "precision_in_core": len(hit) / len(engaged) if engaged else 0.0,
                 "engaged_core": sorted(hit), "missed_core": sorted(c - engaged)}
-        row["core_coverage"] = row["by_signature"]["boltzgen_consensus"]["core_coverage"]
-        row["weighted_jaccard"] = row["by_signature"]["boltzgen_consensus"]["weighted_jaccard"]
+        # convenience aliases for the signature this run is ranked by, so a reader
+        # of a single row does not have to know which signature was primary
+        row["core_coverage"] = row["by_signature"][args.rank_by]["core_coverage"]
+        row["weighted_jaccard"] = row["by_signature"][args.rank_by]["weighted_jaccard"]
         rows.append(row)
 
     scored = [r for r in rows if r["status"] == "scored"]
@@ -503,7 +532,7 @@ def cmd_score(args):
         "enrichment_at_top_quartile": ef, "known_binder_ranks": ranks,
         "results": rows,
     }
-    dest = ROOT / "results" / f"repurpose_{args.pipeline}.json"
+    dest = Path(args.out) if args.out else ROOT / "results" / f"repurpose_{args.pipeline}.json"
     dest.write_text(json.dumps(out, indent=1))
     print(f"\nwrote {dest}")
 
@@ -537,8 +566,15 @@ def main():
     s.add_argument("--max-polls", type=int, default=120)
 
     s = sub.add_parser("score"); s.set_defaults(fn=cmd_score)
-    s.add_argument("--designs", default="v4")
+    s.add_argument("--designs", default=None,
+                   help="tag of a BoltzGen design run for THIS target, e.g. --designs v4. "
+                        "Omit to score against the pocket signature only. It used to "
+                        "default to v4 (KDR), which silently scored other targets "
+                        "against KDR's designs")
     s.add_argument("--core-threshold", type=float, default=0.6)
+    s.add_argument("--out", default=None,
+                   help="write the board here instead of results/repurpose_<pipeline>.json; "
+                        "used by tests so they cannot mutate a committed artifact")
     s.add_argument("--rank-by", default="boltzgen_consensus",
                    choices=["boltzgen_consensus", "p2rank_geometry", "known_ligand"])
     s.add_argument("--metric", default="precision_in_core",

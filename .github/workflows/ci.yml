@@ -26,6 +26,9 @@ jobs:
       - name: metrics tests
         run: python scripts/test_metrics.py
 
+      - name: pipeline stage tests (offline, cached artifacts, no inference)
+        run: python scripts/test_pipeline.py
+
       - name: language lint (PROJECT_GOAL.md G8)
         run: python scripts/lint_language.py
 

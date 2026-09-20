@@ -25,7 +25,7 @@
  "signatures": {
   "boltzgen_consensus": {
    "n_core": 23,
-   "provenance": "24 BoltzGen designs, ipTM 0.119-0.420 (all below the 0.85 the plan suggests filtering at)",
+   "provenance": "24 BoltzGen designs from boltzgen_signature_v4.json, ipTM 0.119-0.420 (all below the 0.85 the plan suggests filtering at)",
    "core_residues_auth": [
     840,
     841,
@@ -54,7 +54,7 @@
   },
   "p2rank_geometry": {
    "n_core": 17,
-   "provenance": "P2Rank 2.5 rank-1 pocket on the ligand-stripped structure; 0.47 s/structure amortised over a 1,531-structure batch at 12 threads, 250 per JVM; a single structure in isolation measured 2.1-2.5 s wall (P2Rank self-reports 1.87 s), so the batch figure is not a single-run cost",
+   "provenance": "P2Rank 2.5 rank-1 pocket on the ligand-stripped structure. Timing, measured: 2.1-2.5 s wall for a single structure in isolation (P2Rank self-reports 1.87 s); 0.47 s/structure amortised over a 1,531-structure batch at 12 threads, 250 per JVM. The batch figure is not a single-run cost.",
    "core_residues_auth": [
     840,
     848,
@@ -298,8 +298,8 @@
      ]
     }
    },
-   "core_coverage": 0.43478260869565216,
-   "weighted_jaccard": 0.37380627557980894,
+   "core_coverage": 0.6470588235294118,
+   "weighted_jaccard": 0.5,
    "rank": 18
   },
   {
@@ -424,8 +424,8 @@
      ]
     }
    },
-   "core_coverage": 0.4782608695652174,
-   "weighted_jaccard": 0.38472032742155526,
+   "core_coverage": 0.7647058823529411,
+   "weighted_jaccard": 0.65,
    "rank": 5
   },
   {
@@ -555,8 +555,8 @@
      ]
     }
    },
-   "core_coverage": 0.6086956521739131,
-   "weighted_jaccard": 0.4884038199181446,
+   "core_coverage": 0.9411764705882353,
+   "weighted_jaccard": 0.7272727272727273,
    "rank": 9
   },
   {
@@ -686,8 +686,8 @@
      ]
     }
    },
-   "core_coverage": 0.7391304347826086,
-   "weighted_jaccard": 0.5165125495376486,
+   "core_coverage": 0.8235294117647058,
+   "weighted_jaccard": 0.5833333333333334,
    "rank": 20
   },
   {
@@ -816,8 +816,8 @@
      ]
     }
    },
-   "core_coverage": 0.5217391304347826,
-   "weighted_jaccard": 0.4297407912687585,
+   "core_coverage": 0.9411764705882353,
+   "weighted_jaccard": 0.7619047619047619,
    "rank": 7
   },
   {
@@ -949,8 +949,8 @@
      ]
     }
    },
-   "core_coverage": 0.4782608695652174,
-   "weighted_jaccard": 0.3582629674306393,
+   "core_coverage": 0.8823529411764706,
+   "weighted_jaccard": 0.6,
    "rank": 22
   },
   {
@@ -1075,8 +1075,8 @@
      ]
     }
    },
-   "core_coverage": 0.5217391304347826,
-   "weighted_jaccard": 0.4024556616643929,
+   "core_coverage": 0.8235294117647058,
+   "weighted_jaccard": 0.7368421052631579,
    "rank": 3
   },
   {
@@ -1206,8 +1206,8 @@
      ]
     }
    },
-   "core_coverage": 0.5652173913043478,
-   "weighted_jaccard": 0.46248294679399726,
+   "core_coverage": 0.9411764705882353,
+   "weighted_jaccard": 0.7272727272727273,
    "rank": 10
   },
   {
@@ -1335,8 +1335,8 @@
      ]
     }
    },
-   "core_coverage": 0.5652173913043478,
-   "weighted_jaccard": 0.4720327421555252,
+   "core_coverage": 1.0,
+   "weighted_jaccard": 0.85,
    "rank": 4
   },
   {
@@ -1465,8 +1465,8 @@
      ]
     }
    },
-   "core_coverage": 0.5217391304347826,
-   "weighted_jaccard": 0.42668428005284015,
+   "core_coverage": 1.0,
+   "weighted_jaccard": 0.8095238095238095,
    "rank": 6
   },
   {
@@ -1595,8 +1595,8 @@
      ]
     }
    },
-   "core_coverage": 0.21739130434782608,
-   "weighted_jaccard": 0.16761687571265677,
+   "core_coverage": 0.5294117647058824,
+   "weighted_jaccard": 0.32142857142857145,
    "rank": 32
   },
   {
@@ -1727,8 +1727,8 @@
      ]
     }
    },
-   "core_coverage": 0.43478260869565216,
-   "weighted_jaccard": 0.32207478890229185,
+   "core_coverage": 0.8823529411764706,
+   "weighted_jaccard": 0.625,
    "rank": 19
   },
   {
@@ -1859,8 +1859,8 @@
      ]
     }
    },
-   "core_coverage": 0.34782608695652173,
-   "weighted_jaccard": 0.2519954389965792,
+   "core_coverage": 0.7058823529411765,
+   "weighted_jaccard": 0.4444444444444444,
    "rank": 28
   },
   {
@@ -1987,8 +1987,8 @@
      ]
     }
    },
-   "core_coverage": 0.17391304347826086,
-   "weighted_jaccard": 0.11431742508324083,
+   "core_coverage": 0.35294117647058826,
+   "weighted_jaccard": 0.20689655172413793,
    "rank": 38
   },
   {
@@ -2113,8 +2113,8 @@
      ]
     }
    },
-   "core_coverage": 0.08695652173913043,
-   "weighted_jaccard": 0.07325194228634849,
+   "core_coverage": 0.23529411764705882,
+   "weighted_jaccard": 0.13793103448275862,
    "rank": 41
   },
   {
@@ -2238,8 +2238,8 @@
      ]
     }
    },
-   "core_coverage": 0.17391304347826086,
-   "weighted_jaccard": 0.11744583808437856,
+   "core_coverage": 0.35294117647058826,
+   "weighted_jaccard": 0.23076923076923078,
    "rank": 36
   },
   {
@@ -2365,8 +2365,8 @@
      ]
     }
    },
-   "core_coverage": 0.30434782608695654,
-   "weighted_jaccard": 0.19695193434935518,
+   "core_coverage": 0.5882352941176471,
+   "weighted_jaccard": 0.4166666666666667,
    "rank": 27
   },
   {
@@ -2492,8 +2492,8 @@
      ]
     }
    },
-   "core_coverage": 0.21739130434782608,
-   "weighted_jaccard": 0.16060961313012892,
+   "core_coverage": 0.47058823529411764,
+   "weighted_jaccard": 0.3076923076923077,
    "rank": 31
   },
   {
@@ -2621,8 +2621,8 @@
      ]
     }
    },
-   "core_coverage": 0.17391304347826086,
-   "weighted_jaccard": 0.13683010262257694,
+   "core_coverage": 0.35294117647058826,
+   "weighted_jaccard": 0.2,
    "rank": 39
   },
   {
@@ -2748,8 +2748,8 @@
      ]
     }
    },
-   "core_coverage": 0.13043478260869565,
-   "weighted_jaccard": 0.10378378378378376,
+   "core_coverage": 0.29411764705882354,
+   "weighted_jaccard": 0.1724137931034483,
    "rank": 40
   },
   {
@@ -2903,8 +2903,8 @@
      ]
     }
    },
-   "core_coverage": 0.782608695652174,
-   "weighted_jaccard": 0.4899894625922023,
+   "core_coverage": 0.9411764705882353,
+   "weighted_jaccard": 0.4,
    "rank": 35
   },
   {
@@ -3026,8 +3026,8 @@
      ]
     }
    },
-   "core_coverage": 0.391304347826087,
-   "weighted_jaccard": 0.3124147339699863,
+   "core_coverage": 0.7058823529411765,
+   "weighted_jaccard": 0.6666666666666666,
    "rank": 1
   },
   {
@@ -3155,8 +3155,8 @@
      ]
     }
    },
-   "core_coverage": 0.2608695652173913,
-   "weighted_jaccard": 0.16305587229190419,
+   "core_coverage": 0.47058823529411764,
+   "weighted_jaccard": 0.2857142857142857,
    "rank": 33
   },
   {
@@ -3279,8 +3279,8 @@
      ]
     }
    },
-   "core_coverage": 0.34782608695652173,
-   "weighted_jaccard": 0.3219645293315143,
+   "core_coverage": 0.5882352941176471,
+   "weighted_jaccard": 0.47619047619047616,
    "rank": 12
   },
   {
@@ -3404,8 +3404,8 @@
      ]
     }
    },
-   "core_coverage": 0.391304347826087,
-   "weighted_jaccard": 0.35334242837653473,
+   "core_coverage": 0.5882352941176471,
+   "weighted_jaccard": 0.45454545454545453,
    "rank": 21
   },
   {
@@ -3525,8 +3525,8 @@
      ]
     }
    },
-   "core_coverage": 0.13043478260869565,
-   "weighted_jaccard": 0.082063305978898,
+   "core_coverage": 0.23529411764705882,
+   "weighted_jaccard": 0.16666666666666666,
    "rank": 37
   },
   {
@@ -3649,8 +3649,8 @@
      ]
     }
    },
-   "core_coverage": 0.21739130434782608,
-   "weighted_jaccard": 0.15922798552472855,
+   "core_coverage": 0.4117647058823529,
+   "weighted_jaccard": 0.2916666666666667,
    "rank": 29
   },
   {
@@ -3772,8 +3772,8 @@
      ]
     }
    },
-   "core_coverage": 0.21739130434782608,
-   "weighted_jaccard": 0.14716525934861277,
+   "core_coverage": 0.47058823529411764,
+   "weighted_jaccard": 0.36363636363636365,
    "rank": 26
   },
   {
@@ -3894,8 +3894,8 @@
      ]
     }
    },
-   "core_coverage": 0.13043478260869565,
-   "weighted_jaccard": 0.09261430246189917,
+   "core_coverage": 0.29411764705882354,
+   "weighted_jaccard": 0.20833333333333334,
    "rank": 34
   },
   {
@@ -4024,8 +4024,8 @@
      ]
     }
    },
-   "core_coverage": 0.5652173913043478,
-   "weighted_jaccard": 0.461118690313779,
+   "core_coverage": 0.9411764705882353,
+   "weighted_jaccard": 0.7619047619047619,
    "rank": 8
   },
   {
@@ -4151,8 +4151,8 @@
      ]
     }
    },
-   "core_coverage": 0.4782608695652174,
-   "weighted_jaccard": 0.40109140518417463,
+   "core_coverage": 0.7058823529411765,
+   "weighted_jaccard": 0.5454545454545454,
    "rank": 14
   },
   {
@@ -4275,8 +4275,8 @@
      ]
     }
    },
-   "core_coverage": 0.43478260869565216,
-   "weighted_jaccard": 0.3574351978171896,
+   "core_coverage": 0.5882352941176471,
+   "weighted_jaccard": 0.47619047619047616,
    "rank": 13
   },
   {
@@ -4402,8 +4402,8 @@
      ]
     }
    },
-   "core_coverage": 0.30434782608695654,
-   "weighted_jaccard": 0.23478260869565215,
+   "core_coverage": 0.7058823529411765,
+   "weighted_jaccard": 0.5454545454545454,
    "rank": 15
   },
   {
@@ -4529,8 +4529,8 @@
      ]
     }
    },
-   "core_coverage": 0.5217391304347826,
-   "weighted_jaccard": 0.41609822646657574,
+   "core_coverage": 0.7058823529411765,
+   "weighted_jaccard": 0.5454545454545454,
    "rank": 16
   },
   {
@@ -4662,8 +4662,8 @@
      ]
     }
    },
-   "core_coverage": 0.4782608695652174,
-   "weighted_jaccard": 0.33534378769601925,
+   "core_coverage": 0.9411764705882353,
+   "weighted_jaccard": 0.6666666666666666,
    "rank": 17
   },
   {
@@ -4794,8 +4794,8 @@
      ]
     }
    },
-   "core_coverage": 0.6521739130434783,
-   "weighted_jaccard": 0.4953764861294584,
+   "core_coverage": 0.8235294117647058,
+   "weighted_jaccard": 0.56,
    "rank": 25
   },
   {
@@ -4921,8 +4921,8 @@
      ]
     }
    },
-   "core_coverage": 0.4782608695652174,
-   "weighted_jaccard": 0.3751705320600273,
+   "core_coverage": 0.8823529411764706,
+   "weighted_jaccard": 0.7894736842105263,
    "rank": 2
   },
   {
@@ -5051,8 +5051,8 @@
      ]
     }
    },
-   "core_coverage": 0.5652173913043478,
-   "weighted_jaccard": 0.4542974079126876,
+   "core_coverage": 0.8823529411764706,
+   "weighted_jaccard": 0.6818181818181818,
    "rank": 11
   },
   {
@@ -5184,8 +5184,8 @@
      ]
     }
    },
-   "core_coverage": 0.43478260869565216,
-   "weighted_jaccard": 0.3649167733674775,
+   "core_coverage": 0.8823529411764706,
+   "weighted_jaccard": 0.6,
    "rank": 23
   },
   {
@@ -5311,8 +5311,8 @@
      ]
     }
    },
-   "core_coverage": 0.5652173913043478,
-   "weighted_jaccard": 0.43519781718963163,
+   "core_coverage": 0.6470588235294118,
+   "weighted_jaccard": 0.4782608695652174,
    "rank": 24
   },
   {
@@ -5439,8 +5439,8 @@
      ]
     }
    },
-   "core_coverage": 0.4782608695652174,
-   "weighted_jaccard": 0.39972714870395637,
+   "core_coverage": 0.5294117647058824,
+   "weighted_jaccard": 0.34615384615384615,
    "rank": 30
   }
  ]
