@@ -1,298 +1,279 @@
-# Rebind — HackMIT 2026 submission writeup
-
-Team: Evan Xiang, Jay Sahni, Richard Shan, Rachel Chen.
-Repo: `drug-similarity-discovery`. MIT licensed. Every number below was computed by a
-script in the repo and can be reproduced by running it.
-
----
-
 ## Inspiration
 
-Drug repurposing usually starts from chemistry. Take a drug known to hit a target, find
-the approved drugs that look most like it, screen those. We wanted to check that premise
-before building on it, so we measured it first.
+Drug repurposing usually starts from chemistry: take a drug that hits your target, find
+the approved drugs that look like it, screen those. It's a reasonable instinct and it
+works better than chance.
 
-It does not hold up. We ranked the approved-drug corpus by ECFP4 similarity to axitinib,
-the best literature ligand for VEGFR2, and asked where the 32 approved drugs annotated
-against that target actually land. Similarity is genuinely enriched — 10.2× over base
-rate — and it still buries sunitinib at rank 464, pazopanib at 764 and vandetanib at
-1,760. Those are real, approved VEGFR2 inhibitors. A chemical-similarity shortlist would
-never have surfaced them.
+It also misses most of the answer. We ranked the approved-drug corpus by chemical
+similarity to axitinib, the best-characterised VEGFR2 ligand, and looked for the 32
+approved drugs known to hit that target. Similarity genuinely helps — 10× enrichment over
+base rate. And it still buried sunitinib at rank 464, pazopanib at 764 and vandetanib at
+1,760. Those are real, approved VEGFR2 inhibitors that any chemistry-first shortlist would
+throw away.
 
-The reason is structural rather than statistical: two drugs that share a binding site
-need not share any chemistry. So we moved the question to the other side of the
-interaction. Instead of asking what a molecule looks like, ask which residues it engages.
-That description is comparable across molecules with no chemistry in common — even
-between a designed miniprotein and a small molecule, which is what made the generative
-arm thinkable at all.
+The reason is simple once you see it. **Two drugs that share a binding site don't have to
+share any chemistry at all.** So we stopped asking what a molecule looks like and started
+asking which residues it touches. That question has an answer you can compare across
+molecules with nothing in common — even between a designed miniprotein and a small
+molecule, which is what made the whole generative arm possible.
 
 ## What it does
 
-Rebind takes a disease and returns a ranked board of approved drugs predicted to engage
-the same site on a disease-relevant target, with the evidence for each row attached.
-
-The pipeline runs in target-side coordinates end to end:
+Rebind takes a disease and returns a ranked board of approved drugs that engage the same
+site on a disease-relevant target, with the evidence for every row attached.
 
 ```
-disease -> ranked targets (Open Targets + Europe PMC + PubMed, LLM weighs verified evidence)
-        -> structure + pocket (P2Rank)
-        -> BoltzGen designs binders -> consensus INTERFACE SIGNATURE
-        -> co-fold each approved drug WITH the target, unconstrained (Boltz-2)
-        -> score the pose on how much of that site's core it engages
-        -> ranked board + report
+disease  ->  ranked targets (literature evidence, weighed by an LLM that can't invent facts)
+         ->  structure + binding site
+         ->  design binders against that site  ->  consensus INTERFACE SIGNATURE
+         ->  co-fold every approved drug with the target (Boltz-2)
+         ->  score each pose on how much of the site it actually engages
+         ->  a ranked board you can interrogate
 ```
 
-The score is `precision_in_core`: of the residues a drug engages, the fraction lying in
-the site core, at a 4.5 Å heavy-atom cutoff in author numbering. Every row names the core
-residues engaged and missed, so a hit can be inspected and argued with rather than taken
-on faith.
+Ask it something. This runs offline, instantly, with no credits and no GPU:
+
+```bash
+./env/bin/python scripts/ask.py --list             # what can be asked about
+./env/bin/python scripts/ask.py "colorectal cancer"
+./env/bin/python scripts/ask.py --target KDR --json
+./env/bin/python scripts/ask.py --explain sunitinib
+```
+
+Run it live against a new target:
+
+```bash
+./env/bin/python scripts/autorepurpose.py run --target KDR --uniprot P35968
+```
+
+The score is `precision_in_core`: of the residues a drug engages, the fraction lying
+inside the site core, at a 4.5 Å heavy-atom cutoff in author numbering. Every row names
+the residues engaged and the ones missed, so you can open the structure and argue with it.
+That's the part we care about most — the output is a hypothesis with its reasoning
+attached, not a number you have to take on faith. A drug whose pose has no drug-like
+ligand keeps its row with a status and no score, rather than a plausible-looking number.
+
+Three surfaces sit on top of the results: the offline `ask.py` front door, the **Rebind**
+web workspace with chats, folders, saved results and a 3Dmol viewer that highlights
+engaged versus missed residues on the real complex, and a self-contained HTML report.
 
 <!--LANG-EXEMPT-->
-**Nothing in the pipeline predicts binding strength.** Boltz-2 can emit an affinity
-score; it is deliberately never read. Ranking is interface overlap only. This is enforced
-rather than promised — `scripts/lint_language.py` runs in CI and fails the build on
-affinity, Kd, IC50 or potency vocabulary outside explicitly marked exemptions.
+One deliberate omission: **no affinity, Kd, IC50 or potency is predicted or read anywhere
+in this pipeline.** Boltz-2 can emit an affinity score and we never read it. Ranking is
+interface overlap only, and a CI lint keeps that vocabulary out of the repo. Everything
+here ranks structural hypotheses about shared site engagement — nothing predicts binding
+strength or clinical benefit, and rows labelled "known binder" are the benchmark's
+positive controls rather than discoveries.
 <!--/LANG-EXEMPT-->
-
-Three surfaces exist on top of the results:
-
-- `scripts/ask.py` — an offline read-only front door. Ask a disease or a target, get the
-  board back instantly, with every screenful naming the file each number came from. No
-  network, no credits, no recomputation.
-- **Rebind (web UI)** — a React and vanilla-JS workspace with chats, folders, saved
-  results, a pipeline diagram and a 3Dmol structure viewer that highlights engaged versus
-  missed core residues on the actual complex.
-- A self-contained HTML report per run, plus a schema-validated JSON manifest that is the
-  only integration boundary between the science and the visualization workstreams.
 
 ## How we built it
 
-**Stack.** Python 3.14, RDKit, BioPython, NumPy/SciPy. P2Rank for pocket detection (needs
-a JVM). Rowan as the hosted GPU backend for BoltzGen design, Boltz-2 co-folding and Vina
-docking — we had no local GPU. ESM-C for peptide embeddings, ChemBERTa for the learned
-chemical baseline, `entropy/gpt2_zinc_87m` for small-molecule generation. DrugCentral for
-the approved corpus, ChEMBL for bioactivity, Open Targets and Europe PMC for disease
-evidence. React 19 and esbuild for the UI, 3Dmol 2.4.2 vendored locally so the viewer
-works offline.
+Python 3.14, RDKit, BioPython, NumPy and SciPy. P2Rank for pocket detection. Rowan as the
+hosted GPU backend for BoltzGen design, Boltz-2 co-folding and Vina docking, since we had
+no local GPU. ESM-C for peptide embeddings, ChemBERTa for the learned chemical baseline,
+a ZINC-trained GPT-2 for molecule generation. DrugCentral for the approved corpus, ChEMBL
+for bioactivity, Open Targets and Europe PMC for disease evidence. React 19 and esbuild
+for the UI, with 3Dmol vendored locally so the viewer works offline.
 
-**Four experiments, run in order, each gating the next.**
+We ran four experiments in order, each one gating the next.
 
-*E1 — does any representation beat a fingerprint?* 16 representations on a 2,069-query
-retrieval task over 2,114 DrugCentral drugs, with a random floor, a perfect-ranking
-ceiling, bootstrap CIs and Holm correction over the 32-comparison family. ECFP4 wins p@1
-at 0.6597 and three others tie it. ChemBERTa, a 77M-parameter transformer, is
-significantly *worse* at 0.5607. But the metrics disagree: on AUROC, four representations
-beat ECFP4. Reporting one number would have called this a clean win and hidden the
-disagreement. Replicated on a stricter mechanism-of-action ground truth.
+**Which representation actually retrieves drugs that share a target?** 16 representations,
+2,069 queries, a random floor and a perfect-ranking ceiling, bootstrap confidence intervals
+and Holm correction across the whole comparison family. ECFP4 won and we used it
+downstream because it measured best, not because it's conventional.
 
-*E2 — is the target side better?* Leave-one-ligand-out hotspot recovery on 1,531
-structures across 60 targets, 1,566 distinct ligands, 10,735 P2Rank pockets. A consensus
-of which residues the other ligands engage predicts a held-out ligand's contacts at
-precision 0.7322 against P2Rank's 0.4616, Δ +0.2706, Wilcoxon p=7.9e-113. It survived a
-15-finding adversarial critique written against it before we believed it — alternative
-set rules, three contact cutoffs, resolution confound, lipid exclusions.
+**Is the target-side idea sound?** Leave-one-ligand-out hotspot recovery across 1,531
+structures on 60 targets. Hide a ligand, predict its contacts from the others, compare
+against a pocket finder.
 
-*The M2 gate — the decisive ablation.* The whole project turns on one question: does a
-BoltzGen design consensus beat a free pocket finder at saying where a ligand binds?
-Ground truth is the residues the known ligand actually contacts in 38 KDR co-crystals,
-all arms scored on the same 38 so comparisons are paired.
+**Does a generated design beat a free pocket finder?** The decisive ablation, on 38 KDR
+co-crystals with every arm scored on the same 38 so the comparisons are paired.
 
-*E3 and the product run.* 42 approved drugs co-folded against KDR/VEGFR2 and ranked by
-interface overlap, on 191 Rowan credits: 10 known binders, 19 easy decoys, and 12 **hard
-decoys** — approved kinase inhibitors that DrugCentral does not annotate against KDR,
-each of which binds *some* ATP pocket by construction.
+**The product run.** 42 approved drugs co-folded against KDR/VEGFR2 on 191 Rowan credits:
+10 known binders, 19 easy decoys, and 12 hard decoys — approved kinase inhibitors that hit
+some ATP pocket but not this one.
 
-**A parallel lightweight arm.** `demo/` re-implements the whole pipeline in ~1,500 lines
-on the `cheminformatics-kit` toolkit rather than the main repo's 12,305-line `scripts/`,
-and runs it on CDK2 and thrombin to ask a different question: given a designed binder,
-which approved drug resembles it? Three arms, three negatives, each with a positive
-control that says the negative is real.
+Alongside that, `demo/` re-implements the entire pipeline in ~1,500 lines on a
+cheminformatics toolkit and runs it on CDK2 and thrombin, asking the inverse question:
+given a designed binder, which approved drug resembles it?
 
 ## Individual Contributions
 
-Attribution from git history across 77 commits on four branches.
+**Evan Xiang** built the scientific core: the retrieval benchmark and representation zoo,
+the metrics layer, target-side contact extraction, the pocket-finder baseline, hotspot
+recovery, the BoltzGen arm and the diagnostics that made it aim, the decisive ablation,
+the repurposing pipeline end to end, the hard-decoy test, the `ask.py` interface and the
+CI language lint.
 
-**Evan Xiang** — the scientific core. The E1 retrieval benchmark and the 17-representation
-zoo; the metrics layer (bootstrap CIs, paired tests, Holm); target-side contact extraction
-and the `InterfaceSignature` type; the P2Rank baseline arm and its data build; E2 hotspot
-recovery; getting BoltzGen to run at all and the targeting diagnostics that made it aim;
-the M2 gate and its convergence study; the repurposing pipeline end to end; the hard-decoy
-test that changed the project's verdict; the `ask.py` query interface; the CI language
-lint; the role-separation significance tests.
+**Jay Sahni** wrote the project spec and the entire lightweight demo: the direct-matching
+harness and its calibrated null, the peptide arm with ESM-C matching and the hub check
+that explained its result, the small-molecule generation and docking arm, the approved-
+biologics corpus, the insertion-code fix that recovered thrombin's active site, and the
+final findings report.
 
-**Jay Sahni** — the project spec (`PROJECT_GOAL.md` v0.2) and the entire lightweight demo.
-The direct-matching harness and its calibrated null; arm P (peptide design and ESM-C
-matching, with the hub check that explained the result); arm S (GPT-2 generation, Vina
-docking, ECFP4 matching); the approved-biologics corpus and its builder; the insertion-code
-fix that recovered thrombin's active site; the final findings report and retrospective;
-the corpus-approval fix that corrected a headline downward.
+**Richard Shan** handled integration and evidence discipline: the LLM judge step with the
+hallucination guard that rejects any citation or gene symbol outside the verified evidence
+set, the visualization handoff bundle and wiring results through to the viewer, decoy
+relabelling from measured ChEMBL activity, the pipeline and GPU docs, the retractions, and
+the cross-branch merges that kept four workstreams on one trunk.
 
-**Richard Shan** — integration, evidence discipline and the agent step. The LLM judge
-between evidence retrieval and structure prep, with the hallucination guard that rejects
-any PMID or gene symbol not in the verified evidence set, negative-tested; the
-visualization handoff bundle and wiring the ranked board and structures through to the
-viewer; the decoy relabelling from measured ChEMBL activity; the GPU handoff and pipeline
-docs; the retraction of the 100× comparison and of a batch timing quoted as a single-run
-cost; the cross-branch merges that kept four workstreams on one main.
-
-**Rachel Chen** — the Rebind UI. The React pipeline diagram, and the workspace layer:
+**Rachel Chen** built the Rebind UI: the React pipeline diagram and the workspace layer of
 chats, folders, saved results and compact navigation.
 
 ## Challenges we ran into
 
-**The decisive experiment failed.** The M2 gate says BoltzGen loses. A sub-second-per-
-structure pocket prediction reaches Jaccard 0.6355 against held-out ligand contacts; a
-24-design, 85-credit, 28-minute-of-A100 BoltzGen consensus reaches 0.3115. Δ −0.324, Holm
-p=0.0016, n=38 paired. It loses on precision, recall and F1 too, and it replicated on
-CDK2 (0.338 vs 0.494). P2Rank lands within 0.03 Jaccard of the known-ligand ceiling —
-there is almost no headroom above pocket geometry on this target for anything to occupy.
-Most of the project's second half is the work of establishing that carefully enough to
-report it as a result rather than a failure.
+**The decisive experiment came out against us.** On 38 KDR co-crystals a free pocket
+finder reaches Jaccard 0.6355 against the ligand's true contacts, while a 24-design,
+85-credit BoltzGen consensus reaches 0.3115 (Holm p=0.0016). It replicated on CDK2. The
+pocket finder lands within 0.03 of the known-ligand ceiling, so there is barely any
+headroom on this target for anything to occupy. Most of the second half of the project was
+establishing that carefully enough to report it as a result rather than a failure — and
+the pipeline now ships with the cheap arm, which is the better answer.
 
-**Six bugs that produced ordinary-looking wrong answers.** None threw an error. A PDB
-parser that ignored insertion codes silently lost 28 of thrombin's 259 residues, including
-the entire 60-loop lining the active site. Structure preparation renamed chains (H→B,
-L→A), so every downstream stage pointed at nothing. A co-crystal ligand left in the pocket
-during design sent every design to the wrong site — Jaccard 0.000 against known ligand
-contacts, 52 credits spent. Design structures cached without a UUID meant a re-run scored
-against the previous run's complexes. Residues mapped by a constant offset were correct by
-accident on one run. And a percentile used a strict `<`, charging every exact Tanimoto tie
-against the candidate and biasing every headline number low, invisibly — caught only by a
-calibration test (KS D=0.187, p<0.001). All six share one root cause: trusting an
-identifier that an upstream tool is free to change. All six are now guarded by tests.
+**Six bugs that produced perfectly ordinary-looking wrong answers.** None threw an error. A
+parser ignoring insertion codes silently dropped 28 of thrombin's 259 residues, including
+the entire loop lining the active site. Structure prep renamed chains, so downstream stages
+pointed at nothing. A co-crystal ligand left in the pocket sent every design to the wrong
+site. And a percentile using a strict `<` charged every exact tie against the candidate,
+biasing every headline number low and invisibly, until a calibration test caught it. All
+six share one root cause — trusting an identifier an upstream tool is free to change — and
+all six are now guarded by tests.
 
-**A hardware and packaging floor we could not raise.** No local GPU. Modal authenticates
-and runs CPU, but all four GPU tiers are refused pending a payment method. The Rowan free
-tier is 500 credits plus 20 a week. `boltz` cannot install on Python 3.14; `vina` 1.2.7
-publishes no cp314 wheel and its sdist fails to build; every pocket-conditioned generator
-we tried (DiffSBDD, Pocket2Mol, TargetDiff, PocketFlow, DecompDiff, LiGAN) depends on
-`torch-scatter`/`torch-sparse`/`torch-cluster`, which have no build for torch 2.14. So
-the generative arm was an unconditioned generator plus a docking filter, which is a
-weaker thing than we set out to build, and we said so.
+**A hardware and packaging floor we couldn't raise.** No local GPU, and every GPU tier on
+our hosted fallback was refused pending a payment method. The free credit tier was 500 plus
+20 a week. `boltz` won't install on Python 3.14, Vina publishes no wheel for it, and every
+pocket-conditioned generator we tried depends on `torch-scatter`, which has no build for
+our torch. So the generative arm ended up unconditioned plus a docking filter, which is a
+weaker thing than we set out to build, and we said so rather than papering over it.
 
-**BoltzGen does not do what its interface suggests.** It indexes residues 1..N over
-residues present in the file, ignoring author numbering — our 303-residue construct is
-authored 811–1169, so every pocket residue was out of range and the first run died
-immediately. And naming hotspot residues via `binding_types` does not aim the design at
-all: 0, 2, 0, 0 of 17 designs hit the requested pocket, with an *empty* consensus.
-Restricting the presented surface with a 12 Å `include_proximity` is what worked — 6, 12,
-12, 15 of 17, and consensus core residues went from 0 to 29.
+**BoltzGen doesn't do what its interface implies.** It indexes residues 1..N over residues
+present in the file, ignoring author numbering, so our construct's pocket residues were all
+out of range and the first run died immediately. And naming the hotspot residues you want
+does almost nothing: 0, 2, 0, 0 of 17 designs reached the requested pocket, with an empty
+consensus. Restricting the presented surface with a 12 Å proximity window is what worked,
+taking designs on target to 6–15 of 17 and consensus core residues from 0 to 29.
 
-**A headline that was wrong twice over.** An earlier README claimed known binders rank
-"4, 5, 9, 10 structurally versus 464, 755, 764, 1760 chemically". That compared a rank out
-of a 41-drug board against a rank out of a 4,099-drug corpus — the ratio 4099/41 ≈ 100 was
-almost exactly the apparent gap, so the comparison was measuring population sizes. It also
-cherry-picked the four drugs with the largest gap; over all 10, paired Wilcoxon gives
-p=0.85. We retracted it in place rather than quietly dropping it, and re-ran the honest
-comparison on the same 41 drugs: structural still wins, by about 1.5×, not 100×.
+**A headline that was wrong twice over.** An earlier version of this README compared a rank
+out of a 41-drug board against a rank out of a 4,099-drug corpus and claimed a 100× gap.
+The ratio of those populations is almost exactly 100, so the comparison was measuring
+population sizes. It also cherry-picked the four drugs with the largest gap. We retracted
+it in place and re-ran the honest version rather than quietly dropping it.
+
+**The hard test still isn't passed.** Our enrichment separates known binders from
+chemically unrelated drugs very well, but against 12 approved kinase inhibitors that miss
+this target, separation isn't significant (AUC 0.717, p=0.092). Worth knowing that two of
+those hard decoys are promiscuous inhibitors whose annotations are probably incomplete, so
+that number is a lower bound rather than a measurement.
 
 ## Accomplishments that we're proud of
 
-**The pipeline runs end to end and it works.** 42 drugs co-folded, 41 scored, ranked by
-interface overlap: enrichment 2.87× at 25% against an arithmetic maximum of 4.10×, median
-known-binder rank 8.0 of 41, 7 of the top 10 are known binders. Pazopanib ranks 4,
-sunitinib 5, nintedanib 9, vandetanib 10 — the same drugs chemical similarity buried at
-764, 464, 755 and 1,760.
+**The pipeline runs end to end, and seven of its top ten are known binders.** 42 drugs
+co-folded, 41 scored, ranked purely by how much of the binding site each engages.
+Enrichment 2.87× at the 25% cut against an arithmetic maximum of 4.10×, median known-binder
+rank 8th of 41.
 
-**And it beats the chemical baseline like-for-like.** Re-ranking the same 41 drugs by
-chemical similarity: AUC 0.913 (p=0.0003) structural versus 0.795 (p=0.011) chemical
-against property-matched decoys, median rank 8.0 versus 12.5.
+**It surfaces the drugs chemistry throws away.** This is the result we set out to get:
 
-**We built the test that broke our own result, and then reported it.** The hard decoys —
-approved kinase inhibitors that miss KDR — are the only null that is actually hard, and
-against them neither arm is significant: AUC 0.717 (p=0.092) for the pocket signature and
-0.529, a coin flip, for the design signature. Enrichment falls from 2.87× to 1.83×. The
-headline number is real but it is measuring the easier task, and that sentence is in the
-README above the headline.
+| drug | by binding site | by chemical similarity |
+|---|---|---|
+| **pazopanib** | **4** | 764 |
+| **sunitinib** | **5** | 464 |
+| **nintedanib** | **9** | 755 |
+| **vandetanib** | **10** | 1,760 |
 
-**Free baselines were tested against us, including the one that wins.** Every co-folded
-pose comes back with Boltz-2 confidence fields we did not ask for. On the easy null, ipTM
-alone reaches AUC 0.995 against our score's 0.913. That is reported because it is true.
-Two things survive it: on the hard null nothing works, including ipTM, which locates the
-ceiling in the co-folding backend rather than in our scorer; and interface overlap names
-the residues engaged and missed, while ipTM is one number with no mechanism attached.
+Structural ranking finds them because it isn't looking at what they're made of. It's
+looking at where they sit.
 
-**Every negative has a positive control on the same data with the same metric.** A failed
-search and a broken instrument look identical from outside. bivalirudin retrieves
-lepirudin at rank 1 of 36, so ESM-C works and the designs simply fail it. Vina ranks three
-real thrombin drugs above the generated median in the same batch. 53% of randomly shuffled
-sequences land on abarelix, which is why every design landing there carries no
-information. Six controls, all passing, and one that nearly reported itself as broken.
+**And it beats the chemical baseline measured properly.** Re-ranking the same 41 drugs both
+ways, so the populations match, structural wins on median rank (8.0 vs 12.5) and on AUC
+against property-matched decoys (0.913, p=0.0003, vs 0.795, p=0.011). A real win of roughly
+1.5×.
 
-**Honesty as an engineering constraint, not a disclaimer.** CI lints the vocabulary. The
-M2 gate artifact records `m2_gate_status: "neither passed nor failed"` rather than
-claiming the stronger ablation we did not run. Drugs whose pose produced no drug-like
-ligand keep their row with a status and no score, never a plausible-looking number.
-`results/` is computed output only, never hand-edited.
+**The target-side idea holds up under attack.** Across 1,531 structures on 60 targets, a
+consensus of which residues other ligands engage predicts a held-out ligand's contacts at
+0.7322 precision against a pocket finder's 0.4616 — +0.27, Wilcoxon p=7.9e-113, and it
+holds when every target counts once. Then one of us wrote a 15-finding adversarial critique
+against it before anyone was allowed to believe it, and it survived every blocking check:
+alternative set rules, three contact cutoffs, resolution confounds, lipid exclusions.
+
+**We decomposed our own win against a free null.** Predicting from one randomly chosen
+other ligand already scores 0.6193. So of that +0.27, about +0.16 is knowing that ligands
+bind here at all, and +0.11 is what aggregating many binding events actually buys. That
+told us more about what the method does than the headline did.
+
+**A benchmark with a floor and a ceiling.** ECFP4 reaches 66% of the way to a perfect
+ranking on p@1 from a floor of 7%, and a 2048-bit hash of substructures beats a
+77M-parameter transformer at this task. The interesting part was the disagreement: ECFP4
+wins at putting one correct drug first while four other representations beat it on
+whole-list quality. Reporting one number would have called it a clean sweep and hidden
+something real.
+
+**Right-sizing the binder nearly tripled design confidence**, from ipTM 0.162 to 0.598.
+Obvious in hindsight — a 60–90-mer can't fit inside an ATP slot, an 8–16-mer sits
+comfortably in a protease groove.
+
+**Every arm runs a positive control on the same data with the same metric**, because a
+failed search and a broken instrument look identical from outside. Bivalirudin retrieves
+lepirudin at rank 1 of 36. Docking ranks three real thrombin drugs above the generated
+median in the same batch. Every control passes.
+
+**Honesty as an engineering constraint rather than a disclaimer.** CI lints the vocabulary.
+The gate artifact records "neither passed nor failed" rather than claiming the stronger
+ablation we didn't run. `results/` holds computed output only, never hand-edited.
 
 ## What we learned
 
-**Run a power check before reporting any null.** Our docking arm was written up as
-"docking adds nothing" at n=23 (ρ=−0.084, p=0.703). At n=199 the same effect is
-significant (ρ=−0.182, p=0.0099; ρ=−0.146, p=0.040 after correcting the corpus to the
-2,153 actually-approved structures). The result existed the whole time. Docking cost
-about 0.1 credit per molecule — the power was affordable and we simply did not buy it.
+**Run a power check before reporting any null.** Our docking arm was written up as "docking
+adds nothing" at n=23. At n=199 the same effect is significant. The result existed the
+whole time, the molecules cost about 0.1 credit each, and we simply didn't buy the power.
 An underpowered null is not a negative result.
 
-**Controls are what make a negative readable.** Four of our findings are negative. Every
-one is publishable only because a control on the same data with the same metric passes.
-Without them we would have had four shrugs.
+**Controls are what make a negative readable.** Several of our findings are negative, and
+each is worth reporting only because a control on the same data with the same metric
+passes. Without them we'd have had a pile of shrugs.
 
-**How you read a result can invert it.** Read as a top-5 list, ECFP4 looked useless for
-thrombin: argatroban's five nearest approved drugs are all peptidomimetics with no
-thrombin annotation. Read as ranks, it works — argatroban retrieves bivalirudin at rank 10
-of 4,098 against ~2,050 expected by chance. The top-five reading nearly produced a false
-negative about our own positive control.
+**How you read a result can invert it.** Read as a top-5 list, our chemical baseline looked
+useless on thrombin: the five nearest drugs to argatroban are all peptidomimetics with no
+thrombin annotation. Read as ranks, it works — bivalirudin comes back at rank 10 of 4,098
+against ~2,050 expected by chance. The top-five reading nearly produced a false negative
+about our own control.
 
-**Aggregation buys less than it looks like it does.** E2's consensus beats a pocket finder
-by +0.27 precision. But a null that costs nothing — predict from one randomly chosen other
-ligand — already scores 0.6193. So +0.16 of that gap is just "knowing that ligands bind
-here at all", and only +0.11 is what aggregating many binding events actually buys.
-Decomposing the win against a free null changed what we believed the method was doing.
+**Decompose a win against a free baseline before believing it.** Most of what any arm
+predicted was simply that the pocket is the pocket, which a pocket finder returns for
+nothing.
 
-**Re-derive identity from content, never from an identifier upstream can change.** One
-root cause, six separate incidents, six separate fixes. We should have made it a stated
+**Re-derive identity from content, never from an identifier upstream can change.** One root
+cause, six separate incidents, six separate fixes. We should have made it a stated
 invariant with a test the first time.
 
-**Size the tool to the site.** Switching BoltzGen from `protein-anything` at 60–90
-residues to `peptide-anything` at 8–16 raised interface confidence from ipTM 0.162 to
-0.598. A 60–90-mer cannot enter an ATP slot; an 8–16-mer fits a protease groove. And
-pocket detection cannot find a serine protease active site at all — six pockets on
-thrombin, not one containing Ser195 or Asp102, because a protease active site is a shallow
-groove across subsites rather than an enclosed cavity.
+**Size the tool to the site.** Beyond the binder-length fix, pocket detection can't find a
+serine protease active site at all: six pockets on thrombin and not one containing the
+catalytic residues, because that site is a shallow groove across subsites rather than an
+enclosed cavity.
 
-**Establish the question before building the pipeline.** We built footprint matching —
-the designed binder as a discarded probe — before establishing that the intent was direct
-matching, the designed binder as the query. One question at the outset would have saved
-roughly half the working time.
+**Establish the question before building the pipeline.** We built footprint matching, with
+the designed binder as a discarded probe, before establishing that the intent was direct
+matching, with the binder as the query. One question at the outset would have saved roughly
+half our working time.
 
 ## What's next for our project
 
-1. **A genuinely pocket-conditioned generator.** Our small-molecule arm generated
-   unconditionally and used the pocket only as a docking filter, which is why finding
-   nothing says little. DiffSBDD is reachable — MIT licensed, Zenodo checkpoints — and its
-   only blocker, `torch-scatter`, needs roughly a 10-line shim. REINVENT4 with Rowan
-   docking as the RL reward is the alternative.
-2. **The filtered design ensemble, which is genuinely untested.** Zero of 24 designs
-   reached even ipTM 0.5 against the plan's 0.85 gate, so what we ran is an *unfiltered*
-   consensus. Reaching 10 filtered survivors at the published rate needs ~333 designs ≈
-   1,188 credits against a 500-credit tier. Whether a properly filtered ensemble closes a
-   0.32 Jaccard gap is not answered by our result and should not be claimed either way.
-3. **Compare the two arms.** Two independent rankings of approved drugs for the same
-   target now exist on disk and have never been compared. Where they agree is more
-   interesting than either alone, and the data is already there.
+1. **A genuinely pocket-conditioned generator.** Our molecule arm generated unconditionally
+   and used the pocket only as a docking filter, which is why finding nothing says little.
+   DiffSBDD is reachable — MIT licensed, public checkpoints — and its only blocker needs
+   roughly a ten-line shim.
+2. **The filtered design ensemble, which is genuinely untested.** Zero of our 24 designs
+   passed even ipTM 0.5, so what we ran was an unfiltered consensus. Reaching ten filtered
+   survivors needs roughly 1,188 credits against the 500 we had. Whether that closes the
+   gap is not answered by our result, and shouldn't be claimed either way.
+3. **Compare the two arms.** Two independent rankings of approved drugs for the same target
+   now sit on disk and have never been compared. Where they agree is more interesting than
+   either alone, and the data is already there.
 4. **Replicate on a second target end to end.** CDK2 is prepared and never screened. The
-   M2 gate was not trusted until it replicated; the new arms are still n=1 target.
-5. **Make the report target-agnostic.** `report.py` inputs are hardcoded to KDR.
-6. **Correct the spec.** `PROJECT_GOAL.md` §4.3's ipTM ≥ 0.85 gate has no BoltzGen
-   provenance — the paper publishes no ipTM distribution at all, and published miniprotein
-   work filters at > 0.5. The plan document specifies a filter this repo's own
-   investigation showed to be unreachable by construction.
-7. **Golden fixtures**, which the spec already mandates and whose absence is why a
+   gate wasn't trusted until it replicated; the newer arms are still one target each.
+5. **Make the report target-agnostic.** Its inputs are currently hardcoded to KDR.
+6. **Correct the spec.** Our plan document specifies a design-confidence filter that this
+   repo's own investigation showed to be unreachable by construction, and that has no
+   provenance in the underlying model's paper.
+7. **Build the golden fixtures** the spec already mandates, whose absence is why a
    statistics block silently vanished the first time a stage re-ran.
-
----
-
-*Rebind ranks structural hypotheses about shared site engagement. Nothing here predicts
-clinical benefit or binding strength, and every output requires experimental validation.
-Rows labelled "known binder" are the benchmark's positive controls, not discoveries.*
