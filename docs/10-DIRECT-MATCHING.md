@@ -125,9 +125,17 @@ have looked less remarkable than it is, consistently and invisibly.
 
 **A null must also be independent of what it scores.** The first cut of arm S
 built the null from the same molecules it was scoring, which only recovers each
-molecule's rank within its own set. Arm S now splits by pocket evidence: docked
-molecules are queries, undocked ones the null. When docking has not run the
-output says `DEGENERATE` rather than reporting ranks as a test.
+molecule's rank within its own set. Arm S now scores the 24 docked molecules
+against a null of the 567 that were not docked — independent, same generator,
+same filter. When docking has not run the output says `DEGENERATE` rather than
+reporting ranks as a test.
+
+That null answers "does this molecule beat a *typical generated* molecule", not
+"did the pocket choose it", because the docked subset was taken by list position
+rather than by fit. The pocket question needs its own test and gets one:
+`docking_signal` asks whether Vina score correlates with similarity to the drugs
+already known to bind this target. Keeping the two apart matters — conflating
+them would let an arbitrary subset masquerade as pocket evidence.
 
 ## Arm P — peptide
 
