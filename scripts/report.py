@@ -50,6 +50,7 @@ INPUTS = {
     "ligand": "results/pipeline/colorectal-cancer/target/known_ligand_contacts.json",
     "wf": "results/pipeline/colorectal-cancer/boltzgen_v4_wf.json",
     "p2rank_batch": "results/p2rank_pockets.json",
+    "separation": "results/role_separation.json",
 }
 STRUCTURE = "results/pipeline/colorectal-cancer/target/structure/3VHE_A_stripped.pdb"
 
@@ -586,6 +587,63 @@ def section_validation(ctx: dict) -> str:
 </section>"""
 
 
+def section_separation(ctx: dict) -> str:
+    """The significance test on the board's own nulls.
+
+    The validation section above reports enrichment, which says how the ranking
+    is ordered but not whether the two groups are distinguishable at all. This is
+    the test the hard-decoy arm was submitted to make, and CLAUDE.md requires a
+    comparison to carry one. It is reported separately from enrichment because it
+    disagrees with it: the enrichment is carried by the easy null.
+    """
+    sep = ctx.get("separation")
+    if not sep:
+        return ('<section><h2>Null separation</h2><p class="none">'
+                'results/role_separation.json is absent, so no significance test is '
+                'reported here. Not evaluated.</p></section>')
+
+    rows, any_hard = [], False
+    for sig, v in sep.get("verdict_by_signature", {}).items():
+        for role in ("decoy", "hard_decoy"):
+            ok = v.get(f"separates_{role}")
+            if ok is None:
+                continue
+            if role == "hard_decoy":
+                any_hard = any_hard or bool(ok)
+            rows.append(
+                f'<tr><td class="drug">{esc(SIG_LABEL.get(sig, sig))}</td>'
+                f'<td>{esc(role_label(role))}</td>'
+                f'<td class="num">{v.get(f"separates_{role}_n_positive")}'
+                f' v {v.get(f"separates_{role}_n_negative")}</td>'
+                f'<td class="num">{fmt(v.get(f"separates_{role}_auc"))}</td>'
+                f'<td class="num">{v.get(f"separates_{role}_p_two_sided"):.4f}</td>'
+                f'<td class="num">{v.get(f"separates_{role}_p_holm"):.4f}</td>'
+                f'<td>{"separates" if ok else "<strong>does not</strong>"}</td></tr>')
+
+    verdict = ("At least one signature separates the hard null."
+               if any_hard else
+               "<strong>No signature separates the hard null.</strong> Every "
+               "enrichment number above is carried by the easy, property-matched "
+               "decoys. Against approved drugs that genuinely bind the same kind of "
+               "pocket, this pipeline has not been shown to discriminate at all.")
+
+    return f"""<section>
+<h2>Does it separate its own nulls?</h2>
+<p class="note">Two-sided Mann-Whitney U on the ranking metric, oriented known
+binder over the other role, Holm-corrected within each signature. Enrichment
+orders a list; this asks whether the two groups are distinguishable.</p>
+<table class="board">
+<thead><tr><th>signature</th><th>versus</th><th>n</th><th>AUC</th>
+<th>p</th><th>p (Holm)</th><th>verdict</th></tr></thead>
+<tbody>{"".join(rows)}</tbody>
+</table>
+<div class="callout"><div class="callout-title">Reading</div>
+<p>{verdict}</p>
+<p>{esc(sep.get("interpretation", {}).get("why_neither_alone", ""))}</p>
+</div>
+</section>"""
+
+
 def section_limits(ctx: dict) -> str:
     items = "".join(f"""
     <li>
@@ -999,6 +1057,7 @@ def build(ctx: dict) -> str:
 {section_comparison(ctx)}
 {section_signature(ctx)}
 {section_validation(ctx)}
+{section_separation(ctx)}
 {section_limits(ctx)}
 {section_provenance(ctx)}
 </main>
@@ -1255,6 +1314,7 @@ def assemble(root: Path, generated_at: str, previous: Path | None,
 
     ctx = {
         "board": board, "signature": sig, "candidates": cand,
+        "separation": data.get("separation"),
         "pocket": data["pocket"], "ligand": data["ligand"],
         "m2_kdr": data["m2_kdr"], "m2_cdk2": data["m2_cdk2"],
         "state": data["state"], "wf": data["wf"],

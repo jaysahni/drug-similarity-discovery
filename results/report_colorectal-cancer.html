@@ -825,6 +825,21 @@ footer h3{margin-top:1.4em;color:var(--mute);font-size:12px;text-transform:upper
      result.</p>
   <p class="note">The ablation behind this table is recorded separately, on two targets: <code>results/m2_gate_KDR.json</code> (KDR, n = 38 structures) and <code>results/m2_gate_CDK2.json</code> (CDK2, n = 31 structures). Both are summarised in <a href="#limits">what does not work</a>.</p>
 </section>
+<section>
+<h2>Does it separate its own nulls?</h2>
+<p class="note">Two-sided Mann-Whitney U on the ranking metric, oriented known
+binder over the other role, Holm-corrected within each signature. Enrichment
+orders a list; this asks whether the two groups are distinguishable.</p>
+<table class="board">
+<thead><tr><th>signature</th><th>versus</th><th>n</th><th>AUC</th>
+<th>p</th><th>p (Holm)</th><th>verdict</th></tr></thead>
+<tbody><tr><td class="drug">BoltzGen design consensus</td><td>decoy</td><td class="num">10 v 19</td><td class="num">0.937</td><td class="num">0.0002</td><td class="num">0.0004</td><td>separates</td></tr><tr><td class="drug">BoltzGen design consensus</td><td>hard decoy</td><td class="num">10 v 12</td><td class="num">0.529</td><td class="num">0.8429</td><td class="num">0.8429</td><td><strong>does not</strong></td></tr><tr><td class="drug">known-ligand contacts</td><td>decoy</td><td class="num">10 v 19</td><td class="num">0.579</td><td class="num">0.5055</td><td class="num">1.0000</td><td><strong>does not</strong></td></tr><tr><td class="drug">known-ligand contacts</td><td>hard decoy</td><td class="num">10 v 12</td><td class="num">0.596</td><td class="num">0.4674</td><td class="num">1.0000</td><td><strong>does not</strong></td></tr><tr><td class="drug">P2Rank pocket geometry</td><td>decoy</td><td class="num">10 v 19</td><td class="num">0.913</td><td class="num">0.0003</td><td class="num">0.0010</td><td>separates</td></tr><tr><td class="drug">P2Rank pocket geometry</td><td>hard decoy</td><td class="num">10 v 12</td><td class="num">0.717</td><td class="num">0.0920</td><td class="num">0.0920</td><td><strong>does not</strong></td></tr></tbody>
+</table>
+<div class="callout"><div class="callout-title">Reading</div>
+<p><strong>No signature separates the hard null.</strong> Every enrichment number above is carried by the easy, property-matched decoys. Against approved drugs that genuinely bind the same kind of pocket, this pipeline has not been shown to discriminate at all.</p>
+<p>Quoted alone, the first overstates the failure and the second excuses it. The honest claim is that this run cannot separate the two explanations, and says so.</p>
+</div>
+</section>
 
 <section id="limits">
   <h2>5 &middot; What does not work</h2>
@@ -845,7 +860,7 @@ footer h3{margin-top:1.4em;color:var(--mute);font-size:12px;text-transform:upper
          0.47 s per structure
          (mean over the 1,531-structure batch run, 12 threads, 720.9 s wall). The board above is ranked by
          <code>P2Rank pocket geometry</code> for that reason.</p>
-      <p>Spearman rho between the two rankings is 0.776 (p = 2.5e-09, n = 41) on precision_in_core. On the earlier, easier board it was 0.907 (n = 29), with both signatures returning identical enrichment there. Adding the hard decoys pulls the two rankings apart, and it pulls them apart against the design signature.</p>
+      <p>Spearman rho between the two rankings is 0.776 (p = 2.5e-09, n = 41) on precision_in_core, and 0.855 on core_coverage: the two orderings are close, but where they differ the free one is ahead.</p>
       <p>This is ablation I6.1 (PROJECT_GOAL.md 8.3) appearing for the third time. It
          already held on KDR
          (Jaccard &Delta; = -0.324, 95% CI
@@ -879,46 +894,12 @@ footer h3{margin-top:1.4em;color:var(--mute);font-size:12px;text-transform:upper
          and it is not used to rank anything.</p>
     </li>
     <li>
-      <h3>Enrichment drops once the null gets harder, and the easy number should never be quoted on its own.</h3>
+      <h3>Degradation against a harder null: not evaluated in this report.</h3>
       
-      <p>An earlier run of this board scored the same drugs against the easy decoys only
-         (29 drugs, 10 known binders, maximum
-         2.90&times;). This run adds
-         12 hard decoys &mdash; approved kinase inhibitors not
-         annotated against KDR &mdash; raising n to
-         41 and the maximum to 4.10&times;.
-         Because the raw enrichment ceiling moves with the base rate, the comparable
-         quantity is the fraction of the achievable maximum, and it falls for every
-         signature.</p>
-      <div class="scroll">
-      <table>
-        <thead><tr><th>signature</th><th colspan="2">easy decoys only</th>
-               <th colspan="2">with hard decoys</th><th>change</th></tr></thead>
-        <tbody>
-        <tr><td class="drug">P2Rank pocket geometry</td>
-            <td class="num">2.49&times; / 2.90&times;</td>
-            <td class="num">86%</td>
-            <td class="num">2.87&times; / 4.10&times;</td>
-            <td class="num">70%</td>
-            <td class="num loss">
-                -16</td></tr>
-        <tr><td class="drug">BoltzGen design consensus</td>
-            <td class="num">2.49&times; / 2.90&times;</td>
-            <td class="num">86%</td>
-            <td class="num">2.05&times; / 4.10&times;</td>
-            <td class="num">50%</td>
-            <td class="num loss">
-                -36</td></tr>
-        <tr><td class="drug">known-ligand contacts</td>
-            <td class="num">0.83&times; / 2.90&times;</td>
-            <td class="num">29%</td>
-            <td class="num">0.82&times; / 4.10&times;</td>
-            <td class="num">20%</td>
-            <td class="num loss">
-                -9</td></tr></tbody>
-      </table>
-      </div>
-      <p class="note">Checked, not assumed: the earlier board is exactly this one minus 12 drugs, every shared drug carries identical per-signature scores, and all three signatures are unchanged. The difference above is the null getting harder and nothing else.</p>
+      <p>Comparing this board against the earlier easy-decoys-only run needs that run's
+         board passed in with <code>--previous-board</code>. It was not supplied, so no
+         before-and-after figure is shown rather than one being reconstructed from
+         memory.</p>
     </li>
     <li>
       <h3>Hard decoys score near the top, and this run cannot say whether that is an error.</h3>
@@ -968,7 +949,7 @@ footer h3{margin-top:1.4em;color:var(--mute);font-size:12px;text-transform:upper
 
 <footer id="provenance">
   <h2>6 &middot; Provenance</h2>
-  <p>Generated <time>2026-09-19T20:05:00-04:00</time>. The timestamp is passed into
+  <p>Generated <time>2026-09-19T21:00:00-04:00</time>. The timestamp is passed into
      this report rather than read from the clock while rendering, so two runs over the
      same inputs produce byte-identical files and a diff shows only what changed in the
      data.</p>
@@ -1029,14 +1010,14 @@ footer h3{margin-top:1.4em;color:var(--mute);font-size:12px;text-transform:upper
         <td class="hash">38639abfc88e3c683fd9918a77cc8dcff07ecfdb6d546de90d3d80a942f04d49</td>
       </tr>
       <tr>
+        <td class="drug"><code>results/role_separation.json</code></td>
+        <td class="num">42,410</td>
+        <td class="hash">cdf09c6ce440464d050585e4b4045f2c830b97d04b0c6da2e639ec61015b620c</td>
+      </tr>
+      <tr>
         <td class="drug"><code>results/pipeline/colorectal-cancer/target/structure/3VHE_A_stripped.pdb</code> <span class="tag">residue names</span></td>
         <td class="num">196,919</td>
         <td class="hash">27186f1ec8604d16aa1612b3906f509b363f6b1fb3096a590b3d72a793f212e4</td>
-      </tr>
-      <tr>
-        <td class="drug"><code>results/repurpose_colorectal-cancer.json @ 16bd62a (easy decoys only)</code> <span class="tag">earlier run</span></td>
-        <td class="num">63,022</td>
-        <td class="hash">45a3b5d0ad42167a42739f592dbee20f4f30df5593c237ac2acebfeb952b889b</td>
       </tr></tbody>
   </table>
   </div>
