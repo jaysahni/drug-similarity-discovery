@@ -167,7 +167,42 @@ Cosine is then well-posed: same axes, same units, same length. Output is
 `06_embedding_similarity.json`, ranked, with both a `cosine_consensus` and a
 `cosine_top_design` column.
 
-### The one method that does compare the two directly
+### This has published precedent — it is not an improvisation
+
+The interface-overlap formulation is an established analysis, and citing it
+properly also supplies the significance test this repo's working agreement
+demands:
+
+- **Davis FP & Sali A**, "The Overlap of Small Molecule and Protein Binding Sites
+  within Families of Protein Structures," *PLOS Comput Biol* 6(2):e1000668, 2010.
+  [doi:10.1371/journal.pcbi.1000668](https://doi.org/10.1371/journal.pcbi.1000668)
+  Of 2,619 protein-binding families, 1,028 also bind small molecules and 197 show
+  statistically significant overlap (p<0.01) between the protein-binding and
+  ligand-binding positions. Their metric is *the fraction of interface residues
+  aligned to ligand-binding-site residues*, tested with Fisher's exact test
+  against a null of random independent placement. `demo/embed.py:overlap_pvalue`
+  implements that null exactly (hypergeometric, via `math.comb`).
+- **Rácz, Bajusz & Héberger**, "Life beyond the Tanimoto coefficient: similarity
+  measures for interaction fingerprints," *J Cheminform* 10:48, 2018.
+  [doi:10.1186/s13321-018-0302-y](https://doi.org/10.1186/s13321-018-0302-y)
+  Benchmarks 44 similarity measures on interaction fingerprints across ten
+  targets. Six beat Tanimoto; **cosine is not among the recommended measures.**
+  So `demo/embed.py` reports `tanimoto_core` beside the cosine columns. Cosine is
+  kept because it uses the frequency-weighted consensus vector rather than a
+  binary set, but it carries no published endorsement for IFPs and the docs
+  should not imply otherwise.
+
+### Not evaluated, and why
+
+| Approach | Why not |
+|---|---|
+| ESM-C embedding of the design vs fingerprints of the drugs | No protein language model embeds small molecules. ESM-C (300M/960-d, 600M/1152-d, 6B/2560-d) is protein-sequence-only in every variant. Undefined, not inaccurate. |
+| ESM-2 (the toolkit's model) on the design | ESM-2's training set **explicitly excluded de novo designs** — 1,027 sequences tagged "artificial sequence" in UniProt, plus 58,462 similar to 81 known de novo designs. A BoltzGen sequence is out of distribution by construction. |
+| [ConPLex](https://github.com/samsledje/ConPLex) | A genuinely shared 1024-d space (trained projections from ProtBert + Morgan FP), but trained on a *binding* objective with a triplet loss against DUD-E decoys chosen to be chemically similar yet non-binding — the objective deliberately decorrelates chemical similarity from embedding distance. It also takes the protein as the *target*, which inverts our query. Validated on 5 kinases, CDK2 not among them. Release 0.1.12 (Feb 2024) is a self-described pre-release, classifiers capped at Python 3.11. |
+| [DrugCLIP](https://github.com/bowen-gao/DrugCLIP) | Requires a 3D pocket to encode; a de novo miniprotein has none. Checkpoint is Google-Drive-hosted and the README self-describes the code as "a raw version." |
+| MolTrans, HyperAttentionDTI | No separable per-entity embedding — they score a drug–protein *pair* through a joint network, so there is nothing to index or retrieve against. |
+
+## The one method that does compare the two directly
 
 Joint protein–ligand embedding models (ConPLex, DrugCLIP and relatives) put a
 protein encoder and a molecule encoder into a shared latent space by *training

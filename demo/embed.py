@@ -55,6 +55,50 @@ def cosine(a: np.ndarray, b: np.ndarray) -> float:
     return float(np.dot(a, b) / denominator)
 
 
+def tanimoto(a: set[int], b: set[int]) -> float:
+    """Tanimoto/Jaccard over engaged-residue sets.
+
+    Reported alongside cosine because cosine is not a benchmarked choice for
+    interaction fingerprints. Racz, Bajusz & Heberger (J Cheminform 10:48, 2018,
+    doi:10.1186/s13321-018-0302-y) compared 44 similarity measures on IFPs across
+    ten targets; six beat Tanimoto and cosine was not among those recommended.
+    Two coefficients that rank the shortlist the same way is worth more than one
+    that has no published support.
+    """
+    if not (a or b):
+        return 0.0
+    return len(a & b) / len(a | b)
+
+
+def overlap_pvalue(engaged: set[int], core: set[int], universe: int) -> float:
+    """One-sided hypergeometric p for the overlap being larger than chance.
+
+    The null is Davis & Sali's: the two residue sets are placed independently at
+    random over the target's residues (PLOS Comput Biol 6(2):e1000668, 2010,
+    doi:10.1371/journal.pcbi.1000668, which measures binding-site overlap as the
+    fraction of interface residues that align to ligand-binding residues and
+    tests it by Fisher's exact test).
+
+    Exact, via math.comb -- no scipy dependency, and the numbers here are small.
+    """
+    from math import comb
+
+    hits = len(engaged & core)
+    drawn, successes = len(engaged), len(core)
+    if not drawn or not successes:
+        return 1.0
+
+    total = comb(universe, drawn)
+    if total == 0:
+        return 1.0
+    tail = sum(
+        comb(successes, k) * comb(universe - successes, drawn - k)
+        for k in range(hits, min(drawn, successes) + 1)
+        if drawn - k >= 0
+    )
+    return min(1.0, tail / total)
+
+
 def main() -> None:
     research = load("01_research.json")
     designs = load("03_designs.json")
@@ -67,10 +111,18 @@ def main() -> None:
     axis = list(range(1, n_residues + 1))
 
     # -- design side ------------------------------------------------------
-    # "Top design" by the quality score Rowan reports. Also embed the
-    # consensus, which is the more defensible object: one design is one sample.
-    scored = [d for d in designs["designs"] if d.get("quality_score") is not None]
-    top = max(scored, key=lambda d: d["quality_score"]) if scored else None
+    # "Top design" by design-to-target ipTM, the interface confidence.
+    #
+    # NOT by Rowan's `quality_score`: that field is the within-batch rank,
+    # exactly (n-1-i)/(n-1), and designs arrive pre-sorted by it, so it carries
+    # no absolute information. On this run it is *anti*-correlated with ipTM
+    # (Spearman rho = -0.445, n = 12): the design scoring 1.0 has ipTM 0.141
+    # while the best ipTM, 0.197, scores 0.273. Ranking by it picks arbitrarily.
+    # See docs/07-BOLTZGEN-BEHAVIOR.md.
+    scored = [
+        d for d in designs["designs"] if d.get("design_to_target_iptm") is not None
+    ]
+    top = max(scored, key=lambda d: d["design_to_target_iptm"]) if scored else None
 
     per_design = {d["design_id"]: d["residues_author"] for d in signature["per_design"]}
     top_contacts = per_design.get(top["design_id"], []) if top else []
@@ -96,6 +148,15 @@ def main() -> None:
         }
         for label, design_vector in design_vectors.items():
             row[f"cosine_{label}"] = round(cosine(design_vector, drug_vector), 4)
+
+        # Set-based measures against the consensus core, plus the significance
+        # of the overlap. A bare cosine is an unranked claim; CLAUDE.md wants a
+        # test attached to it.
+        engaged_set = set(drug["engaged_residues"])
+        core_set = set(signature["core"])
+        row["tanimoto_core"] = round(tanimoto(engaged_set, core_set), 4)
+        row["n_overlap_core"] = len(engaged_set & core_set)
+        row["p_overlap"] = float(f"{overlap_pvalue(engaged_set, core_set, n_residues):.3g}")
         rows.append(row)
 
     for label in design_vectors:
@@ -136,9 +197,15 @@ def main() -> None:
             ),
         },
         "top_design": {
+            "selected_by": "design_to_target_iptm",
             "design_id": top["design_id"] if top else None,
-            "quality_score": top["quality_score"] if top else None,
+            "design_to_target_iptm": top["design_to_target_iptm"] if top else None,
             "iptm": top["iptm"] if top else None,
+            "rowan_quality_score": top["quality_score"] if top else None,
+            "quality_score_note": (
+                "Rowan's quality_score is the within-batch rank, not an absolute "
+                "measure, and is anti-correlated with ipTM here. Recorded, not used."
+            ),
             "sequence": top["sequence"] if top else None,
             "n_contacts": len(top_contacts),
         },
@@ -162,7 +229,7 @@ def main() -> None:
     print(f"-> {path.relative_to(REPO)}")
 
     print(f'\ntop design: #{payload["top_design"]["design_id"]} '
-          f'(quality {payload["top_design"]["quality_score"]}, '
+          f'(design-to-target ipTM {payload["top_design"]["design_to_target_iptm"]}, '
           f'{payload["top_design"]["n_contacts"]} contacts)')
     print(f'\n{"drug":16s} {"tier":10s} {"cos(consensus)":>15s} {"cos(top)":>9s} {"coverage":>9s}')
     for row in rows:
