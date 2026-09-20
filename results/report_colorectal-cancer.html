@@ -1,0 +1,1074 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>KDR interface-signature run report</title>
+<style>
+:root{
+  --ink:#16191d; --mute:#5d666f; --faint:#8b949d;
+  --rule:#dfe3e8; --bg:#ffffff; --panel:#f6f8fa;
+  --accent:#0f5f6e; --accent-soft:#e3f0f2;
+  --warn:#8a5a00; --warn-soft:#fdf3e0; --warn-rule:#e0bc76;
+  --bad:#8c2f2f;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font:15px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+  -webkit-text-size-adjust:100%}
+.wrap{max-width:1180px;margin:0 auto;padding:36px 20px 80px}
+h1{font-size:27px;line-height:1.2;margin:.15em 0 .35em;letter-spacing:-.01em}
+h2{font-size:19px;margin:0 0 .5em;padding-bottom:.4em;border-bottom:2px solid var(--accent);
+  letter-spacing:-.005em}
+h3{font-size:15px;margin:0 0 .3em}
+section,footer{margin-top:46px}
+p{margin:.55em 0}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.88em;
+  background:var(--panel);padding:.08em .32em;border-radius:3px}
+a{color:var(--accent)}
+.eyebrow{margin:0;font-size:11.5px;letter-spacing:.09em;text-transform:uppercase;
+  color:var(--faint);font-weight:600}
+.verdict{font-size:17px;line-height:1.45;margin:.5em 0 .7em;
+  border-left:4px solid var(--accent);padding:.2em 0 .2em .8em}
+.subline{color:var(--mute);font-size:14px;max-width:80ch}
+.note{color:var(--mute);font-size:13px;max-width:88ch}
+.reading{background:var(--panel);border:1px solid var(--rule);border-radius:6px;
+  padding:.8em 1em;font-size:14px}
+
+.banner{border:1px solid #c9d6d9;background:var(--accent-soft);
+  border-left:5px solid var(--accent);border-radius:6px;padding:.9em 1.1em;margin:1.2em 0 0}
+.banner-title{margin:0 0 .4em;font-weight:700;color:#0b4a56}
+.banner p{font-size:13.5px;margin:.4em 0;color:#22333a}
+
+.callout{border:1px solid var(--warn-rule);background:var(--warn-soft);
+  border-left:5px solid var(--warn);border-radius:6px;padding:.8em 1em;margin:1.1em 0}
+.callout-title{margin:0 0 .35em;font-weight:700;color:#6f4900}
+.callout p{font-size:13.5px;margin:.35em 0;color:#3d3121}
+
+.scroll{overflow-x:auto;margin:1em 0;border:1px solid var(--rule);border-radius:6px}
+table{border-collapse:collapse;width:100%;font-size:13px}
+th,td{text-align:left;padding:7px 10px;border-bottom:1px solid var(--rule);
+  vertical-align:top}
+thead th{background:var(--panel);font-size:11.5px;text-transform:uppercase;
+  letter-spacing:.045em;color:var(--mute);font-weight:700;white-space:nowrap}
+tbody tr:last-child td{border-bottom:none}
+.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.strong{font-weight:700}
+.drug{font-weight:600;white-space:nowrap}
+.gain{color:var(--accent);font-weight:700}
+.loss{color:var(--bad);font-weight:700}
+.total td{font-weight:700;background:var(--panel)}
+.ranked-by{background:var(--accent-soft)}
+.tag{font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:var(--accent);
+  border:1px solid var(--accent);border-radius:3px;padding:0 4px;margin-left:4px;
+  font-weight:700;white-space:nowrap}
+
+.badge{display:inline-block;font-size:11px;font-weight:700;padding:1px 7px;
+  border-radius:10px;white-space:nowrap;border:1px solid}
+.b-known_binder{background:var(--accent-soft);color:#0b4a56;border-color:#8fb8be}
+.b-decoy{background:var(--panel);color:var(--mute);border-color:var(--rule)}
+.b-hard_decoy{background:var(--warn-soft);color:var(--warn);border-color:var(--warn-rule)}
+
+.reslist{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  font-size:11.5px;line-height:1.7;min-width:180px}
+.res{display:inline-block;padding:0 4px;margin:0 3px 2px 0;border-radius:3px;
+  background:var(--panel);border:1px solid var(--rule)}
+.reslist.muted .res{color:var(--mute)}
+.none{color:var(--faint);font-style:italic}
+.unscored td{background:#fbfbfc}
+.reason{color:var(--mute);font-size:12.5px;white-space:normal}
+.role-known_binder .drug{color:#0b4a56}
+.role-hard_decoy .drug{color:#6f4900}
+
+.chart{padding:10px 4px;background:var(--bg)}
+svg .bar{fill:#c6d3d6}
+svg .bar.core{fill:var(--accent)}
+svg .grid{stroke:var(--rule);stroke-width:1}
+svg .thr{stroke:var(--warn);stroke-width:1.2;stroke-dasharray:5 3}
+svg .ax{font-size:9.5px;fill:var(--mute);
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+svg .thrlab{fill:var(--warn)}
+svg .rl{font-size:9.5px;fill:var(--mute);
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+svg .mark{rx:2}
+svg .m-off{fill:#eef1f3}
+svg .m-core{fill:var(--accent)}
+svg .m-pocket{fill:#6f9aa2}
+svg .m-ligand{fill:#b0805a}
+
+.limits{padding-left:1.1em;margin:1em 0}
+.limits>li{margin:0 0 1.7em;padding-left:.3em}
+.limits h3{color:var(--bad)}
+.limits p{font-size:14px;max-width:86ch}
+.limits .note{max-width:86ch}
+
+.hash{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:10.5px;
+  color:var(--mute);word-break:break-all}
+.prov{font-size:12px}
+.tools{font-size:12.5px;color:var(--mute)}
+footer h3{margin-top:1.4em;color:var(--mute);font-size:12px;text-transform:uppercase;
+  letter-spacing:.05em}
+
+@media print{
+  .wrap{max-width:none;padding:0}
+  .scroll{overflow:visible}
+  .limits>li,.banner,.callout,.reading{break-inside:avoid}
+  a{color:var(--ink);text-decoration:none}
+}
+@media (max-width:640px){
+  .wrap{padding:22px 16px 60px}
+  h1{font-size:22px}
+  .verdict{font-size:15px}
+}
+</style>
+</head>
+<body>
+<main class="wrap">
+
+<header>
+  <p class="eyebrow">AutoRepurpose v0.2 &middot; interface-signature run report</p>
+  <h1>KDR &middot; colorectal cancer</h1>
+  <p class="verdict">On KDR, the best signature reaches enrichment 2.87&times; at the top quartile against an arithmetic maximum of 4.10&times; (70% of achievable, n = 41) &mdash; and that signature is the free P2Rank pocket geometry, which beats the 86-credit BoltzGen design consensus (2.05&times;). The design step is not what is doing the work.</p>
+  <p class="subline">
+    Target KDR (UniProt P35968), structure
+    3VHE. n = 41 drugs scored of
+    42 co-folded: 10 known binders &middot; 12 hard decoys &middot; 19 decoys. Ranked by
+    <code>precision_in_core</code> against the
+    P2Rank pocket geometry.
+  </p>
+<!--LANG-EXEMPT-->
+<div class="banner" role="note">
+  <p class="banner-title">These are computational hypotheses requiring experimental
+     validation.</p>
+  <p>Nothing on this page is a measurement. Every drug on this board was placed there
+     by a structure-prediction model co-folding it into a predicted pocket, then ranked
+     by how much of a predicted residue set it overlaps. No affinity, Kd, IC50 or
+     potency is predicted, read, or implied anywhere in this pipeline &mdash; Boltz-2
+     can emit an affinity score and the pipeline deliberately does not read it
+     (PROJECT_GOAL.md 4.4). A high rank here is a reason to run an assay. It is not
+     evidence that a drug binds, works, or treats anything.</p>
+  <p>Boltz-2 scores BoltzGen designs and the two share training data, and co-folding an
+     approved drug against its known target means the model has likely seen that
+     complex. The decoy arms exist because of that, and they are what make any number
+     here interpretable.</p>
+</div>
+<!--/LANG-EXEMPT-->
+</header>
+
+<section id="board">
+  <h2>1 &middot; The ranked board</h2>
+  <p>Every co-folded drug, ranked by <code>precision_in_core</code> against the
+     P2Rank pocket geometry (17 core residues). The core residues a
+     drug <em>missed</em> is the explanatory field (PROJECT_GOAL.md G4): it names the
+     part of the site the drug fails to reach, which a single score cannot. n =
+     41 scored.</p>
+  
+  <!--LANG-EXEMPT-->
+  <div class="callout" role="note">
+    <p class="callout-title">Read the top of this board with the hard decoys in
+       mind.</p>
+    <p>The highest-ranked hard decoys are <strong>lapatinib</strong> at 2, <strong>pemigatinib</strong> at 8 and <strong>bosutinib</strong> at 11 of 41 &mdash; approved
+       kinase inhibitors carrying no annotation against
+       KDR. 2 of them fall inside the top
+       quartile that enrichment is measured over, and 8 of
+       12 outrank the lowest-placed known binder (rank
+       22).</p>
+    <p><em>This report cannot tell you whether that is a false positive or a gap in the
+       annotation.</em> These are promiscuous kinase inhibitors and the annotation
+       tables used to assign roles are known to be incomplete, so a high score here is
+       equally consistent with the pipeline being right and the label being wrong.
+       Deciding between those two cases needs an assay, not another model. Every
+       enrichment number on this page counts them as negatives, which is the
+       conservative choice and may understate the ranking.</p>
+  </div>
+<!--/LANG-EXEMPT-->
+  <div class="scroll">
+  <table class="board">
+    <thead>
+      <tr>
+        <th>#</th><th>drug</th><th>role</th><th>precision_in_core</th>
+        <th>residues<br>engaged</th><th>core<br>hit</th>
+        <th>core residues engaged</th><th>core residues missed</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="role-decoy">
+        <td class="num">1</td>
+        <td class="drug">proxibarbal</td>
+        <td><span class="badge b-decoy">decoy</span></td>
+        <td class="num">0.923</td>
+        <td class="num">13</td>
+        <td class="num">12/17</td>
+        <td class="reslist"><span class="res core">LEU840</span><span class="res core">VAL848</span><span class="res core">ALA866</span><span class="res core">LYS868</span><span class="res core">VAL899</span><span class="res core">VAL916</span><span class="res core">PHE918</span><span class="res core">CYS919</span><span class="res core">LEU1035</span><span class="res core">CYS1045</span><span class="res core">ASP1046</span><span class="res core">PHE1047</span></td>
+        <td class="reslist muted"><span class="res core">GLU885</span><span class="res core">LEU889</span><span class="res core">VAL914</span><span class="res core">GLY922</span><span class="res core">ASN923</span></td>
+      </tr>
+      <tr class="role-hard_decoy">
+        <td class="num">2</td>
+        <td class="drug">lapatinib</td>
+        <td><span class="badge b-hard_decoy">hard decoy</span></td>
+        <td class="num">0.882</td>
+        <td class="num">17</td>
+        <td class="num">15/17</td>
+        <td class="reslist"><span class="res core">LEU840</span><span class="res core">VAL848</span><span class="res core">ALA866</span><span class="res core">LYS868</span><span class="res core">GLU885</span><span class="res core">LEU889</span><span class="res core">VAL914</span><span class="res core">VAL916</span><span class="res core">PHE918</span><span class="res core">CYS919</span><span class="res core">GLY922</span><span class="res core">LEU1035</span><span class="res core">CYS1045</span><span class="res core">ASP1046</span><span class="res core">PHE1047</span></td>
+        <td class="reslist muted"><span class="res core">VAL899</span><span class="res core">ASN923</span></td>
+      </tr>
+      <tr class="role-known_binder">
+        <td class="num">3</td>
+        <td class="drug">quercetin</td>
+        <td><span class="badge b-known_binder">known binder</span></td>
+        <td class="num">0.875</td>
+        <td class="num">16</td>
+        <td class="num">14/17</td>
+        <td class="reslist"><span class="res core">LEU840</span><span class="res core">VAL848</span><span class="res core">ALA866</span><span class="res core">LYS868</span><span class="res core">GLU885</span><span class="res core">VAL899</span><span class="res core">VAL916</span><span class="res core">PHE918</span><span class="res core">CYS919</span><span class="res core">GLY922</span><span class="res core">LEU1035</span><span class="res core">CYS1045</span><span class="res core">ASP1046</span><span class="res core">PHE1047</span></td>
+        <td class="reslist muted"><span class="res core">LEU889</span><span class="res core">VAL914</span><span class="res core">ASN923</span></td>
+      </tr>
+      <tr class="role-known_binder">
+        <td class="num">4</td>
+        <td class="drug">pazopanib</td>
+        <td><span class="badge b-known_binder">known binder</span></td>
+        <td class="num">0.850</td>
+        <td class="num">20</td>
+        <td class="num">17/17</td>
+        <td class="reslist"><span class="res core">LEU840</span><span class="res core">VAL848</span><span class="res core">ALA866</span><span class="res core">LYS868</span><span class="res core">GLU885</span><span class="res core">LEU889</span><span class="res core">VAL899</span><span class="res core">VAL914</span><span class="res core">VAL916</span><span class="res core">PHE918</span><span class="res core">CYS919</span><span class="res core">GLY922</span><span class="res core">ASN923</span><span class="res core">LEU1035</span><span class="res core">CYS1045</span><span class="res core">ASP1046</span><span class="res core">PHE1047</span></td>
+        <td class="reslist muted"><span class="none">none &mdash; full core engaged</span></td>
+      </tr>
+      <tr class="role-known_binder">
+        <td class="num">5</td>
+        <td class="drug">sunitinib</td>
+        <td><span class="badge b-known_binder">known binder</span></td>
+        <td class="num">0.812</td>
+        <td class="num">16</td>
+        <td class="num">13/17</td>
+        <td class="reslist"><span class="res core">LEU840</span><span class="res core">VAL848</span><span class="res core">ALA866</span><span class="res core">LYS868</span><span class="res core">VAL899</span><span class="res core">VAL916</span><span class="res core">PHE918</span><span class="res core">CYS919</span><span class="res core">GLY922</span><span class="res core">LEU1035</span><span class="res core">CYS1045</span><span class="res core">ASP1046</span><span class="res core">PHE1047</span></td>
+        <td class="reslist muted"><span class="res core">GLU885</span><span class="res core">LEU889</span><span class="res core">VAL914</span><span class="res core">ASN923</span></td>
+      </tr>
+      <tr class="role-known_binder">
+        <td class="num">6</td>
+        <td class="drug">neratinib</td>
+        <td><span class="badge b-known_binder">known binder</span></td>
+        <td class="num">0.810</td>
+        <td class="num">21</td>
+        <td class="num">17/17</td>
+        <td class="reslist"><span class="res core">LEU840</span><span class="res core">VAL848</span><span class="res core">ALA866</span><span class="res core">LYS868</span><span class="res core">GLU885</span><span class="res core">LEU889</span><span class="res core">VAL899</span><span class="res core">VAL914</span><span class="res core">VAL916</span><span class="res core">PHE918</span><span class="res core">CYS919</span><span class="res core">GLY922</span><span class="res core">ASN923</span><span class="res core">LEU1035</span><span class="res core">CYS1045</span><span class="res core">ASP1046</span><span class="res core">PHE1047</span></td>
+        <td class="reslist muted"><span class="none">none &mdash; full core engaged</span></td>
+      </tr>
+      <tr class="role-known_binder">
+        <td class="num">7</td>
+        <td class="drug">dasatinib</td>
+        <td><span class="badge b-known_binder">known binder</span></td>
+        <td class="num">0.800</td>
+        <td class="num">20</td>
+        <td class="num">16/17</td>
+        <td class="reslist"><span class="res core">LEU840</span><span class="res core">VAL848</span><span class="res core">ALA866</span><span class="res core">LYS868</span><span class="res core">GLU885</span><span class="res core">LEU889</span><span class="res core">VAL899</span><span class="res core">VAL914</span><span class="res core">VAL916</span><span class="res core">PHE918</span><span class="res core">CYS919</span><span class="res core">GLY922</span><span class="res core">LEU1035</span><span class="res core">CYS1045</span><span class="res core">ASP1046</span><span class="res core">PHE1047</span></td>
+        <td class="reslist muted"><span class="res core">ASN923</span></td>
+      </tr>
+      <tr class="role-hard_decoy">
+        <td class="num">8</td>
+        <td class="drug">pemigatinib</td>
+        <td><span class="badge b-hard_decoy">hard decoy</span></td>
+        <td class="num">0.800</td>
+        <td class="num">20</td>
+        <td class="num">16/17</td>
+        <td class="reslist"><span class="res core">LEU840</span><span class="res core">VAL848</span><span class="res core">ALA866</span><span class="res core">LYS868</span><span class="res core">GLU885</span><span class="res core">LEU889</span><span class="res core">VAL899</span><span class="res core">VAL914</span><span class="res core">VAL916</span><span class="res core">PHE918</span><span class="res core">CYS919</span><span class="res core">GLY922</span><span class="res core">LEU1035</span><span class="res core">CYS1045</span><span class="res core">ASP1046</span><span class="res core">PHE1047</span></td>
+        <td class="reslist muted"><span class="res core">ASN923</span></td>
+      </tr>
+      <tr class="role-known_binder">
+        <td class="num">9</td>
+        <td class="drug">nintedanib</td>
+        <td><span class="badge b-known_binder">known binder</span></td>
+        <td class="num">0.762</td>
+        <td class="num">21</td>
+        <td class="num">16/17</td>
+        <td class="reslist"><span class="res core">LEU840</span><span class="res core">VAL848</span><span class="res core">ALA866</span><span class="res core">LYS868</span><span class="res core">GLU885</span><span class="res core">LEU889</span><span class="res core">VAL899</span><span class="res core">VAL916</span><span class="res core">PHE918</span><span class="res core">CYS919</span><span class="res core">GLY922</span><span class="res core">ASN923</span><span class="res core">LEU1035</span><span class="res core">CYS1045</span><span class="res core">ASP1046</span><span class="res core">PHE1047</span></td>
+        <td class="reslist muted"><span class="res core">VAL914</span></td>
+      </tr>
+      <tr class="role-known_binder">
+        <td class="num">10</td>
+        <td class="drug">vandetanib</td>
+        <td><span class="badge b-known_binder">known binder</span></td>
+        <td class="num">0.762</td>
+        <td class="num">21</td>
+        <td class="num">16/17</td>
+        <td class="reslist"><span class="res core">LEU840</span><span class="res core">VAL848</span><span class="res core">ALA866</span><span class="res core">LYS868</span><span class="res core">GLU885</span><span class="res core">LEU889</span><span class="res core">VAL899</span><span class="res core">VAL914</span><span class="res core">VAL916</span><span class="res core">PHE918</span><span class="res core">CYS919</span><span class="res core">GLY922</span><span class="res core">LEU1035</span><span class="res core">CYS1045</span><span class="res core">ASP1046</span><span class="res core">PHE1047</span></td>
+        <td class="reslist muted"><span class="res core">ASN923</span></td>
+      </tr>
+      <tr class="role-hard_decoy">
+        <td class="num">11</td>
+        <td class="drug">bosutinib</td>
+        <td><span class="badge b-hard_decoy">hard decoy</span></td>
+        <td class="num">0.750</td>
+        <td class="num">20</td>
+        <td class="num">15/17</td>
+        <td class="reslist"><span class="res core">LEU840</span><span class="res core">VAL848</span><span class="res core">ALA866</span><span class="res core">LYS868</span><span class="res core">GLU885</span><span class="res core">VAL899</span><span class="res core">VAL914</span><span class="res core">VAL916</span><span class="res core">PHE918</span><span class="res core">CYS919</span><span class="res core">GLY922</span><span class="res core">LEU1035</span><span class="res core">CYS1045</span><span class="res core">ASP1046</span><span class="res core">PHE1047</span></td>
+        <td class="reslist muted"><span class="res core">LEU889</span><span class="res core">ASN923</span></td>
+      </tr>
+      <tr class="role-decoy">
+        <td class="num">12</td>
+        <td class="drug">idarubicin</td>
+        <td><span class="badge b-decoy">decoy</span></td>
+        <td class="num">0.714</td>
+        <td class="num">14</td>
+        <td class="num">10/17</td>
+        <td class="reslist"><span class="res core">LEU840</span><span class="res core">VAL848</span><span class="res core">ALA866</span><span class="res core">VAL899</span><span class="res core">VAL916</span><span class="res core">PHE918</span><span class="res core">CYS919</span><span class="res core">GLY922</span><span class="res core">LEU1035</span><span class="res core">PHE1047</span></td>
+        <td class="reslist muted"><span class="res core">LYS868</span><span class="res core">GLU885</span><span class="res core">LEU889</span><span class="res core">VAL914</span><span class="res core">ASN923</span><span class="res core">CYS1045</span><span class="res core">ASP1046</span></td>
+      </tr>
+      <tr class="role-hard_decoy">
+        <td class="num">13</td>
+        <td class="drug">binimetinib</td>
+        <td><span class="badge b-hard_decoy">hard decoy</span></td>
+        <td class="num">0.714</td>
+        <td class="num">14</td>
+        <td class="num">10/17</td>
+        <td class="reslist"><span class="res core">LEU840</span><span class="res core">VAL848</span><span class="res core">ALA866</span><span class="res core">VAL916</span><span class="res core">PHE918</span><span class="res core">CYS919</span><span class="res core">GLY922</span><span class="res core">ASN923</span><span class="res core">LEU1035</span><span class="res core">PHE1047</span></td>
+        <td class="reslist muted"><span class="res core">LYS868</span><span class="res core">GLU885</span><span class="res core">LEU889</span><span class="res core">VAL899</span><span class="res core">VAL914</span><span class="res core">CYS1045</span><span class="res core">ASP1046</span></td>
+      </tr>
+      <tr class="role-hard_decoy">
+        <td class="num">14</td>
+        <td class="drug">gilteritinib</td>
+        <td><span class="badge b-hard_decoy">hard decoy</span></td>
+        <td class="num">0.706</td>
+        <td class="num">17</td>
+        <td class="num">12/17</td>
+        <td class="reslist"><span class="res core">LEU840</span><span class="res core">VAL848</span><span class="res core">ALA866</span><span class="res core">LYS868</span><span class="res core">VAL899</span><span class="res core">VAL916</span><span class="res core">PHE918</span><span class="res core">CYS919</span><span class="res core">GLY922</span><span class="res core">ASN923</span><span class="res core">LEU1035</span><span class="res core">PHE1047</span></td>
+        <td class="reslist muted"><span class="res core">GLU885</span><span class="res core">LEU889</span><span class="res core">VAL914</span><span class="res core">CYS1045</span><span class="res core">ASP1046</span></td>
+      </tr>
+      <tr class="role-hard_decoy">
+        <td class="num">15</td>
+        <td class="drug">cobimetinib</td>
+        <td><span class="badge b-hard_decoy">hard decoy</span></td>
+        <td class="num">0.706</td>
+        <td class="num">17</td>
+        <td class="num">12/17</td>
+        <td class="reslist"><span class="res core">VAL848</span><span class="res core">ALA866</span><span class="res core">LYS868</span><span class="res core">GLU885</span><span class="res core">LEU889</span><span class="res core">VAL899</span><span class="res core">VAL914</span><span class="res core">VAL916</span><span class="res core">LEU1035</span><span class="res core">CYS1045</span><span class="res core">ASP1046</span><span class="res core">PHE1047</span></td>
+        <td class="reslist muted"><span class="res core">LEU840</span><span class="res core">PHE918</span><span class="res core">CYS919</span><span class="res core">GLY922</span><span class="res core">ASN923</span></td>
+      </tr>
+      <tr class="role-hard_decoy">
+        <td class="num">16</td>
+        <td class="drug">osimertinib</td>
+        <td><span class="badge b-hard_decoy">hard decoy</span></td>
+        <td class="num">0.706</td>
+        <td class="num">17</td>
+        <td class="num">12/17</td>
+        <td class="reslist"><span class="res core">LEU840</span><span class="res core">VAL848</span><span class="res core">ALA866</span><span class="res core">LYS868</span><span class="res core">VAL916</span><span class="res core">PHE918</span><span class="res core">CYS919</span><span class="res core">GLY922</span><span class="res core">ASN923</span><span class="res core">LEU1035</span><span class="res core">ASP1046</span><span class="res core">PHE1047</span></td>
+        <td class="reslist muted"><span class="res core">GLU885</span><span class="res core">LEU889</span><span class="res core">VAL899</span><span class="res core">VAL914</span><span class="res core">CYS1045</span></td>
+      </tr>
+      <tr class="role-hard_decoy">
+        <td class="num">17</td>
+        <td class="drug">nilotinib</td>
+        <td><span class="badge b-hard_decoy">hard decoy</span></td>
+        <td class="num">0.696</td>
+        <td class="num">23</td>
+        <td class="num">16/17</td>
+        <td class="reslist"><span class="res core">LEU840</span><span class="res core">VAL848</span><span class="res core">ALA866</span><span class="res core">LYS868</span><span class="res core">GLU885</span><span class="res core">LEU889</span><span class="res core">VAL899</span><span class="res core">VAL914</span><span class="res core">VAL916</span><span class="res core">PHE918</span><span class="res core">CYS919</span><span class="res core">GLY922</span><span class="res core">LEU1035</span><span class="res core">CYS1045</span><span class="res core">ASP1046</span><span class="res core">PHE1047</span></td>
+        <td class="reslist muted"><span class="res core">ASN923</span></td>
+      </tr>
+      <tr class="role-known_binder">
+        <td class="num">18</td>
+        <td class="drug">fedratinib</td>
+        <td><span class="badge b-known_binder">known binder</span></td>
+        <td class="num">0.688</td>
+        <td class="num">16</td>
+        <td class="num">11/17</td>
+        <td class="reslist"><span class="res core">LEU840</span><span class="res core">VAL848</span><span class="res core">ALA866</span><span class="res core">VAL899</span><span class="res core">VAL916</span><span class="res core">PHE918</span><span class="res core">CYS919</span><span class="res core">GLY922</span><span class="res core">ASN923</span><span class="res core">LEU1035</span><span class="res core">PHE1047</span></td>
+        <td class="reslist muted"><span class="res core">LYS868</span><span class="res core">GLU885</span><span class="res core">LEU889</span><span class="res core">VAL914</span><span class="res core">CYS1045</span><span class="res core">ASP1046</span></td>
+      </tr>
+      <tr class="role-decoy">
+        <td class="num">19</td>
+        <td class="drug">morniflumate</td>
+        <td><span class="badge b-decoy">decoy</span></td>
+        <td class="num">0.682</td>
+        <td class="num">22</td>
+        <td class="num">15/17</td>
+        <td class="reslist"><span class="res core">LEU840</span><span class="res core">VAL848</span><span class="res core">ALA866</span><span class="res core">LYS868</span><span class="res core">GLU885</span><span class="res core">LEU889</span><span class="res core">VAL899</span><span class="res core">VAL914</span><span class="res core">VAL916</span><span class="res core">PHE918</span><span class="res core">CYS919</span><span class="res core">LEU1035</span><span class="res core">CYS1045</span><span class="res core">ASP1046</span><span class="res core">PHE1047</span></td>
+        <td class="reslist muted"><span class="res core">GLY922</span><span class="res core">ASN923</span></td>
+      </tr>
+      <tr class="role-known_binder">
+        <td class="num">20</td>
+        <td class="drug">midostaurin</td>
+        <td><span class="badge b-known_binder">known binder</span></td>
+        <td class="num">0.667</td>
+        <td class="num">21</td>
+        <td class="num">14/17</td>
+        <td class="reslist"><span class="res core">LEU840</span><span class="res core">VAL848</span><span class="res core">ALA866</span><span class="res core">LYS868</span><span class="res core">GLU885</span><span class="res core">VAL899</span><span class="res core">VAL916</span><span class="res core">PHE918</span><span class="res core">CYS919</span><span class="res core">GLY922</span><span class="res core">ASN923</span><span class="res core">LEU1035</span><span class="res core">CYS1045</span><span class="res core">ASP1046</span></td>
+        <td class="reslist muted"><span class="res core">LEU889</span><span class="res core">VAL914</span><span class="res core">PHE1047</span></td>
+      </tr>
+      <tr class="role-decoy">
+        <td class="num">21</td>
+        <td class="drug">amrubicin</td>
+        <td><span class="badge b-decoy">decoy</span></td>
+        <td class="num">0.667</td>
+        <td class="num">15</td>
+        <td class="num">10/17</td>
+        <td class="reslist"><span class="res core">LEU840</span><span class="res core">VAL848</span><span class="res core">ALA866</span><span class="res core">VAL899</span><span class="res core">VAL916</span><span class="res core">PHE918</span><span class="res core">CYS919</span><span class="res core">GLY922</span><span class="res core">LEU1035</span><span class="res core">PHE1047</span></td>
+        <td class="reslist muted"><span class="res core">LYS868</span><span class="res core">GLU885</span><span class="res core">LEU889</span><span class="res core">VAL914</span><span class="res core">ASN923</span><span class="res core">CYS1045</span><span class="res core">ASP1046</span></td>
+      </tr>
+      <tr class="role-known_binder">
+        <td class="num">22</td>
+        <td class="drug">sorafenib</td>
+        <td><span class="badge b-known_binder">known binder</span></td>
+        <td class="num">0.652</td>
+        <td class="num">23</td>
+        <td class="num">15/17</td>
+        <td class="reslist"><span class="res core">LEU840</span><span class="res core">VAL848</span><span class="res core">ALA866</span><span class="res core">LYS868</span><span class="res core">GLU885</span><span class="res core">LEU889</span><span class="res core">VAL899</span><span class="res core">VAL916</span><span class="res core">PHE918</span><span class="res core">CYS919</span><span class="res core">GLY922</span><span class="res core">LEU1035</span><span class="res core">CYS1045</span><span class="res core">ASP1046</span><span class="res core">PHE1047</span></td>
+        <td class="reslist muted"><span class="res core">VAL914</span><span class="res core">ASN923</span></td>
+      </tr>
+      <tr class="role-hard_decoy">
+        <td class="num">23</td>
+        <td class="drug">tucatinib</td>
+        <td><span class="badge b-hard_decoy">hard decoy</span></td>
+        <td class="num">0.652</td>
+        <td class="num">23</td>
+        <td class="num">15/17</td>
+        <td class="reslist"><span class="res core">LEU840</span><span class="res core">VAL848</span><span class="res core">ALA866</span><span class="res core">LYS868</span><span class="res core">GLU885</span><span class="res core">LEU889</span><span class="res core">VAL899</span><span class="res core">VAL914</span><span class="res core">VAL916</span><span class="res core">PHE918</span><span class="res core">CYS919</span><span class="res core">LEU1035</span><span class="res core">CYS1045</span><span class="res core">ASP1046</span><span class="res core">PHE1047</span></td>
+        <td class="reslist muted"><span class="res core">GLY922</span><span class="res core">ASN923</span></td>
+      </tr>
+      <tr class="role-hard_decoy">
+        <td class="num">24</td>
+        <td class="drug">entrectinib</td>
+        <td><span class="badge b-hard_decoy">hard decoy</span></td>
+        <td class="num">0.647</td>
+        <td class="num">17</td>
+        <td class="num">11/17</td>
+        <td class="reslist"><span class="res core">LEU840</span><span class="res core">VAL848</span><span class="res core">ALA866</span><span class="res core">VAL916</span><span class="res core">PHE918</span><span class="res core">CYS919</span><span class="res core">GLY922</span><span class="res core">ASN923</span><span class="res core">LEU1035</span><span class="res core">CYS1045</span><span class="res core">PHE1047</span></td>
+        <td class="reslist muted"><span class="res core">LYS868</span><span class="res core">GLU885</span><span class="res core">LEU889</span><span class="res core">VAL899</span><span class="res core">VAL914</span><span class="res core">ASP1046</span></td>
+      </tr>
+      <tr class="role-hard_decoy">
+        <td class="num">25</td>
+        <td class="drug">crizotinib</td>
+        <td><span class="badge b-hard_decoy">hard decoy</span></td>
+        <td class="num">0.636</td>
+        <td class="num">22</td>
+        <td class="num">14/17</td>
+        <td class="reslist"><span class="res core">LEU840</span><span class="res core">VAL848</span><span class="res core">ALA866</span><span class="res core">LYS868</span><span class="res core">VAL899</span><span class="res core">VAL916</span><span class="res core">PHE918</span><span class="res core">CYS919</span><span class="res core">GLY922</span><span class="res core">ASN923</span><span class="res core">LEU1035</span><span class="res core">CYS1045</span><span class="res core">ASP1046</span><span class="res core">PHE1047</span></td>
+        <td class="reslist muted"><span class="res core">GLU885</span><span class="res core">LEU889</span><span class="res core">VAL914</span></td>
+      </tr>
+      <tr class="role-decoy">
+        <td class="num">26</td>
+        <td class="drug">desalkylflurazepam</td>
+        <td><span class="badge b-decoy">decoy</span></td>
+        <td class="num">0.615</td>
+        <td class="num">13</td>
+        <td class="num">8/17</td>
+        <td class="reslist"><span class="res core">LYS868</span><span class="res core">GLU885</span><span class="res core">LEU889</span><span class="res core">VAL899</span><span class="res core">VAL914</span><span class="res core">VAL916</span><span class="res core">CYS1045</span><span class="res core">ASP1046</span></td>
+        <td class="reslist muted"><span class="res core">LEU840</span><span class="res core">VAL848</span><span class="res core">ALA866</span><span class="res core">PHE918</span><span class="res core">CYS919</span><span class="res core">GLY922</span><span class="res core">ASN923</span><span class="res core">LEU1035</span><span class="res core">PHE1047</span></td>
+      </tr>
+      <tr class="role-decoy">
+        <td class="num">27</td>
+        <td class="drug">xyloylsulfamine</td>
+        <td><span class="badge b-decoy">decoy</span></td>
+        <td class="num">0.588</td>
+        <td class="num">17</td>
+        <td class="num">10/17</td>
+        <td class="reslist"><span class="res core">VAL848</span><span class="res core">LYS868</span><span class="res core">GLU885</span><span class="res core">LEU889</span><span class="res core">VAL899</span><span class="res core">VAL916</span><span class="res core">LEU1035</span><span class="res core">CYS1045</span><span class="res core">ASP1046</span><span class="res core">PHE1047</span></td>
+        <td class="reslist muted"><span class="res core">LEU840</span><span class="res core">ALA866</span><span class="res core">VAL914</span><span class="res core">PHE918</span><span class="res core">CYS919</span><span class="res core">GLY922</span><span class="res core">ASN923</span></td>
+      </tr>
+      <tr class="role-decoy">
+        <td class="num">28</td>
+        <td class="drug">meproscillarin</td>
+        <td><span class="badge b-decoy">decoy</span></td>
+        <td class="num">0.545</td>
+        <td class="num">22</td>
+        <td class="num">12/17</td>
+        <td class="reslist"><span class="res core">LEU840</span><span class="res core">VAL848</span><span class="res core">ALA866</span><span class="res core">LYS868</span><span class="res core">GLU885</span><span class="res core">LEU889</span><span class="res core">VAL899</span><span class="res core">VAL916</span><span class="res core">LEU1035</span><span class="res core">CYS1045</span><span class="res core">ASP1046</span><span class="res core">PHE1047</span></td>
+        <td class="reslist muted"><span class="res core">VAL914</span><span class="res core">PHE918</span><span class="res core">CYS919</span><span class="res core">GLY922</span><span class="res core">ASN923</span></td>
+      </tr>
+      <tr class="role-decoy">
+        <td class="num">29</td>
+        <td class="drug">adinazolam</td>
+        <td><span class="badge b-decoy">decoy</span></td>
+        <td class="num">0.500</td>
+        <td class="num">14</td>
+        <td class="num">7/17</td>
+        <td class="reslist"><span class="res core">LYS868</span><span class="res core">GLU885</span><span class="res core">LEU889</span><span class="res core">VAL899</span><span class="res core">VAL916</span><span class="res core">CYS1045</span><span class="res core">ASP1046</span></td>
+        <td class="reslist muted"><span class="res core">LEU840</span><span class="res core">VAL848</span><span class="res core">ALA866</span><span class="res core">VAL914</span><span class="res core">PHE918</span><span class="res core">CYS919</span><span class="res core">GLY922</span><span class="res core">ASN923</span><span class="res core">LEU1035</span><span class="res core">PHE1047</span></td>
+      </tr>
+      <tr class="role-hard_decoy">
+        <td class="num">30</td>
+        <td class="drug">filgotinib</td>
+        <td><span class="badge b-hard_decoy">hard decoy</span></td>
+        <td class="num">0.500</td>
+        <td class="num">18</td>
+        <td class="num">9/17</td>
+        <td class="reslist"><span class="res core">LEU840</span><span class="res core">VAL848</span><span class="res core">ALA866</span><span class="res core">VAL916</span><span class="res core">PHE918</span><span class="res core">CYS919</span><span class="res core">GLY922</span><span class="res core">LEU1035</span><span class="res core">PHE1047</span></td>
+        <td class="reslist muted"><span class="res core">LYS868</span><span class="res core">GLU885</span><span class="res core">LEU889</span><span class="res core">VAL899</span><span class="res core">VAL914</span><span class="res core">ASN923</span><span class="res core">CYS1045</span><span class="res core">ASP1046</span></td>
+      </tr>
+      <tr class="role-decoy">
+        <td class="num">31</td>
+        <td class="drug">dihydroemetine</td>
+        <td><span class="badge b-decoy">decoy</span></td>
+        <td class="num">0.471</td>
+        <td class="num">17</td>
+        <td class="num">8/17</td>
+        <td class="reslist"><span class="res core">LYS868</span><span class="res core">GLU885</span><span class="res core">LEU889</span><span class="res core">VAL899</span><span class="res core">VAL914</span><span class="res core">VAL916</span><span class="res core">CYS1045</span><span class="res core">ASP1046</span></td>
+        <td class="reslist muted"><span class="res core">LEU840</span><span class="res core">VAL848</span><span class="res core">ALA866</span><span class="res core">PHE918</span><span class="res core">CYS919</span><span class="res core">GLY922</span><span class="res core">ASN923</span><span class="res core">LEU1035</span><span class="res core">PHE1047</span></td>
+      </tr>
+      <tr class="role-decoy">
+        <td class="num">32</td>
+        <td class="drug">mometasone furoate</td>
+        <td><span class="badge b-decoy">decoy</span></td>
+        <td class="num">0.450</td>
+        <td class="num">20</td>
+        <td class="num">9/17</td>
+        <td class="reslist"><span class="res core">LYS868</span><span class="res core">GLU885</span><span class="res core">LEU889</span><span class="res core">VAL899</span><span class="res core">VAL914</span><span class="res core">VAL916</span><span class="res core">CYS1045</span><span class="res core">ASP1046</span><span class="res core">PHE1047</span></td>
+        <td class="reslist muted"><span class="res core">LEU840</span><span class="res core">VAL848</span><span class="res core">ALA866</span><span class="res core">PHE918</span><span class="res core">CYS919</span><span class="res core">GLY922</span><span class="res core">ASN923</span><span class="res core">LEU1035</span></td>
+      </tr>
+      <tr class="role-decoy">
+        <td class="num">33</td>
+        <td class="drug">flutropium</td>
+        <td><span class="badge b-decoy">decoy</span></td>
+        <td class="num">0.421</td>
+        <td class="num">19</td>
+        <td class="num">8/17</td>
+        <td class="reslist"><span class="res core">VAL848</span><span class="res core">LYS868</span><span class="res core">GLU885</span><span class="res core">LEU889</span><span class="res core">VAL899</span><span class="res core">VAL916</span><span class="res core">CYS1045</span><span class="res core">ASP1046</span></td>
+        <td class="reslist muted"><span class="res core">LEU840</span><span class="res core">ALA866</span><span class="res core">VAL914</span><span class="res core">PHE918</span><span class="res core">CYS919</span><span class="res core">GLY922</span><span class="res core">ASN923</span><span class="res core">LEU1035</span><span class="res core">PHE1047</span></td>
+      </tr>
+      <tr class="role-decoy">
+        <td class="num">34</td>
+        <td class="drug">perflubutane</td>
+        <td><span class="badge b-decoy">decoy</span></td>
+        <td class="num">0.417</td>
+        <td class="num">12</td>
+        <td class="num">5/17</td>
+        <td class="reslist"><span class="res core">GLU885</span><span class="res core">LEU889</span><span class="res core">VAL899</span><span class="res core">CYS1045</span><span class="res core">ASP1046</span></td>
+        <td class="reslist muted"><span class="res core">LEU840</span><span class="res core">VAL848</span><span class="res core">ALA866</span><span class="res core">LYS868</span><span class="res core">VAL914</span><span class="res core">VAL916</span><span class="res core">PHE918</span><span class="res core">CYS919</span><span class="res core">GLY922</span><span class="res core">ASN923</span><span class="res core">LEU1035</span><span class="res core">PHE1047</span></td>
+      </tr>
+      <tr class="role-decoy">
+        <td class="num">35</td>
+        <td class="drug">mifamurtide</td>
+        <td><span class="badge b-decoy">decoy</span></td>
+        <td class="num">0.410</td>
+        <td class="num">39</td>
+        <td class="num">16/17</td>
+        <td class="reslist"><span class="res core">LEU840</span><span class="res core">VAL848</span><span class="res core">ALA866</span><span class="res core">LYS868</span><span class="res core">GLU885</span><span class="res core">LEU889</span><span class="res core">VAL899</span><span class="res core">VAL916</span><span class="res core">PHE918</span><span class="res core">CYS919</span><span class="res core">GLY922</span><span class="res core">ASN923</span><span class="res core">LEU1035</span><span class="res core">CYS1045</span><span class="res core">ASP1046</span><span class="res core">PHE1047</span></td>
+        <td class="reslist muted"><span class="res core">VAL914</span></td>
+      </tr>
+      <tr class="role-decoy">
+        <td class="num">36</td>
+        <td class="drug">perflunafene</td>
+        <td><span class="badge b-decoy">decoy</span></td>
+        <td class="num">0.400</td>
+        <td class="num">15</td>
+        <td class="num">6/17</td>
+        <td class="reslist"><span class="res core">LYS868</span><span class="res core">GLU885</span><span class="res core">LEU889</span><span class="res core">VAL899</span><span class="res core">CYS1045</span><span class="res core">ASP1046</span></td>
+        <td class="reslist muted"><span class="res core">LEU840</span><span class="res core">VAL848</span><span class="res core">ALA866</span><span class="res core">VAL914</span><span class="res core">VAL916</span><span class="res core">PHE918</span><span class="res core">CYS919</span><span class="res core">GLY922</span><span class="res core">ASN923</span><span class="res core">LEU1035</span><span class="res core">PHE1047</span></td>
+      </tr>
+      <tr class="role-decoy">
+        <td class="num">37</td>
+        <td class="drug">bezafibrate</td>
+        <td><span class="badge b-decoy">decoy</span></td>
+        <td class="num">0.364</td>
+        <td class="num">11</td>
+        <td class="num">4/17</td>
+        <td class="reslist"><span class="res core">GLU885</span><span class="res core">LEU889</span><span class="res core">CYS1045</span><span class="res core">ASP1046</span></td>
+        <td class="reslist muted"><span class="res core">LEU840</span><span class="res core">VAL848</span><span class="res core">ALA866</span><span class="res core">LYS868</span><span class="res core">VAL899</span><span class="res core">VAL914</span><span class="res core">VAL916</span><span class="res core">PHE918</span><span class="res core">CYS919</span><span class="res core">GLY922</span><span class="res core">ASN923</span><span class="res core">LEU1035</span><span class="res core">PHE1047</span></td>
+      </tr>
+      <tr class="role-decoy">
+        <td class="num">38</td>
+        <td class="drug">vecuronium</td>
+        <td><span class="badge b-decoy">decoy</span></td>
+        <td class="num">0.333</td>
+        <td class="num">18</td>
+        <td class="num">6/17</td>
+        <td class="reslist"><span class="res core">GLU885</span><span class="res core">LEU889</span><span class="res core">VAL899</span><span class="res core">VAL916</span><span class="res core">CYS1045</span><span class="res core">ASP1046</span></td>
+        <td class="reslist muted"><span class="res core">LEU840</span><span class="res core">VAL848</span><span class="res core">ALA866</span><span class="res core">LYS868</span><span class="res core">VAL914</span><span class="res core">PHE918</span><span class="res core">CYS919</span><span class="res core">GLY922</span><span class="res core">ASN923</span><span class="res core">LEU1035</span><span class="res core">PHE1047</span></td>
+      </tr>
+      <tr class="role-decoy">
+        <td class="num">39</td>
+        <td class="drug">hydrocortisone butyrate</td>
+        <td><span class="badge b-decoy">decoy</span></td>
+        <td class="num">0.316</td>
+        <td class="num">19</td>
+        <td class="num">6/17</td>
+        <td class="reslist"><span class="res core">GLU885</span><span class="res core">LEU889</span><span class="res core">VAL899</span><span class="res core">VAL916</span><span class="res core">CYS1045</span><span class="res core">ASP1046</span></td>
+        <td class="reslist muted"><span class="res core">LEU840</span><span class="res core">VAL848</span><span class="res core">ALA866</span><span class="res core">LYS868</span><span class="res core">VAL914</span><span class="res core">PHE918</span><span class="res core">CYS919</span><span class="res core">GLY922</span><span class="res core">ASN923</span><span class="res core">LEU1035</span><span class="res core">PHE1047</span></td>
+      </tr>
+      <tr class="role-decoy">
+        <td class="num">40</td>
+        <td class="drug">fosinopril</td>
+        <td><span class="badge b-decoy">decoy</span></td>
+        <td class="num">0.294</td>
+        <td class="num">17</td>
+        <td class="num">5/17</td>
+        <td class="reslist"><span class="res core">GLU885</span><span class="res core">LEU889</span><span class="res core">VAL899</span><span class="res core">CYS1045</span><span class="res core">ASP1046</span></td>
+        <td class="reslist muted"><span class="res core">LEU840</span><span class="res core">VAL848</span><span class="res core">ALA866</span><span class="res core">LYS868</span><span class="res core">VAL914</span><span class="res core">VAL916</span><span class="res core">PHE918</span><span class="res core">CYS919</span><span class="res core">GLY922</span><span class="res core">ASN923</span><span class="res core">LEU1035</span><span class="res core">PHE1047</span></td>
+      </tr>
+      <tr class="role-decoy">
+        <td class="num">41</td>
+        <td class="drug">estriol succinate</td>
+        <td><span class="badge b-decoy">decoy</span></td>
+        <td class="num">0.250</td>
+        <td class="num">16</td>
+        <td class="num">4/17</td>
+        <td class="reslist"><span class="res core">LEU889</span><span class="res core">VAL899</span><span class="res core">CYS1045</span><span class="res core">ASP1046</span></td>
+        <td class="reslist muted"><span class="res core">LEU840</span><span class="res core">VAL848</span><span class="res core">ALA866</span><span class="res core">LYS868</span><span class="res core">GLU885</span><span class="res core">VAL914</span><span class="res core">VAL916</span><span class="res core">PHE918</span><span class="res core">CYS919</span><span class="res core">GLY922</span><span class="res core">ASN923</span><span class="res core">LEU1035</span><span class="res core">PHE1047</span></td>
+      </tr>
+      <tr class="unscored">
+        <td class="num">&mdash;</td>
+        <td class="drug">cupric oxide</td>
+        <td><span class="badge b-decoy">decoy</span></td>
+        <td colspan="5" class="reason">not scored &mdash;
+            <code>no_ligand_in_pose</code>: the co-folding job returned a complex with
+            no ligand in the pose, so there were no contacts to score. Excluded from n
+            and from every number on this page.</td>
+      </tr></tbody>
+  </table>
+  </div>
+</section>
+
+<section id="comparison">
+  <h2>2 &middot; Interface rank against chemical-similarity rank</h2>
+  <p>The same drugs, ranked two ways. The interface board is the table above. The
+     chemical ranking is <code>results/pipeline/colorectal-cancer/candidates.json</code>:
+     morgan fingerprint similarity to
+     axitinib
+     (CHEMBL1289926), the reference ligand for this target,
+     over a corpus of 4,099 drugs. Every joinable drug is shown, sorted by the
+     percentile gap &mdash; nothing is selected for effect. n = 10.</p>
+
+  <div class="scroll">
+  <table>
+    <thead>
+      <tr><th>drug</th><th>role</th>
+          <th colspan="2">interface rank (of 41)</th>
+          <th colspan="2">chemical rank (of 4,099)</th>
+          <th>percentile<br>gap</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="drug">quercetin</td>
+        <td><span class="badge b-known_binder">known binder</span></td>
+        <td class="num strong">3</td>
+        <td class="num">7.3%</td>
+        <td class="num strong">2,918</td>
+        <td class="num">71.2%</td>
+        <td class="num gain">63.9</td>
+      </tr>
+      <tr>
+        <td class="drug">vandetanib</td>
+        <td><span class="badge b-known_binder">known binder</span></td>
+        <td class="num strong">10</td>
+        <td class="num">24.4%</td>
+        <td class="num strong">1,760</td>
+        <td class="num">42.9%</td>
+        <td class="num gain">18.5</td>
+      </tr>
+      <tr>
+        <td class="drug">pazopanib</td>
+        <td><span class="badge b-known_binder">known binder</span></td>
+        <td class="num strong">4</td>
+        <td class="num">9.8%</td>
+        <td class="num strong">764</td>
+        <td class="num">18.6%</td>
+        <td class="num gain">8.9</td>
+      </tr>
+      <tr>
+        <td class="drug">fedratinib</td>
+        <td><span class="badge b-known_binder">known binder</span></td>
+        <td class="num strong">18</td>
+        <td class="num">43.9%</td>
+        <td class="num strong">2,024</td>
+        <td class="num">49.4%</td>
+        <td class="num gain">5.5</td>
+      </tr>
+      <tr>
+        <td class="drug">sunitinib</td>
+        <td><span class="badge b-known_binder">known binder</span></td>
+        <td class="num strong">5</td>
+        <td class="num">12.2%</td>
+        <td class="num strong">464</td>
+        <td class="num">11.3%</td>
+        <td class="num loss">-0.9</td>
+      </tr>
+      <tr>
+        <td class="drug">nintedanib</td>
+        <td><span class="badge b-known_binder">known binder</span></td>
+        <td class="num strong">9</td>
+        <td class="num">22.0%</td>
+        <td class="num strong">755</td>
+        <td class="num">18.4%</td>
+        <td class="num loss">-3.5</td>
+      </tr>
+      <tr>
+        <td class="drug">dasatinib</td>
+        <td><span class="badge b-known_binder">known binder</span></td>
+        <td class="num strong">7</td>
+        <td class="num">17.1%</td>
+        <td class="num strong">452</td>
+        <td class="num">11.0%</td>
+        <td class="num loss">-6.0</td>
+      </tr>
+      <tr>
+        <td class="drug">neratinib</td>
+        <td><span class="badge b-known_binder">known binder</span></td>
+        <td class="num strong">6</td>
+        <td class="num">14.6%</td>
+        <td class="num strong">151</td>
+        <td class="num">3.7%</td>
+        <td class="num loss">-11.0</td>
+      </tr>
+      <tr>
+        <td class="drug">midostaurin</td>
+        <td><span class="badge b-known_binder">known binder</span></td>
+        <td class="num strong">20</td>
+        <td class="num">48.8%</td>
+        <td class="num strong">952</td>
+        <td class="num">23.2%</td>
+        <td class="num loss">-25.6</td>
+      </tr>
+      <tr>
+        <td class="drug">sorafenib</td>
+        <td><span class="badge b-known_binder">known binder</span></td>
+        <td class="num strong">22</td>
+        <td class="num">53.7%</td>
+        <td class="num strong">21</td>
+        <td class="num">0.5%</td>
+        <td class="num loss">-53.1</td>
+      </tr></tbody>
+  </table>
+  </div>
+
+  <p class="reading"><strong>What this does and does not show.</strong>
+     Raw ranks out of 41 and out of 4,099 are not on the same
+     scale, so the percentile columns sit next to them and the gap is computed on
+     percentiles rather than on the raw difference. Read that way,
+     the two rankings are closer than the raw ranks suggest: the interface board wins on percentile for 4 of 10 drugs and loses on 6.
+     The defensible claim is the narrow one: engaging the same site and resembling the
+     reference ligand are different properties, and the chemical ranking places
+     8 of these 10 known binders beyond rank
+     400 of 4,099 &mdash; deep enough that a
+     similarity screen would not reach them.</p>
+
+  <p class="note"><strong>Coverage, checked not assumed.</strong>
+     10 of the 42 drugs on the board carry a chemical rank,
+     and all 10 are known binders. The other 32 &mdash;
+     every decoy and every hard decoy &mdash; are absent from
+     <code>candidates.json</code>, which stores only the top 25 of the
+     corpus plus the 32 known binders, not the full
+     4,099-drug ordering. Their chemical ranks were not computed anywhere in
+     this run, so they are omitted rather than guessed at. This table is therefore a
+     comparison over known binders only, and it cannot say how the two rankings treat
+     a negative.</p>
+</section>
+
+<section id="signature">
+  <h2>3 &middot; The interface signature</h2>
+  <p>How often each target residue was contacted across the 24 BoltzGen
+     designs (4.5 &Aring; heavy-atom cutoff). A residue joins the core signature when at
+     least 60% of designs touch it, which gives 23 core
+     residues out of the 72 touched by any design. Mean pairwise Jaccard
+     between designs is 0.509: the
+     designs agree with each other about half the time, which is the spread this
+     consensus is averaging over.</p>
+  <div class="scroll chart"><svg viewBox="0 0 1442 271" width="1442" height="271" role="img" aria-label="Per-residue contact frequency across 24 BoltzGen designs"><line x1="52" y1="154.0" x2="1426" y2="154.0" class="grid"/><text x="48" y="157.5" class="ax" text-anchor="end">0%</text><line x1="52" y1="119.0" x2="1426" y2="119.0" class="grid"/><text x="48" y="122.5" class="ax" text-anchor="end">25%</text><line x1="52" y1="84.0" x2="1426" y2="84.0" class="grid"/><text x="48" y="87.5" class="ax" text-anchor="end">50%</text><line x1="52" y1="49.0" x2="1426" y2="49.0" class="grid"/><text x="48" y="52.5" class="ax" text-anchor="end">75%</text><line x1="52" y1="14.0" x2="1426" y2="14.0" class="grid"/><text x="48" y="17.5" class="ax" text-anchor="end">100%</text><line x1="52" y1="70.0" x2="1426" y2="70.0" class="thr"/><text x="1424" y="65.0" class="ax thrlab" text-anchor="end">core threshold 60%</text><rect x="58" y="119.0" width="16" height="35.0" class="bar"><title>LEU813: 6 of 24 designs (25%)</title></rect><rect x="58" y="162" width="16" height="11" class="mark m-off"/><rect x="58" y="177" width="16" height="11" class="mark m-off"/><rect x="58" y="192" width="16" height="11" class="mark m-off"/><text x="66.0" y="213" class="rl" transform="rotate(-90 66.0 213)" text-anchor="end">LEU813</text><rect x="77" y="113.2" width="16" height="40.8" class="bar"><title>ASP814: 7 of 24 designs (29%)</title></rect><rect x="77" y="162" width="16" height="11" class="mark m-off"/><rect x="77" y="177" width="16" height="11" class="mark m-off"/><rect x="77" y="192" width="16" height="11" class="mark m-off"/><text x="85.0" y="213" class="rl" transform="rotate(-90 85.0 213)" text-anchor="end">ASP814</text><rect x="96" y="148.2" width="16" height="5.8" class="bar"><title>GLU815: 1 of 24 designs (4%)</title></rect><rect x="96" y="162" width="16" height="11" class="mark m-off"/><rect x="96" y="177" width="16" height="11" class="mark m-off"/><rect x="96" y="192" width="16" height="11" class="mark m-off"/><text x="104.0" y="213" class="rl" transform="rotate(-90 104.0 213)" text-anchor="end">GLU815</text><rect x="115" y="148.2" width="16" height="5.8" class="bar"><title>CYS817: 1 of 24 designs (4%)</title></rect><rect x="115" y="162" width="16" height="11" class="mark m-off"/><rect x="115" y="177" width="16" height="11" class="mark m-off"/><rect x="115" y="192" width="16" height="11" class="mark m-off"/><text x="123.0" y="213" class="rl" transform="rotate(-90 123.0 213)" text-anchor="end">CYS817</text><rect x="134" y="148.2" width="16" height="5.8" class="bar"><title>ARG831: 1 of 24 designs (4%)</title></rect><rect x="134" y="162" width="16" height="11" class="mark m-off"/><rect x="134" y="177" width="16" height="11" class="mark m-off"/><rect x="134" y="192" width="16" height="11" class="mark m-off"/><text x="142.0" y="213" class="rl" transform="rotate(-90 142.0 213)" text-anchor="end">ARG831</text><rect x="153" y="113.2" width="16" height="40.8" class="bar"><title>LYS838: 7 of 24 designs (29%)</title></rect><rect x="153" y="162" width="16" height="11" class="mark m-off"/><rect x="153" y="177" width="16" height="11" class="mark m-off"/><rect x="153" y="192" width="16" height="11" class="mark m-off"/><text x="161.0" y="213" class="rl" transform="rotate(-90 161.0 213)" text-anchor="end">LYS838</text><rect x="172" y="95.7" width="16" height="58.3" class="bar"><title>PRO839: 10 of 24 designs (42%)</title></rect><rect x="172" y="162" width="16" height="11" class="mark m-off"/><rect x="172" y="177" width="16" height="11" class="mark m-off"/><rect x="172" y="192" width="16" height="11" class="mark m-off"/><text x="180.0" y="213" class="rl" transform="rotate(-90 180.0 213)" text-anchor="end">PRO839</text><rect x="191" y="14.0" width="16" height="140.0" class="bar core"><title>LEU840: 24 of 24 designs (100%)</title></rect><rect x="191" y="162" width="16" height="11" class="mark m-core"/><rect x="191" y="177" width="16" height="11" class="mark m-pocket"/><rect x="191" y="192" width="16" height="11" class="mark m-ligand"/><text x="199.0" y="213" class="rl" transform="rotate(-90 199.0 213)" text-anchor="end">LEU840</text><rect x="210" y="14.0" width="16" height="140.0" class="bar core"><title>GLY841: 24 of 24 designs (100%)</title></rect><rect x="210" y="162" width="16" height="11" class="mark m-core"/><rect x="210" y="177" width="16" height="11" class="mark m-off"/><rect x="210" y="192" width="16" height="11" class="mark m-off"/><text x="218.0" y="213" class="rl" transform="rotate(-90 218.0 213)" text-anchor="end">GLY841</text><rect x="229" y="19.8" width="16" height="134.2" class="bar core"><title>ARG842: 23 of 24 designs (96%)</title></rect><rect x="229" y="162" width="16" height="11" class="mark m-core"/><rect x="229" y="177" width="16" height="11" class="mark m-off"/><rect x="229" y="192" width="16" height="11" class="mark m-off"/><text x="237.0" y="213" class="rl" transform="rotate(-90 237.0 213)" text-anchor="end">ARG842</text><rect x="248" y="19.8" width="16" height="134.2" class="bar core"><title>GLY843: 23 of 24 designs (96%)</title></rect><rect x="248" y="162" width="16" height="11" class="mark m-core"/><rect x="248" y="177" width="16" height="11" class="mark m-off"/><rect x="248" y="192" width="16" height="11" class="mark m-off"/><text x="256.0" y="213" class="rl" transform="rotate(-90 256.0 213)" text-anchor="end">GLY843</text><rect x="267" y="25.7" width="16" height="128.3" class="bar core"><title>ALA844: 22 of 24 designs (92%)</title></rect><rect x="267" y="162" width="16" height="11" class="mark m-core"/><rect x="267" y="177" width="16" height="11" class="mark m-off"/><rect x="267" y="192" width="16" height="11" class="mark m-off"/><text x="275.0" y="213" class="rl" transform="rotate(-90 275.0 213)" text-anchor="end">ALA844</text><rect x="286" y="43.2" width="16" height="110.8" class="bar core"><title>PHE845: 19 of 24 designs (79%)</title></rect><rect x="286" y="162" width="16" height="11" class="mark m-core"/><rect x="286" y="177" width="16" height="11" class="mark m-off"/><rect x="286" y="192" width="16" height="11" class="mark m-off"/><text x="294.0" y="213" class="rl" transform="rotate(-90 294.0 213)" text-anchor="end">PHE845</text><rect x="305" y="54.8" width="16" height="99.2" class="bar core"><title>GLY846: 17 of 24 designs (71%)</title></rect><rect x="305" y="162" width="16" height="11" class="mark m-core"/><rect x="305" y="177" width="16" height="11" class="mark m-off"/><rect x="305" y="192" width="16" height="11" class="mark m-off"/><text x="313.0" y="213" class="rl" transform="rotate(-90 313.0 213)" text-anchor="end">GLY846</text><rect x="324" y="72.3" width="16" height="81.7" class="bar"><title>GLN847: 14 of 24 designs (58%)</title></rect><rect x="324" y="162" width="16" height="11" class="mark m-off"/><rect x="324" y="177" width="16" height="11" class="mark m-off"/><rect x="324" y="192" width="16" height="11" class="mark m-off"/><text x="332.0" y="213" class="rl" transform="rotate(-90 332.0 213)" text-anchor="end">GLN847</text><rect x="343" y="37.3" width="16" height="116.7" class="bar core"><title>VAL848: 20 of 24 designs (83%)</title></rect><rect x="343" y="162" width="16" height="11" class="mark m-core"/><rect x="343" y="177" width="16" height="11" class="mark m-pocket"/><rect x="343" y="192" width="16" height="11" class="mark m-ligand"/><text x="351.0" y="213" class="rl" transform="rotate(-90 351.0 213)" text-anchor="end">VAL848</text><rect x="362" y="136.5" width="16" height="17.5" class="bar"><title>GLU850: 3 of 24 designs (12%)</title></rect><rect x="362" y="162" width="16" height="11" class="mark m-off"/><rect x="362" y="177" width="16" height="11" class="mark m-off"/><rect x="362" y="192" width="16" height="11" class="mark m-off"/><text x="370.0" y="213" class="rl" transform="rotate(-90 370.0 213)" text-anchor="end">GLU850</text><rect x="381" y="84.0" width="16" height="70.0" class="bar"><title>ALA866: 12 of 24 designs (50%)</title></rect><rect x="381" y="162" width="16" height="11" class="mark m-off"/><rect x="381" y="177" width="16" height="11" class="mark m-pocket"/><rect x="381" y="192" width="16" height="11" class="mark m-ligand"/><text x="389.0" y="213" class="rl" transform="rotate(-90 389.0 213)" text-anchor="end">ALA866</text><rect x="400" y="148.2" width="16" height="5.8" class="bar"><title>VAL867: 1 of 24 designs (4%)</title></rect><rect x="400" y="162" width="16" height="11" class="mark m-off"/><rect x="400" y="177" width="16" height="11" class="mark m-off"/><rect x="400" y="192" width="16" height="11" class="mark m-off"/><text x="408.0" y="213" class="rl" transform="rotate(-90 408.0 213)" text-anchor="end">VAL867</text><rect x="419" y="37.3" width="16" height="116.7" class="bar core"><title>LYS868: 20 of 24 designs (83%)</title></rect><rect x="419" y="162" width="16" height="11" class="mark m-core"/><rect x="419" y="177" width="16" height="11" class="mark m-pocket"/><rect x="419" y="192" width="16" height="11" class="mark m-ligand"/><text x="427.0" y="213" class="rl" transform="rotate(-90 427.0 213)" text-anchor="end">LYS868</text><rect x="438" y="136.5" width="16" height="17.5" class="bar"><title>MET869: 3 of 24 designs (12%)</title></rect><rect x="438" y="162" width="16" height="11" class="mark m-off"/><rect x="438" y="177" width="16" height="11" class="mark m-off"/><rect x="438" y="192" width="16" height="11" class="mark m-off"/><text x="446.0" y="213" class="rl" transform="rotate(-90 446.0 213)" text-anchor="end">MET869</text><rect x="457" y="119.0" width="16" height="35.0" class="bar"><title>LEU870: 6 of 24 designs (25%)</title></rect><rect x="457" y="162" width="16" height="11" class="mark m-off"/><rect x="457" y="177" width="16" height="11" class="mark m-off"/><rect x="457" y="192" width="16" height="11" class="mark m-off"/><text x="465.0" y="213" class="rl" transform="rotate(-90 465.0 213)" text-anchor="end">LEU870</text><rect x="476" y="130.7" width="16" height="23.3" class="bar"><title>LYS871: 4 of 24 designs (17%)</title></rect><rect x="476" y="162" width="16" height="11" class="mark m-off"/><rect x="476" y="177" width="16" height="11" class="mark m-off"/><rect x="476" y="192" width="16" height="11" class="mark m-off"/><text x="484.0" y="213" class="rl" transform="rotate(-90 484.0 213)" text-anchor="end">LYS871</text><rect x="495" y="124.8" width="16" height="29.2" class="bar"><title>GLU878: 5 of 24 designs (21%)</title></rect><rect x="495" y="162" width="16" height="11" class="mark m-off"/><rect x="495" y="177" width="16" height="11" class="mark m-off"/><rect x="495" y="192" width="16" height="11" class="mark m-off"/><text x="503.0" y="213" class="rl" transform="rotate(-90 503.0 213)" text-anchor="end">GLU878</text><rect x="514" y="124.8" width="16" height="29.2" class="bar"><title>HIS879: 5 of 24 designs (21%)</title></rect><rect x="514" y="162" width="16" height="11" class="mark m-off"/><rect x="514" y="177" width="16" height="11" class="mark m-off"/><rect x="514" y="192" width="16" height="11" class="mark m-off"/><text x="522.0" y="213" class="rl" transform="rotate(-90 522.0 213)" text-anchor="end">HIS879</text><rect x="533" y="148.2" width="16" height="5.8" class="bar"><title>ARG880: 1 of 24 designs (4%)</title></rect><rect x="533" y="162" width="16" height="11" class="mark m-off"/><rect x="533" y="177" width="16" height="11" class="mark m-off"/><rect x="533" y="192" width="16" height="11" class="mark m-off"/><text x="541.0" y="213" class="rl" transform="rotate(-90 541.0 213)" text-anchor="end">ARG880</text><rect x="552" y="78.2" width="16" height="75.8" class="bar"><title>ALA881: 13 of 24 designs (54%)</title></rect><rect x="552" y="162" width="16" height="11" class="mark m-off"/><rect x="552" y="177" width="16" height="11" class="mark m-off"/><rect x="552" y="192" width="16" height="11" class="mark m-off"/><text x="560.0" y="213" class="rl" transform="rotate(-90 560.0 213)" text-anchor="end">ALA881</text><rect x="571" y="101.5" width="16" height="52.5" class="bar"><title>LEU882: 9 of 24 designs (38%)</title></rect><rect x="571" y="162" width="16" height="11" class="mark m-off"/><rect x="571" y="177" width="16" height="11" class="mark m-off"/><rect x="571" y="192" width="16" height="11" class="mark m-off"/><text x="579.0" y="213" class="rl" transform="rotate(-90 579.0 213)" text-anchor="end">LEU882</text><rect x="590" y="148.2" width="16" height="5.8" class="bar"><title>MET883: 1 of 24 designs (4%)</title></rect><rect x="590" y="162" width="16" height="11" class="mark m-off"/><rect x="590" y="177" width="16" height="11" class="mark m-off"/><rect x="590" y="192" width="16" height="11" class="mark m-off"/><text x="598.0" y="213" class="rl" transform="rotate(-90 598.0 213)" text-anchor="end">MET883</text><rect x="609" y="130.7" width="16" height="23.3" class="bar"><title>SER884: 4 of 24 designs (17%)</title></rect><rect x="609" y="162" width="16" height="11" class="mark m-off"/><rect x="609" y="177" width="16" height="11" class="mark m-off"/><rect x="609" y="192" width="16" height="11" class="mark m-off"/><text x="617.0" y="213" class="rl" transform="rotate(-90 617.0 213)" text-anchor="end">SER884</text><rect x="628" y="43.2" width="16" height="110.8" class="bar core"><title>GLU885: 19 of 24 designs (79%)</title></rect><rect x="628" y="162" width="16" height="11" class="mark m-core"/><rect x="628" y="177" width="16" height="11" class="mark m-pocket"/><rect x="628" y="192" width="16" height="11" class="mark m-ligand"/><text x="636.0" y="213" class="rl" transform="rotate(-90 636.0 213)" text-anchor="end">GLU885</text><rect x="647" y="142.3" width="16" height="11.7" class="bar"><title>LEU886: 2 of 24 designs (8%)</title></rect><rect x="647" y="162" width="16" height="11" class="mark m-off"/><rect x="647" y="177" width="16" height="11" class="mark m-off"/><rect x="647" y="192" width="16" height="11" class="mark m-off"/><text x="655.0" y="213" class="rl" transform="rotate(-90 655.0 213)" text-anchor="end">LEU886</text><rect x="666" y="130.7" width="16" height="23.3" class="bar"><title>ILE888: 4 of 24 designs (17%)</title></rect><rect x="666" y="162" width="16" height="11" class="mark m-off"/><rect x="666" y="177" width="16" height="11" class="mark m-off"/><rect x="666" y="192" width="16" height="11" class="mark m-ligand"/><text x="674.0" y="213" class="rl" transform="rotate(-90 674.0 213)" text-anchor="end">ILE888</text><rect x="685" y="119.0" width="16" height="35.0" class="bar"><title>LEU889: 6 of 24 designs (25%)</title></rect><rect x="685" y="162" width="16" height="11" class="mark m-off"/><rect x="685" y="177" width="16" height="11" class="mark m-pocket"/><rect x="685" y="192" width="16" height="11" class="mark m-ligand"/><text x="693.0" y="213" class="rl" transform="rotate(-90 693.0 213)" text-anchor="end">LEU889</text><rect x="704" y="142.3" width="16" height="11.7" class="bar"><title>ILE892: 2 of 24 designs (8%)</title></rect><rect x="704" y="162" width="16" height="11" class="mark m-off"/><rect x="704" y="177" width="16" height="11" class="mark m-off"/><rect x="704" y="192" width="16" height="11" class="mark m-ligand"/><text x="712.0" y="213" class="rl" transform="rotate(-90 712.0 213)" text-anchor="end">ILE892</text><rect x="723" y="89.8" width="16" height="64.2" class="bar"><title>VAL899: 11 of 24 designs (46%)</title></rect><rect x="723" y="162" width="16" height="11" class="mark m-off"/><rect x="723" y="177" width="16" height="11" class="mark m-pocket"/><rect x="723" y="192" width="16" height="11" class="mark m-ligand"/><text x="731.0" y="213" class="rl" transform="rotate(-90 731.0 213)" text-anchor="end">VAL899</text><rect x="742" y="148.2" width="16" height="5.8" class="bar"><title>ASN900: 1 of 24 designs (4%)</title></rect><rect x="742" y="162" width="16" height="11" class="mark m-off"/><rect x="742" y="177" width="16" height="11" class="mark m-off"/><rect x="742" y="192" width="16" height="11" class="mark m-off"/><text x="750.0" y="213" class="rl" transform="rotate(-90 750.0 213)" text-anchor="end">ASN900</text><rect x="761" y="148.2" width="16" height="5.8" class="bar"><title>LEU901: 1 of 24 designs (4%)</title></rect><rect x="761" y="162" width="16" height="11" class="mark m-off"/><rect x="761" y="177" width="16" height="11" class="mark m-off"/><rect x="761" y="192" width="16" height="11" class="mark m-off"/><text x="769.0" y="213" class="rl" transform="rotate(-90 769.0 213)" text-anchor="end">LEU901</text><rect x="780" y="148.2" width="16" height="5.8" class="bar"><title>CYS905: 1 of 24 designs (4%)</title></rect><rect x="780" y="162" width="16" height="11" class="mark m-off"/><rect x="780" y="177" width="16" height="11" class="mark m-off"/><rect x="780" y="192" width="16" height="11" class="mark m-off"/><text x="788.0" y="213" class="rl" transform="rotate(-90 788.0 213)" text-anchor="end">CYS905</text><rect x="799" y="148.2" width="16" height="5.8" class="bar"><title>THR906: 1 of 24 designs (4%)</title></rect><rect x="799" y="162" width="16" height="11" class="mark m-off"/><rect x="799" y="177" width="16" height="11" class="mark m-off"/><rect x="799" y="192" width="16" height="11" class="mark m-off"/><text x="807.0" y="213" class="rl" transform="rotate(-90 807.0 213)" text-anchor="end">THR906</text><rect x="818" y="148.2" width="16" height="5.8" class="bar"><title>PRO911: 1 of 24 designs (4%)</title></rect><rect x="818" y="162" width="16" height="11" class="mark m-off"/><rect x="818" y="177" width="16" height="11" class="mark m-off"/><rect x="818" y="192" width="16" height="11" class="mark m-off"/><text x="826.0" y="213" class="rl" transform="rotate(-90 826.0 213)" text-anchor="end">PRO911</text><rect x="837" y="142.3" width="16" height="11.7" class="bar"><title>LEU912: 2 of 24 designs (8%)</title></rect><rect x="837" y="162" width="16" height="11" class="mark m-off"/><rect x="837" y="177" width="16" height="11" class="mark m-off"/><rect x="837" y="192" width="16" height="11" class="mark m-off"/><text x="845.0" y="213" class="rl" transform="rotate(-90 845.0 213)" text-anchor="end">LEU912</text><rect x="856" y="148.2" width="16" height="5.8" class="bar"><title>MET913: 1 of 24 designs (4%)</title></rect><rect x="856" y="162" width="16" height="11" class="mark m-off"/><rect x="856" y="177" width="16" height="11" class="mark m-off"/><rect x="856" y="192" width="16" height="11" class="mark m-off"/><text x="864.0" y="213" class="rl" transform="rotate(-90 864.0 213)" text-anchor="end">MET913</text><rect x="875" y="113.2" width="16" height="40.8" class="bar"><title>VAL914: 7 of 24 designs (29%)</title></rect><rect x="875" y="162" width="16" height="11" class="mark m-off"/><rect x="875" y="177" width="16" height="11" class="mark m-pocket"/><rect x="875" y="192" width="16" height="11" class="mark m-ligand"/><text x="883.0" y="213" class="rl" transform="rotate(-90 883.0 213)" text-anchor="end">VAL914</text><rect x="894" y="148.2" width="16" height="5.8" class="bar"><title>ILE915: 1 of 24 designs (4%)</title></rect><rect x="894" y="162" width="16" height="11" class="mark m-off"/><rect x="894" y="177" width="16" height="11" class="mark m-off"/><rect x="894" y="192" width="16" height="11" class="mark m-off"/><text x="902.0" y="213" class="rl" transform="rotate(-90 902.0 213)" text-anchor="end">ILE915</text><rect x="913" y="49.0" width="16" height="105.0" class="bar core"><title>VAL916: 18 of 24 designs (75%)</title></rect><rect x="913" y="162" width="16" height="11" class="mark m-core"/><rect x="913" y="177" width="16" height="11" class="mark m-pocket"/><rect x="913" y="192" width="16" height="11" class="mark m-ligand"/><text x="921.0" y="213" class="rl" transform="rotate(-90 921.0 213)" text-anchor="end">VAL916</text><rect x="932" y="78.2" width="16" height="75.8" class="bar"><title>GLU917: 13 of 24 designs (54%)</title></rect><rect x="932" y="162" width="16" height="11" class="mark m-off"/><rect x="932" y="177" width="16" height="11" class="mark m-off"/><rect x="932" y="192" width="16" height="11" class="mark m-ligand"/><text x="940.0" y="213" class="rl" transform="rotate(-90 940.0 213)" text-anchor="end">GLU917</text><rect x="951" y="31.5" width="16" height="122.5" class="bar core"><title>PHE918: 21 of 24 designs (88%)</title></rect><rect x="951" y="162" width="16" height="11" class="mark m-core"/><rect x="951" y="177" width="16" height="11" class="mark m-pocket"/><rect x="951" y="192" width="16" height="11" class="mark m-ligand"/><text x="959.0" y="213" class="rl" transform="rotate(-90 959.0 213)" text-anchor="end">PHE918</text><rect x="970" y="25.7" width="16" height="128.3" class="bar core"><title>CYS919: 22 of 24 designs (92%)</title></rect><rect x="970" y="162" width="16" height="11" class="mark m-core"/><rect x="970" y="177" width="16" height="11" class="mark m-pocket"/><rect x="970" y="192" width="16" height="11" class="mark m-ligand"/><text x="978.0" y="213" class="rl" transform="rotate(-90 978.0 213)" text-anchor="end">CYS919</text><rect x="989" y="72.3" width="16" height="81.7" class="bar"><title>LYS920: 14 of 24 designs (58%)</title></rect><rect x="989" y="162" width="16" height="11" class="mark m-off"/><rect x="989" y="177" width="16" height="11" class="mark m-off"/><rect x="989" y="192" width="16" height="11" class="mark m-off"/><text x="997.0" y="213" class="rl" transform="rotate(-90 997.0 213)" text-anchor="end">LYS920</text><rect x="1008" y="60.7" width="16" height="93.3" class="bar core"><title>PHE921: 16 of 24 designs (67%)</title></rect><rect x="1008" y="162" width="16" height="11" class="mark m-core"/><rect x="1008" y="177" width="16" height="11" class="mark m-off"/><rect x="1008" y="192" width="16" height="11" class="mark m-off"/><text x="1016.0" y="213" class="rl" transform="rotate(-90 1016.0 213)" text-anchor="end">PHE921</text><rect x="1027" y="19.8" width="16" height="134.2" class="bar core"><title>GLY922: 23 of 24 designs (96%)</title></rect><rect x="1027" y="162" width="16" height="11" class="mark m-core"/><rect x="1027" y="177" width="16" height="11" class="mark m-pocket"/><rect x="1027" y="192" width="16" height="11" class="mark m-ligand"/><text x="1035.0" y="213" class="rl" transform="rotate(-90 1035.0 213)" text-anchor="end">GLY922</text><rect x="1046" y="14.0" width="16" height="140.0" class="bar core"><title>ASN923: 24 of 24 designs (100%)</title></rect><rect x="1046" y="162" width="16" height="11" class="mark m-core"/><rect x="1046" y="177" width="16" height="11" class="mark m-pocket"/><rect x="1046" y="192" width="16" height="11" class="mark m-off"/><text x="1054.0" y="213" class="rl" transform="rotate(-90 1054.0 213)" text-anchor="end">ASN923</text><rect x="1065" y="113.2" width="16" height="40.8" class="bar"><title>SER925: 7 of 24 designs (29%)</title></rect><rect x="1065" y="162" width="16" height="11" class="mark m-off"/><rect x="1065" y="177" width="16" height="11" class="mark m-off"/><rect x="1065" y="192" width="16" height="11" class="mark m-off"/><text x="1073.0" y="213" class="rl" transform="rotate(-90 1073.0 213)" text-anchor="end">SER925</text><rect x="1084" y="37.3" width="16" height="116.7" class="bar core"><title>THR926: 20 of 24 designs (83%)</title></rect><rect x="1084" y="162" width="16" height="11" class="mark m-core"/><rect x="1084" y="177" width="16" height="11" class="mark m-off"/><rect x="1084" y="192" width="16" height="11" class="mark m-off"/><text x="1092.0" y="213" class="rl" transform="rotate(-90 1092.0 213)" text-anchor="end">THR926</text><rect x="1103" y="119.0" width="16" height="35.0" class="bar"><title>TYR927: 6 of 24 designs (25%)</title></rect><rect x="1103" y="162" width="16" height="11" class="mark m-off"/><rect x="1103" y="177" width="16" height="11" class="mark m-off"/><rect x="1103" y="192" width="16" height="11" class="mark m-off"/><text x="1111.0" y="213" class="rl" transform="rotate(-90 1111.0 213)" text-anchor="end">TYR927</text><rect x="1122" y="72.3" width="16" height="81.7" class="bar"><title>ARG929: 14 of 24 designs (58%)</title></rect><rect x="1122" y="162" width="16" height="11" class="mark m-off"/><rect x="1122" y="177" width="16" height="11" class="mark m-off"/><rect x="1122" y="192" width="16" height="11" class="mark m-off"/><text x="1130.0" y="213" class="rl" transform="rotate(-90 1130.0 213)" text-anchor="end">ARG929</text><rect x="1141" y="113.2" width="16" height="40.8" class="bar"><title>SER930: 7 of 24 designs (29%)</title></rect><rect x="1141" y="162" width="16" height="11" class="mark m-off"/><rect x="1141" y="177" width="16" height="11" class="mark m-off"/><rect x="1141" y="192" width="16" height="11" class="mark m-off"/><text x="1149.0" y="213" class="rl" transform="rotate(-90 1149.0 213)" text-anchor="end">SER930</text><rect x="1160" y="130.7" width="16" height="23.3" class="bar"><title>ARG1027: 4 of 24 designs (17%)</title></rect><rect x="1160" y="162" width="16" height="11" class="mark m-off"/><rect x="1160" y="177" width="16" height="11" class="mark m-off"/><rect x="1160" y="192" width="16" height="11" class="mark m-off"/><text x="1168.0" y="213" class="rl" transform="rotate(-90 1168.0 213)" text-anchor="end">ARG1027</text><rect x="1179" y="78.2" width="16" height="75.8" class="bar"><title>ASP1028: 13 of 24 designs (54%)</title></rect><rect x="1179" y="162" width="16" height="11" class="mark m-off"/><rect x="1179" y="177" width="16" height="11" class="mark m-off"/><rect x="1179" y="192" width="16" height="11" class="mark m-off"/><text x="1187.0" y="213" class="rl" transform="rotate(-90 1187.0 213)" text-anchor="end">ASP1028</text><rect x="1198" y="25.7" width="16" height="128.3" class="bar core"><title>ARG1032: 22 of 24 designs (92%)</title></rect><rect x="1198" y="162" width="16" height="11" class="mark m-core"/><rect x="1198" y="177" width="16" height="11" class="mark m-off"/><rect x="1198" y="192" width="16" height="11" class="mark m-off"/><text x="1206.0" y="213" class="rl" transform="rotate(-90 1206.0 213)" text-anchor="end">ARG1032</text><rect x="1217" y="60.7" width="16" height="93.3" class="bar core"><title>ASN1033: 16 of 24 designs (67%)</title></rect><rect x="1217" y="162" width="16" height="11" class="mark m-core"/><rect x="1217" y="177" width="16" height="11" class="mark m-off"/><rect x="1217" y="192" width="16" height="11" class="mark m-off"/><text x="1225.0" y="213" class="rl" transform="rotate(-90 1225.0 213)" text-anchor="end">ASN1033</text><rect x="1236" y="25.7" width="16" height="128.3" class="bar core"><title>LEU1035: 22 of 24 designs (92%)</title></rect><rect x="1236" y="162" width="16" height="11" class="mark m-core"/><rect x="1236" y="177" width="16" height="11" class="mark m-pocket"/><rect x="1236" y="192" width="16" height="11" class="mark m-ligand"/><text x="1244.0" y="213" class="rl" transform="rotate(-90 1244.0 213)" text-anchor="end">LEU1035</text><rect x="1255" y="66.5" width="16" height="87.5" class="bar core"><title>CYS1045: 15 of 24 designs (62%)</title></rect><rect x="1255" y="162" width="16" height="11" class="mark m-core"/><rect x="1255" y="177" width="16" height="11" class="mark m-pocket"/><rect x="1255" y="192" width="16" height="11" class="mark m-ligand"/><text x="1263.0" y="213" class="rl" transform="rotate(-90 1263.0 213)" text-anchor="end">CYS1045</text><rect x="1274" y="25.7" width="16" height="128.3" class="bar core"><title>ASP1046: 22 of 24 designs (92%)</title></rect><rect x="1274" y="162" width="16" height="11" class="mark m-core"/><rect x="1274" y="177" width="16" height="11" class="mark m-pocket"/><rect x="1274" y="192" width="16" height="11" class="mark m-ligand"/><text x="1282.0" y="213" class="rl" transform="rotate(-90 1282.0 213)" text-anchor="end">ASP1046</text><rect x="1293" y="101.5" width="16" height="52.5" class="bar"><title>PHE1047: 9 of 24 designs (38%)</title></rect><rect x="1293" y="162" width="16" height="11" class="mark m-off"/><rect x="1293" y="177" width="16" height="11" class="mark m-pocket"/><rect x="1293" y="192" width="16" height="11" class="mark m-ligand"/><text x="1301.0" y="213" class="rl" transform="rotate(-90 1301.0 213)" text-anchor="end">PHE1047</text><rect x="1312" y="60.7" width="16" height="93.3" class="bar core"><title>GLY1048: 16 of 24 designs (67%)</title></rect><rect x="1312" y="162" width="16" height="11" class="mark m-core"/><rect x="1312" y="177" width="16" height="11" class="mark m-off"/><rect x="1312" y="192" width="16" height="11" class="mark m-off"/><text x="1320.0" y="213" class="rl" transform="rotate(-90 1320.0 213)" text-anchor="end">GLY1048</text><rect x="1331" y="78.2" width="16" height="75.8" class="bar"><title>LEU1049: 13 of 24 designs (54%)</title></rect><rect x="1331" y="162" width="16" height="11" class="mark m-off"/><rect x="1331" y="177" width="16" height="11" class="mark m-off"/><rect x="1331" y="192" width="16" height="11" class="mark m-off"/><text x="1339.0" y="213" class="rl" transform="rotate(-90 1339.0 213)" text-anchor="end">LEU1049</text><rect x="1350" y="148.2" width="16" height="5.8" class="bar"><title>ALA1050: 1 of 24 designs (4%)</title></rect><rect x="1350" y="162" width="16" height="11" class="mark m-off"/><rect x="1350" y="177" width="16" height="11" class="mark m-off"/><rect x="1350" y="192" width="16" height="11" class="mark m-off"/><text x="1358.0" y="213" class="rl" transform="rotate(-90 1358.0 213)" text-anchor="end">ALA1050</text><rect x="1369" y="113.2" width="16" height="40.8" class="bar"><title>ARG1051: 7 of 24 designs (29%)</title></rect><rect x="1369" y="162" width="16" height="11" class="mark m-off"/><rect x="1369" y="177" width="16" height="11" class="mark m-off"/><rect x="1369" y="192" width="16" height="11" class="mark m-off"/><text x="1377.0" y="213" class="rl" transform="rotate(-90 1377.0 213)" text-anchor="end">ARG1051</text><rect x="1388" y="148.2" width="16" height="5.8" class="bar"><title>ASP1052: 1 of 24 designs (4%)</title></rect><rect x="1388" y="162" width="16" height="11" class="mark m-off"/><rect x="1388" y="177" width="16" height="11" class="mark m-off"/><rect x="1388" y="192" width="16" height="11" class="mark m-off"/><text x="1396.0" y="213" class="rl" transform="rotate(-90 1396.0 213)" text-anchor="end">ASP1052</text><rect x="1407" y="148.2" width="16" height="5.8" class="bar"><title>ILE1053: 1 of 24 designs (4%)</title></rect><rect x="1407" y="162" width="16" height="11" class="mark m-off"/><rect x="1407" y="177" width="16" height="11" class="mark m-off"/><rect x="1407" y="192" width="16" height="11" class="mark m-off"/><text x="1415.0" y="213" class="rl" transform="rotate(-90 1415.0 213)" text-anchor="end">ILE1053</text><text x="48" y="171" class="ax" text-anchor="end">core (23)</text><text x="48" y="186" class="ax" text-anchor="end">P2Rank pocket (17)</text><text x="48" y="201" class="ax" text-anchor="end">known ligand (19 of 23 on this axis)</text></svg></div>
+  <p class="note">The three strips under the bars are set membership, not a second
+     measurement: the core signature, the P2Rank rank-1 pocket (17 residues,
+     derived from the ligand-stripped structure), and the contacts of the ligand in the
+     holo structure (23 residues, validation reference only). A strip can only mark residues that have a bar: 4 of the 23 known-ligand residues were never touched by any design, so they are off this axis and the legend counts what is drawn.
+     The design core overlaps the pocket it was asked to target at
+     12 of
+     17 residues.</p>
+</section>
+
+<section id="validation">
+  <h2>4 &middot; Validation, per signature</h2>
+  <p>The same 41 drugs re-ranked under each of the three signatures and
+     scored the same way, so the design signature and the free pocket finder sit side by
+     side. Enrichment is measured over the top quartile (top 10 of
+     41); with 10 known binders among 41
+     drugs the arithmetic maximum is 4.10&times; and chance
+     is 1.00&times;. n = 41.</p>
+  <div class="scroll">
+  <table>
+    <thead>
+      <tr><th>signature</th><th>core<br>residues</th><th>enrichment<br>@ top quartile</th>
+          <th>% of<br>achievable</th><th>median rank of<br>a known binder</th>
+          <th>known-binder ranks</th><th>recorded ranks</th></tr>
+    </thead>
+    <tbody>
+      <tr class="ranked-by">
+        <td class="drug">P2Rank pocket geometry
+            <span class="tag">ranked by</span></td>
+        <td class="num">17</td>
+        <td class="num strong">2.87&times;</td>
+        <td class="num">70%</td>
+        <td class="num">8.0</td>
+        <td class="reslist">3, 4, 5, 6, 7, 9, 10, 18, 20, 22</td>
+        <td class="num">consistent (5 ties)</td>
+      </tr>
+      <tr>
+        <td class="drug">BoltzGen design consensus
+            </td>
+        <td class="num">23</td>
+        <td class="num strong">2.05&times;</td>
+        <td class="num">50%</td>
+        <td class="num">12.5</td>
+        <td class="reslist">1, 3, 7, 9, 10, 15, 16, 18, 20, 23</td>
+        <td class="num">consistent (4 ties)</td>
+      </tr>
+      <tr>
+        <td class="drug">known-ligand contacts
+            </td>
+        <td class="num">23</td>
+        <td class="num strong">0.82&times;</td>
+        <td class="num">20%</td>
+        <td class="num">16.5</td>
+        <td class="reslist">5, 9, 11, 14, 16, 17, 20, 25, 32, 33</td>
+        <td class="num">consistent (5 ties)</td>
+      </tr></tbody>
+  </table>
+  </div>
+  <p class="note">The last column re-derives each ranking here from the per-drug scores
+     and checks the ranks the pipeline recorded against it. Equal scores leave a rank
+     undefined within the tied group, so the check is that every recorded rank falls
+     inside the band its score allows, not that an integer matches. It confirms this
+     report reads the board the way the pipeline wrote it; it is not an independent
+     result.</p>
+  <p class="note">The ablation behind this table is recorded separately, on two targets: <code>results/m2_gate_KDR.json</code> (KDR, n = 38 structures) and <code>results/m2_gate_CDK2.json</code> (CDK2, n = 31 structures). Both are summarised in <a href="#limits">what does not work</a>.</p>
+</section>
+
+<section id="limits">
+  <h2>5 &middot; What does not work</h2>
+  <p>These are the run's negative results, kept here with their numbers because a reader
+     deciding whether to trust this pipeline needs them more than the board above.</p>
+  <ol class="limits">
+    <li>
+      <h3>The free pocket finder beats the BoltzGen signature in the product, not just in the ablation.</h3>
+      
+      <p>Ranking these 41 drugs by the P2Rank rank-1 pocket gives
+         enrichment 2.87&times; at the top
+         quartile and a median known-binder rank of
+         8.0. The BoltzGen design consensus gives
+         2.05&times; and
+         12.5. The design step cost
+         85.54 credits and
+         29 minutes; P2Rank cost
+         0.47 s per structure
+         (mean over the 1,531-structure batch run, 12 threads, 720.9 s wall). The board above is ranked by
+         <code>P2Rank pocket geometry</code> for that reason.</p>
+      <p>Spearman rho between the two rankings is 0.776 (p = 2.5e-09, n = 41) on precision_in_core. On the earlier, easier board it was 0.907 (n = 29), with both signatures returning identical enrichment there. Adding the hard decoys pulls the two rankings apart, and it pulls them apart against the design signature.</p>
+      <p>This is ablation I6.1 (PROJECT_GOAL.md 8.3) appearing for the third time. It
+         already held on KDR
+         (Jaccard &Delta; = -0.324, 95% CI
+         [-0.353, -0.294], Wilcoxon p =
+         7.3e-12, Holm-adjusted p =
+         0.0016, n = 38 structures) and on
+         CDK2
+         (&Delta; = -0.155, 95% CI
+         [-0.235, -0.084], Wilcoxon p =
+         0.00035, Holm-adjusted p =
+         0.0016, n = 31 structures). The design consensus
+         does beat a random residue set of the same size on both targets
+         (Jaccard &Delta; =
+         0.271 and
+         0.305),
+         so it carries real information &mdash; it is simply worse than the free
+         baseline, on every target measured so far.</p>
+    </li>
+    <li>
+      <h3>The known-ligand signature ranks worse than chance.</h3>
+      
+      <p>Taking the contacts of the ligand in the holo structure as the signature gives
+         enrichment 0.82&times;, below the
+         1.00&times; of an arbitrary ordering, with a median known-binder rank of
+         16.5 of 41. It is the only arm here that
+         is actively misleading, and it is the arm with privileged information.</p>
+      <p>One holo ligand's contact set describes <em>that ligand</em>, not the site. It
+         is 23 residues shaped around a single chemotype, so scoring other
+         drugs against it rewards resembling that one molecule's footprint rather than
+         occupying the pocket. It is kept on this page as a reference arm and a warning,
+         and it is not used to rank anything.</p>
+    </li>
+    <li>
+      <h3>Enrichment drops once the null gets harder, and the easy number should never be quoted on its own.</h3>
+      
+      <p>An earlier run of this board scored the same drugs against the easy decoys only
+         (29 drugs, 10 known binders, maximum
+         2.90&times;). This run adds
+         12 hard decoys &mdash; approved kinase inhibitors not
+         annotated against KDR &mdash; raising n to
+         41 and the maximum to 4.10&times;.
+         Because the raw enrichment ceiling moves with the base rate, the comparable
+         quantity is the fraction of the achievable maximum, and it falls for every
+         signature.</p>
+      <div class="scroll">
+      <table>
+        <thead><tr><th>signature</th><th colspan="2">easy decoys only</th>
+               <th colspan="2">with hard decoys</th><th>change</th></tr></thead>
+        <tbody>
+        <tr><td class="drug">P2Rank pocket geometry</td>
+            <td class="num">2.49&times; / 2.90&times;</td>
+            <td class="num">86%</td>
+            <td class="num">2.87&times; / 4.10&times;</td>
+            <td class="num">70%</td>
+            <td class="num loss">
+                -16</td></tr>
+        <tr><td class="drug">BoltzGen design consensus</td>
+            <td class="num">2.49&times; / 2.90&times;</td>
+            <td class="num">86%</td>
+            <td class="num">2.05&times; / 4.10&times;</td>
+            <td class="num">50%</td>
+            <td class="num loss">
+                -36</td></tr>
+        <tr><td class="drug">known-ligand contacts</td>
+            <td class="num">0.83&times; / 2.90&times;</td>
+            <td class="num">29%</td>
+            <td class="num">0.82&times; / 4.10&times;</td>
+            <td class="num">20%</td>
+            <td class="num loss">
+                -9</td></tr></tbody>
+      </table>
+      </div>
+      <p class="note">Checked, not assumed: the earlier board is exactly this one minus 12 drugs, every shared drug carries identical per-signature scores, and all three signatures are unchanged. The difference above is the null getting harder and nothing else.</p>
+    </li>
+    <li>
+      <h3>Hard decoys score near the top, and this run cannot say whether that is an error.</h3>
+      
+      <p>The highest-placed hard decoys are lapatinib at 2, pemigatinib at 8 and bosutinib at 11 of 41.
+         2 hard decoys fall inside the top quartile
+         enrichment is measured over, and 8 of
+         12 outrank the lowest-placed known binder (rank
+         22) &mdash; the two populations interleave rather than
+         separate. Counted as negatives, as every number on this page counts them, they
+         are what pulls enrichment down from the easy-decoy figure.</p>
+      <p>But the label is an annotation, not an observation. These are promiscuous
+         approved kinase inhibitors, the annotation tables used to assign roles are
+         incomplete, and nothing in this pipeline distinguishes &ldquo;the ranking is
+         wrong&rdquo; from &ldquo;the label is wrong&rdquo;. The honest position is that
+         the hard-decoy arm bounds the ranking from below, and that resolving these
+         specific drugs needs an assay. See the note at the top of the board.</p>
+    </li>
+    <li>
+      <h3>The top-ranked drug on the board is not a known binder.</h3>
+      
+      <p>Rank 1 is proxibarbal, decoy, at
+         <code>precision_in_core</code> = 0.923. It reaches
+         that by engaging only 13 residues, 12 of
+         them in the core: a small ligand that sits wholly inside the pocket scores well
+         on a precision metric without covering much of it. Its core coverage is
+         0.706, and it still misses
+         5 core residues.</p>
+      <p>The metric is size-normalised on purpose &mdash; PROJECT_GOAL.md 1.4a warns
+         that raw overlap ranks bigger ligands first for reasons unrelated to biology
+         &mdash; and this is the cost of that choice, visible at rank 1. All five scores
+         are stored per drug in the board JSON so the choice can be re-examined; the run
+         records that enrichment is unchanged under any of them.</p>
+    </li>
+    <li>
+      <h3>Every design falls far below the confidence filter the plan proposed.</h3>
+      
+      <p>The 24 designs this signature is built from span ipTM
+         0.119 to 0.420 (median
+         0.210). PROJECT_GOAL.md suggests filtering at 0.85;
+         0 of 24 reach it. The signature is a consensus
+         over designs the project's own criterion would have discarded. It is reported
+         that way rather than re-filtered until something survived, and it is one
+         plausible reason the design arm underperforms the pocket finder above.</p>
+    </li></ol>
+</section>
+
+<footer id="provenance">
+  <h2>6 &middot; Provenance</h2>
+  <p>Generated <time>2026-09-19T20:05:00-04:00</time>. The timestamp is passed into
+     this report rather than read from the clock while rendering, so two runs over the
+     same inputs produce byte-identical files and a diff shows only what changed in the
+     data.</p>
+
+  <h3>Inputs</h3>
+  <div class="scroll">
+  <table class="prov">
+    <thead><tr><th>file</th><th>bytes</th><th>SHA-256</th></tr></thead>
+    <tbody>
+      <tr>
+        <td class="drug"><code>results/repurpose_colorectal-cancer.json</code></td>
+        <td class="num">88,047</td>
+        <td class="hash">6ce7b49ebe3e9fcc9e480b6167443802d5139a4ef425ba4a0f1c8e1c11369b83</td>
+      </tr>
+      <tr>
+        <td class="drug"><code>results/boltzgen_signature_v4.json</code></td>
+        <td class="num">13,811</td>
+        <td class="hash">9ffd3156877a26d1cc167ad919c485e8b178501811705009203dfaebf08acf33</td>
+      </tr>
+      <tr>
+        <td class="drug"><code>results/m2_gate_KDR.json</code></td>
+        <td class="num">39,881</td>
+        <td class="hash">ac6f9886968a199cb10c7f9e2da43a795eea80136ab9841cb06a526085109ec4</td>
+      </tr>
+      <tr>
+        <td class="drug"><code>results/m2_gate_CDK2.json</code></td>
+        <td class="num">33,681</td>
+        <td class="hash">615c3ce44e0ef831b2012d771e59d2e52966ad57a65f09b8440308ebe7753828</td>
+      </tr>
+      <tr>
+        <td class="drug"><code>results/pipeline/colorectal-cancer/candidates.json</code></td>
+        <td class="num">7,701</td>
+        <td class="hash">645f781f8eca999d344d50a6bc327ea8fcf6b3a13f0f40f6b3d7602e9afbf067</td>
+      </tr>
+      <tr>
+        <td class="drug"><code>results/pipeline/colorectal-cancer/target/pocket.json</code></td>
+        <td class="num">5,080</td>
+        <td class="hash">3d1ebfac728ac2bd3cba8368e8038ba41bcf03c260bbed4b38c81e53e485cbc8</td>
+      </tr>
+      <tr>
+        <td class="drug"><code>results/pipeline/colorectal-cancer/repurpose_state.json</code></td>
+        <td class="num">24,429</td>
+        <td class="hash">05fb6c0be25c2fdb15332562b61e502236c827870d2fe8b8bc3528960bfa922a</td>
+      </tr>
+      <tr>
+        <td class="drug"><code>results/pipeline/colorectal-cancer/target/known_ligand_contacts.json</code></td>
+        <td class="num">4,147</td>
+        <td class="hash">a81e7ed650154623eb280b2a4aaf81cc97906ee39564aca0ef0a43a0d7487aac</td>
+      </tr>
+      <tr>
+        <td class="drug"><code>results/pipeline/colorectal-cancer/boltzgen_v4_wf.json</code></td>
+        <td class="num">187</td>
+        <td class="hash">21e5a1e7d16ba1670bbabb65ae699266ddf87345108e9769fe8ed9529f62767b</td>
+      </tr>
+      <tr>
+        <td class="drug"><code>results/p2rank_pockets.json</code></td>
+        <td class="num">7,347,411</td>
+        <td class="hash">38639abfc88e3c683fd9918a77cc8dcff07ecfdb6d546de90d3d80a942f04d49</td>
+      </tr>
+      <tr>
+        <td class="drug"><code>results/pipeline/colorectal-cancer/target/structure/3VHE_A_stripped.pdb</code> <span class="tag">residue names</span></td>
+        <td class="num">196,919</td>
+        <td class="hash">27186f1ec8604d16aa1612b3906f509b363f6b1fb3096a590b3d72a793f212e4</td>
+      </tr>
+      <tr>
+        <td class="drug"><code>results/repurpose_colorectal-cancer.json @ 16bd62a (easy decoys only)</code> <span class="tag">earlier run</span></td>
+        <td class="num">63,022</td>
+        <td class="hash">45a3b5d0ad42167a42739f592dbee20f4f30df5593c237ac2acebfeb952b889b</td>
+      </tr></tbody>
+  </table>
+  </div>
+
+  <h3>Rowan workflows</h3>
+  <div class="scroll">
+  <table class="prov">
+    <thead><tr><th>step</th><th>workflow uuid</th><th>detail</th></tr></thead>
+    <tbody><tr><td class="drug">BoltzGen design</td><td class="hash">6fa0a492-5bbb-475d-a501-f371fa43ef5f</td><td>24 designs, protocol protein-anything, 85.54 credits, 1711 s, Status.COMPLETED_OK</td></tr><tr><td class="drug">M2 gate KDR</td><td class="hash">6fa0a492-5bbb-475d-a501-f371fa43ef5f</td><td>24 designs, 85.54 credits, scored over 38 structures - the same design run as the row above, re-scored, not a second charge</td></tr><tr><td class="drug">M2 gate CDK2</td><td class="hash">8078ff34-d056-4cc4-be7d-57c3898d7a5e</td><td>24 designs, 55.14 credits, scored over 31 structures</td></tr></tbody>
+  </table>
+  </div>
+
+  <h3>Co-folding credits, from <code>repurpose_state.json</code></h3>
+  <div class="scroll">
+  <table class="prov">
+    <thead><tr><th>role</th><th>jobs</th><th>credits</th></tr></thead>
+    <tbody><tr><td class="drug">known binder</td><td class="num">10</td><td class="num">44.57</td></tr><tr><td class="drug">hard decoy</td><td class="num">12</td><td class="num">53.23</td></tr><tr><td class="drug">decoy</td><td class="num">20</td><td class="num">93.21</td></tr>
+      <tr class="total"><td class="drug">total</td>
+          <td class="num">42</td>
+          <td class="num">191.01</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="note">Design credits (85.54) are listed
+     with the workflows above and are not included in that total.</p>
+
+  <h3>Tools</h3>
+  <p class="tools">python 3.14.7 &middot; scipy 1.18.1 &middot; platform Darwin arm64 &middot; P2Rank 2.5 (default model), run on the ligand-stripped structure</p>
+  <p class="note">Site detection ran on the ligand-stripped structure. The known-ligand
+     contact set is read here for display and for the validation arm only; no
+     signature-construction step reads it (PROJECT_GOAL.md B12).</p>
+</footer>
+</main>
+</body>
+</html>
