@@ -134,11 +134,25 @@ def docking_box(pdb: Path, chain: str, positions: list[int], pad: float = 4.0) -
     return [[round(float(x), 3) for x in centre], [round(float(x), 3) for x in size]]
 
 
-def load_approved() -> list[dict]:
-    """Approved small molecules with a SMILES, plus their target annotations."""
+def load_approved(approved_only: bool = True) -> list[dict]:
+    """Approved small molecules with a SMILES, plus their target annotations.
+
+    `approved` is a COLUMN in data/approved_drugs.csv, not a property of the
+    file: 4,099 rows, of which only 2,153 carry `approved == 1`. The other 1,946
+    are DrugCentral structures with an empty `approval_agencies` field -- things
+    like aminopterin and acadesine that never reached approval, or single
+    enantiomers filed separately from the approved racemate.
+
+    Not filtering made the arm report non-approved compounds as its top hits
+    (idrocilamide and pamaquine both scored in the top 5 and neither is
+    approved), and understated the target base rate by diluting the denominator
+    with 1,946 rows that cannot be repurposing candidates.
+    """
     rows = []
     for row in csv.DictReader(APPROVED.open()):
         if not row.get("smiles"):
+            continue
+        if approved_only and row.get("approved") != "1":
             continue
         rows.append(
             {

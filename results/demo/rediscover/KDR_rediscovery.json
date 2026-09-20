@@ -1,0 +1,321 @@
+{
+ "task": "T10 rediscovery -- can a documented repurposing case be recovered blind?",
+ "target": {
+  "symbol": "KDR",
+  "uniprot": "P35968"
+ },
+ "hidden_cases": [
+  "mebendazole",
+  "niclosamide"
+ ],
+ "hidden_case_rationale": "approved anthelmintics annotated to KDR whose mechanism is not KDR; mebendazole-for-cancer is a documented repurposing story",
+ "representation": "ECFP4-2048 (scripts/representations.py)",
+ "blindness": "the ranking is structural similarity only and never reads an annotation; annotations are used solely to score the ranking afterwards",
+ "results": {
+  "single (axitinib)": {
+   "n_corpus": 2382,
+   "control_ranks": [
+    3,
+    6,
+    17,
+    22,
+    99,
+    141,
+    169,
+    258,
+    428,
+    444,
+    993,
+    1285
+   ],
+   "hidden": {
+    "mebendazole": {
+     "rank": 24,
+     "of": 2382,
+     "tanimoto": 0.1795,
+     "percentile_vs_null": 0.9921,
+     "top_percent": 1.01
+    },
+    "niclosamide": {
+     "rank": 461,
+     "of": 2382,
+     "tanimoto": 0.1235,
+     "percentile_vs_null": 0.814,
+     "top_percent": 19.35
+    }
+   },
+   "top20": [
+    {
+     "name": "capmatinib",
+     "tanimoto": 0.2198,
+     "is_moa": false,
+     "is_annotated": false
+    },
+    {
+     "name": "vismodegib",
+     "tanimoto": 0.2195,
+     "is_moa": false,
+     "is_annotated": false
+    },
+    {
+     "name": "fruquintinib",
+     "tanimoto": 0.2093,
+     "is_moa": true,
+     "is_annotated": true
+    },
+    {
+     "name": "piroxicam",
+     "tanimoto": 0.2051,
+     "is_moa": false,
+     "is_annotated": false
+    },
+    {
+     "name": "albendazole",
+     "tanimoto": 0.2051,
+     "is_moa": false,
+     "is_annotated": false
+    },
+    {
+     "name": "sorafenib",
+     "tanimoto": 0.1977,
+     "is_moa": true,
+     "is_annotated": true
+    },
+    {
+     "name": "sulfasalazine",
+     "tanimoto": 0.1975,
+     "is_moa": false,
+     "is_annotated": false
+    },
+    {
+     "name": "ivacaftor",
+     "tanimoto": 0.1975,
+     "is_moa": false,
+     "is_annotated": false
+    },
+    {
+     "name": "triprolidine",
+     "tanimoto": 0.1974,
+     "is_moa": false,
+     "is_annotated": false
+    },
+    {
+     "name": "bisacodyl",
+     "tanimoto": 0.1972,
+     "is_moa": false,
+     "is_annotated": false
+    },
+    {
+     "name": "tenoxicam",
+     "tanimoto": 0.1951,
+     "is_moa": false,
+     "is_annotated": false
+    },
+    {
+     "name": "methyl salicylate",
+     "tanimoto": 0.1935,
+     "is_moa": false,
+     "is_annotated": false
+    },
+    {
+     "name": "cinchocaine",
+     "tanimoto": 0.1905,
+     "is_moa": false,
+     "is_annotated": false
+    },
+    {
+     "name": "mersalyl",
+     "tanimoto": 0.1899,
+     "is_moa": false,
+     "is_annotated": false
+    },
+    {
+     "name": "belumosudil",
+     "tanimoto": 0.1856,
+     "is_moa": false,
+     "is_annotated": false
+    },
+    {
+     "name": "nitazoxanide",
+     "tanimoto": 0.1852,
+     "is_moa": false,
+     "is_annotated": false
+    },
+    {
+     "name": "regorafenib",
+     "tanimoto": 0.1848,
+     "is_moa": true,
+     "is_annotated": true
+    },
+    {
+     "name": "entrectinib",
+     "tanimoto": 0.1845,
+     "is_moa": false,
+     "is_annotated": false
+    },
+    {
+     "name": "merethoxylline procaine",
+     "tanimoto": 0.1829,
+     "is_moa": false,
+     "is_annotated": false
+    },
+    {
+     "name": "roxadustat",
+     "tanimoto": 0.1829,
+     "is_moa": false,
+     "is_annotated": false
+    }
+   ],
+   "enrichment_at_50": 7.44,
+   "n_annotated_in_top50": 5
+  },
+  "group (max over 13 mechanism drugs)": {
+   "n_corpus": 2382,
+   "control_ranks": [],
+   "hidden": {
+    "mebendazole": {
+     "rank": 60,
+     "of": 2382,
+     "tanimoto": 0.2353,
+     "percentile_vs_null": 0.9779,
+     "top_percent": 2.52
+    },
+    "niclosamide": {
+     "rank": 139,
+     "of": 2382,
+     "tanimoto": 0.2099,
+     "percentile_vs_null": 0.9455,
+     "top_percent": 5.84
+    }
+   },
+   "top20": [
+    {
+     "name": "gefitinib",
+     "tanimoto": 0.4444,
+     "is_moa": false,
+     "is_annotated": true
+    },
+    {
+     "name": "dacomitinib",
+     "tanimoto": 0.3778,
+     "is_moa": false,
+     "is_annotated": false
+    },
+    {
+     "name": "triclocarban",
+     "tanimoto": 0.3509,
+     "is_moa": false,
+     "is_annotated": false
+    },
+    {
+     "name": "procainamide",
+     "tanimoto": 0.3333,
+     "is_moa": false,
+     "is_annotated": false
+    },
+    {
+     "name": "erlotinib",
+     "tanimoto": 0.3333,
+     "is_moa": false,
+     "is_annotated": true
+    },
+    {
+     "name": "bosutinib",
+     "tanimoto": 0.3295,
+     "is_moa": false,
+     "is_annotated": false
+    },
+    {
+     "name": "afatinib",
+     "tanimoto": 0.297,
+     "is_moa": false,
+     "is_annotated": false
+    },
+    {
+     "name": "binimetinib",
+     "tanimoto": 0.2955,
+     "is_moa": false,
+     "is_annotated": false
+    },
+    {
+     "name": "cisapride",
+     "tanimoto": 0.2947,
+     "is_moa": false,
+     "is_annotated": false
+    },
+    {
+     "name": "flutamide",
+     "tanimoto": 0.2941,
+     "is_moa": false,
+     "is_annotated": false
+    },
+    {
+     "name": "metoclopramide",
+     "tanimoto": 0.2895,
+     "is_moa": false,
+     "is_annotated": false
+    },
+    {
+     "name": "bromopride",
+     "tanimoto": 0.2895,
+     "is_moa": false,
+     "is_annotated": false
+    },
+    {
+     "name": "brigatinib",
+     "tanimoto": 0.2812,
+     "is_moa": false,
+     "is_annotated": false
+    },
+    {
+     "name": "cinchocaine",
+     "tanimoto": 0.2805,
+     "is_moa": false,
+     "is_annotated": false
+    },
+    {
+     "name": "remifentanil",
+     "tanimoto": 0.2759,
+     "is_moa": false,
+     "is_annotated": false
+    },
+    {
+     "name": "glibenclamide",
+     "tanimoto": 0.2717,
+     "is_moa": false,
+     "is_annotated": false
+    },
+    {
+     "name": "vismodegib",
+     "tanimoto": 0.2692,
+     "is_moa": false,
+     "is_annotated": false
+    },
+    {
+     "name": "papaverine",
+     "tanimoto": 0.2687,
+     "is_moa": false,
+     "is_annotated": false
+    },
+    {
+     "name": "terazosin",
+     "tanimoto": 0.2674,
+     "is_moa": false,
+     "is_annotated": false
+    },
+    {
+     "name": "doxazosin",
+     "tanimoto": 0.2667,
+     "is_moa": false,
+     "is_annotated": false
+    }
+   ],
+   "enrichment_at_50": 8.93,
+   "n_annotated_in_top50": 6
+  }
+ },
+ "caveats": [
+  "Rediscovery is not discovery. Recovering a known case is the minimum bar for trusting a novel hit, not evidence of one.",
+  "KDR annotations come from the same curated source used to score, so a hit means 'the annotation agrees', not 'the drug binds'."
+ ]
+}

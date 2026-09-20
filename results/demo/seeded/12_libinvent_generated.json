@@ -1,0 +1,943 @@
+{
+ "status": "evaluated",
+ "generator": "REINVENT4 LibInvent prior, scaffold decoration",
+ "prior": "/private/tmp/claude-501/-Users-jaysahni-drug-similarity-discovery/5f7a1295-9699-4ed2-87b0-160fe37c7c5f/scratchpad/priors/libinvent.prior",
+ "device": "mps",
+ "scaffolds": {
+  "arginine_guanidine": "[*:0]C(CCCNC(=N)N)[*:1]",
+  "benzamidine_para_amine": "[*:0]NC(=N)c1ccc(N[*:1])cc1",
+  "benzylamine_amidine": "[*:0]Cc1ccc(C(=N)N[*:1])cc1"
+ },
+ "scaffold_provenance": {
+  "arginine_guanidine": [
+   "argatroban",
+   "bivalirudin"
+  ],
+  "benzamidine_para_amine": [
+   "dabigatran etexilate"
+  ],
+  "benzylamine_amidine": [
+   "ximelagatran"
+  ]
+ },
+ "scaffolds_dropped": {},
+ "num_smiles_per_scaffold": 200,
+ "n_raw": 508,
+ "seconds": 11.0,
+ "filters": {
+  "mw_range": [
+   200.0,
+   600.0
+  ],
+  "min_qed": 0.4,
+  "source": "demo/generate.py drug_like(), imported not reimplemented"
+ },
+ "dropped": {
+  "invalid": 0,
+  "duplicate": 1,
+  "mw": 122,
+  "qed": 304,
+  "already_approved": 0
+ },
+ "n_kept": 81,
+ "molecules": [
+  {
+   "smiles": "CC(=O)Nc1ccc(C(=N)Nc2ccc(C(=N)N)cc2)cc1",
+   "mw": 295.3,
+   "qed": 0.44,
+   "inchikey": "QAQCIRLLYAEILP-UHFFFAOYSA-N",
+   "motifs": [
+    "amidine",
+    "benzamidine"
+   ],
+   "seed_atom_fraction": 0.8182
+  },
+  {
+   "smiles": "CC(=O)Nc1ccc(C(=N)NC(=O)c2ccc(OS(C)(=O)=O)cc2)cc1",
+   "mw": 375.4,
+   "qed": 0.417,
+   "inchikey": "VPJJUPSOJIMYPW-UHFFFAOYSA-N",
+   "motifs": [
+    "amidine",
+    "benzamidine"
+   ],
+   "seed_atom_fraction": 0.6154
+  },
+  {
+   "smiles": "CN=C(N)C=Cc1cccc(NC(=N)c2ccc(NC(C)=O)cc2)c1",
+   "mw": 335.4,
+   "qed": 0.498,
+   "inchikey": "LXCWWIPDSHVDFA-UHFFFAOYSA-N",
+   "motifs": [
+    "amidine",
+    "benzamidine"
+   ],
+   "seed_atom_fraction": 0.6
+  },
+  {
+   "smiles": "CC(C)(C)c1ccc(C(=O)Nc2ccc(C(=N)NC=O)cc2)cc1",
+   "mw": 323.4,
+   "qed": 0.458,
+   "inchikey": "FFUFVRAACFZHKV-UHFFFAOYSA-N",
+   "motifs": [
+    "amidine",
+    "benzamidine"
+   ],
+   "seed_atom_fraction": 0.625
+  },
+  {
+   "smiles": "CC(=O)Nc1ccc(C(=N)Nc2ccccc2)cc1",
+   "mw": 253.3,
+   "qed": 0.581,
+   "inchikey": "KYBCGMFEDQEOGD-UHFFFAOYSA-N",
+   "motifs": [
+    "amidine",
+    "benzamidine"
+   ],
+   "seed_atom_fraction": 0.7895
+  },
+  {
+   "smiles": "N=C(NS(=O)(=O)c1ccccc1)c1ccc(CN)cc1",
+   "mw": 289.4,
+   "qed": 0.587,
+   "inchikey": "JYHYBDILFKJMTH-UHFFFAOYSA-N",
+   "motifs": [
+    "amidine",
+    "benzamidine"
+   ],
+   "seed_atom_fraction": 0.75
+  },
+  {
+   "smiles": "N=C(N)NCCCC(Cc1ccccc1)c1ccccc1",
+   "mw": 281.4,
+   "qed": 0.414,
+   "inchikey": "VWKDLHPUHIGXFR-UHFFFAOYSA-N",
+   "motifs": [
+    "amidine",
+    "guanidine"
+   ],
+   "seed_atom_fraction": 0.8095
+  },
+  {
+   "smiles": "N=C(NC(=O)CCc1ccccc1)c1ccc(NC(=O)c2ccccc2)cc1",
+   "mw": 371.4,
+   "qed": 0.452,
+   "inchikey": "KWYBQBDZYBHVRF-UHFFFAOYSA-N",
+   "motifs": [
+    "amidine",
+    "benzamidine"
+   ],
+   "seed_atom_fraction": 0.75
+  },
+  {
+   "smiles": "COC(=O)NC(=N)c1ccc(Cn2c(=O)[nH]c3ccccc3c2=O)cc1",
+   "mw": 352.4,
+   "qed": 0.488,
+   "inchikey": "TZSHLLFIKZBTOJ-UHFFFAOYSA-N",
+   "motifs": [
+    "amidine",
+    "benzamidine"
+   ],
+   "seed_atom_fraction": 0.5769
+  },
+  {
+   "smiles": "N=C(NC=O)c1ccc(NC(=O)CCc2ccccc2)cc1",
+   "mw": 295.3,
+   "qed": 0.434,
+   "inchikey": "XXMSDFZCGPXJIQ-UHFFFAOYSA-N",
+   "motifs": [
+    "amidine",
+    "benzamidine"
+   ],
+   "seed_atom_fraction": 0.6818
+  },
+  {
+   "smiles": "N=C(N)NCCCC(c1ccc(Cl)cc1)c1cccc(Cl)c1",
+   "mw": 336.3,
+   "qed": 0.416,
+   "inchikey": "OMSAODPZRMMXPH-UHFFFAOYSA-N",
+   "motifs": [
+    "amidine",
+    "guanidine"
+   ],
+   "seed_atom_fraction": 0.5455
+  },
+  {
+   "smiles": "CC(=O)Nc1ccc(C(=N)Nc2ccc(C(N)=NC(C)C)cc2)cc1",
+   "mw": 337.4,
+   "qed": 0.497,
+   "inchikey": "XEAJIQKUXFFIST-UHFFFAOYSA-N",
+   "motifs": [
+    "amidine",
+    "benzamidine"
+   ],
+   "seed_atom_fraction": 0.72
+  },
+  {
+   "smiles": "CC(=O)NC(=N)c1ccc(NC(C)=O)cc1",
+   "mw": 219.2,
+   "qed": 0.514,
+   "inchikey": "DEYVVFSXKMORCH-UHFFFAOYSA-N",
+   "motifs": [
+    "amidine",
+    "benzamidine"
+   ],
+   "seed_atom_fraction": 0.5625
+  },
+  {
+   "smiles": "C=CCOC(=O)NC(=N)c1ccc(NC(=O)c2ccccc2)cc1",
+   "mw": 323.4,
+   "qed": 0.448,
+   "inchikey": "BQXBVGVEROQSJX-UHFFFAOYSA-N",
+   "motifs": [
+    "amidine",
+    "benzamidine"
+   ],
+   "seed_atom_fraction": 0.625
+  },
+  {
+   "smiles": "N=C(NC(=O)c1ccc(CCl)cc1)c1ccc(CN)cc1",
+   "mw": 301.8,
+   "qed": 0.461,
+   "inchikey": "BXFSREAECKXNRH-UHFFFAOYSA-N",
+   "motifs": [
+    "amidine",
+    "benzamidine"
+   ],
+   "seed_atom_fraction": 0.7143
+  },
+  {
+   "smiles": "C=CCOC(=O)Nc1ccc(C(=N)Nc2ccc(C)cc2)cc1",
+   "mw": 309.4,
+   "qed": 0.441,
+   "inchikey": "CWGCAKZWYDSIMA-UHFFFAOYSA-N",
+   "motifs": [
+    "amidine",
+    "benzamidine"
+   ],
+   "seed_atom_fraction": 0.6522
+  },
+  {
+   "smiles": "N=C(NC=O)c1ccc(NC(=O)c2ccccc2)cc1",
+   "mw": 267.3,
+   "qed": 0.45,
+   "inchikey": "CXAZEHVFOQOVKF-UHFFFAOYSA-N",
+   "motifs": [
+    "amidine",
+    "benzamidine"
+   ],
+   "seed_atom_fraction": 0.75
+  },
+  {
+   "smiles": "CC(=O)Nc1ccc(C(=N)NC(=O)C=CCN(C)C)cc1",
+   "mw": 288.4,
+   "qed": 0.432,
+   "inchikey": "VDPQZEWEZANWGQ-UHFFFAOYSA-N",
+   "motifs": [
+    "amidine",
+    "benzamidine"
+   ],
+   "seed_atom_fraction": 0.4286
+  },
+  {
+   "smiles": "CCc1ccc(C=CC(=O)NC(=N)c2ccc(NC(C)=O)cc2)cc1",
+   "mw": 335.4,
+   "qed": 0.445,
+   "inchikey": "YAAVMHQYNQTVRS-UHFFFAOYSA-N",
+   "motifs": [
+    "amidine",
+    "benzamidine"
+   ],
+   "seed_atom_fraction": 0.6
+  },
+  {
+   "smiles": "N=C(N)NCCCC(c1ccccc1)C1CCCCC1",
+   "mw": 273.4,
+   "qed": 0.421,
+   "inchikey": "YLNSZLGQQPPTRY-UHFFFAOYSA-N",
+   "motifs": [
+    "amidine",
+    "guanidine"
+   ],
+   "seed_atom_fraction": 0.8
+  },
+  {
+   "smiles": "CC(C)(C)OC(=O)NC(=N)c1ccc(NC(=O)CN)cc1",
+   "mw": 292.3,
+   "qed": 0.498,
+   "inchikey": "ZVJCFHXCJWMHMQ-UHFFFAOYSA-N",
+   "motifs": [
+    "amidine",
+    "benzamidine"
+   ],
+   "seed_atom_fraction": 0.4286
+  },
+  {
+   "smiles": "CC(C)(C)OC(=O)NC(=N)c1ccc(NC(=O)c2ccc(C#N)cc2)cc1",
+   "mw": 364.4,
+   "qed": 0.569,
+   "inchikey": "GQCATEZUKHVZOI-UHFFFAOYSA-N",
+   "motifs": [
+    "amidine",
+    "benzamidine"
+   ],
+   "seed_atom_fraction": 0.5556
+  },
+  {
+   "smiles": "N=C(NC=O)c1ccc(Nc2ccccc2)cc1",
+   "mw": 239.3,
+   "qed": 0.436,
+   "inchikey": "RRKWJJXCUPIQGF-UHFFFAOYSA-N",
+   "motifs": [
+    "amidine",
+    "benzamidine"
+   ],
+   "seed_atom_fraction": 0.8333
+  },
+  {
+   "smiles": "N=C(NC(=O)CCC(=O)O)c1ccc(NC(=O)c2ccccc2)cc1",
+   "mw": 339.4,
+   "qed": 0.476,
+   "inchikey": "JWOSOHYGRQXXTH-UHFFFAOYSA-N",
+   "motifs": [
+    "amidine",
+    "benzamidine"
+   ],
+   "seed_atom_fraction": 0.6
+  },
+  {
+   "smiles": "Cc1cccc(C(CCCNC(=N)N)c2ccccc2)c1",
+   "mw": 281.4,
+   "qed": 0.432,
+   "inchikey": "BYTCXMULJXEPRO-UHFFFAOYSA-N",
+   "motifs": [
+    "amidine",
+    "guanidine"
+   ],
+   "seed_atom_fraction": 0.5714
+  },
+  {
+   "smiles": "Cc1ccc(C(CCCNC(=N)N)C2CCCCC2)cc1",
+   "mw": 287.5,
+   "qed": 0.422,
+   "inchikey": "KOEPCWSFRHGPDS-UHFFFAOYSA-N",
+   "motifs": [
+    "amidine",
+    "guanidine"
+   ],
+   "seed_atom_fraction": 0.7619
+  },
+  {
+   "smiles": "N=C(N)NCCCC(c1ccccc1)c1ccccc1",
+   "mw": 267.4,
+   "qed": 0.428,
+   "inchikey": "POKMCUVTMKPDEY-UHFFFAOYSA-N",
+   "motifs": [
+    "amidine",
+    "guanidine"
+   ],
+   "seed_atom_fraction": 0.6
+  },
+  {
+   "smiles": "CC(=O)Nc1ccc(C(=N)Nc2ccc(C)cc2)cc1",
+   "mw": 267.3,
+   "qed": 0.589,
+   "inchikey": "KSDCCRKDAAKBTE-UHFFFAOYSA-N",
+   "motifs": [
+    "amidine",
+    "benzamidine"
+   ],
+   "seed_atom_fraction": 0.75
+  },
+  {
+   "smiles": "N=C(NC(=O)CN=C(N)N)c1ccc(NC(=O)c2ccccc2)cc1",
+   "mw": 338.4,
+   "qed": 0.402,
+   "inchikey": "NDMVZNRKEUZXBE-UHFFFAOYSA-N",
+   "motifs": [
+    "amidine",
+    "guanidine",
+    "benzamidine"
+   ],
+   "seed_atom_fraction": 0.6
+  },
+  {
+   "smiles": "N=C(NC(=O)c1ccccc1)c1ccc(NC(=O)c2ccccc2)cc1",
+   "mw": 343.4,
+   "qed": 0.499,
+   "inchikey": "YUUVLBFADDBJTI-UHFFFAOYSA-N",
+   "motifs": [
+    "amidine",
+    "benzamidine"
+   ],
+   "seed_atom_fraction": 0.8077
+  },
+  {
+   "smiles": "CC(=O)Nc1ccc(C(=N)NC(=O)C(C)C)cc1",
+   "mw": 247.3,
+   "qed": 0.561,
+   "inchikey": "UNLVREFXTQMTNK-UHFFFAOYSA-N",
+   "motifs": [
+    "amidine",
+    "benzamidine"
+   ],
+   "seed_atom_fraction": 0.5
+  },
+  {
+   "smiles": "CC(C)C(CCCNC(=N)N)c1ccccc1",
+   "mw": 233.4,
+   "qed": 0.402,
+   "inchikey": "JDLVUJURXUZVEP-UHFFFAOYSA-N",
+   "motifs": [
+    "amidine",
+    "guanidine"
+   ],
+   "seed_atom_fraction": 0.7647
+  },
+  {
+   "smiles": "N=C(Nc1ccccc1)c1ccc(NC=O)cc1",
+   "mw": 239.3,
+   "qed": 0.436,
+   "inchikey": "OHRVRLCIJZJCGA-UHFFFAOYSA-N",
+   "motifs": [
+    "amidine",
+    "benzamidine"
+   ],
+   "seed_atom_fraction": 0.8333
+  },
+  {
+   "smiles": "CC(=O)NC(=N)c1ccc(NC(=O)COc2ccc3ccccc3c2)cc1",
+   "mw": 361.4,
+   "qed": 0.481,
+   "inchikey": "SHGBNCAJUJBXBC-UHFFFAOYSA-N",
+   "motifs": [
+    "amidine",
+    "benzamidine"
+   ],
+   "seed_atom_fraction": 0.7407
+  },
+  {
+   "smiles": "N=C(NC(N)=O)c1ccc(NC(=O)C2CCCCN2)cc1",
+   "mw": 289.3,
+   "qed": 0.417,
+   "inchikey": "YYQIMBAVKCFMHA-UHFFFAOYSA-N",
+   "motifs": [
+    "amidine",
+    "benzamidine"
+   ],
+   "seed_atom_fraction": 0.8095
+  },
+  {
+   "smiles": "CC(=O)Nc1ccc(C(=N)NS(=O)(=O)C=Cc2ccccc2)cc1",
+   "mw": 343.4,
+   "qed": 0.574,
+   "inchikey": "TUDYJKBGNXGLJR-UHFFFAOYSA-N",
+   "motifs": [
+    "amidine",
+    "benzamidine"
+   ],
+   "seed_atom_fraction": 0.625
+  },
+  {
+   "smiles": "CC(=O)Nc1ccc(C(=N)NC(=O)CN=C(N)C2CCCCC2)cc1",
+   "mw": 343.4,
+   "qed": 0.483,
+   "inchikey": "NHXVUEFYKTYZIS-UHFFFAOYSA-N",
+   "motifs": [
+    "amidine",
+    "benzamidine"
+   ],
+   "seed_atom_fraction": 0.64
+  },
+  {
+   "smiles": "CCc1ccc(C(=N)NC(=O)Nc2ccccc2OC)cc1",
+   "mw": 297.4,
+   "qed": 0.597,
+   "inchikey": "CWAMJQVQCRDXOL-UHFFFAOYSA-N",
+   "motifs": [
+    "amidine",
+    "benzamidine"
+   ],
+   "seed_atom_fraction": 0.7273
+  },
+  {
+   "smiles": "Cc1ccc(C(CCCNC(=N)N)Cc2ccccc2)cc1",
+   "mw": 295.4,
+   "qed": 0.415,
+   "inchikey": "WFVYXDYWXQIZPW-UHFFFAOYSA-N",
+   "motifs": [
+    "amidine",
+    "guanidine"
+   ],
+   "seed_atom_fraction": 0.7727
+  },
+  {
+   "smiles": "N=C(Nc1ccccc1)c1ccc(NC(=O)c2ccccc2)cc1",
+   "mw": 315.4,
+   "qed": 0.494,
+   "inchikey": "RRUSRCMPKFMWJF-UHFFFAOYSA-N",
+   "motifs": [
+    "amidine",
+    "benzamidine"
+   ],
+   "seed_atom_fraction": 0.875
+  },
+  {
+   "smiles": "CC(=O)Nc1ccc(C(=N)NC(=O)OC2C=CC(C(=N)N)=CC2)cc1",
+   "mw": 341.4,
+   "qed": 0.421,
+   "inchikey": "RZFBWFROQHVFDP-UHFFFAOYSA-N",
+   "motifs": [
+    "amidine",
+    "benzamidine"
+   ],
+   "seed_atom_fraction": 0.36
+  },
+  {
+   "smiles": "Cc1cccc(OCc2ccc(C(=N)NC(=O)N=C(N)N)cc2)c1C",
+   "mw": 339.4,
+   "qed": 0.503,
+   "inchikey": "IYDDQWUOFKOHMF-UHFFFAOYSA-N",
+   "motifs": [
+    "amidine",
+    "guanidine",
+    "benzamidine"
+   ],
+   "seed_atom_fraction": 0.64
+  },
+  {
+   "smiles": "CC1CCCC(C)N1CCC(=O)Nc1ccc(C(=N)Nc2ccccc2)cc1",
+   "mw": 378.5,
+   "qed": 0.503,
+   "inchikey": "UJZFRYBQBNMRBN-UHFFFAOYSA-N",
+   "motifs": [
+    "amidine",
+    "benzamidine"
+   ],
+   "seed_atom_fraction": 0.7857
+  },
+  {
+   "smiles": "N=C(NC=O)c1ccc(NC(=O)Cc2ccccc2)cc1",
+   "mw": 281.3,
+   "qed": 0.444,
+   "inchikey": "DCCCVPBAMJLNHC-UHFFFAOYSA-N",
+   "motifs": [
+    "amidine",
+    "benzamidine"
+   ],
+   "seed_atom_fraction": 0.7143
+  },
+  {
+   "smiles": "N=C(NC(=O)c1ccccc1)c1ccc(NS(=O)(=O)c2ccccc2)cc1",
+   "mw": 379.4,
+   "qed": 0.469,
+   "inchikey": "OZSHDDUWPIGOSF-UHFFFAOYSA-N",
+   "motifs": [
+    "amidine",
+    "benzamidine"
+   ],
+   "seed_atom_fraction": 0.7778
+  },
+  {
+   "smiles": "CC(=O)Nc1ccc(C(=N)NC(=O)C(C)(C)C)cc1",
+   "mw": 261.3,
+   "qed": 0.563,
+   "inchikey": "DDDQKFVKZAMKRH-UHFFFAOYSA-N",
+   "motifs": [
+    "amidine",
+    "benzamidine"
+   ],
+   "seed_atom_fraction": 0.4737
+  },
+  {
+   "smiles": "N=C(NC(N)=O)c1ccc(Cc2ccccc2F)cc1",
+   "mw": 271.3,
+   "qed": 0.581,
+   "inchikey": "WZTNNITUFUIPGT-UHFFFAOYSA-N",
+   "motifs": [
+    "amidine",
+    "benzamidine"
+   ],
+   "seed_atom_fraction": 0.75
+  },
+  {
+   "smiles": "N=C(NC(=O)OCc1ccccc1)c1ccc(CN2CCCCCCC2)cc1",
+   "mw": 379.5,
+   "qed": 0.584,
+   "inchikey": "GNDADLVJKBDRAK-UHFFFAOYSA-N",
+   "motifs": [
+    "amidine",
+    "benzamidine"
+   ],
+   "seed_atom_fraction": 0.7857
+  },
+  {
+   "smiles": "Cc1ccccc1S(=O)(=O)NC(=N)c1ccc(CN(C)c2ccccc2)cc1",
+   "mw": 393.5,
+   "qed": 0.492,
+   "inchikey": "ATHBHQKXCOUXMZ-UHFFFAOYSA-N",
+   "motifs": [
+    "amidine",
+    "benzamidine"
+   ],
+   "seed_atom_fraction": 0.75
+  },
+  {
+   "smiles": "COc1cccc(OCc2ccc(C(=N)NS(N)(=O)=O)cc2)c1C(=O)O",
+   "mw": 379.4,
+   "qed": 0.417,
+   "inchikey": "QTEFRSUOLITBAM-UHFFFAOYSA-N",
+   "motifs": [
+    "amidine",
+    "benzamidine"
+   ],
+   "seed_atom_fraction": 0.6538
+  },
+  {
+   "smiles": "N=C(Nc1ccc2c(c1)OCCO2)c1ccc(NC(=O)c2ccccc2)cc1",
+   "mw": 373.4,
+   "qed": 0.474,
+   "inchikey": "WOIDJBKYSRSMIE-UHFFFAOYSA-N",
+   "motifs": [
+    "amidine",
+    "benzamidine"
+   ],
+   "seed_atom_fraction": 0.8214
+  },
+  {
+   "smiles": "N=C(NC1=NC(=O)NCCC1)c1ccc(NC(=O)c2ccccc2)cc1",
+   "mw": 349.4,
+   "qed": 0.505,
+   "inchikey": "BHJHCIIJZVAVQM-UHFFFAOYSA-N",
+   "motifs": [
+    "amidine",
+    "benzamidine"
+   ],
+   "seed_atom_fraction": 0.5769
+  },
+  {
+   "smiles": "CN(C)C(=O)NC(=N)c1ccc(NC(=O)c2ccccc2)cc1",
+   "mw": 310.4,
+   "qed": 0.601,
+   "inchikey": "SPSKQCTUVUSHFF-UHFFFAOYSA-N",
+   "motifs": [
+    "amidine",
+    "benzamidine"
+   ],
+   "seed_atom_fraction": 0.6522
+  },
+  {
+   "smiles": "CC(=O)Nc1ccc(C(=N)NC(=O)c2ccccc2)cc1",
+   "mw": 281.3,
+   "qed": 0.596,
+   "inchikey": "PRQTWAGRKRKHSN-UHFFFAOYSA-N",
+   "motifs": [
+    "amidine",
+    "benzamidine"
+   ],
+   "seed_atom_fraction": 0.7143
+  },
+  {
+   "smiles": "N=C(Nc1ccccc1)c1ccc(NCc2ccccc2)cc1",
+   "mw": 301.4,
+   "qed": 0.471,
+   "inchikey": "BESNNFCBTRUEMG-UHFFFAOYSA-N",
+   "motifs": [
+    "amidine",
+    "benzamidine"
+   ],
+   "seed_atom_fraction": 0.913
+  },
+  {
+   "smiles": "Cc1ccc(C(CCCNC(=N)N)N2CCCC2)cc1",
+   "mw": 274.4,
+   "qed": 0.424,
+   "inchikey": "RFHDUOAEGPPIRN-UHFFFAOYSA-N",
+   "motifs": [
+    "amidine",
+    "guanidine"
+   ],
+   "seed_atom_fraction": 0.3
+  },
+  {
+   "smiles": "CCNC(=O)Nc1ccc(C(=N)Nc2ccccc2)cc1",
+   "mw": 282.3,
+   "qed": 0.513,
+   "inchikey": "GPTKVESTIRYMSU-UHFFFAOYSA-N",
+   "motifs": [
+    "amidine",
+    "benzamidine"
+   ],
+   "seed_atom_fraction": 0.7143
+  },
+  {
+   "smiles": "COc1ccc2cccc(CC(C)CCCNC(=N)N)c2c1",
+   "mw": 299.4,
+   "qed": 0.417,
+   "inchikey": "VMRPFYJMAKIBOF-UHFFFAOYSA-N",
+   "motifs": [
+    "amidine",
+    "guanidine"
+   ],
+   "seed_atom_fraction": 0.7273
+  },
+  {
+   "smiles": "Cc1ccccc1C(CCCNC(=N)N)c1ccccc1C",
+   "mw": 295.4,
+   "qed": 0.432,
+   "inchikey": "ZCUDVIOBHYGVHQ-UHFFFAOYSA-N",
+   "motifs": [
+    "amidine",
+    "guanidine"
+   ],
+   "seed_atom_fraction": 0.5455
+  },
+  {
+   "smiles": "CCCC(=O)NC(=N)c1ccc(NC(=O)O)cc1",
+   "mw": 249.3,
+   "qed": 0.485,
+   "inchikey": "PAUUDSGAHRUVAR-UHFFFAOYSA-N",
+   "motifs": [
+    "amidine",
+    "benzamidine"
+   ],
+   "seed_atom_fraction": 0.5
+  },
+  {
+   "smiles": "N=C(N)NCCCC(c1ccccc1)c1ccc(Cl)cc1",
+   "mw": 301.8,
+   "qed": 0.432,
+   "inchikey": "XRFNSSABPYASRX-UHFFFAOYSA-N",
+   "motifs": [
+    "amidine",
+    "guanidine"
+   ],
+   "seed_atom_fraction": 0.5714
+  },
+  {
+   "smiles": "N=C(NC(=O)Cc1ccccc1)c1ccc(NC(=O)c2ccccc2)cc1",
+   "mw": 357.4,
+   "qed": 0.481,
+   "inchikey": "BSBIETSYKFKTQI-UHFFFAOYSA-N",
+   "motifs": [
+    "amidine",
+    "benzamidine"
+   ],
+   "seed_atom_fraction": 0.7778
+  },
+  {
+   "smiles": "CCC(=O)NC(=N)c1ccc(NC(=O)c2ccccc2)cc1",
+   "mw": 295.3,
+   "qed": 0.599,
+   "inchikey": "VYNDFTNVQPBPTQ-UHFFFAOYSA-N",
+   "motifs": [
+    "amidine",
+    "benzamidine"
+   ],
+   "seed_atom_fraction": 0.6818
+  },
+  {
+   "smiles": "COC(=O)NC(=N)c1ccc(Nc2ccccc2)cc1",
+   "mw": 269.3,
+   "qed": 0.592,
+   "inchikey": "OEQFZLWHVBOHQS-UHFFFAOYSA-N",
+   "motifs": [
+    "amidine",
+    "benzamidine"
+   ],
+   "seed_atom_fraction": 0.75
+  },
+  {
+   "smiles": "CC(N)C(=O)Nc1ccc(C(=N)NC(=O)Cc2ccccc2)cc1",
+   "mw": 324.4,
+   "qed": 0.496,
+   "inchikey": "ABZXXBFDEZABCU-UHFFFAOYSA-N",
+   "motifs": [
+    "amidine",
+    "benzamidine"
+   ],
+   "seed_atom_fraction": 0.8333
+  },
+  {
+   "smiles": "CC(CCCNC(=N)N)Cc1cccc2ccccc12",
+   "mw": 269.4,
+   "qed": 0.428,
+   "inchikey": "YITNRDDXBNBNLO-UHFFFAOYSA-N",
+   "motifs": [
+    "amidine",
+    "guanidine"
+   ],
+   "seed_atom_fraction": 0.75
+  },
+  {
+   "smiles": "CC(=O)Nc1ccc(C(=N)Nc2ccc(N=C=S)cc2)cc1",
+   "mw": 310.4,
+   "qed": 0.456,
+   "inchikey": "SADCGAUIDRXNKC-UHFFFAOYSA-N",
+   "motifs": [
+    "amidine",
+    "benzamidine"
+   ],
+   "seed_atom_fraction": 0.6818
+  },
+  {
+   "smiles": "CC(=O)NC(=N)c1ccc(COc2nc(C)c(Cl)cc2C(N)=O)cc1",
+   "mw": 360.8,
+   "qed": 0.559,
+   "inchikey": "SWZJFNKYLYTLJE-UHFFFAOYSA-N",
+   "motifs": [
+    "amidine",
+    "benzamidine"
+   ],
+   "seed_atom_fraction": 0.6
+  },
+  {
+   "smiles": "COc1cccc(S(=O)(=O)NC(=N)c2ccc(CN)cc2)c1",
+   "mw": 319.4,
+   "qed": 0.573,
+   "inchikey": "JENSROOOKSDGDL-UHFFFAOYSA-N",
+   "motifs": [
+    "amidine",
+    "benzamidine"
+   ],
+   "seed_atom_fraction": 0.7273
+  },
+  {
+   "smiles": "CC(=O)Nc1ccc(C(=N)NCC(=O)O)cc1",
+   "mw": 235.2,
+   "qed": 0.454,
+   "inchikey": "YFHBREYYZOMSMW-UHFFFAOYSA-N",
+   "motifs": [
+    "amidine",
+    "benzamidine"
+   ],
+   "seed_atom_fraction": 0.5294
+  },
+  {
+   "smiles": "CC(C)(C)CC(=O)Nc1ccc(C(=N)Nc2ccccc2)cc1",
+   "mw": 309.4,
+   "qed": 0.575,
+   "inchikey": "RJMDTUXTAVTEQO-UHFFFAOYSA-N",
+   "motifs": [
+    "amidine",
+    "benzamidine"
+   ],
+   "seed_atom_fraction": 0.6522
+  },
+  {
+   "smiles": "CNC(=O)NC(=N)c1ccc(CN)cc1",
+   "mw": 206.2,
+   "qed": 0.416,
+   "inchikey": "IWINEYZNCKXRNC-UHFFFAOYSA-N",
+   "motifs": [
+    "amidine",
+    "benzamidine"
+   ],
+   "seed_atom_fraction": 0.6
+  },
+  {
+   "smiles": "N=C(NC(=O)c1ccccc1)c1ccc(NCc2ccccc2)cc1",
+   "mw": 329.4,
+   "qed": 0.488,
+   "inchikey": "FXFAXPKEJBFANM-UHFFFAOYSA-N",
+   "motifs": [
+    "amidine",
+    "benzamidine"
+   ],
+   "seed_atom_fraction": 0.84
+  },
+  {
+   "smiles": "N=C(NC(=O)Nc1ccccc1C(N)=O)c1ccc(CN)cc1",
+   "mw": 311.3,
+   "qed": 0.431,
+   "inchikey": "ITACBUPDQDTNAA-UHFFFAOYSA-N",
+   "motifs": [
+    "amidine",
+    "benzamidine"
+   ],
+   "seed_atom_fraction": 0.6522
+  },
+  {
+   "smiles": "CC(CCCNC(=N)N)c1ccc(Cl)c(Cl)c1",
+   "mw": 274.2,
+   "qed": 0.438,
+   "inchikey": "GWQZRQQIEJDNCE-UHFFFAOYSA-N",
+   "motifs": [
+    "amidine",
+    "guanidine"
+   ],
+   "seed_atom_fraction": 0.3529
+  },
+  {
+   "smiles": "CC(=O)Nc1ccc(C(=N)NC(=O)C=Cc2ccccc2)cc1",
+   "mw": 307.4,
+   "qed": 0.461,
+   "inchikey": "JJFZBZIUTUZVDE-UHFFFAOYSA-N",
+   "motifs": [
+    "amidine",
+    "benzamidine"
+   ],
+   "seed_atom_fraction": 0.6522
+  },
+  {
+   "smiles": "CCOC(=O)NC(=N)c1ccc(NC(C)=O)cc1",
+   "mw": 249.3,
+   "qed": 0.562,
+   "inchikey": "LYUPVJQTDIJIJT-UHFFFAOYSA-N",
+   "motifs": [
+    "amidine",
+    "benzamidine"
+   ],
+   "seed_atom_fraction": 0.5
+  },
+  {
+   "smiles": "N=C(NC(N)=O)c1ccc(NC(=O)Cc2ccccc2)cc1",
+   "mw": 296.3,
+   "qed": 0.51,
+   "inchikey": "YMLLTVOJOMUYIH-UHFFFAOYSA-N",
+   "motifs": [
+    "amidine",
+    "benzamidine"
+   ],
+   "seed_atom_fraction": 0.6818
+  },
+  {
+   "smiles": "CCCC(=O)Nc1ccc(C(=N)NC)cc1",
+   "mw": 219.3,
+   "qed": 0.535,
+   "inchikey": "MQNMPRWZUJQDGX-UHFFFAOYSA-N",
+   "motifs": [
+    "amidine",
+    "benzamidine"
+   ],
+   "seed_atom_fraction": 0.5625
+  },
+  {
+   "smiles": "CC(=O)Nc1ccc(C(=N)NS(=O)(=O)c2ccc(C)cc2)cc1",
+   "mw": 331.4,
+   "qed": 0.592,
+   "inchikey": "ADKSOSCZCIKJJD-UHFFFAOYSA-N",
+   "motifs": [
+    "amidine",
+    "benzamidine"
+   ],
+   "seed_atom_fraction": 0.6522
+  },
+  {
+   "smiles": "C=CCOC(=O)NC(=N)c1ccc(NC(C)=O)cc1",
+   "mw": 261.3,
+   "qed": 0.439,
+   "inchikey": "LMZWCBQVTHCICK-UHFFFAOYSA-N",
+   "motifs": [
+    "amidine",
+    "benzamidine"
+   ],
+   "seed_atom_fraction": 0.4737
+  }
+ ],
+ "determinism": "REINVENT4's sampling run mode exposes no RNG seed, so this arm is NOT reproducible bit-for-bit; n and the statistics are.",
+ "workdir": "/Users/jaysahni/drug-similarity-discovery/results/demo/seeded/libinvent",
+ "log_tail": ")ccc2N)C1|NC(=O)* could not be converted\n03:03:15 <WARN> reinvent_plugins.normalizers.rdkit_smiles: *N1CCN(c2ccc(C(Nc3ccc(CN4SCCSSC4(C)Cc3ccc(OS(=O)(O)=O)=O)cc2)=O)C)CC1|C(NOCc1cc(=O)c(OCc2ccccc2)ccc1N)(=O)* could not be converted\n03:03:15 <WARN> reinvent_plugins.normalizers.rdkit_smiles: C1N(CCO*)CCOC1|*C(=O)NS(=O)(=O)c1ccc(NC(=O)CNC(=O)c2c(C(ON=Cc3c(=NCC(OCC)=O)cccc3)=O)c(Br)ccc2)cc1 could not be converted\n03:03:15 <WARN> reinvent_plugins.normalizers.rdkit_smiles: c1(OCc2ccccc2)c(CN*)c(-c2ccccc2)nc(N)n1|O=S(*)(=O)* could not be converted\n03:03:15 <WARN> reinvent_plugins.normalizers.rdkit_smiles: c1(C2c3c(c(C)c(O*)c(C)cc3N)N=C2N)ccccc1|c1(NC(=O)*)ccccc1 could not be converted\n03:03:15 <WARN> reinvent_plugins.normalizers.rdkit_smiles: CC*|c1(S(=O)(=O)*)ccc(NC(C)=O)c(S(=O)(=O)NN=C(c2c(SC)cccc2)=NNC(=O)c2cccc(N)c2NCc2ccc(N)c(OC)c2)c1 could not be converted\n03:03:15 <WARN> reinvent_plugins.normalizers.rdkit_smiles: c1(N*)[nH]c(N(C(=S)NNC(=NCc2c([N+](=O)[O-])c(CNS(c3ccc(C)cc3)(=O)=O)ccc2)C)=O)c(=O)n(NS(=O)(c2ccc(N)cc2)=O)c1=O|N(=C(N)*)C could not be converted\n03:03:15 <WARN> reinvent_plugins.normalizers.rdkit_smiles: *C(=O)C(CCCCN=N=NC(=NC(CCCN=C(NN)N)NC(=NC(=NC=NCCCCN)N)C)=N)C|CC(=O)* could not be converted\n03:03:15 <WARN> reinvent_plugins.normalizers.rdkit_smiles: C(CC)*|O=S(*)(=O)c1c(C)cc(=NC(=O)Oc2ccccc2)c(NC)c1N could not be converted\n03:03:15 <INFO> Removed 92 invalid SMILES\n03:03:15 <INFO> Peak main memory usage: 975.422 MiB\n03:03:15 <INFO> Finished REINVENT on 2026-09-20\n",
+ "frac_with_arg_mimetic": 1.0,
+ "median_seed_atom_fraction": 0.6818
+}

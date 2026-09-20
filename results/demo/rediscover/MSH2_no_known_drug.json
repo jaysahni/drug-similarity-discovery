@@ -1,0 +1,137 @@
+{
+ "query": "ADP",
+ "query_smiles": "C1=NC(=C2C(=N1)N(C=N2)[C@H]3[C@@H]([C@@H]([C@H](O3)COP(=O)(O)OP(=O)(O)O)O)O)N",
+ "n_corpus": 2382,
+ "msh2_moa": 0,
+ "msh2_annotated": 0,
+ "top": [
+  {
+   "name": "adenosine",
+   "tanimoto": 0.6364,
+   "moa": "ADORA1;ADORA2A;ADORA2B"
+  },
+  {
+   "name": "vidarabine",
+   "tanimoto": 0.6364,
+   "moa": ""
+  },
+  {
+   "name": "fludarabine phosphate",
+   "tanimoto": 0.629,
+   "moa": "POLA1"
+  },
+  {
+   "name": "nadide",
+   "tanimoto": 0.6154,
+   "moa": ""
+  },
+  {
+   "name": "diquafosol",
+   "tanimoto": 0.4769,
+   "moa": "P2RY2"
+  },
+  {
+   "name": "inosine",
+   "tanimoto": 0.4375,
+   "moa": ""
+  },
+  {
+   "name": "cangrelor",
+   "tanimoto": 0.4176,
+   "moa": "P2RY12"
+  },
+  {
+   "name": "nelarabine",
+   "tanimoto": 0.4118,
+   "moa": ""
+  },
+  {
+   "name": "regadenoson",
+   "tanimoto": 0.3924,
+   "moa": "ADORA2A"
+  },
+  {
+   "name": "azacitidine",
+   "tanimoto": 0.375,
+   "moa": "DNMT1;DNMT3A"
+  },
+  {
+   "name": "clofarabine",
+   "tanimoto": 0.3714,
+   "moa": "POLA1;RRM1;RRM2"
+  },
+  {
+   "name": "tenofovir",
+   "tanimoto": 0.3676,
+   "moa": ""
+  },
+  {
+   "name": "mipomersen sodium",
+   "tanimoto": 0.3621,
+   "moa": ""
+  },
+  {
+   "name": "adefovir dipivoxil",
+   "tanimoto": 0.3205,
+   "moa": ""
+  },
+  {
+   "name": "cladribine",
+   "tanimoto": 0.3194,
+   "moa": ""
+  },
+  {
+   "name": "cytarabine",
+   "tanimoto": 0.3134,
+   "moa": "POLA1;POLD1;POLE"
+  },
+  {
+   "name": "tenofovir disoproxil",
+   "tanimoto": 0.3125,
+   "moa": ""
+  },
+  {
+   "name": "ribavirin",
+   "tanimoto": 0.2941,
+   "moa": "IMPDH1"
+  },
+  {
+   "name": "tenofovir alafenamide",
+   "tanimoto": 0.2727,
+   "moa": ""
+  },
+  {
+   "name": "decitabine",
+   "tanimoto": 0.2676,
+   "moa": "DNMT1;DNMT3A"
+  },
+  {
+   "name": "didanosine",
+   "tanimoto": 0.2603,
+   "moa": ""
+  },
+  {
+   "name": "entecavir",
+   "tanimoto": 0.225,
+   "moa": ""
+  },
+  {
+   "name": "remdesivir",
+   "tanimoto": 0.2243,
+   "moa": ""
+  },
+  {
+   "name": "tedizolid phosphate",
+   "tanimoto": 0.2083,
+   "moa": ""
+  },
+  {
+   "name": "acyclovir",
+   "tanimoto": 0.2027,
+   "moa": ""
+  }
+ ],
+ "null_mean": 0.0811,
+ "finding": "With no approved drug for MSH2, the only available query is the natural ligand ADP. The search returns nucleotide analogues - adenosine, vidarabine, fludarabine, nadide, inosine, cladribine - i.e. the chemotype of the query. None targets MSH2; they target adenosine receptors, DNA polymerase and DNMT. The ranking is chemically correct and pharmacologically uninformative, and with zero MSH2-annotated drugs in the corpus there is no positive control that could tell the difference.",
+ "why_this_motivates_de_novo": "Ligand-based similarity needs a ligand. For a target whose only known binder is a ubiquitous cofactor, it retrieves cofactor mimics. A de novo binder designed against the pocket is the only route that does not require a prior drug."
+}

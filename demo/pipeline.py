@@ -76,6 +76,27 @@ TARGETS = {
         "protocol": "peptide-anything",
         "binder_length": "8..16",
     },
+    # MSH2 (MutS homolog 2), the de novo case: rank 1 for colorectal cancer by
+    # Open Targets evidence and ZERO approved drugs, so there is no ligand to
+    # query with and no positive control to validate any ranking. This is the
+    # target class the de novo binder arm exists for.
+    #
+    # 8RB1 is the MutSalpha heterodimer: chain A = MSH2 (895 res), chain B =
+    # MSH6, chains C/D = the mismatched DNA substrate. Only chain A is kept.
+    # UniProt annotates no active site for MSH2, so the site is anchored on the
+    # residues contacting ADP -- the natural cofactor, not a drug, so using it
+    # leaks nothing about any repurposing answer.
+    "msh2": {
+        "symbol": "MSH2",
+        "uniprot": "P43246",
+        "pdb_id": "8RB1",
+        "chain": "A",
+        "out": "msh2",
+        "select_chains": ["A"],
+        "site_anchors": [642, 648, 649, 650, 651, 653, 670, 671, 672, 673, 674, 675, 676, 677, 815],
+        "protocol": "protein-anything",
+        "binder_length": "60..90",
+    },
 }
 
 
@@ -386,6 +407,14 @@ def _stripped_protein(raw_uuid: str) -> str:
     apo = rowan.create_protein_from_pdb_id(
         TARGET["pdb_id"], name=f'{TARGET["symbol"]} {TARGET["pdb_id"]} apo'
     )
+    # Some entries are complexes. 8RB1 is the MutSalpha heterodimer plus its DNA
+    # substrate; designing against all of it would aim the binder at whichever
+    # chain happened to be nearest. Keep only the target's own chain, and do it
+    # BEFORE preparation so the renumbering that follows applies to what remains.
+    keep = TARGET.get("select_chains")
+    if keep:
+        apo = apo.select_chains(keep)
+        print(f"  kept chains {keep}")
     apo.prepare(
         remove_heterogens=True,
         keep_waters=False,

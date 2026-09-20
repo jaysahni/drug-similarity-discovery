@@ -1,0 +1,256 @@
+{
+ "task": "E1 retrieval -- rank every other drug; a hit shares a target",
+ "corpus": {
+  "n": 2114,
+  "truth": "targets",
+  "relevant_pair_rate": 0.06504
+ },
+ "representations_fused": [
+  "morgan",
+  "usrcat",
+  "gobbi_pharm2d"
+ ],
+ "fusion": {
+  "method": "Reciprocal Rank Fusion",
+  "k": 60,
+  "why": "Tanimoto and cosine are not on a common scale; RRF uses order only"
+ },
+ "build_seconds": {
+  "morgan": 1.6,
+  "usrcat": 422.3,
+  "gobbi_pharm2d": 49.0
+ },
+ "results": {
+  "morgan": {
+   "n_queries": 2069,
+   "auroc": {
+    "mean": 0.66917,
+    "ci_lo": 0.66241,
+    "ci_hi": 0.67604
+   },
+   "p@1": {
+    "mean": 0.65974,
+    "ci_lo": 0.63896,
+    "ci_hi": 0.67956
+   },
+   "ndcg@10": {
+    "mean": 0.51222,
+    "ci_lo": 0.497,
+    "ci_hi": 0.52703
+   },
+   "ef@5pct": {
+    "mean": 5.24373,
+    "ci_lo": 5.01988,
+    "ci_hi": 5.47419
+   }
+  },
+  "usrcat": {
+   "n_queries": 2069,
+   "auroc": {
+    "mean": 0.6227,
+    "ci_lo": 0.61623,
+    "ci_hi": 0.62903
+   },
+   "p@1": {
+    "mean": 0.35041,
+    "ci_lo": 0.32963,
+    "ci_hi": 0.37119
+   },
+   "ndcg@10": {
+    "mean": 0.25796,
+    "ci_lo": 0.24617,
+    "ci_hi": 0.26979
+   },
+   "ef@5pct": {
+    "mean": 3.21341,
+    "ci_lo": 3.04834,
+    "ci_hi": 3.38373
+   }
+  },
+  "gobbi_pharm2d": {
+   "n_queries": 2069,
+   "auroc": {
+    "mean": 0.66275,
+    "ci_lo": 0.65569,
+    "ci_hi": 0.6697
+   },
+   "p@1": {
+    "mean": 0.61334,
+    "ci_lo": 0.59207,
+    "ci_hi": 0.63412
+   },
+   "ndcg@10": {
+    "mean": 0.4648,
+    "ci_lo": 0.44963,
+    "ci_hi": 0.47992
+   },
+   "ef@5pct": {
+    "mean": 4.84341,
+    "ci_lo": 4.62524,
+    "ci_hi": 5.06237
+   }
+  },
+  "RRF_fusion": {
+   "n_queries": 2069,
+   "auroc": {
+    "mean": 0.6839,
+    "ci_lo": 0.67699,
+    "ci_hi": 0.69058
+   },
+   "p@1": {
+    "mean": 0.62397,
+    "ci_lo": 0.60319,
+    "ci_hi": 0.64476
+   },
+   "ndcg@10": {
+    "mean": 0.49788,
+    "ci_lo": 0.48319,
+    "ci_hi": 0.51234
+   },
+   "ef@5pct": {
+    "mean": 5.34408,
+    "ci_lo": 5.12255,
+    "ci_hi": 5.5665
+   }
+  }
+ },
+ "comparisons_vs_baseline": {
+  "usrcat - morgan [auroc]": {
+   "delta": -0.04648,
+   "ci": [
+    -0.05213,
+    -0.04092
+   ],
+   "p_value": 0.0002,
+   "wilcoxon_p": 2.379e-67,
+   "n": 2069,
+   "p_holm": 0.0024
+  },
+  "usrcat - morgan [p@1]": {
+   "delta": -0.30933,
+   "ci": [
+    -0.33349,
+    -0.28565
+   ],
+   "p_value": 0.0002,
+   "wilcoxon_p": 2.951e-112,
+   "n": 2069,
+   "p_holm": 0.0024
+  },
+  "usrcat - morgan [ndcg@10]": {
+   "delta": -0.25426,
+   "ci": [
+    -0.26698,
+    -0.24151
+   ],
+   "p_value": 0.0002,
+   "wilcoxon_p": 8.397e-207,
+   "n": 2069,
+   "p_holm": 0.0024
+  },
+  "usrcat - morgan [ef@5pct]": {
+   "delta": -2.03032,
+   "ci": [
+    -2.19072,
+    -1.87469
+   ],
+   "p_value": 0.0002,
+   "wilcoxon_p": 1.061e-160,
+   "n": 2069,
+   "p_holm": 0.0024
+  },
+  "gobbi_pharm2d - morgan [auroc]": {
+   "delta": -0.00643,
+   "ci": [
+    -0.01161,
+    -0.00132
+   ],
+   "p_value": 0.0146,
+   "wilcoxon_p": 0.03813,
+   "n": 2069,
+   "p_holm": 0.0172
+  },
+  "gobbi_pharm2d - morgan [p@1]": {
+   "delta": -0.0464,
+   "ci": [
+    -0.06477,
+    -0.02899
+   ],
+   "p_value": 0.0002,
+   "wilcoxon_p": 3.355e-07,
+   "n": 2069,
+   "p_holm": 0.0024
+  },
+  "gobbi_pharm2d - morgan [ndcg@10]": {
+   "delta": -0.04742,
+   "ci": [
+    -0.05586,
+    -0.03875
+   ],
+   "p_value": 0.0002,
+   "wilcoxon_p": 2.569e-26,
+   "n": 2069,
+   "p_holm": 0.0024
+  },
+  "gobbi_pharm2d - morgan [ef@5pct]": {
+   "delta": -0.40032,
+   "ci": [
+    -0.53595,
+    -0.26799
+   ],
+   "p_value": 0.0002,
+   "wilcoxon_p": 7.939e-18,
+   "n": 2069,
+   "p_holm": 0.0024
+  },
+  "RRF_fusion - morgan [auroc]": {
+   "delta": 0.01472,
+   "ci": [
+    0.01163,
+    0.01788
+   ],
+   "p_value": 0.0002,
+   "wilcoxon_p": 2.129e-11,
+   "n": 2069,
+   "p_holm": 0.0024
+  },
+  "RRF_fusion - morgan [p@1]": {
+   "delta": -0.03577,
+   "ci": [
+    -0.05317,
+    -0.01788
+   ],
+   "p_value": 0.0002,
+   "wilcoxon_p": 8.006e-05,
+   "n": 2069,
+   "p_holm": 0.0024
+  },
+  "RRF_fusion - morgan [ndcg@10]": {
+   "delta": -0.01434,
+   "ci": [
+    -0.02128,
+    -0.00737
+   ],
+   "p_value": 0.0002,
+   "wilcoxon_p": 5.117e-06,
+   "n": 2069,
+   "p_holm": 0.0024
+  },
+  "RRF_fusion - morgan [ef@5pct]": {
+   "delta": 0.10035,
+   "ci": [
+    0.02687,
+    0.17167
+   ],
+   "p_value": 0.008599,
+   "wilcoxon_p": 0.001845,
+   "n": 2069,
+   "p_holm": 0.0172
+  }
+ },
+ "baseline": "morgan",
+ "caveats": [
+  "Ranking quality on a target-sharing task is not the same as finding a repurposing candidate; a fused ranker that wins here still has to be checked on the arm-S and arm-P tasks separately.",
+  "Representations that fail to parse a SMILES contribute an all-zero row rather than being dropped, so their similarities to that drug are 0."
+ ]
+}

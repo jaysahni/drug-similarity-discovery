@@ -1,0 +1,72 @@
+{
+ "target": "CDK2",
+ "n_drugs": 14,
+ "n_positive": 5,
+ "n_decoy": 5,
+ "chemical_reference_set": [
+  "lapatinib",
+  "sorafenib",
+  "ceritinib",
+  "nintedanib",
+  "palbociclib",
+  "ribociclib",
+  "trilaciclib"
+ ],
+ "agreement": {
+  "kendall_tau": -0.0825,
+  "p_value": 0.6949,
+  "reading": "how much the two arms order the shortlist alike; 0 would mean they carry independent information"
+ },
+ "arms": {
+  "footprint": {
+   "mean_positive": 0.5067,
+   "mean_decoy": 0.4267,
+   "mannwhitney_U": 16.5,
+   "p_positive_gt_decoy": 0.2289,
+   "top_ranked": "atorvastatin",
+   "top_ranked_tier": "decoy",
+   "positive_ranks": [
+    2,
+    3,
+    4,
+    7,
+    9
+   ]
+  },
+  "chemical": {
+   "mean_positive": 0.4076,
+   "mean_decoy": 0.175,
+   "mannwhitney_U": 22.0,
+   "p_positive_gt_decoy": 0.02966,
+   "top_ranked": "ribociclib",
+   "top_ranked_tier": "positive",
+   "positive_ranks": [
+    1,
+    2,
+    3,
+    5,
+    11
+   ]
+  },
+  "fused": {
+   "mean_positive": 0.031,
+   "mean_decoy": 0.0289,
+   "mannwhitney_U": 23.0,
+   "p_positive_gt_decoy": 0.01587,
+   "top_ranked": "trilaciclib",
+   "top_ranked_tier": "positive",
+   "positive_ranks": [
+    1,
+    2,
+    3,
+    5,
+    7
+   ]
+  }
+ },
+ "caveats": [
+  "n = 14 drugs, 5 positives. Nothing here is powered; read the direction, not the p-value.",
+  "The chemical arm scores each drug against OTHER known binders, never itself, but those binders are curated annotations -- so this arm is closer to a lookup than the footprint arm is, and should be expected to do better for that reason alone.",
+  "Only CDK2 has both arms computed. No cross-target claim."
+ ]
+}
