@@ -54,8 +54,8 @@ Or drive the stages by hand:
 
 ### It works — and the free pocket finder wins
 
-KDR/VEGFR2. **41 approved drugs co-folded** with Boltz-2 and ranked by interface
-overlap: 10 known binders, 19 property-matched decoys, and **12 hard decoys** —
+KDR/VEGFR2. **42 approved drugs co-folded, 41 scored** (cupric oxide produced no drug-like ligand in its pose and is kept in the board as unscored, not dropped) with Boltz-2 and ranked by interface
+overlap: 10 known binders, 19 decoys (matched on MW/cLogP where a near neighbour existed; the rest drawn at random, so 6 of the 19 sit far from any positive), and **12 hard decoys** —
 approved kinase inhibitors that DrugCentral does not annotate against KDR, each of
 which binds *some* ATP pocket by construction. 191 Rowan credits.
 
@@ -81,10 +81,33 @@ binders; known-binder ranks 3, 4, 5, 6, 7, 9, 10, 18, 20, 22 of 41.
 | 9 | **nintedanib** | known binder | 0.762 |
 | 10 | **vandetanib** | known binder | 0.762 |
 
-**The bolded four are the point of the whole repo.** Ranked by chemical similarity to
-this target's best literature ligand they sit at **464, 755, 764 and 1760**. Ranked by
-which residues they actually engage, they are at **4, 5, 9 and 10**. Two drugs that
-share a binding site need not share any chemistry.
+### Does it beat chemical similarity? Yes — modestly, and only like-for-like
+
+An earlier version of this README claimed these drugs rank "4, 5, 9, 10 by interface
+overlap versus 464, 755, 764, 1760 by chemical similarity". **That comparison was
+wrong twice over** and it is corrected here rather than quietly dropped.
+
+**It compared different populations.** 4 is a rank out of the 41-drug co-folded board;
+764 is a rank out of the whole 4,099-drug approved corpus. The ratio 4099/41 ≈ 100 is
+almost exactly the apparent gap — the comparison was measuring the population sizes.
+
+**And those four were the four with the largest raw gap.** Over all 10 known binders,
+on a percentile basis against the full corpus, interface overlap is better for **4 of
+10**, paired Wilcoxon **p=0.85** — no detectable difference. Sorafenib is 53.7%
+structurally against 0.5% chemically.
+
+The honest comparison re-ranks **the same 41 drugs** by chemical similarity
+(`scripts/compare_rankings.py`):
+
+| | structural | chemical |
+|---|---|---|
+| median rank of a known binder (of 41) | **8.0** | 12.5 |
+| AUC vs property-matched decoys | **0.913** (p=0.0003) | 0.795 (p=0.011) |
+| AUC vs hard decoys | **0.717** (p=0.092) | 0.621 (p=0.356) |
+
+So structural ranking genuinely beats the chemical baseline on the same drugs — by
+roughly 1.5×, not 100×. Per drug: pazopanib 4 vs 13, sunitinib 5 vs 9, nintedanib
+9 vs 12, vandetanib 10 vs 20.
 
 ### The hard decoys break it, and that is the real result
 
