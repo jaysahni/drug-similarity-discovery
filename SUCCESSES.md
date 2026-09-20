@@ -122,6 +122,75 @@ unrelated drugs demonstrably failing to do that.
 
 ---
 
+## Two more worked examples
+
+The KDR case above is the headline. Two further runs show what the method looks
+like at its best, and what it looks like when nothing is known.
+
+*(These are selected examples chosen to illustrate both cases, not a systematic
+evaluation of every target.)*
+
+### A. EGFR — the clearest demonstration that the method works
+
+EGFR is the lung-cancer target. Twelve approved drugs hit it. Using one of them
+(erlotinib) as the query and searching the same 2,382 approved drugs:
+
+| rank | drug | |
+|---|---|---|
+| 1 | icotinib | approved EGFR drug |
+| 2 | gefitinib | approved EGFR drug |
+| 3 | vandetanib | approved EGFR drug |
+| 4 | dacomitinib | approved EGFR drug |
+| 5 | lapatinib | approved EGFR drug |
+| 7 | afatinib | approved EGFR drug |
+| 12 | neratinib | approved EGFR drug |
+
+**The other EGFR drugs come back at ranks 1, 2, 3, 4, 5, 7 and 12** out of 2,382.
+EGFR-linked drugs are **10.8× more frequent** in the top 50 than chance allows.
+
+This is what a working retrieval method looks like: hand it one drug for a
+target and it returns the rest of that target's pharmacology at the very top of
+a 2,382-item list, blind.
+
+It also shows the method's honest boundary. Drugs known to touch EGFR but built
+on completely different chemistry — chlorpromazine, an antipsychotic — sit at
+rank 1,013. Chemical similarity finds what *looks* like the query. A molecule
+that hits the same target without resembling it is invisible to this step, which
+is precisely why the co-folding stage exists.
+
+### B. PADI4 — what the output looks like when nothing is known
+
+PADI4 drives rheumatoid arthritis: it chemically modifies proteins in a way that
+triggers the autoimmune attack. **No approved drug targets it.** This is the
+case repurposing is hardest for, and the honest demonstration of the method's
+edge.
+
+With no drug to query with, the search uses the chemistry the target recognises
+— PADI4 processes the amino acid arginine, and *benzamidine* is the standard
+chemical mimic of arginine that published PAD4 inhibitor programmes are built
+around.
+
+| rank | drug | approved for |
+|---|---|---|
+| 1 | **pentamidine** | pneumocystis pneumonia, leishmaniasis |
+| 4 | **hydroxystilbamidine** | fungal infection |
+
+Both are **bis-amidines** — the exact chemical class PAD4 inhibitor programmes
+use. The method proposes two approved anti-infectives as structural starting
+points for a rheumatoid arthritis target, which is a chemically coherent
+suggestion nobody put there by hand.
+
+**And this is where the method stops being able to check itself.** The rest of
+the top ten is benzoic acid, phenol and benzyl alcohol — small fragments that
+resemble a small query simply by being small. With zero approved PADI4 drugs
+there is no known answer to measure against, so nothing in this run can separate
+the chemically meaningful hit from the artifact.
+
+That is the honest output for an undrugged target: a plausible, testable
+hypothesis, and no way to grade it without going to the bench.
+
+---
+
 ## Why this is a strong result for drug discovery
 
 **1. It found something real, blind.** Mebendazole's anti-cancer potential is a

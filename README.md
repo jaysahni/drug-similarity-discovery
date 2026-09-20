@@ -42,6 +42,39 @@ buys **+0.11**, not +0.27. The rest is just knowing where the pocket is.
 
 ---
 
+## The end-to-end result
+
+Start from a disease, end at a structurally-validated repurposing candidate.
+Plain-language write-up: **[`SUCCESSES.md`](SUCCESSES.md)**. Submission summary:
+**[`PLUME.md`](PLUME.md)**.
+
+**9. The pipeline recovers a documented repurposing case blind.** Searching 2,382
+approved drugs for VEGFR2 by chemical structure alone — no annotation visible to
+the ranking — returns the known VEGFR2 cancer drugs at ranks 3, 6, 17 and 22, and
+**mebendazole, a 1974 anthelmintic, at rank 24** (top 1.01%, null percentile
+0.992). Enrichment of VEGFR2-linked drugs in the top 50: **7.44×**.
+
+Co-folding puts mebendazole in the same pocket as approved VEGFR2 drug axitinib,
+sharing **19 of 19 contacts** (Jaccard 0.950). Four unrelated approved drugs
+co-folded as controls reach 0.409–0.636. Note that ipTM does *not* discriminate
+here — paracetamol scores 0.970 against mebendazole's 0.990 — so the contact
+overlap is the evidence, not the confidence score.
+
+**10. EGFR is the cleanest control.** Query with erlotinib and the other approved
+EGFR drugs return at ranks **1, 2, 3, 4, 5, 7, 12** of 2,382, enrichment
+**10.79×**. It also marks the boundary: chlorpromazine, which touches EGFR on
+unrelated chemistry, sits at rank 1,013 — result #3 again, on a third target.
+
+**11. And what an undrugged target looks like.** PADI4 drives rheumatoid arthritis
+and has **zero** approved drugs, so there is no query molecule and no positive
+control. Seeded with the arginine-mimetic chemotype PAD4 inhibitor programmes
+use, the search returns **pentamidine** and **hydroxystilbamidine** — both
+bis-amidines, chemically the right class — alongside benzoic acid and phenol,
+which resemble a small query only by being small. Nothing in the run can separate
+the two. `results/demo/rediscover/PADI4_prospective.json`
+
+---
+
 ## Final report
 
 **[`docs/11-FINDINGS.md`](docs/11-FINDINGS.md)** — the five demo findings with their
