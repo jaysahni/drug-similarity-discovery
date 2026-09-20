@@ -63,6 +63,18 @@ Rowan request that does not. Every workflow uuid is cached under
 `results/demo/_cache/`, so **a re-run re-reads finished workflows and costs
 nothing**.
 
+### One inefficiency, left in and flagged
+
+PROJECT_GOAL.md §2.2 calls MSA reuse "the single biggest lever on total runtime":
+compute the MSA once per target, reuse it across every ligand. The demo does not
+do this. `rowan.cofold` exposes `use_msa_server: bool` and no way to hand it a
+precomputed alignment, so each of the 14 co-folds recomputes the same CDK2 MSA.
+
+The toolkit has `rowan.generate_msa`, but wiring its output into the co-fold
+workflow is not something the pinned SDK's signature supports. At 14 drugs this
+costs time rather than correctness; at 4,099 it would be the dominant cost and
+would have to be solved first.
+
 ## Scope cuts, stated plainly
 
 This is a demo, so scope was cut — not rigor (CLAUDE.md working agreement).
@@ -127,6 +139,47 @@ author residue *i*.
 | interface contact extraction | `protein_interactions.analyze_interface` is `experimental` and needs administrator-provisioned Modal engines | `demo/contacts.py`, a 4.5 Å heavy-atom cutoff — the same definition as `scripts/interfaces.py`, so the numbers stay comparable |
 | BoltzGen directly | no `boltz` code in the toolkit | `rowan.design_protein_binder`; the account's `boltzgen_design_limit_100` feature flag identifies the Rowan `protein_binder_design` workflow as BoltzGen-backed, which is also what `scripts/boltzgen_signature.py` assumes |
 | disease → target ranking (Open Targets) | not a toolkit domain | out of scope for the demo; the target is fixed in `demo/pipeline.py:TARGET`. The real chain exists in `scripts/disease_targets.py` and `results/pipeline/colorectal-cancer/` |
+
+## Embeddings: why not ESM on one side and fingerprints on the other
+
+The natural request is "embed the top BoltzGen design, embed the FDA drugs, take
+the nearest one". `demo/embed.py` does exactly that shape — but not with two
+different encoders, and the reason is not model accuracy.
+
+ESM-2 returns 1280 dimensions of learned protein-sequence features. ECFP4 returns
+2048 dimensions of hashed chemical substructures. Dimension 7 is "some sequence
+motif" on one side and "substructure hash 7" on the other. A cosine between them
+is arithmetic over quantities that are not commensurable; it returns a float, and
+the float carries no information. A better protein encoder produces a better
+protein vector that is still not comparable to a molecule vector. This is the
+wall PROJECT_GOAL.md §1.1 describes: *"A de novo miniprotein has no chemical
+space in common with an approved drug. Similarity between them is undefined."*
+
+So both sides are embedded on axes that do mean the same thing — **the 298
+residues of CDK2**:
+
+| Side | Vector |
+|---|---|
+| design | engagement frequency across surviving designs (consensus), or binary contact (one design) |
+| drug | binary contact, ligand heavy atom within 4.5 Å of the residue, from the co-folded pose |
+
+Cosine is then well-posed: same axes, same units, same length. Output is
+`06_embedding_similarity.json`, ranked, with both a `cosine_consensus` and a
+`cosine_top_design` column.
+
+### The one method that does compare the two directly
+
+Joint protein–ligand embedding models (ConPLex, DrugCLIP and relatives) put a
+protein encoder and a molecule encoder into a shared latent space by *training
+projections* on known drug–target interactions. That genuinely makes a sequence
+vector and a molecule vector comparable.
+
+It is not used here, for two reasons worth stating rather than discovering later:
+a BoltzGen design is a de novo sequence with no evolutionary history and is out of
+distribution for a model trained on natural proteins; and such a model scores
+"does this molecule bind this protein", which treats the design as a *target*.
+The question here is the opposite — which approved drug engages the same hotspots
+on CDK2 that the design does. Neither the toolkit nor this repo ships one.
 
 ## Carrying the M2 gate forward
 
