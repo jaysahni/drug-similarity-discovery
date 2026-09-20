@@ -21,6 +21,8 @@ import json
 import os
 from pathlib import Path
 
+import numpy as np
+
 from demo import contacts, library, nova
 
 REPO = Path(__file__).resolve().parent.parent
@@ -57,6 +59,12 @@ TARGETS = {
         "pdb_id": "1PPB",
         "chain": "H",
         "out": "thrombin",
+        # Anchor the geometric site on the catalytic nucleophile Ser195
+        # (UniProt 568) rather than the whole triad: His57 and Asp102 sit BEHIND
+        # the serine, so a sphere around all three reaches into the protein core
+        # and away from where a ligand binds. Chosen a priori from enzymology,
+        # not tuned against the co-crystal ligand.
+        "site_anchors": [568],
     },
 }
 
@@ -197,7 +205,8 @@ def stage_site() -> dict:
     """
     print("[2/5] site")
     research = read("01_research.json")
-    annotated = set(research["annotated_site"]["residue_ids_author"])
+    annotated_list = research["annotated_site"]["residue_ids_author"]
+    annotated = set(annotated_list)
     rowan = nova.rowan_client()
 
     cached_protein = nova.cached(f'protein_{TARGET["pdb_id"]}')
@@ -218,7 +227,12 @@ def stage_site() -> dict:
     protein_uuid = _stripped_protein(raw_uuid)
     print(f"  protein {protein_uuid} (apo, stripped from {raw_uuid})")
 
-    index_to_author = _residue_index_map(protein_uuid)
+    chain = resolve_chain(
+        _download_structure(protein_uuid, f'target_{TARGET["out"]}'),
+        research["uniprot"]["sequence"],
+    )
+    print(f'  target chain {chain} (config hint was {TARGET["chain"]})')
+    index_to_author = _residue_index_map(protein_uuid, chain)
 
     record = nova.run_workflow(
         f'pockets_{TARGET["out"]}',
@@ -246,31 +260,62 @@ def stage_site() -> dict:
         )
 
     chosen = max(pockets, key=lambda p: p["overlap_with_annotated_site"])
-    if chosen["overlap_with_annotated_site"] == 0:
-        raise SystemExit(
-            "no detected pocket overlaps the UniProt-annotated site. Stopping rather "
-            "than designing against an arbitrary pocket."
-        )
+    best_overlap = chosen["overlap_with_annotated_site"]
+    site_rule = "detected pocket with the most annotated-site residues"
+    fallback = None
+
+    if best_overlap < MIN_POCKET_OVERLAP:
+        # Pocket detection did not find the functional site. Fall back to the
+        # geometry around the annotated catalytic residues, and say so loudly.
+        pdb = _download_structure(protein_uuid, f'target_{TARGET["out"]}')
+        to_author = contacts.align_to_reference(pdb, chain, research["uniprot"]["sequence"])
+        anchors = TARGET.get("site_anchors") or annotated_list
+        pairs = geometric_site(pdb, chain, anchors, to_author)
+        fallback = {
+            "used": True,
+            "reason": (
+                f"best detected pocket overlapped the annotated site in only "
+                f"{best_overlap} of {len(annotated_list)} residues, below the "
+                f"threshold of {MIN_POCKET_OVERLAP}"
+            ),
+            "rule": f"all residues within {SITE_RADIUS_A} A of the annotated residues",
+            "anchors_author": anchors,
+            "radius_a": SITE_RADIUS_A,
+            "n_pockets_containing_each_annotated_residue": {
+                str(a): sum(1 for p in pockets if a in p["residue_ids_author"])
+                for a in annotated_list
+            },
+        }
+        chosen = {
+            "rank_by_score": None,
+            "score": None,
+            "volume": None,
+            "source": "geometric",
+            "residue_ids_author": [a for a, _ in pairs],
+            "residue_labels_structure": [str(lbl) for _, lbl in pairs],
+        }
+        site_rule = fallback["rule"]
+        print(f"  pocket detection insufficient ({best_overlap}/{len(annotated_list)}); "
+              f"using geometry around {anchors} at {SITE_RADIUS_A} A -> {len(pairs)} residues")
 
     return write(
         "02_site.json",
         {
             "protein_uuid": protein_uuid,
             "pdb_id": TARGET["pdb_id"],
+            "target_chain": chain,
+            "target_chain_hint": TARGET["chain"],
             "n_residues_in_structure": len(index_to_author),
             "n_pockets": len(pockets),
             "pockets": pockets,
             "chosen": chosen,
-            "selection_rule": (
-                "the detected pocket with the most residues in common with the "
-                "UniProt-annotated ATP/Mg site. NOT the top-scoring pocket -- see "
-                "finding below."
-            ),
+            "selection_rule": site_rule,
+            "geometric_fallback": fallback,
             "finding": {
                 "top_scoring_pocket_rank": 0,
                 "top_scoring_pocket_overlap": pockets[0]["overlap_with_annotated_site"],
                 "chosen_pocket_rank": chosen["rank_by_score"],
-                "chosen_pocket_overlap": chosen["overlap_with_annotated_site"],
+                "chosen_pocket_overlap": chosen.get("overlap_with_annotated_site"),
                 "note": (
                     "Rowan's pocket score ranks the ATP site below pockets with no "
                     "annotated-site overlap at all. Taking the top-scoring pocket "
@@ -329,7 +374,91 @@ def _stripped_protein(raw_uuid: str) -> str:
     return str(apo.uuid)
 
 
-def _residue_index_map(protein_uuid: str) -> dict[int, int]:
+# Radius for the geometric site fallback. 6 A around the nucleophile yields ~20
+# residues on thrombin, comparable to the 15-residue pocket detection found on
+# CDK2 -- i.e. sized like a pocket, not like a domain. Set a priori from that
+# size target; the overlap with the co-crystal ligand is reported afterwards as
+# validation, never used to pick the radius.
+SITE_RADIUS_A = float(os.environ.get("DEMO_SITE_RADIUS", "6.0"))        # around the annotated catalytic residues
+MIN_POCKET_OVERLAP = 3      # below this, a detected pocket is not trusted to be the site
+
+
+def geometric_site(
+    pdb: Path, chain: str, anchors_author: list[int], to_author: dict, *, radius: float = SITE_RADIUS_A
+) -> list:
+    """Residues within `radius` of the annotated catalytic residues.
+
+    The fallback when pocket detection cannot identify the functional site.
+
+    MEASURED on thrombin: Rowan returns 6 pockets for 1PPB chain B and **none**
+    contains Ser195 or Asp102; the best annotated-site overlap is 1 of 3, and two
+    pockets tie at it. That is not a failure of the detector so much as a fact
+    about serine proteases -- the active site is a shallow groove split across
+    S1/S2/S3 subsites rather than one enclosed cavity, so a cavity finder
+    fragments it. CDK2's ATP site, being a real cavity, overlapped 11 of 20.
+
+    The catalytic triad is a *functional annotation*, not a ligand, so anchoring
+    on it does not leak the answer the way using the co-crystal ligand would
+    (task B12). This is the same reasoning that let the UniProt site drive CDK2.
+    """
+    protein, _, _ = contacts.parse_pdb(pdb)
+    author_of = {(chain, label): to_author.get(label) for (ch, label) in protein if ch == chain}
+
+    anchor_coords = [
+        coords for (ch, label), (_, coords) in protein.items()
+        if ch == chain and author_of.get((ch, label)) in set(anchors_author)
+    ]
+    if not anchor_coords:
+        raise SystemExit(
+            f"{pdb.name}: none of the annotated residues {anchors_author} could be "
+            "located in the structure; refusing to define a site."
+        )
+    anchor_xyz = np.vstack(anchor_coords)
+
+    site = []
+    for (ch, label), (_, coords) in protein.items():
+        if ch != chain:
+            continue
+        author = author_of.get((ch, label))
+        if author is None:
+            continue
+        d = float(np.sqrt(((coords[:, None, :] - anchor_xyz[None, :, :]) ** 2).sum(-1)).min())
+        if d <= radius:
+            site.append((author, label))
+    return sorted(site, key=lambda pair: pair[0])
+
+
+def resolve_chain(pdb: Path, reference: str) -> str:
+    """The chain holding the target domain, found by sequence, not by name.
+
+    Chain letters are not stable across this pipeline. `Protein.prepare` renames
+    1PPB's chains alphabetically -- the catalytic heavy chain H becomes B and the
+    light chain L becomes A -- so the letter in TARGETS is a hint about the
+    original PDB, not a fact about the prepared one. CDK2 is single-chain so this
+    returns "A" there either way.
+
+    The chain that aligns to the most of the canonical sequence wins; a tie or a
+    failure to align anything is an error rather than a guess.
+    """
+    protein, _, _ = contacts.parse_pdb(pdb)
+    best, best_n = None, 0
+    report = {}
+    for chain in sorted({ch for ch, _ in protein}):
+        try:
+            mapped = contacts.align_to_reference(pdb, chain, reference)
+        except ValueError:
+            report[chain] = "no usable alignment"
+            continue
+        report[chain] = f"{len(mapped)} residues -> {min(mapped.values())}-{max(mapped.values())}"
+        if len(mapped) > best_n:
+            best, best_n = chain, len(mapped)
+
+    if best is None:
+        raise SystemExit(f"{pdb.name}: no chain aligns to the reference sequence. {report}")
+    return best
+
+
+def _residue_index_map(protein_uuid: str, chain: str | None = None) -> dict[int, int]:
     """0-based index over chain-A residues present in the file -> author number.
 
     Rowan reports pocket residues by position in the file, and `Protein.prepare`
@@ -339,8 +468,9 @@ def _residue_index_map(protein_uuid: str) -> dict[int, int]:
     """
     pdb = _download_structure(protein_uuid, f'target_{TARGET["out"]}')
     sequence = read("01_research.json")["uniprot"]["sequence"]
-    numbers, _ = contacts.chain_sequence(pdb, TARGET["chain"])
-    to_author = contacts.align_to_reference(pdb, TARGET["chain"], sequence)
+    chain = chain or resolve_chain(pdb, sequence)
+    numbers, _ = contacts.chain_sequence(pdb, chain)
+    to_author = contacts.align_to_reference(pdb, chain, sequence)
     return {i: to_author[resseq] for i, resseq in enumerate(numbers) if resseq in to_author}
 
 

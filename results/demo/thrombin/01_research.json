@@ -1,0 +1,195 @@
+{
+ "target": {
+  "symbol": "F2",
+  "uniprot": "P00734",
+  "pdb_id": "1PPB",
+  "chain": "H",
+  "out": "thrombin"
+ },
+ "uniprot": {
+  "accession": "P00734",
+  "id": "THRB_HUMAN",
+  "name": "Prothrombin",
+  "organism": "Homo sapiens",
+  "sequence_length": 622,
+  "sequence": "MAHVRGLQLPGCLALAALCSLVHSQHVFLAPQQARSLLQRVRRANTFLEEVRKGNLERECVEETCSYEEAFEALESSTATDVFWAKYTACETARTPRDKLAACLEGNCAEGLGTNYRGHVNITRSGIECQLWRSRYPHKPEINSTTHPGADLQENFCRNPDSSTTGPWCYTTDPTVRRQECSIPVCGQDQVTVAMTPRSEGSSVNLSPPLEQCVPDRGQQYQGRLAVTTHGLPCLAWASAQAKALSKHQDFNSAVQLVENFCRNPDGDEEGVWCYVAGKPGDFGYCDLNYCEEAVEEETGDGLDEDSDRAIEGRTATSEYQTFFNPRTFGSGEADCGLRPLFEKKSLEDKTERELLESYIDGRIVEGSDAEIGMSPWQVMLFRKSPQELLCGASLISDRWVLTAAHCLLYPPWDKNFTENDLLVRIGKHSRTRYERNIEKISMLEKIYIHPRYNWRENLDRDIALMKLKKPVAFSDYIHPVCLPDRETAASLLQAGYKGRVTGWGNLKETWTANVGKGQPSVLQVVNLPIVERPVCKDSTRIRITDNMFCAGYKPDEGKRGDACEGDSGGPFVMKSPFNNRWYQMGIVSWGEGCDRDGKYGFYTHVFRLKKWIQKVIDQFGE"
+ },
+ "annotated_site": {
+  "source": "UniProt features (ft_binding, ft_act_site)",
+  "ligands": [],
+  "residue_ids_author": [
+   406,
+   462,
+   568
+  ],
+  "n": 3,
+  "features": [
+   {
+    "type": "Active site",
+    "start": 406,
+    "end": 406,
+    "ligand": null
+   },
+   {
+    "type": "Active site",
+    "start": 462,
+    "end": 462,
+    "ligand": null
+   },
+   {
+    "type": "Active site",
+    "start": 568,
+    "end": 568,
+    "ligand": null
+   }
+  ]
+ },
+ "literature": {
+  "query": "F2[Title/Abstract] AND (inhibitor[Title/Abstract] OR \"drug repurposing\"[Title/Abstract])",
+  "n_hits": 10,
+  "articles": [
+   {
+    "pmid": "42749531",
+    "title": "Paternal neonatal sevoflurane exposure induces intergenerational anxiety via epididymal DNMT2-dependent sperm transfer RNA derived small RNA remodelling in rats.",
+    "journal": "British journal of anaesthesia",
+    "pub_date": "2026 Sep 16",
+    "authors": [
+     "Hu X",
+     "Meng Q",
+     "Chen S",
+     "Yang J",
+     "Zhao M",
+     "Shan Y",
+     "Yang JJ",
+     "Lei L"
+    ]
+   },
+   {
+    "pmid": "42675086",
+    "title": "Discovery of a covalent FGFR2-selective inhibitor overcoming clinically-acquired resistance mutations.",
+    "journal": "Nature communications",
+    "pub_date": "2026 Aug 3",
+    "authors": [
+     "Huang X",
+     "Cao X",
+     "Zheng L",
+     "Luo R",
+     "Fang Z",
+     "Liang Y",
+     "Zhu Y",
+     "Chen S",
+     "Zheng L",
+     "Xu Z",
+     "Li X",
+     "Liang G",
+     "Chen L"
+    ]
+   },
+   {
+    "pmid": "42668966",
+    "title": "Methomyl resistance in Musca domestica: mechanisms and inheritance.",
+    "journal": "PeerJ",
+    "pub_date": "2026",
+    "authors": [
+     "Khan HAA"
+    ]
+   },
+   {
+    "pmid": "42652239",
+    "title": "Associations of IL-2, IL-6 and IL-10 Gene Polymorphisms with Biochemical Parameters and Calcineurin Inhibitor Dosing in Kidney Transplant Recipients.",
+    "journal": "Biomedicines",
+    "pub_date": "2026 Aug 18",
+    "authors": [
+     "Bogacz A",
+     "Szako\u0142a P",
+     "Kuciak M",
+     "Sie\u0144ko J",
+     "Kotowski M",
+     "Kurzawi\u0144ska G",
+     "\u0141ab\u0119d\u017a W",
+     "Mrozikiewicz AE",
+     "Urbaniak A",
+     "Olbromski P",
+     "Formanowicz D"
+    ]
+   },
+   {
+    "pmid": "42596047",
+    "title": "Allelic dosage across four functional ALS loci shapes ALS-inhibitor resistance in allotetraploid Pontederia vaginalis.",
+    "journal": "Pest management science",
+    "pub_date": "2026 Aug 13",
+    "authors": [
+     "Ohta K",
+     "Fujino Y",
+     "Sada Y"
+    ]
+   },
+   {
+    "pmid": "42541594",
+    "title": "RNA methylation and the potential role of folate supplementation in preventing Hirschsprung disease.",
+    "journal": "European journal of nutrition",
+    "pub_date": "2026 Aug 1",
+    "authors": [
+     "Du C",
+     "Tang J",
+     "Zhi Z",
+     "Li H",
+     "Tang W"
+    ]
+   },
+   {
+    "pmid": "42540217",
+    "title": "An ML-Based QSAR Web Server for KEAP1 Inhibitor Bioactivity Prediction: Composite-Score-Driven Training and Advanced Validation.",
+    "journal": "ACS omega",
+    "pub_date": "2026 Jul 28",
+    "authors": [
+     "Kumar N",
+     "Green KN"
+    ]
+   },
+   {
+    "pmid": "42240762",
+    "title": "Acetylcholinesterase inhibitory activity of phthalimide derivatives as anti-alzheimer agents: QSAR, ARKA, Hybrid ARKA-RASAR, virtual screening, molecular docking and ADMET studies.",
+    "journal": "Molecular diversity",
+    "pub_date": "2026 Jun 4",
+    "authors": [
+     "Shukla S",
+     "Pradhan J",
+     "Chhabra N",
+     "Gawande P",
+     "Murmu A",
+     "Chandra Y",
+     "Singh J",
+     "Roy PP"
+    ]
+   },
+   {
+    "pmid": "42207281",
+    "title": "Pharmacological repurposing of cilostazol to attenuate the progression of pulmonary fibrosis: efficacy validation via integrated network pharmacology and in vivo experimentation.",
+    "journal": "Naunyn-Schmiedeberg's archives of pharmacology",
+    "pub_date": "2026 Aug",
+    "authors": [
+     "Misar PL",
+     "Otari KV",
+     "Pande VV",
+     "Ige PP"
+    ]
+   },
+   {
+    "pmid": "42193445",
+    "title": "Multi-Target Inhibition of F10/F2/PAR1 Through In Silico Drug Repurposing of Avodart and Naldemedine to Prevent Thrombotic-Induced Sudden Cardiac Arrest.",
+    "journal": "Biomedicines",
+    "pub_date": "2026 May 15",
+    "authors": [
+     "Al-Subaie AM",
+     "AbdulAzeez S"
+    ]
+   }
+  ],
+  "error": null
+ },
+ "toolkit": [
+  "database.fetch_uniprot_entry",
+  "literature.search_pubmed"
+ ]
+}
