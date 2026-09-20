@@ -1,5 +1,22 @@
 {
- "pipeline": "binding site -> BoltzGen designs -> interface signature -> co-folded approved drugs -> ranked by interface overlap",
+ "pipeline": "binding site -> interface signature -> approved drugs co-folded WITH the target (unconstrained by default) -> pose scored against the site -> ranked by interface overlap",
+ "cofolding": {
+  "pocket_constrained": false,
+  "what_that_means": "unconstrained: the drug was folded with the target WITHOUT pocket conditioning, and the site was used afterwards to score the pose. This is post-hoc scoring against a pocket, not directed docking.",
+  "backend": "rowan submit_protein_cofolding_workflow",
+  "model": "boltz_2"
+ },
+ "versions": {
+  "python": "3.14.7",
+  "platform": "Darwin arm64",
+  "rowan-python": "3.2.0",
+  "stjames": "0.0.275",
+  "rdkit": "2026.3.6",
+  "biopython": "1.88",
+  "numpy": "2.5.3",
+  "scipy": "1.18.1",
+  "p2rank": "2.5"
+ },
  "ranking_metric": "precision_in_core",
  "ranking_metric_choice": "size-normalised; PROJECT_GOAL.md 1.4a warns raw overlap ranks bigger ligands higher for non-binding reasons. All five scores are stored per drug so the choice can be checked, and enrichment is identical under all of them on this screen.",
  "affinity_used": false,
@@ -37,7 +54,7 @@
   },
   "p2rank_geometry": {
    "n_core": 17,
-   "provenance": "P2Rank 2.5 rank-1 pocket on the ligand-stripped structure; 0.47 s/structure amortised over a 1,531-structure batch at 12 threads; ~7 s for a single structure in isolation, JVM startup included",
+   "provenance": "P2Rank 2.5 rank-1 pocket on the ligand-stripped structure; 0.47 s/structure amortised over a 1,531-structure batch at 12 threads, 250 per JVM; a single structure in isolation measured 2.1-2.5 s wall (P2Rank self-reports 1.87 s), so the batch figure is not a single-run cost",
    "core_residues_auth": [
     840,
     848,

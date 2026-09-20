@@ -293,6 +293,28 @@ def cmd_collect(args):
 
 
 # --------------------------------------------------------------------------
+def _versions():
+    """Backend and library versions, so a board says what produced it.
+
+    The audit found no rowan, stjames, Boltz model id or rdkit version recorded
+    anywhere in the outputs, which makes a result impossible to attribute to a
+    toolchain after the fact.
+    """
+    import platform
+    out = {"python": platform.python_version(),
+           "platform": f"{platform.system()} {platform.machine()}"}
+    from importlib.metadata import PackageNotFoundError, version
+    # distribution name -> import name, because several differ and rowan/stjames
+    # expose no __version__ attribute at all
+    for dist in ("rowan-python", "stjames", "rdkit", "biopython", "numpy", "scipy"):
+        try:
+            out[dist] = version(dist)
+        except PackageNotFoundError:
+            out[dist] = "not installed"
+    out["p2rank"] = "2.5"
+    return out
+
+
 def cmd_score(args):
     """Rank the co-folded drugs by how much of the design signature they engage."""
     st = state_load(args.pipeline)
@@ -322,7 +344,7 @@ def cmd_score(args):
             "core": set(info["pocket"]["residue_ids"]),
             "weights": {r: 1.0 for r in info["pocket"]["residue_ids"]},
             "provenance": ("P2Rank 2.5 rank-1 pocket on the ligand-stripped "
-                           "structure; 0.47 s/structure amortised over a 1,531-structure batch at 12 threads; ~7 s for a single structure in isolation, JVM startup included"),
+                           "structure; 0.47 s/structure amortised over a 1,531-structure batch at 12 threads, 250 per JVM; a single structure in isolation measured 2.1-2.5 s wall (P2Rank self-reports 1.87 s), so the batch figure is not a single-run cost"),
         },
     }
     klc = paths(args.pipeline)["target"] / "known_ligand_contacts.json"
@@ -443,9 +465,24 @@ def cmd_score(args):
     if ranks:
         print(f"  median rank of a known binder: {int(np.median(ranks))} of {len(scored)}")
 
+    constrained = sorted({bool(j.get("constrained")) for j in jobs.values()})
     out = {
-        "pipeline": "binding site -> BoltzGen designs -> interface signature -> "
-                    "co-folded approved drugs -> ranked by interface overlap",
+        "pipeline": "binding site -> interface signature -> approved drugs co-folded "
+                    "WITH the target (unconstrained by default) -> pose scored against "
+                    "the site -> ranked by interface overlap",
+        "cofolding": {
+            "pocket_constrained": (constrained[0] if len(constrained) == 1 else "mixed"),
+            "what_that_means": (
+                "unconstrained: the drug was folded with the target WITHOUT pocket "
+                "conditioning, and the site was used afterwards to score the pose. "
+                "This is post-hoc scoring against a pocket, not directed docking."
+                if constrained == [False] else
+                "constrained: the fold was conditioned on the pocket, which forces "
+                "every ligand into the site and was measured to destroy discrimination"),
+            "backend": "rowan submit_protein_cofolding_workflow",
+            "model": "boltz_2",
+        },
+        "versions": _versions(),
         "ranking_metric": args.metric,
         "ranking_metric_choice": ("size-normalised; PROJECT_GOAL.md 1.4a warns raw "
                                   "overlap ranks bigger ligands higher for non-binding "

@@ -18,7 +18,7 @@ simplification. Ablation I6.1 (scripts/m2_gate.py) ran on two targets and the
 BoltzGen consensus LOST to P2Rank's pocket both times - by 0.324 Jaccard on KDR
 (n=38) and 0.155 on CDK2 (n=31), Holm p=0.0016 each. Inside the product the two
 signatures rank drugs at Spearman 0.954 with identical enrichment. So the default
-signature is `p2rank_geometry`: it is free, it is fast (0.47 s/structure amortised over a 1,531-structure batch at 12 threads; ~7 s for a single structure in isolation, JVM startup included), and it is at least as
+signature is `p2rank_geometry`: it is free, it is fast (0.47 s/structure amortised over a 1,531-structure batch at 12 threads, 250 per JVM; a single structure in isolation measured 2.1-2.5 s wall (P2Rank self-reports 1.87 s), so the batch figure is not a single-run cost), and it is at least as
 good. Pass --designs N to run BoltzGen anyway and --signature boltzgen_consensus to
 rank by it; the comparison is printed either way so the choice stays visible.
 

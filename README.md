@@ -295,7 +295,7 @@ comparable across molecules sharing no chemistry at all.
 **The experiment.** Take targets with many distinct co-crystallised ligands. Hold one
 ligand out. Build a consensus "interface signature" from the others. Predict the
 held-out ligand's actual contact residues. Compare against P2Rank, a pocket finder that
-takes 0.47 s/structure amortised over a 1,531-structure batch at 12 threads; ~7 s for a single structure in isolation, JVM startup included.
+takes 0.47 s/structure amortised over a 1,531-structure batch at 12 threads, 250 per JVM; a single structure in isolation measured 2.1-2.5 s wall (P2Rank self-reports 1.87 s), so the batch figure is not a single-run cost.
 
 **Scale.** 233 targets qualified from DrugCentral's drug-bound human proteins; the top
 60 were taken forward — 1,531 structures, 1,566 distinct ligands, 0 fetch failures,

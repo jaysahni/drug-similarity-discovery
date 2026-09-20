@@ -14,10 +14,24 @@ above chemically unrelated drugs and finds four that chemical similarity buries.
 It does **not** separate them from other kinase inhibitors, and the BoltzGen
 design step is measurably worse than a free pocket finder.
 
+## How the co-folding actually works — read this before describing it
+
+Each approved drug is co-folded **with** the target by Boltz-2 **without any pocket
+constraint**, and the binding site is used *afterwards* to score the resulting pose.
+That is post-hoc scoring against a pocket, **not** directed docking and not
+constrained co-folding. `--constrain-pocket` enables real conditioning and is off by
+default, deliberately: constraining forces every ligand into the site, so the negative
+control (aspirin) reaches 11/17 core residues versus the true binder's 16/17. Without
+it the control drops to 6/17 and the run is ~2.4× cheaper.
+
+The evidence is in `results/cofold_constraint_evidence.json`.
+
 ## What you can run right now, offline, with no credits
 
 ```bash
+./env/bin/python scripts/autorepurpose.py targets --disease "colorectal cancer"
 ./env/bin/python scripts/ask.py --list            # what can be asked about
+./env/bin/python scripts/compare_rankings.py      # structural vs chemical, same drugs
 ./env/bin/python scripts/ask.py --target KDR      # ranked possible matches
 ./env/bin/python scripts/report.py                # regenerate the HTML report
 ./env/bin/python scripts/benchmark.py --quick     # the representation benchmark
