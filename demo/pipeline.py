@@ -40,6 +40,8 @@ TARGETS = {
         "pdb_id": "6Q4G",
         "chain": "A",
         "out": "cdk2",
+        "protocol": "protein-anything",
+        "binder_length": "60..90",
     },
     # Thrombin, for the direct-matching arms. Chosen because it is the one
     # target where BOTH arms have a real approved positive control: bivalirudin
@@ -65,6 +67,14 @@ TARGETS = {
         # and away from where a ligand binds. Chosen a priori from enzymology,
         # not tuned against the co-crystal ligand.
         "site_anchors": [568],
+        # A peptide, not a 60-90mer protein. An 8-16mer is what fits a protease
+        # active-site groove, and it is length-comparable to the approved
+        # peptides it will be matched against (the corpus runs 6-44 residues).
+        # Rowan's own guide uses 8..16 for peptide protocols and 140..180 for
+        # protein ones; docs/07-BOLTZGEN-BEHAVIOR.md 3.4 flags the 60..90 used
+        # on CDK2 as a poor geometric match for an enclosed site.
+        "protocol": "peptide-anything",
+        "binder_length": "8..16",
     },
 }
 
@@ -80,8 +90,13 @@ TARGET = _select_target()
 OUT = REPO / "results" / "demo" / TARGET["out"]
 STRUCTURES = OUT / "structures"
 
-N_DESIGNS = 12          # heavy run used 24 at 55.14 credits; half that here
-DESIGN_BUDGET = 12
+N_DESIGNS = int(os.environ.get("DEMO_N_DESIGNS", "20"))
+# budget is BoltzGen's filter funnel: how many designs survive its own ranking.
+# stjames defaults are num_designs=100 / budget=20 and Rowan's guide shows 10/2,
+# i.e. 5:1. Both earlier runs here used 1:1, which switched the funnel off and
+# let every design, worst included, into the consensus
+# (docs/07-BOLTZGEN-BEHAVIOR.md 3.1).
+DESIGN_BUDGET = max(1, N_DESIGNS // 5)
 CORE_THRESHOLD = 0.6    # PROJECT_GOAL.md 4.3 default
 COFOLD_MAX_CREDITS = 25  # per drug; observed ~13 on a ~300-residue kinase
 
@@ -255,9 +270,17 @@ def stage_site() -> dict:
                 "volume": pocket["volume"],
                 "residue_ids_author": author,
                 "residue_indices_0based": sorted(pocket["residue_numbers"]),
+                "residue_positions_1based": [r + 1 for r in sorted(pocket["residue_numbers"])],
                 "overlap_with_annotated_site": len(set(author) & annotated),
             }
         )
+
+    # BoltzGen indexes residues 1..N by POSITION in the file, not by the file's
+    # own residue numbers. 1PPB keeps insertion codes through preparation
+    # ("22A", "47A", "48B"), so label and position differ. Build the map once.
+    site_pdb = _download_structure(protein_uuid, f'target_{TARGET["out"]}')
+    ordered_labels, _ = contacts.chain_sequence(site_pdb, chain)
+    position_of = {label: i + 1 for i, label in enumerate(ordered_labels)}
 
     chosen = max(pockets, key=lambda p: p["overlap_with_annotated_site"])
     best_overlap = chosen["overlap_with_annotated_site"]
@@ -293,6 +316,7 @@ def stage_site() -> dict:
             "source": "geometric",
             "residue_ids_author": [a for a, _ in pairs],
             "residue_labels_structure": [str(lbl) for _, lbl in pairs],
+            "residue_positions_1based": [position_of[lbl] for _, lbl in pairs],
         }
         site_rule = fallback["rule"]
         print(f"  pocket detection insufficient ({best_overlap}/{len(annotated_list)}); "
@@ -500,24 +524,27 @@ def stage_design() -> dict:
     site = read("02_site.json")
 
     # BoltzGen indexes residues 1..N over residues present in the file.
-    binding = ",".join(str(i + 1) for i in site["chosen"]["residue_indices_0based"])
+    positions = site["chosen"].get("residue_positions_1based")
+    if not positions:
+        raise SystemExit("02_site.json has no residue_positions_1based; re-run --stage site")
+    binding = ",".join(str(i) for i in positions)
 
     binder_design_input = {
         "constraints": [],
         "ligand_entities": [],
-        "protein_entities": [{"id": "B", "sequence": "60..90"}],
+        "protein_entities": [{"id": "B", "sequence": TARGET.get("binder_length", "60..90")}],
         "file_entities": [
             {
                 "uuid": site["protein_uuid"],
                 "design": [],
                 "exclude": [],
                 "include": [],
-                "binding_types": [{"chain_id": TARGET["chain"], "binding": binding}],
+                "binding_types": [{"chain_id": site["target_chain"], "binding": binding}],
                 "design_insertions": [],
                 "include_proximity": [
                     {
                         "radius": 12,
-                        "chain_id": TARGET["chain"],
+                        "chain_id": site["target_chain"],
                         "residue_indices": binding,
                     }
                 ],
@@ -527,12 +554,12 @@ def stage_design() -> dict:
     }
 
     record = nova.run_workflow(
-        "designs",
+        f'designs_{TARGET["out"]}',
         "submit_protein_binder_design_workflow",
         label=f"BoltzGen x{N_DESIGNS}",
         max_credits=120,
         binder_design_input=binder_design_input,
-        protocol="protein-anything",
+        protocol=TARGET.get("protocol", "protein-anything"),
         num_designs=N_DESIGNS,
         budget=DESIGN_BUDGET,
         name=f'{TARGET["symbol"]} lightweight demo - BoltzGen',
@@ -561,6 +588,9 @@ def stage_design() -> dict:
         {
             "workflow_uuid": record["uuid"],
             "n_designs": len(designs),
+            "protocol": TARGET.get("protocol", "protein-anything"),
+            "binder_length": TARGET.get("binder_length", "60..90"),
+            "budget": DESIGN_BUDGET,
             "binding_spec_1based": binding,
             "binding_residues_author": site["chosen"]["residue_ids_author"],
             "designs": designs,
@@ -709,7 +739,7 @@ def stage_match() -> dict:
 
     results = []
     for drug in shortlist:
-        key = f'cofold_{drug["name"]}'
+        key = f'cofold_{TARGET["out"]}_{drug["name"]}'
         record = nova.run_workflow(
             key,
             "submit_protein_cofolding_workflow",
