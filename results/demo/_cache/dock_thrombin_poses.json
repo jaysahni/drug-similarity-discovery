@@ -1,0 +1,7 @@
+{
+ "uuid": "ec350d07-79a2-4472-a9b6-d118bbc1a905",
+ "label": "F2 arm S batch docking, enlarged active set, poses saved",
+ "submitter": "POST /workflow batch_docking",
+ "n_ligands": 216,
+ "num_poses_to_save": 1
+}

@@ -17,6 +17,8 @@ results/pipeline/*/cofold_poses/
 
 # lightweight demo: novakit toolkit venv (Python 3.12, separate from env/)
 env-kit/
-results/demo/**/structures/
+# Structures ARE committed: the co-folded poses and prepared targets back every
+# result and are needed to regenerate reports. ~14 MB, which is worth it.
+# results/demo/**/structures/
 results/demo/_cache/esmc/
 results/demo/_cache/*.pdb
