@@ -4,7 +4,7 @@
  "ranking_metric_choice": "size-normalised; PROJECT_GOAL.md 1.4a warns raw overlap ranks bigger ligands higher for non-binding reasons. All five scores are stored per drug so the choice can be checked, and enrichment is identical under all of them on this screen.",
  "affinity_used": false,
  "affinity_note": "Boltz-2 can emit an affinity score; it is deliberately not read. PROJECT_GOAL.md 4.4 removes affinity from the ranking path.",
- "ranked_by": "boltzgen_consensus",
+ "ranked_by": "p2rank_geometry",
  "signatures": {
   "boltzgen_consensus": {
    "n_core": 23,
@@ -90,52 +90,52 @@
  },
  "validation_by_signature": {
   "boltzgen_consensus": {
-   "enrichment_at_top_quartile": 2.4857142857142853,
+   "enrichment_at_top_quartile": 2.0500000000000003,
    "known_binder_ranks": [
     1,
-    2,
-    4,
-    5,
-    6,
+    3,
     7,
-    8,
     9,
-    11,
-    13
+    10,
+    15,
+    16,
+    18,
+    20,
+    23
    ],
-   "median_rank": 6.5
+   "median_rank": 12.5
   },
   "p2rank_geometry": {
-   "enrichment_at_top_quartile": 2.4857142857142853,
+   "enrichment_at_top_quartile": 2.8699999999999997,
    "known_binder_ranks": [
-    2,
     3,
     4,
     5,
     6,
     7,
-    8,
+    9,
     10,
-    12,
-    14
+    18,
+    20,
+    22
    ],
-   "median_rank": 6.5
+   "median_rank": 8.0
   },
   "known_ligand": {
-   "enrichment_at_top_quartile": 0.8285714285714285,
+   "enrichment_at_top_quartile": 0.8200000000000001,
    "known_binder_ranks": [
-    4,
-    6,
-    8,
-    10,
-    12,
-    13,
-    15,
-    19,
-    23,
-    24
+    5,
+    9,
+    11,
+    14,
+    16,
+    17,
+    20,
+    25,
+    32,
+    33
    ],
-   "median_rank": 12.5
+   "median_rank": 16.5
   }
  },
  "target": {
@@ -143,20 +143,20 @@
   "uniprot": "P35968",
   "structure": "3VHE"
  },
- "n_scored": 29,
+ "n_scored": 41,
  "n_known_binders": 10,
- "enrichment_at_top_quartile": 2.4857142857142853,
+ "enrichment_at_top_quartile": 2.8699999999999997,
  "known_binder_ranks": [
-  1,
-  2,
+  3,
   4,
   5,
   6,
   7,
-  8,
   9,
-  11,
-  13
+  10,
+  18,
+  20,
+  22
  ],
  "results": [
   {
@@ -283,7 +283,7 @@
    },
    "core_coverage": 0.43478260869565216,
    "weighted_jaccard": 0.37380627557980894,
-   "rank": 7
+   "rank": 18
   },
   {
    "struct_id": "2544",
@@ -409,7 +409,7 @@
    },
    "core_coverage": 0.4782608695652174,
    "weighted_jaccard": 0.38472032742155526,
-   "rank": 4
+   "rank": 5
   },
   {
    "struct_id": "4903",
@@ -540,7 +540,7 @@
    },
    "core_coverage": 0.6086956521739131,
    "weighted_jaccard": 0.4884038199181446,
-   "rank": 5
+   "rank": 9
   },
   {
    "struct_id": "5231",
@@ -671,7 +671,7 @@
    },
    "core_coverage": 0.7391304347826086,
    "weighted_jaccard": 0.5165125495376486,
-   "rank": 1
+   "rank": 20
   },
   {
    "struct_id": "785",
@@ -801,7 +801,7 @@
    },
    "core_coverage": 0.5217391304347826,
    "weighted_jaccard": 0.4297407912687585,
-   "rank": 9
+   "rank": 7
   },
   {
    "struct_id": "2459",
@@ -934,7 +934,7 @@
    },
    "core_coverage": 0.4782608695652174,
    "weighted_jaccard": 0.3582629674306393,
-   "rank": 13
+   "rank": 22
   },
   {
    "struct_id": "3514",
@@ -1060,7 +1060,7 @@
    },
    "core_coverage": 0.5217391304347826,
    "weighted_jaccard": 0.4024556616643929,
-   "rank": 2
+   "rank": 3
   },
   {
    "struct_id": "4178",
@@ -1191,7 +1191,7 @@
    },
    "core_coverage": 0.5652173913043478,
    "weighted_jaccard": 0.46248294679399726,
-   "rank": 8
+   "rank": 10
   },
   {
    "struct_id": "4118",
@@ -1320,7 +1320,7 @@
    },
    "core_coverage": 0.5652173913043478,
    "weighted_jaccard": 0.4720327421555252,
-   "rank": 6
+   "rank": 4
   },
   {
    "struct_id": "5252",
@@ -1450,7 +1450,7 @@
    },
    "core_coverage": 0.5217391304347826,
    "weighted_jaccard": 0.42668428005284015,
-   "rank": 11
+   "rank": 6
   },
   {
    "struct_id": "1832",
@@ -1580,7 +1580,7 @@
    },
    "core_coverage": 0.21739130434782608,
    "weighted_jaccard": 0.16761687571265677,
-   "rank": 24
+   "rank": 32
   },
   {
    "struct_id": "4672",
@@ -1712,7 +1712,7 @@
    },
    "core_coverage": 0.43478260869565216,
    "weighted_jaccard": 0.32207478890229185,
-   "rank": 15
+   "rank": 19
   },
   {
    "struct_id": "1705",
@@ -1844,7 +1844,7 @@
    },
    "core_coverage": 0.34782608695652173,
    "weighted_jaccard": 0.2519954389965792,
-   "rank": 18
+   "rank": 28
   },
   {
    "struct_id": "2811",
@@ -1972,7 +1972,7 @@
    },
    "core_coverage": 0.17391304347826086,
    "weighted_jaccard": 0.11431742508324083,
-   "rank": 26
+   "rank": 38
   },
   {
    "struct_id": "1067",
@@ -2098,7 +2098,7 @@
    },
    "core_coverage": 0.08695652173913043,
    "weighted_jaccard": 0.07325194228634849,
-   "rank": 29
+   "rank": 41
   },
   {
    "struct_id": "2103",
@@ -2223,7 +2223,7 @@
    },
    "core_coverage": 0.17391304347826086,
    "weighted_jaccard": 0.11744583808437856,
-   "rank": 23
+   "rank": 36
   },
   {
    "struct_id": "3565",
@@ -2350,7 +2350,7 @@
    },
    "core_coverage": 0.30434782608695654,
    "weighted_jaccard": 0.19695193434935518,
-   "rank": 16
+   "rank": 27
   },
   {
    "struct_id": "3129",
@@ -2477,7 +2477,7 @@
    },
    "core_coverage": 0.21739130434782608,
    "weighted_jaccard": 0.16060961313012892,
-   "rank": 21
+   "rank": 31
   },
   {
    "struct_id": "3959",
@@ -2606,7 +2606,7 @@
    },
    "core_coverage": 0.17391304347826086,
    "weighted_jaccard": 0.13683010262257694,
-   "rank": 27
+   "rank": 39
   },
   {
    "struct_id": "1245",
@@ -2733,7 +2733,7 @@
    },
    "core_coverage": 0.13043478260869565,
    "weighted_jaccard": 0.10378378378378376,
-   "rank": 28
+   "rank": 40
   },
   {
    "struct_id": "4291",
@@ -2888,7 +2888,7 @@
    },
    "core_coverage": 0.782608695652174,
    "weighted_jaccard": 0.4899894625922023,
-   "rank": 14
+   "rank": 35
   },
   {
    "struct_id": "2322",
@@ -3011,7 +3011,7 @@
    },
    "core_coverage": 0.391304347826087,
    "weighted_jaccard": 0.3124147339699863,
-   "rank": 3
+   "rank": 1
   },
   {
    "struct_id": "1228",
@@ -3140,7 +3140,7 @@
    },
    "core_coverage": 0.2608695652173913,
    "weighted_jaccard": 0.16305587229190419,
-   "rank": 20
+   "rank": 33
   },
   {
    "struct_id": "1414",
@@ -3389,7 +3389,7 @@
    },
    "core_coverage": 0.391304347826087,
    "weighted_jaccard": 0.35334242837653473,
-   "rank": 10
+   "rank": 21
   },
   {
    "struct_id": "362",
@@ -3510,7 +3510,7 @@
    },
    "core_coverage": 0.13043478260869565,
    "weighted_jaccard": 0.082063305978898,
-   "rank": 22
+   "rank": 37
   },
   {
    "struct_id": "93",
@@ -3634,7 +3634,7 @@
    },
    "core_coverage": 0.21739130434782608,
    "weighted_jaccard": 0.15922798552472855,
-   "rank": 19
+   "rank": 29
   },
   {
    "struct_id": "809",
@@ -3757,7 +3757,7 @@
    },
    "core_coverage": 0.21739130434782608,
    "weighted_jaccard": 0.14716525934861277,
-   "rank": 17
+   "rank": 26
   },
   {
    "struct_id": "3999",
@@ -3879,7 +3879,1552 @@
    },
    "core_coverage": 0.13043478260869565,
    "weighted_jaccard": 0.09261430246189917,
+   "rank": 34
+  },
+  {
+   "struct_id": "5390",
+   "name": "pemigatinib",
+   "role": "hard_decoy",
+   "status": "scored",
+   "n_engaged": 20,
+   "engaged_residues": [
+    840,
+    841,
+    848,
+    866,
+    868,
+    885,
+    889,
+    899,
+    914,
+    916,
+    917,
+    918,
+    919,
+    920,
+    921,
+    922,
+    1035,
+    1045,
+    1046,
+    1047
+   ],
+   "by_signature": {
+    "boltzgen_consensus": {
+     "core_coverage": 0.5652173913043478,
+     "weighted_jaccard": 0.461118690313779,
+     "f1_engaged_core": 0.6046511627906976,
+     "jaccard_engaged_core": 0.43333333333333335,
+     "precision_in_core": 0.65,
+     "engaged_core": [
+      840,
+      841,
+      848,
+      868,
+      885,
+      916,
+      918,
+      919,
+      921,
+      922,
+      1035,
+      1045,
+      1046
+     ],
+     "missed_core": [
+      842,
+      843,
+      844,
+      845,
+      846,
+      923,
+      926,
+      1032,
+      1033,
+      1048
+     ]
+    },
+    "p2rank_geometry": {
+     "core_coverage": 0.9411764705882353,
+     "weighted_jaccard": 0.7619047619047619,
+     "f1_engaged_core": 0.8648648648648649,
+     "jaccard_engaged_core": 0.7619047619047619,
+     "precision_in_core": 0.8,
+     "engaged_core": [
+      840,
+      848,
+      866,
+      868,
+      885,
+      889,
+      899,
+      914,
+      916,
+      918,
+      919,
+      922,
+      1035,
+      1045,
+      1046,
+      1047
+     ],
+     "missed_core": [
+      923
+     ]
+    },
+    "known_ligand": {
+     "core_coverage": 0.7391304347826086,
+     "weighted_jaccard": 0.6538461538461539,
+     "f1_engaged_core": 0.7906976744186046,
+     "jaccard_engaged_core": 0.6538461538461539,
+     "precision_in_core": 0.85,
+     "engaged_core": [
+      840,
+      848,
+      866,
+      868,
+      885,
+      889,
+      899,
+      914,
+      916,
+      917,
+      918,
+      919,
+      922,
+      1035,
+      1045,
+      1046,
+      1047
+     ],
+     "missed_core": [
+      888,
+      892,
+      898,
+      1019,
+      1026,
+      1044
+     ]
+    }
+   },
+   "core_coverage": 0.5652173913043478,
+   "weighted_jaccard": 0.461118690313779,
+   "rank": 8
+  },
+  {
+   "struct_id": "5306",
+   "name": "gilteritinib",
+   "role": "hard_decoy",
+   "status": "scored",
+   "n_engaged": 17,
+   "engaged_residues": [
+    840,
+    841,
+    848,
+    866,
+    868,
+    899,
+    916,
+    917,
+    918,
+    919,
+    920,
+    921,
+    922,
+    923,
+    1035,
+    1047,
+    1050
+   ],
+   "by_signature": {
+    "boltzgen_consensus": {
+     "core_coverage": 0.4782608695652174,
+     "weighted_jaccard": 0.40109140518417463,
+     "f1_engaged_core": 0.55,
+     "jaccard_engaged_core": 0.3793103448275862,
+     "precision_in_core": 0.6470588235294118,
+     "engaged_core": [
+      840,
+      841,
+      848,
+      868,
+      916,
+      918,
+      919,
+      921,
+      922,
+      923,
+      1035
+     ],
+     "missed_core": [
+      842,
+      843,
+      844,
+      845,
+      846,
+      885,
+      926,
+      1032,
+      1033,
+      1045,
+      1046,
+      1048
+     ]
+    },
+    "p2rank_geometry": {
+     "core_coverage": 0.7058823529411765,
+     "weighted_jaccard": 0.5454545454545454,
+     "f1_engaged_core": 0.7058823529411765,
+     "jaccard_engaged_core": 0.5454545454545454,
+     "precision_in_core": 0.7058823529411765,
+     "engaged_core": [
+      840,
+      848,
+      866,
+      868,
+      899,
+      916,
+      918,
+      919,
+      922,
+      923,
+      1035,
+      1047
+     ],
+     "missed_core": [
+      885,
+      889,
+      914,
+      1045,
+      1046
+     ]
+    },
+    "known_ligand": {
+     "core_coverage": 0.5217391304347826,
+     "weighted_jaccard": 0.42857142857142855,
+     "f1_engaged_core": 0.6,
+     "jaccard_engaged_core": 0.42857142857142855,
+     "precision_in_core": 0.7058823529411765,
+     "engaged_core": [
+      840,
+      848,
+      866,
+      868,
+      899,
+      916,
+      917,
+      918,
+      919,
+      922,
+      1035,
+      1047
+     ],
+     "missed_core": [
+      885,
+      888,
+      889,
+      892,
+      898,
+      914,
+      1019,
+      1026,
+      1044,
+      1045,
+      1046
+     ]
+    }
+   },
+   "core_coverage": 0.4782608695652174,
+   "weighted_jaccard": 0.40109140518417463,
+   "rank": 14
+  },
+  {
+   "struct_id": "5290",
+   "name": "binimetinib",
+   "role": "hard_decoy",
+   "status": "scored",
+   "n_engaged": 14,
+   "engaged_residues": [
+    840,
+    841,
+    848,
+    866,
+    916,
+    917,
+    918,
+    919,
+    920,
+    921,
+    922,
+    923,
+    1035,
+    1047
+   ],
+   "by_signature": {
+    "boltzgen_consensus": {
+     "core_coverage": 0.43478260869565216,
+     "weighted_jaccard": 0.3574351978171896,
+     "f1_engaged_core": 0.5405405405405406,
+     "jaccard_engaged_core": 0.37037037037037035,
+     "precision_in_core": 0.7142857142857143,
+     "engaged_core": [
+      840,
+      841,
+      848,
+      916,
+      918,
+      919,
+      921,
+      922,
+      923,
+      1035
+     ],
+     "missed_core": [
+      842,
+      843,
+      844,
+      845,
+      846,
+      868,
+      885,
+      926,
+      1032,
+      1033,
+      1045,
+      1046,
+      1048
+     ]
+    },
+    "p2rank_geometry": {
+     "core_coverage": 0.5882352941176471,
+     "weighted_jaccard": 0.47619047619047616,
+     "f1_engaged_core": 0.6451612903225806,
+     "jaccard_engaged_core": 0.47619047619047616,
+     "precision_in_core": 0.7142857142857143,
+     "engaged_core": [
+      840,
+      848,
+      866,
+      916,
+      918,
+      919,
+      922,
+      923,
+      1035,
+      1047
+     ],
+     "missed_core": [
+      868,
+      885,
+      889,
+      899,
+      914,
+      1045,
+      1046
+     ]
+    },
+    "known_ligand": {
+     "core_coverage": 0.43478260869565216,
+     "weighted_jaccard": 0.37037037037037035,
+     "f1_engaged_core": 0.5405405405405406,
+     "jaccard_engaged_core": 0.37037037037037035,
+     "precision_in_core": 0.7142857142857143,
+     "engaged_core": [
+      840,
+      848,
+      866,
+      916,
+      917,
+      918,
+      919,
+      922,
+      1035,
+      1047
+     ],
+     "missed_core": [
+      868,
+      885,
+      888,
+      889,
+      892,
+      898,
+      899,
+      914,
+      1019,
+      1026,
+      1044,
+      1045,
+      1046
+     ]
+    }
+   },
+   "core_coverage": 0.43478260869565216,
+   "weighted_jaccard": 0.3574351978171896,
+   "rank": 13
+  },
+  {
+   "struct_id": "5046",
+   "name": "cobimetinib",
+   "role": "hard_decoy",
+   "status": "scored",
+   "n_engaged": 17,
+   "engaged_residues": [
+    848,
+    866,
+    868,
+    885,
+    888,
+    889,
+    898,
+    899,
+    914,
+    916,
+    1026,
+    1027,
+    1035,
+    1044,
+    1045,
+    1046,
+    1047
+   ],
+   "by_signature": {
+    "boltzgen_consensus": {
+     "core_coverage": 0.30434782608695654,
+     "weighted_jaccard": 0.23478260869565215,
+     "f1_engaged_core": 0.35,
+     "jaccard_engaged_core": 0.21212121212121213,
+     "precision_in_core": 0.4117647058823529,
+     "engaged_core": [
+      848,
+      868,
+      885,
+      916,
+      1035,
+      1045,
+      1046
+     ],
+     "missed_core": [
+      840,
+      841,
+      842,
+      843,
+      844,
+      845,
+      846,
+      918,
+      919,
+      921,
+      922,
+      923,
+      926,
+      1032,
+      1033,
+      1048
+     ]
+    },
+    "p2rank_geometry": {
+     "core_coverage": 0.7058823529411765,
+     "weighted_jaccard": 0.5454545454545454,
+     "f1_engaged_core": 0.7058823529411765,
+     "jaccard_engaged_core": 0.5454545454545454,
+     "precision_in_core": 0.7058823529411765,
+     "engaged_core": [
+      848,
+      866,
+      868,
+      885,
+      889,
+      899,
+      914,
+      916,
+      1035,
+      1045,
+      1046,
+      1047
+     ],
+     "missed_core": [
+      840,
+      918,
+      919,
+      922,
+      923
+     ]
+    },
+    "known_ligand": {
+     "core_coverage": 0.6956521739130435,
+     "weighted_jaccard": 0.6666666666666666,
+     "f1_engaged_core": 0.8,
+     "jaccard_engaged_core": 0.6666666666666666,
+     "precision_in_core": 0.9411764705882353,
+     "engaged_core": [
+      848,
+      866,
+      868,
+      885,
+      888,
+      889,
+      898,
+      899,
+      914,
+      916,
+      1026,
+      1035,
+      1044,
+      1045,
+      1046,
+      1047
+     ],
+     "missed_core": [
+      840,
+      892,
+      917,
+      918,
+      919,
+      922,
+      1019
+     ]
+    }
+   },
+   "core_coverage": 0.30434782608695654,
+   "weighted_jaccard": 0.23478260869565215,
+   "rank": 15
+  },
+  {
+   "struct_id": "5062",
+   "name": "osimertinib",
+   "role": "hard_decoy",
+   "status": "scored",
+   "n_engaged": 17,
+   "engaged_residues": [
+    840,
+    841,
+    848,
+    866,
+    868,
+    916,
+    917,
+    918,
+    919,
+    920,
+    921,
+    922,
+    923,
+    1035,
+    1046,
+    1047,
+    1050
+   ],
+   "by_signature": {
+    "boltzgen_consensus": {
+     "core_coverage": 0.5217391304347826,
+     "weighted_jaccard": 0.41609822646657574,
+     "f1_engaged_core": 0.6,
+     "jaccard_engaged_core": 0.42857142857142855,
+     "precision_in_core": 0.7058823529411765,
+     "engaged_core": [
+      840,
+      841,
+      848,
+      868,
+      916,
+      918,
+      919,
+      921,
+      922,
+      923,
+      1035,
+      1046
+     ],
+     "missed_core": [
+      842,
+      843,
+      844,
+      845,
+      846,
+      885,
+      926,
+      1032,
+      1033,
+      1045,
+      1048
+     ]
+    },
+    "p2rank_geometry": {
+     "core_coverage": 0.7058823529411765,
+     "weighted_jaccard": 0.5454545454545454,
+     "f1_engaged_core": 0.7058823529411765,
+     "jaccard_engaged_core": 0.5454545454545454,
+     "precision_in_core": 0.7058823529411765,
+     "engaged_core": [
+      840,
+      848,
+      866,
+      868,
+      916,
+      918,
+      919,
+      922,
+      923,
+      1035,
+      1046,
+      1047
+     ],
+     "missed_core": [
+      885,
+      889,
+      899,
+      914,
+      1045
+     ]
+    },
+    "known_ligand": {
+     "core_coverage": 0.5217391304347826,
+     "weighted_jaccard": 0.42857142857142855,
+     "f1_engaged_core": 0.6,
+     "jaccard_engaged_core": 0.42857142857142855,
+     "precision_in_core": 0.7058823529411765,
+     "engaged_core": [
+      840,
+      848,
+      866,
+      868,
+      916,
+      917,
+      918,
+      919,
+      922,
+      1035,
+      1046,
+      1047
+     ],
+     "missed_core": [
+      885,
+      888,
+      889,
+      892,
+      898,
+      899,
+      914,
+      1019,
+      1026,
+      1044,
+      1045
+     ]
+    }
+   },
+   "core_coverage": 0.5217391304347826,
+   "weighted_jaccard": 0.41609822646657574,
+   "rank": 16
+  },
+  {
+   "struct_id": "1932",
+   "name": "nilotinib",
+   "role": "hard_decoy",
+   "status": "scored",
+   "n_engaged": 23,
+   "engaged_residues": [
+    840,
+    848,
+    866,
+    867,
+    868,
+    885,
+    888,
+    889,
+    892,
+    898,
+    899,
+    914,
+    916,
+    918,
+    919,
+    922,
+    1019,
+    1026,
+    1035,
+    1044,
+    1045,
+    1046,
+    1047
+   ],
+   "by_signature": {
+    "boltzgen_consensus": {
+     "core_coverage": 0.4782608695652174,
+     "weighted_jaccard": 0.33534378769601925,
+     "f1_engaged_core": 0.4782608695652174,
+     "jaccard_engaged_core": 0.3142857142857143,
+     "precision_in_core": 0.4782608695652174,
+     "engaged_core": [
+      840,
+      848,
+      868,
+      885,
+      916,
+      918,
+      919,
+      922,
+      1035,
+      1045,
+      1046
+     ],
+     "missed_core": [
+      841,
+      842,
+      843,
+      844,
+      845,
+      846,
+      921,
+      923,
+      926,
+      1032,
+      1033,
+      1048
+     ]
+    },
+    "p2rank_geometry": {
+     "core_coverage": 0.9411764705882353,
+     "weighted_jaccard": 0.6666666666666666,
+     "f1_engaged_core": 0.8,
+     "jaccard_engaged_core": 0.6666666666666666,
+     "precision_in_core": 0.6956521739130435,
+     "engaged_core": [
+      840,
+      848,
+      866,
+      868,
+      885,
+      889,
+      899,
+      914,
+      916,
+      918,
+      919,
+      922,
+      1035,
+      1045,
+      1046,
+      1047
+     ],
+     "missed_core": [
+      923
+     ]
+    },
+    "known_ligand": {
+     "core_coverage": 0.9565217391304348,
+     "weighted_jaccard": 0.9166666666666666,
+     "f1_engaged_core": 0.9565217391304348,
+     "jaccard_engaged_core": 0.9166666666666666,
+     "precision_in_core": 0.9565217391304348,
+     "engaged_core": [
+      840,
+      848,
+      866,
+      868,
+      885,
+      888,
+      889,
+      892,
+      898,
+      899,
+      914,
+      916,
+      918,
+      919,
+      922,
+      1019,
+      1026,
+      1035,
+      1044,
+      1045,
+      1046,
+      1047
+     ],
+     "missed_core": [
+      917
+     ]
+    }
+   },
+   "core_coverage": 0.4782608695652174,
+   "weighted_jaccard": 0.33534378769601925,
+   "rank": 17
+  },
+  {
+   "struct_id": "4187",
+   "name": "crizotinib",
+   "role": "hard_decoy",
+   "status": "scored",
+   "n_engaged": 22,
+   "engaged_residues": [
+    840,
+    841,
+    848,
+    866,
+    868,
+    899,
+    916,
+    917,
+    918,
+    919,
+    920,
+    921,
+    922,
+    923,
+    1032,
+    1033,
+    1034,
+    1035,
+    1045,
+    1046,
+    1047,
+    1051
+   ],
+   "by_signature": {
+    "boltzgen_consensus": {
+     "core_coverage": 0.6521739130434783,
+     "weighted_jaccard": 0.4953764861294584,
+     "f1_engaged_core": 0.6666666666666666,
+     "jaccard_engaged_core": 0.5,
+     "precision_in_core": 0.6818181818181818,
+     "engaged_core": [
+      840,
+      841,
+      848,
+      868,
+      916,
+      918,
+      919,
+      921,
+      922,
+      923,
+      1032,
+      1033,
+      1035,
+      1045,
+      1046
+     ],
+     "missed_core": [
+      842,
+      843,
+      844,
+      845,
+      846,
+      885,
+      926,
+      1048
+     ]
+    },
+    "p2rank_geometry": {
+     "core_coverage": 0.8235294117647058,
+     "weighted_jaccard": 0.56,
+     "f1_engaged_core": 0.717948717948718,
+     "jaccard_engaged_core": 0.56,
+     "precision_in_core": 0.6363636363636364,
+     "engaged_core": [
+      840,
+      848,
+      866,
+      868,
+      899,
+      916,
+      918,
+      919,
+      922,
+      923,
+      1035,
+      1045,
+      1046,
+      1047
+     ],
+     "missed_core": [
+      885,
+      889,
+      914
+     ]
+    },
+    "known_ligand": {
+     "core_coverage": 0.6086956521739131,
+     "weighted_jaccard": 0.45161290322580644,
+     "f1_engaged_core": 0.6222222222222222,
+     "jaccard_engaged_core": 0.45161290322580644,
+     "precision_in_core": 0.6363636363636364,
+     "engaged_core": [
+      840,
+      848,
+      866,
+      868,
+      899,
+      916,
+      917,
+      918,
+      919,
+      922,
+      1035,
+      1045,
+      1046,
+      1047
+     ],
+     "missed_core": [
+      885,
+      888,
+      889,
+      892,
+      898,
+      914,
+      1019,
+      1026,
+      1044
+     ]
+    }
+   },
+   "core_coverage": 0.6521739130434783,
+   "weighted_jaccard": 0.4953764861294584,
    "rank": 25
+  },
+  {
+   "struct_id": "1548",
+   "name": "lapatinib",
+   "role": "hard_decoy",
+   "status": "scored",
+   "n_engaged": 17,
+   "engaged_residues": [
+    840,
+    848,
+    866,
+    868,
+    885,
+    886,
+    889,
+    914,
+    916,
+    917,
+    918,
+    919,
+    922,
+    1035,
+    1045,
+    1046,
+    1047
+   ],
+   "by_signature": {
+    "boltzgen_consensus": {
+     "core_coverage": 0.4782608695652174,
+     "weighted_jaccard": 0.3751705320600273,
+     "f1_engaged_core": 0.55,
+     "jaccard_engaged_core": 0.3793103448275862,
+     "precision_in_core": 0.6470588235294118,
+     "engaged_core": [
+      840,
+      848,
+      868,
+      885,
+      916,
+      918,
+      919,
+      922,
+      1035,
+      1045,
+      1046
+     ],
+     "missed_core": [
+      841,
+      842,
+      843,
+      844,
+      845,
+      846,
+      921,
+      923,
+      926,
+      1032,
+      1033,
+      1048
+     ]
+    },
+    "p2rank_geometry": {
+     "core_coverage": 0.8823529411764706,
+     "weighted_jaccard": 0.7894736842105263,
+     "f1_engaged_core": 0.8823529411764706,
+     "jaccard_engaged_core": 0.7894736842105263,
+     "precision_in_core": 0.8823529411764706,
+     "engaged_core": [
+      840,
+      848,
+      866,
+      868,
+      885,
+      889,
+      914,
+      916,
+      918,
+      919,
+      922,
+      1035,
+      1045,
+      1046,
+      1047
+     ],
+     "missed_core": [
+      899,
+      923
+     ]
+    },
+    "known_ligand": {
+     "core_coverage": 0.6956521739130435,
+     "weighted_jaccard": 0.6666666666666666,
+     "f1_engaged_core": 0.8,
+     "jaccard_engaged_core": 0.6666666666666666,
+     "precision_in_core": 0.9411764705882353,
+     "engaged_core": [
+      840,
+      848,
+      866,
+      868,
+      885,
+      889,
+      914,
+      916,
+      917,
+      918,
+      919,
+      922,
+      1035,
+      1045,
+      1046,
+      1047
+     ],
+     "missed_core": [
+      888,
+      892,
+      898,
+      899,
+      1019,
+      1026,
+      1044
+     ]
+    }
+   },
+   "core_coverage": 0.4782608695652174,
+   "weighted_jaccard": 0.3751705320600273,
+   "rank": 2
+  },
+  {
+   "struct_id": "4359",
+   "name": "bosutinib",
+   "role": "hard_decoy",
+   "status": "scored",
+   "n_engaged": 20,
+   "engaged_residues": [
+    840,
+    841,
+    848,
+    866,
+    867,
+    868,
+    885,
+    899,
+    914,
+    916,
+    917,
+    918,
+    919,
+    920,
+    921,
+    922,
+    1035,
+    1045,
+    1046,
+    1047
+   ],
+   "by_signature": {
+    "boltzgen_consensus": {
+     "core_coverage": 0.5652173913043478,
+     "weighted_jaccard": 0.4542974079126876,
+     "f1_engaged_core": 0.6046511627906976,
+     "jaccard_engaged_core": 0.43333333333333335,
+     "precision_in_core": 0.65,
+     "engaged_core": [
+      840,
+      841,
+      848,
+      868,
+      885,
+      916,
+      918,
+      919,
+      921,
+      922,
+      1035,
+      1045,
+      1046
+     ],
+     "missed_core": [
+      842,
+      843,
+      844,
+      845,
+      846,
+      923,
+      926,
+      1032,
+      1033,
+      1048
+     ]
+    },
+    "p2rank_geometry": {
+     "core_coverage": 0.8823529411764706,
+     "weighted_jaccard": 0.6818181818181818,
+     "f1_engaged_core": 0.8108108108108109,
+     "jaccard_engaged_core": 0.6818181818181818,
+     "precision_in_core": 0.75,
+     "engaged_core": [
+      840,
+      848,
+      866,
+      868,
+      885,
+      899,
+      914,
+      916,
+      918,
+      919,
+      922,
+      1035,
+      1045,
+      1046,
+      1047
+     ],
+     "missed_core": [
+      889,
+      923
+     ]
+    },
+    "known_ligand": {
+     "core_coverage": 0.6956521739130435,
+     "weighted_jaccard": 0.5925925925925926,
+     "f1_engaged_core": 0.7441860465116279,
+     "jaccard_engaged_core": 0.5925925925925926,
+     "precision_in_core": 0.8,
+     "engaged_core": [
+      840,
+      848,
+      866,
+      868,
+      885,
+      899,
+      914,
+      916,
+      917,
+      918,
+      919,
+      922,
+      1035,
+      1045,
+      1046,
+      1047
+     ],
+     "missed_core": [
+      888,
+      889,
+      892,
+      898,
+      1019,
+      1026,
+      1044
+     ]
+    }
+   },
+   "core_coverage": 0.5652173913043478,
+   "weighted_jaccard": 0.4542974079126876,
+   "rank": 11
+  },
+  {
+   "struct_id": "5389",
+   "name": "tucatinib",
+   "role": "hard_decoy",
+   "status": "scored",
+   "n_engaged": 23,
+   "engaged_residues": [
+    840,
+    848,
+    866,
+    867,
+    868,
+    881,
+    884,
+    885,
+    888,
+    889,
+    892,
+    898,
+    899,
+    914,
+    916,
+    917,
+    918,
+    919,
+    1035,
+    1044,
+    1045,
+    1046,
+    1047
+   ],
+   "by_signature": {
+    "boltzgen_consensus": {
+     "core_coverage": 0.43478260869565216,
+     "weighted_jaccard": 0.3649167733674775,
+     "f1_engaged_core": 0.43478260869565216,
+     "jaccard_engaged_core": 0.2777777777777778,
+     "precision_in_core": 0.43478260869565216,
+     "engaged_core": [
+      840,
+      848,
+      868,
+      885,
+      916,
+      918,
+      919,
+      1035,
+      1045,
+      1046
+     ],
+     "missed_core": [
+      841,
+      842,
+      843,
+      844,
+      845,
+      846,
+      921,
+      922,
+      923,
+      926,
+      1032,
+      1033,
+      1048
+     ]
+    },
+    "p2rank_geometry": {
+     "core_coverage": 0.8823529411764706,
+     "weighted_jaccard": 0.6,
+     "f1_engaged_core": 0.75,
+     "jaccard_engaged_core": 0.6,
+     "precision_in_core": 0.6521739130434783,
+     "engaged_core": [
+      840,
+      848,
+      866,
+      868,
+      885,
+      889,
+      899,
+      914,
+      916,
+      918,
+      919,
+      1035,
+      1045,
+      1046,
+      1047
+     ],
+     "missed_core": [
+      922,
+      923
+     ]
+    },
+    "known_ligand": {
+     "core_coverage": 0.8695652173913043,
+     "weighted_jaccard": 0.7692307692307693,
+     "f1_engaged_core": 0.8695652173913043,
+     "jaccard_engaged_core": 0.7692307692307693,
+     "precision_in_core": 0.8695652173913043,
+     "engaged_core": [
+      840,
+      848,
+      866,
+      868,
+      885,
+      888,
+      889,
+      892,
+      898,
+      899,
+      914,
+      916,
+      917,
+      918,
+      919,
+      1035,
+      1044,
+      1045,
+      1046,
+      1047
+     ],
+     "missed_core": [
+      922,
+      1019,
+      1026
+     ]
+    }
+   },
+   "core_coverage": 0.43478260869565216,
+   "weighted_jaccard": 0.3649167733674775,
+   "rank": 23
+  },
+  {
+   "struct_id": "5345",
+   "name": "entrectinib",
+   "role": "hard_decoy",
+   "status": "scored",
+   "n_engaged": 17,
+   "engaged_residues": [
+    840,
+    841,
+    848,
+    866,
+    916,
+    917,
+    918,
+    919,
+    920,
+    921,
+    922,
+    923,
+    926,
+    1032,
+    1035,
+    1045,
+    1047
+   ],
+   "by_signature": {
+    "boltzgen_consensus": {
+     "core_coverage": 0.5652173913043478,
+     "weighted_jaccard": 0.43519781718963163,
+     "f1_engaged_core": 0.65,
+     "jaccard_engaged_core": 0.48148148148148145,
+     "precision_in_core": 0.7647058823529411,
+     "engaged_core": [
+      840,
+      841,
+      848,
+      916,
+      918,
+      919,
+      921,
+      922,
+      923,
+      926,
+      1032,
+      1035,
+      1045
+     ],
+     "missed_core": [
+      842,
+      843,
+      844,
+      845,
+      846,
+      868,
+      885,
+      1033,
+      1046,
+      1048
+     ]
+    },
+    "p2rank_geometry": {
+     "core_coverage": 0.6470588235294118,
+     "weighted_jaccard": 0.4782608695652174,
+     "f1_engaged_core": 0.6470588235294118,
+     "jaccard_engaged_core": 0.4782608695652174,
+     "precision_in_core": 0.6470588235294118,
+     "engaged_core": [
+      840,
+      848,
+      866,
+      916,
+      918,
+      919,
+      922,
+      923,
+      1035,
+      1045,
+      1047
+     ],
+     "missed_core": [
+      868,
+      885,
+      889,
+      899,
+      914,
+      1046
+     ]
+    },
+    "known_ligand": {
+     "core_coverage": 0.4782608695652174,
+     "weighted_jaccard": 0.3793103448275862,
+     "f1_engaged_core": 0.55,
+     "jaccard_engaged_core": 0.3793103448275862,
+     "precision_in_core": 0.6470588235294118,
+     "engaged_core": [
+      840,
+      848,
+      866,
+      916,
+      917,
+      918,
+      919,
+      922,
+      1035,
+      1045,
+      1047
+     ],
+     "missed_core": [
+      868,
+      885,
+      888,
+      889,
+      892,
+      898,
+      899,
+      914,
+      1019,
+      1026,
+      1044,
+      1046
+     ]
+    }
+   },
+   "core_coverage": 0.5652173913043478,
+   "weighted_jaccard": 0.43519781718963163,
+   "rank": 24
+  },
+  {
+   "struct_id": "5419",
+   "name": "filgotinib",
+   "role": "hard_decoy",
+   "status": "scored",
+   "n_engaged": 18,
+   "engaged_residues": [
+    840,
+    841,
+    842,
+    843,
+    848,
+    866,
+    916,
+    917,
+    918,
+    919,
+    920,
+    921,
+    922,
+    1035,
+    1047,
+    1050,
+    1051,
+    1052
+   ],
+   "by_signature": {
+    "boltzgen_consensus": {
+     "core_coverage": 0.4782608695652174,
+     "weighted_jaccard": 0.39972714870395637,
+     "f1_engaged_core": 0.5365853658536586,
+     "jaccard_engaged_core": 0.36666666666666664,
+     "precision_in_core": 0.6111111111111112,
+     "engaged_core": [
+      840,
+      841,
+      842,
+      843,
+      848,
+      916,
+      918,
+      919,
+      921,
+      922,
+      1035
+     ],
+     "missed_core": [
+      844,
+      845,
+      846,
+      868,
+      885,
+      923,
+      926,
+      1032,
+      1033,
+      1045,
+      1046,
+      1048
+     ]
+    },
+    "p2rank_geometry": {
+     "core_coverage": 0.5294117647058824,
+     "weighted_jaccard": 0.34615384615384615,
+     "f1_engaged_core": 0.5142857142857142,
+     "jaccard_engaged_core": 0.34615384615384615,
+     "precision_in_core": 0.5,
+     "engaged_core": [
+      840,
+      848,
+      866,
+      916,
+      918,
+      919,
+      922,
+      1035,
+      1047
+     ],
+     "missed_core": [
+      868,
+      885,
+      889,
+      899,
+      914,
+      923,
+      1045,
+      1046
+     ]
+    },
+    "known_ligand": {
+     "core_coverage": 0.43478260869565216,
+     "weighted_jaccard": 0.3225806451612903,
+     "f1_engaged_core": 0.4878048780487805,
+     "jaccard_engaged_core": 0.3225806451612903,
+     "precision_in_core": 0.5555555555555556,
+     "engaged_core": [
+      840,
+      848,
+      866,
+      916,
+      917,
+      918,
+      919,
+      922,
+      1035,
+      1047
+     ],
+     "missed_core": [
+      868,
+      885,
+      888,
+      889,
+      892,
+      898,
+      899,
+      914,
+      1019,
+      1026,
+      1044,
+      1045,
+      1046
+     ]
+    }
+   },
+   "core_coverage": 0.4782608695652174,
+   "weighted_jaccard": 0.39972714870395637,
+   "rank": 30
   }
  ]
 }
