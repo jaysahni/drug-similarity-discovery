@@ -214,8 +214,7 @@ buys **+0.11**, not +0.27. The rest is just knowing where the pocket is.
 ## The end-to-end result
 
 Start from a disease, end at a structurally-validated repurposing candidate.
-Plain-language write-up: **[`SUCCESSES.md`](SUCCESSES.md)**. Submission summary:
-**[`PLUME.md`](PLUME.md)**.
+Plain-language write-up: **[`SUCCESSES.md`](SUCCESSES.md)**. Submission summary: **[`plume.md`](plume.md)**.
 
 **9. The pipeline recovers a documented repurposing case blind.** Searching 2,382
 approved drugs for VEGFR2 by chemical structure alone — no annotation visible to

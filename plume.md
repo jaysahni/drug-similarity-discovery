@@ -168,6 +168,38 @@ both ways so the two populations match exactly. Structural ranking wins on media
 against 12.5, and it wins on AUC against property-matched decoys, 0.913 at p=0.0003 versus
 0.795 at p=0.011. That is a real win of roughly 1.5×.
 
+**Chemistry does find one class of hit, and we pinned down exactly which.** Running the
+inverse question blind — hide the answer, rank 2,382 approved drugs by structure alone
+against VEGFR2 — brings the known VEGFR2 cancer drugs back at ranks 3, 6, 17 and 22, and
+**mebendazole at rank 24**. Mebendazole is a 1974 deworming pill with no cancer
+indication, and mebendazole-for-cancer is a real line of research currently in human
+trials. Nothing in the ranking ever saw an annotation.
+
+Co-folding it lands it in the same pocket as the approved drug, touching **19 of the same
+19 amino acids**, overlap 0.950. Four unrelated approved drugs run as controls reach
+0.41–0.64. Worth knowing which number carries that: the confidence score separates
+nothing — paracetamol scores 0.970 against mebendazole's 0.990 — so it is the contact
+overlap doing the work, not the model's confidence.
+
+EGFR is the cleanest version. Query with one approved EGFR drug and the rest come back at
+ranks **1, 2, 3, 4, 5, 7 and 12** of 2,382, 10.8× enriched in the top 50.
+
+**So the two halves of this project cut in opposite directions, and both results are
+real.** Chemistry finds mebendazole because mebendazole happens to look like axitinib. It
+buries sunitinib at 464 because sunitinib does not. On EGFR the same thing happens to
+chlorpromazine, which touches the target on unrelated chemistry and lands at rank 1,013.
+Structural ranking catches precisely those. Neither method subsumes the other, and knowing
+which one to reach for is most of the value.
+
+**We also ran it where nothing is known, which is the harder honesty.** PADI4 drives
+rheumatoid arthritis and has zero approved drugs, so there is no query molecule and no
+positive control. Seeded with the arginine mimetic that published PAD4 programmes are
+built on, it returns **pentamidine** and **hydroxystilbamidine** — both bis-amidines,
+chemically the right class — alongside benzoic acid and phenol, which resemble a small
+query only by being small. With no known answer, nothing in that run separates the
+coherent hypothesis from the artifact. That is what the output looks like at the edge of
+what the method can check, and we would rather show it than crop it.
+
 **The target-side idea holds up under attack.** Across 1,531 structures covering 60 targets,
 taking a consensus of the residues that other ligands engage predicts a held-out ligand's
 contacts at 0.7322 precision, where a pocket finder manages only 0.4616. That is a gap of
