@@ -211,6 +211,15 @@ buys **+0.11**, not +0.27. The rest is just knowing where the pocket is.
 
 ---
 
+## Final report
+
+**[`docs/11-FINDINGS.md`](docs/11-FINDINGS.md)** — the five demo findings with their
+n and significance tests, the positive controls that make the negatives readable,
+the six silent-corruption faults caught along the way, and a retrospective on what
+was built wrong and what to do next.
+
+---
+
 ## The lightweight demo — the whole pipeline on a toolkit, and what it found
 
 `demo/` runs the PROJECT_GOAL.md pipeline end to end in ~1,500 lines, with the
