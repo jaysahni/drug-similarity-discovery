@@ -231,7 +231,8 @@ def main():
             "purpose": "computed results from the drug-similarity-discovery pipeline",
             "geometry": "RCSB experimental coordinates; contacts at 4.5 A heavy atom",
             "scientific_status": "M2 gate answered and NEGATIVE: the BoltzGen consensus "
-                                 "loses to a 0.47 s pocket finder. All outputs are "
+                                 "loses to a pocket finder costing well under a second per "
+                                 "structure in batch. All outputs are "
                                  "computational hypotheses requiring experimental "
                                  "validation. No affinity is predicted anywhere.",
         },

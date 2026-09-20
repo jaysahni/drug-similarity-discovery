@@ -141,7 +141,8 @@ footer h3{margin-top:1.4em;color:var(--mute);font-size:12px;text-transform:upper
   <p class="banner-title">These are computational hypotheses requiring experimental
      validation.</p>
   <p>Nothing on this page is a measurement. Every drug on this board was placed there
-     by a structure-prediction model co-folding it into a predicted pocket, then ranked
+     by a structure-prediction model co-folding it with the target unconstrained,
+     scored afterwards against a predicted pocket, then ranked
      by how much of a predicted residue set it overlaps. No affinity, Kd, IC50 or
      potency is predicted, read, or implied anywhere in this pipeline &mdash; Boltz-2
      can emit an affinity score and the pipeline deliberately does not read it
@@ -949,7 +950,7 @@ orders a list; this asks whether the two groups are distinguishable.</p>
 
 <footer id="provenance">
   <h2>6 &middot; Provenance</h2>
-  <p>Generated <time>2026-09-19T21:00:00-04:00</time>. The timestamp is passed into
+  <p>Generated <time>2026-09-19T22:00:00-04:00</time>. The timestamp is passed into
      this report rather than read from the clock while rendering, so two runs over the
      same inputs produce byte-identical files and a diff shows only what changed in the
      data.</p>
@@ -961,8 +962,8 @@ orders a list; this asks whether the two groups are distinguishable.</p>
     <tbody>
       <tr>
         <td class="drug"><code>results/repurpose_colorectal-cancer.json</code></td>
-        <td class="num">88,047</td>
-        <td class="hash">6ce7b49ebe3e9fcc9e480b6167443802d5139a4ef425ba4a0f1c8e1c11369b83</td>
+        <td class="num">88,178</td>
+        <td class="hash">1d16157de4e02ac5e3f47d6df546e3cda8b26c66d4a08a4c84a1415900b27c8f</td>
       </tr>
       <tr>
         <td class="drug"><code>results/boltzgen_signature_v4.json</code></td>

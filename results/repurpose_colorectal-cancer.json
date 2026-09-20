@@ -37,7 +37,7 @@
   },
   "p2rank_geometry": {
    "n_core": 17,
-   "provenance": "P2Rank rank-1 pocket on the ligand-stripped structure, 0.47 s",
+   "provenance": "P2Rank 2.5 rank-1 pocket on the ligand-stripped structure; 0.47 s/structure amortised over a 1,531-structure batch at 12 threads; ~7 s for a single structure in isolation, JVM startup included",
    "core_residues_auth": [
     840,
     848,

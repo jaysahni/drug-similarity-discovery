@@ -14,7 +14,8 @@ this repo and can be reproduced by running it.
 
 ```
 binding site  ->  BoltzGen designs binders  ->  consensus INTERFACE SIGNATURE
-              ->  co-fold approved drugs into the same site  (Boltz-2)
+              ->  co-fold each approved drug WITH the target, unconstrained (Boltz-2)
+              ->  score the resulting pose on engagement with that site
               ->  rank by how much of the signature each drug engages
 ```
 
@@ -60,7 +61,7 @@ which binds *some* ATP pocket by construction. 191 Rowan credits.
 
 | signature | enrichment @25% | median known-binder rank |
 |---|---|---|
-| **p2rank_geometry** *(free, 0.47 s)* | **2.87×** | **8.0** |
+| **p2rank_geometry** *(free; see timing note)* | **2.87×** | **8.0** |
 | boltzgen_consensus *(85 credits)* | 2.05× | 12.5 |
 | known_ligand | 0.82× | 16.5 |
 
@@ -137,7 +138,8 @@ signature and the free pocket finder track each other closely (Spearman **0.776*
 the ranking metric, 0.855 on core coverage). The harder null separates them — and
 separates them *against* BoltzGen: **2.87× vs 2.05×**, median rank 8 vs 12.5, and
 AUC 0.529 vs 0.717 on the known-vs-hard-decoy test. An 85-credit design run is beaten
-by a 0.47-second pocket prediction. That is ablation I6.1 appearing a third time.
+by a pocket prediction costing well under a second per structure in batch. That is
+ablation I6.1 appearing a third time.
 
 **A single known ligand is worse than chance** (0.82×). One holo ligand's contacts
 describe that ligand, not the site — so aggregating across many binding events does do
@@ -158,7 +160,7 @@ is the test this result still needs.
 
 **The project's own decisive experiment fails.**
 `PROJECT_GOAL.md` is built around one gate: does a BoltzGen design consensus beat a
-pocket finder at saying where a ligand binds? It does not. A 0.47-second pocket
+pocket finder at saying where a ligand binds? It does not. A sub-second-per-structure pocket
 prediction reaches Jaccard **0.6355** against held-out ligand contacts; a 24-design,
 85-credit, 28-minute-of-A100 BoltzGen consensus reaches **0.3115** (Δ −0.324, Holm
 p=0.0016, n=38 paired). The plan says to be willing to accept that outcome; it is
@@ -293,7 +295,7 @@ comparable across molecules sharing no chemistry at all.
 **The experiment.** Take targets with many distinct co-crystallised ligands. Hold one
 ligand out. Build a consensus "interface signature" from the others. Predict the
 held-out ligand's actual contact residues. Compare against P2Rank, a pocket finder that
-takes 0.47 s per structure.
+takes 0.47 s/structure amortised over a 1,531-structure batch at 12 threads; ~7 s for a single structure in isolation, JVM startup included.
 
 **Scale.** 233 targets qualified from DrugCentral's drug-bound human proteins; the top
 60 were taken forward — 1,531 structures, 1,566 distinct ligands, 0 fetch failures,

@@ -4,7 +4,8 @@ drugs that engage the same site.
     disease/target + pocket
         -> BoltzGen designs a few binders against that pocket      (scripts/boltzgen_signature.py)
         -> consensus INTERFACE SIGNATURE: which target residues a good binder engages
-        -> co-fold approved drugs into the SAME pocket (Boltz-2 via Rowan)
+        -> co-fold each approved drug WITH the target (Boltz-2 via Rowan),
+           unconstrained by default, then score the pose against that site
         -> extract each drug's target-side contacts
         -> rank drugs by how much of the signature they engage
         -> check: do the target's KNOWN binders come out on top?
@@ -25,7 +26,9 @@ Contacts for designs and for drugs come from the SAME function in interfaces.py
 
 Phases, each resumable; state in results/pipeline/<slug>/repurpose_state.json:
     shortlist   pick the drugs to co-fold, with positive controls and decoys
-    submit      send one co-folding job per drug (pocket-constrained)
+    submit      send one co-folding job per drug. UNCONSTRAINED by default:
+                the pocket is used to SCORE the pose afterwards, not to
+                condition the folding. --constrain-pocket changes that
     collect     poll, download poses
     score       extract contacts, score against the signature, rank, validate
 
@@ -318,7 +321,8 @@ def cmd_score(args):
         "p2rank_geometry": {
             "core": set(info["pocket"]["residue_ids"]),
             "weights": {r: 1.0 for r in info["pocket"]["residue_ids"]},
-            "provenance": "P2Rank rank-1 pocket on the ligand-stripped structure, 0.47 s",
+            "provenance": ("P2Rank 2.5 rank-1 pocket on the ligand-stripped "
+                           "structure; 0.47 s/structure amortised over a 1,531-structure batch at 12 threads; ~7 s for a single structure in isolation, JVM startup included"),
         },
     }
     klc = paths(args.pipeline)["target"] / "known_ligand_contacts.json"

@@ -227,7 +227,8 @@ def banner() -> str:
   <p class="banner-title">These are computational hypotheses requiring experimental
      validation.</p>
   <p>Nothing on this page is a measurement. Every drug on this board was placed there
-     by a structure-prediction model co-folding it into a predicted pocket, then ranked
+     by a structure-prediction model co-folding it with the target unconstrained,
+     scored afterwards against a predicted pocket, then ranked
      by how much of a predicted residue set it overlaps. No affinity, Kd, IC50 or
      potency is predicted, read, or implied anywhere in this pipeline &mdash; Boltz-2
      can emit an affinity score and the pipeline deliberately does not read it

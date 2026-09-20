@@ -14,7 +14,8 @@ Everything it prints is read out of a file, and every screenful names the files 
 came from so a number can be traced back.
 
 What an answer means (PROJECT_GOAL.md 4.4, G8):
-  Each drug was co-folded into the target's binding site and scored on how much
+  Each drug was co-folded with the target WITHOUT a pocket constraint, and the
+  resulting pose was then scored on how much
   of that site's core it engages. That is a structural hypothesis about shared
   site engagement. It is not a prediction of clinical benefit, and the rows
   labelled "known binder" are the positive controls of the benchmark - they are
