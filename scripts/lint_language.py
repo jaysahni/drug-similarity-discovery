@@ -29,7 +29,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from report import BANNED, language_guard  # noqa: E402  single source of truth
 
 ROOT = Path(__file__).resolve().parent.parent
-DEFAULT = ["README.md", "results/report_colorectal-cancer.html"]
+DEFAULT = ["README.md", "plume.md", "results/report_colorectal-cancer.html"]
 
 
 def main():
