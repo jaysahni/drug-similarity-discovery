@@ -133,6 +133,24 @@ candidate, which quietly pushed every headline number down until a calibration t
 caught it. Looking back, all six come from the same bad habit: trusting an identifier that
 an upstream tool is free to change underneath you. All six now have tests guarding them.
 
+**The docking API cannot give you back a pose, and it costs you to find out.** We built
+an interaction-fingerprint layer to score drugs on *which* residues a pose contacts rather
+than a bare similarity number, with six typed interaction channels validated against the
+published contacts of a thrombin crystal structure — it reproduces the Asp189 salt bridge,
+the oxyanion hole and the 60-loop cage in the right channels. Then we went to fetch the
+poses and there were none. `num_poses_to_save` defaults to zero and Rowan's documented
+helper does not expose it, so no call through the normal path can keep one. We hand-built
+the payload to ask for a pose explicitly, the workflow accepted the field and completed —
+and still returned nothing retrievable. Twenty credits to establish that the capability is
+not there.
+
+The useful part was what we did before spending it. A simulated power analysis said that
+with the three actives we had, the test we wanted to run had a 23% chance of detecting even
+a large effect — so re-docking the same ligands would have bought a result that could not
+answer the question. We enlarged the active set first. That habit came from earlier in the
+project, where we had reported a null at n=23 that turned out to be significant at n=199;
+the effect had been there the whole time and we simply could not see it.
+
 **BoltzGen doesn't do what its interface implies.** It numbers residues 1 through N over
 whatever happens to be present in the file and ignores author numbering completely, so
 every pocket residue we asked for in our construct fell outside the valid range and the
@@ -167,6 +185,35 @@ cares about where they sit.
 both ways so the two populations match exactly. Structural ranking wins on median rank, 8.0
 against 12.5, and it wins on AUC against property-matched decoys, 0.913 at p=0.0003 versus
 0.795 at p=0.011. That is a real win of roughly 1.5×.
+
+**The front of the pipeline picks its own target now, and it has opinions.** Give it a
+disease and it ranks Open Targets associations, then gates each candidate on whether an
+approved drug exists to validate against and whether a usable structure exists at all. On
+venous thromboembolism it examined 967 associated proteins and returned 5 usable; on
+colorectal cancer, 16,299 and 10; on rheumatoid arthritis it picked TYK2, which is where
+that field actually is.
+
+Two things it did that we did not ask for. It rejected **CDK2 twice over** — not in the
+top 500 for colorectal cancer, and zero approved drugs with it as a mechanism — which is
+the target we had spent the first half of the project on. And its structure filter threw
+out 121 of 1,092 PDB entries, **every single rejection for the same reason**: a short
+peptide already sitting in the binding site, which no ligand-stripping step removes. On
+thrombin it rejected 37 of 64 entries, 10 of them at better resolution than the one it
+kept — independently reproducing, from a rule, a judgement one of us had made by hand and
+written in a code comment.
+
+Where it stops short: the literature is fetched, every PMID re-checked against its title,
+attached to the output — and still does not move the ranking. We narrowed that gap from
+"fetched and unused" to "fetched, verified, attached and unused", which is honest progress
+and not a solution.
+
+**Fusing representations buys global ranking and costs you the top of the list.** We
+combined ECFP4 with 3D shape and pharmacophore fingerprints by reciprocal rank fusion
+across 2,114 drugs, scored with the same bootstrap CIs and Holm correction as everything
+else. It beats ECFP4 on AUROC, 0.6839 against 0.6692, and on enrichment at 5%. It loses on
+precision-at-1 and nDCG@10. All twelve comparisons are significant after correction, so
+this is not noise — it is the same lesson a third time: pick one metric and you will hide
+the disagreement.
 
 **Chemistry does find one class of hit, and we pinned down exactly which.** Running the
 inverse question blind — hide the answer, rank 2,382 approved drugs by structure alone
