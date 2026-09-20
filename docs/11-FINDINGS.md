@@ -88,10 +88,10 @@ is negative-is-better, so the negative correlation points the right way.
 | | ρ | p |
 |---|---|---|
 | n = 23 (first pass) | −0.084 | 0.703 |
-| **n = 199** | **−0.182** | **0.0099** |
+| **n = 199** | **−0.146** | **0.040** |
 
-Quartile test agrees: best 49 dockers mean 0.1871 similarity to known binders vs
-worst 49 at 0.1680, Mann-Whitney **p = 0.0069**.
+Quartile test agrees: best 49 dockers mean 0.1835 similarity to known binders vs
+worst 49 at 0.1662, Mann-Whitney **p = 0.021**.
 
 **This result did not exist at n = 23.** Docking 200 molecules instead of 24 cost
 19.23 credits and turned a reported null into a significant effect. The effect
@@ -100,14 +100,14 @@ pass was reported as "docking adds nothing" — that was an underpowered null
 mislabelled as a negative.
 
 ### E — No generated molecule resembles a thrombin drug
-**NEGATIVE · thrombin · 591 generated vs 4,099 approved** · `09_smallmol_match.json`
+**NEGATIVE · thrombin · 591 generated vs 2,153 approved** · `09_smallmol_match.json`
 
 591 drug-like molecules sampled from `entropy/gpt2_zinc_87m` (MIT), matched by
 ECFP4-2048 Tanimoto. Best match is **dithranol**, a psoriasis anthralin, at
 Tanimoto 0.579 — a real chemical resemblance to an approved drug, but not to a
 thrombin drug. Nothing in the top ten carries an F2 annotation. Null over the 391
-undocked molecules: mean 0.284, p95 0.378. F2-annotated drugs in the corpus:
-18 of 4,099, base rate 0.44%.
+undocked molecules: mean 0.270, p95 0.350. F2-annotated drugs in the corpus:
+12 of 2,153, base rate 0.56%.
 
 **What this is:** virtual screening with a generative front end. The generator is
 not conditioned on the binding site; the pocket enters only as a docking filter.
@@ -127,8 +127,8 @@ runs a positive control on the same data with the same metric.
 |---|---|---|---|
 | ESM-C, peptides | bivalirudin → lepirudin | rank 1 of 36 | passes |
 | ESM-C, peptides | lepirudin → bivalirudin | rank 5 of 36 | passes |
-| ECFP4, small molecules | argatroban → bivalirudin | rank 10 of 4,098 | passes |
-| ECFP4, small molecules | ximelagatran → dabigatran | rank 30 of 4,098 | passes |
+| ECFP4, small molecules | argatroban → bivalirudin | rank 9 of 2,152 | passes |
+| ECFP4, small molecules | ximelagatran → dabigatran | rank 21 of 2,152 | passes |
 | Vina docking | 3 known drugs vs 199 generated | beat the median | passes |
 | Hub check | random shuffles → abarelix | 53% of 60 | hub found |
 
@@ -224,6 +224,13 @@ to choose: the site recovers 10 of PPACK's 23 contact residues, Jaccard 0.303.
    within its own set.
 6. **A broad `git add`** swept in another agent's mid-edit file, committing a
    stale intermediate version.
+7. **The corpus was mis-described as "4,099 approved drugs" throughout.** It is
+   4,099 DrugCentral *structures*, of which only **2,153** carry `approved == 1`;
+   the rest have an empty `approval_agencies`. The matching code did not filter,
+   so two reported top hits (idrocilamide, pamaquine) were not approved drugs at
+   all, and the target base rate was understated by a diluted denominator.
+   Corrected: the effect in finding D survives but weakens, from ρ = −0.182,
+   p = 0.0099 to ρ = −0.146, p = 0.040.
 
 ### Ideas, ranked by value per hour
 
