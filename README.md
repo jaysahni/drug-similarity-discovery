@@ -1,4 +1,4 @@
-# drug-similarity-discovery
+# ReBind - The Autonomous Drug Repurposing Agent
 
 Benchmarking representations for **drug similarity matching** — given a drug, find the
 most similar drugs — and then asking whether the same question is better posed on the
